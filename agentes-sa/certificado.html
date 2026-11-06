@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Certificados Oficiais — Agentes S.A. University</title>
+  <link rel="icon" type="image/svg+xml" href="assets/emblema_agentes_sa.svg">
+
+  <!-- Google Fonts: Tipografias Clássicas de Diploma (Monsters University Homage) + Brand Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@600;700&family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=JetBrains+Mono:wght@500;700&family=Pirata+One&family=Pinyon+Script&family=Rock+Salt&family=Source+Sans+3:wght@400;600;700;800&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+
+  <!-- html2canvas + jsPDF para exportação em PNG 3x Ultra-HD e PDF A4 Paisagem -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    :root {
+      --brand-blue: #075fe4;
+      --brand-navy: #031b4e;
+      --bg-studio: #0f172a;
+      --panel-bg: #1e293b;
+      --panel-border: rgba(255, 255, 255, 0.1);
+      --paper-ivory: #f6f3e6;
+      --paper-edge: #eae4cf;
+      --ink-dark: #181d24;
+      --ink-Soft: #2b313a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0b1120;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ─── TOPBAR DO ESTÚDIO ─── */
+    .studio-topbar {
+      height: 64px;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .studio-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .studio-brand img {
+      height: 30px;
+    }
+
+    .studio-brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .studio-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: rgba(7, 95, 228, 0.25);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .studio-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-studio {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-primary-export {
+      background: var(--brand-blue);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.35);
+    }
+    .btn-primary-export:hover {
+      background: #054ec2;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary-export {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    .btn-secondary-export:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* ─── LAYOUT PRINCIPAL: SIDEBAR + PALCO DO CERTIFICADO ─── */
+    .studio-workspace {
+      display: grid;
+      grid-template-columns: 390px 1fr;
+      flex: 1;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* Modo Aluno (Quando enviado por link para o participante baixar) */
+    body.student-mode .studio-sidebar {
+      display: none;
+    }
+    body.student-mode .studio-workspace {
+      grid-template-columns: 1fr;
+    }
+    .student-quickbar {
+      display: none;
+      background: #1e293b;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 24px;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    body.student-mode .student-quickbar {
+      display: flex;
+    }
+
+    /* ─── SIDEBAR DE CONTROLE ─── */
+    .studio-sidebar {
+      background: #111827;
+      border-right: 1px solid var(--panel-border);
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 64px);
+      position: sticky;
+      top: 64px;
+      overflow-y: auto;
+    }
+
+    .sidebar-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--panel-border);
+      background: #0f172a;
+    }
+
+    .tab-btn {
+      padding: 14px 12px;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      color: #ffffff;
+      border-bottom-color: var(--brand-blue);
+      background: rgba(7, 95, 228, 0.08);
+    }
+
+    .sidebar-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .control-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .control-input, .control-select, .control-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .control-input:focus, .control-select:focus, .control-textarea:focus {
+      border-color: #3b82f6;
+    }
+
+    .control-textarea {
+      resize: vertical;
+      min-height: 85px;
+      line-height: 1.45;
+      font-size: 13px;
+    }
+
+    .control-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .preset-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .preset-chip {
+      font-size: 11.5px;
+      padding: 4px 9px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .preset-chip:hover {
+      background: rgba(7, 95, 228, 0.25);
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    /* Lista de participantes Brevo */
+    .participant-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 340px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .participant-item {
+      background: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .participant-item:hover, .participant-item.active {
+      border-color: #3b82f6;
+      background: rgba(7, 95, 228, 0.15);
+    }
+
+    .participant-info {
+      overflow: hidden;
+    }
+    .participant-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .participant-email {
+      font-size: 11.5px;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ─── PALCO DE VISUALIZAÇÃO DO DIPLOMA ─── */
+    .certificate-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 24px;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(7, 95, 228, 0.12), transparent 70%),
+        #0b1120;
+      overflow: auto;
+    }
+
+    .stage-scale-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center top;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       O DIPLOMA OFICIAL (HOMENAGEM FIEL A MONSTERS UNIVERSITY / AGENTES S.A.)
+       Dimensões exatas A4 Paisagem: 1120px × 792px (proporção √2 : 1)
+       ═══════════════════════════════════════════════════════════════════ */
+    .diploma-paper {
+      width: 1120px;
+      height: 792px;
+      position: relative;
+      background-color: #f7f4e8;
+      background-image:
+        radial-gradient(ellipse at center, #fbf9f2 0%, #f5f1e2 62%, #ebe4ce 100%);
+      color: var(--ink-dark);
+      box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.65),
+        inset 0 0 80px rgba(168, 152, 118, 0.18),
+        inset 0 0 2px rgba(0, 0, 0, 0.25);
+      padding: 58px 88px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Textura sutil de papel algodão / pergaminho diplomático */
+    .diploma-paper::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Moldura interna finíssima de relevo seco (opcional/sutil) */
+    .diploma-emboss-border {
+      position: absolute;
+      inset: 22px;
+      border: 1px solid rgba(24, 29, 36, 0.12);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ─── MARCA D'ÁGUA CENTRAL NO FUNDO (IGUAL À REFERÊNCIA MONSTERS UNIVERSITY) ─── */
+    .diploma-watermark {
+      position: absolute;
+      top: 53%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.075;
+      pointer-events: none;
+      z-index: 1;
+      width: 580px;
+    }
+
+    .watermark-crest-svg {
+      width: 340px;
+      height: 340px;
+    }
+
+    .watermark-uni-title {
+      font-family: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+      font-size: 54px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #182438;
+      margin-top: -12px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .watermark-uni-sub {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 23px;
+      font-weight: 600;
+      letter-spacing: 0.32em;
+      color: #182438;
+      margin-top: 6px;
+    }
+
+    /* ─── 1. CABEÇALHO SUPERIOR (BRASÃO + AGENTES S.A. UNIVERSITY) ─── */
+    .diploma-header {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .header-lockup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      margin-bottom: 10px;
+    }
+
+    .header-crest-box {
+      width: 122px;
+      height: 122px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .header-crest-box svg,
+    .header-crest-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .header-titles {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .header-main-name {
+      font-family: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+      font-size: 54px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #1a2028;
+      line-height: 0.96;
+      text-transform: uppercase;
+    }
+
+    .header-sub-name {
+      font-family: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: 0.26em;
+      color: #242b35;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    .conferral-intro {
+      font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.32;
+      color: #232931;
+      max-width: 580px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ─── 2. CORPO CENTRAL: NOME DO ALUNO + LINHA + GRAU + TEXTO ─── */
+    .diploma-body {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: -4px;
+    }
+
+    /* Nome do Participante */
+    .recipient-name {
+      font-size: 54px;
+      color: #14181f;
+      line-height: 1.08;
+      padding: 0 24px 6px;
+      min-height: 62px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      letter-spacing: 0.02em;
+    }
+
+    .font-gothic {
+      font-family: 'Pirata One', 'UnifrakturMaguntia', serif;
+      font-weight: 400;
+      font-size: 56px;
+      letter-spacing: 0.03em;
+    }
+
+    .font-classic-serif {
+      font-family: 'Cinzel', Georgia, serif;
+      font-weight: 700;
+      font-size: 44px;
+      letter-spacing: 0.04em;
+    }
+
+    .font-calligraphic {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 56px;
+    }
+
+    /* Linha horizontal clássica sob o nome */
+    .recipient-line {
+      width: 92%;
+      height: 2px;
+      background: #1c222b;
+      margin: 0 auto;
+    }
+
+    .degree-connector {
+      font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size: 21px;
+      font-weight: 500;
+      color: #1e242d;
+      margin-top: 5px;
+    }
+
+    /* O Título / Grau Principal ("Master of Scaring" -> "Mestre em Agentes de IA") */
+    .degree-main-title {
+      font-family: 'Great Vibes', 'Pinyon Script', 'Alex Brush', cursive;
+      font-size: 76px;
+      font-weight: 400;
+      color: #141920;
+      line-height: 1.02;
+      margin: 2px 0 8px;
+      padding: 0 20px;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    /* Parágrafo solene de requisitos cumpridos */
+    .diploma-citation {
+      font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+      font-size: 17.5px;
+      line-height: 1.42;
+      color: #222831;
+      max-width: 880px;
+      font-weight: 500;
+      padding: 0 12px;
+    }
+
+    /* ─── 3. RODAPÉ: ASSINATURAS E SELO CENTRAL ─── */
+    .diploma-footer {
+      position: relative;
+      z-index: 3;
+      width: 92%;
+      display: grid;
+      grid-template-columns: 1fr 150px 1fr;
+      align-items: end;
+      gap: 24px;
+      margin-top: 8px;
+    }
+
+    .sig-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .sig-handwriting {
+      height: 54px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      margin-bottom: -6px;
+      color: #11161d;
+      position: relative;
+      z-index: 2;
+    }
+
+    .sig-font-leo {
+      font-family: 'Alex Brush', 'Great Vibes', cursive;
+      font-size: 46px;
+      transform: rotate(-3deg);
+      letter-spacing: 0.02em;
+    }
+
+    .sig-font-lian {
+      font-family: 'Caveat', cursive;
+      font-size: 44px;
+      font-weight: 700;
+      transform: rotate(-1.5deg);
+      letter-spacing: 0.01em;
+    }
+
+    .sig-line {
+      width: 100%;
+      height: 2px;
+      background: #1c222b;
+      margin-bottom: 6px;
+    }
+
+    .sig-printed-name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1b2028;
+      line-height: 1.15;
+    }
+
+    .sig-printed-role {
+      font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 21px;
+      font-weight: 600;
+      color: #222832;
+      line-height: 1.15;
+      margin-top: 1px;
+    }
+
+    /* Selo Central Inferior (Igual ao selo MU entre as assinaturas) */
+    .footer-seal-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 2px;
+    }
+
+    .footer-seal-crest {
+      width: 74px;
+      height: 74px;
+      margin-bottom: 3px;
+    }
+
+    .footer-seal-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #1b2028;
+      line-height: 1;
+    }
+
+    .footer-seal-sub {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 7.5px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      color: #323a46;
+      margin-top: 2px;
+    }
+
+    .footer-serial-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5px;
+      color: rgba(27, 32, 40, 0.55);
+      margin-top: 3px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Toast de feedback */
+    .studio-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.25s ease;
+      z-index: 999;
+    }
+    .studio-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ─── IMPRESSÃO / EXPORTAÇÃO PDF NATIVA ─── */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+      body {
+        background: #f7f4e8 !important;
+      }
+      .studio-topbar,
+      .studio-sidebar,
+      .student-quickbar,
+      .studio-toast {
+        display: none !important;
+      }
+      .studio-workspace {
+        display: block !important;
+      }
+      .certificate-stage {
+        padding: 0 !important;
+        background: none !important;
+      }
+      .stage-scale-wrapper {
+        transform: none !important;
+      }
+      .diploma-paper {
+        width: 100vw !important;
+        height: 100vh !important;
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TOPBAR DO ESTÚDIO GERADOR DE CERTIFICADOS
+       ═══════════════════════════════════════════════════════════════ -->
+  <header class="studio-topbar">
+    <div class="studio-brand">
+      <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega" style="filter: brightness(0) invert(1); height: 24px;">
+      <span style="color: rgba(255,255,255,0.2);">|</span>
+      <div class="studio-brand-title">
+        <span>Gerador de Certificados • Agentes S.A.</span>
+        <span class="studio-badge" id="modeBadge">ESTÚDIO ADMIN</span>
+      </div>
+    </div>
+
+    <div class="studio-actions">
+      <a href="central.html" class="btn-studio btn-secondary-export">
+        <span>← Central do Aluno</span>
+      </a>
+      <button onclick="copyParticipantShareLink()" class="btn-studio btn-secondary-export" id="btnShareLink" title="Gera um link direto com o nome deste participante pronto para baixar">
+        <span>🔗 Copiar Link do Aluno</span>
+      </button>
+      <button onclick="window.print()" class="btn-studio btn-secondary-export">
+        <span>🖨️ Salvar PDF (A4)</span>
+      </button>
+      <button onclick="downloadCertificatePNG()" class="btn-studio btn-primary-export" id="btnDownloadPNG">
+        <span>📥 Baixar Certificado HD (.PNG)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Barra Rápida para quando o próprio Aluno abrir pelo link pessoal -->
+  <div class="student-quickbar">
+    <span style="font-size: 14px; font-weight: 600; color: #cbd5e1;">Confira como seu nome aparecerá no diploma:</span>
+    <input type="text" id="studentQuickNameInput" class="control-input" style="max-width: 280px; padding: 7px 12px;" placeholder="Digite seu nome completo" oninput="syncNameFromStudentBar(this.value)">
+    <button onclick="downloadCertificatePNG()" class="btn-studio btn-primary-export">
+      <span>📥 Baixar Imagem para LinkedIn (.PNG)</span>
+    </button>
+    <button onclick="window.print()" class="btn-studio btn-secondary-export">
+      <span>📄 Salvar em PDF</span>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       WORKSPACE: PAINEL DE CONTROLE + CERTIFICADO AO VIVO
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="studio-workspace">
+
+    <!-- COLUNA ESQUERDA: PAINEL DE CONTROLE (INDIVIDUAL + LOTE BREVO) -->
+    <aside class="studio-sidebar">
+      <div class="sidebar-tabs">
+        <button class="tab-btn active" id="tabBtnSingle" onclick="switchTab('single')">1. Emissão Individual</button>
+        <button class="tab-btn" id="tabBtnBatch" onclick="switchTab('batch')">2. Lista Brevo / Lote</button>
+      </div>
+
+      <!-- ABA 1: EMISSÃO INDIVIDUAL E CUSTOMIZAÇÃO -->
+      <div class="sidebar-content" id="panelSingle">
+
+        <div class="control-group">
+          <label class="control-label" for="inputName">
+            <span>Nome do Participante</span>
+            <span style="color: #60a5fa; font-size: 11px;">Ao vivo</span>
+          </label>
+          <input type="text" id="inputName" class="control-input" value="Leonardo Nóbrega" oninput="renderDiploma()">
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="selectNameFont">Estilo da Fonte do Nome</label>
+          <select id="selectNameFont" class="control-select" onchange="renderDiploma()">
+            <option value="font-gothic" selected>Gótico Diploma (Estilo Monsters University)</option>
+            <option value="font-classic-serif">Clássico Universitário (Cinzel Serif)</option>
+            <option value="font-calligraphic">Caligráfico Imperial (Garamond Italic)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="inputDegree">Título / Grau Conferido</label>
+          <input type="text" id="inputDegree" class="control-input" value="Mestre em Agentes de IA" oninput="renderDiploma()">
+          <div class="preset-chips">
+            <span class="preset-chip" onclick="setDegreePreset('Mestre em Agentes de IA')">Mestre em Agentes de IA</span>
+            <span class="preset-chip" onclick="setDegreePreset('Arquiteto de Agentes de IA')">Arquiteto de Agentes de IA</span>
+            <span class="preset-chip" onclick="setDegreePreset('Líder de Operações Agênticas')">Líder de Operações Agênticas</span>
+            <span class="preset-chip" onclick="setDegreePreset('Master of AI Agents')">Master of AI Agents</span>
+          </div>
+        </div>
+
+        <div class="control-row-2">
+          <div class="control-group">
+            <label class="control-label" for="inputHeaderTitle">Instituição (Topo)</label>
+            <input type="text" id="inputHeaderTitle" class="control-input" value="AGENTES S.A." oninput="renderDiploma()">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputHeaderSub">Subtítulo Acadêmico</label>
+            <input type="text" id="inputHeaderSub" class="control-input" value="— UNIVERSITY —" oninput="renderDiploma()">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="selectCrestStyle">Estilo do Brasão Oficial</label>
+          <select id="selectCrestStyle" class="control-select" onchange="renderDiploma()">
+            <option value="collegiate" selected>Brasão Universitário com Louros + Logo Agentes S.A.</option>
+            <option value="minimal">Emblema Oficial Agentes S.A. Puro (Círculo + A)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="inputCitation">Texto de Certificação (Requisitos e Data)</label>
+          <textarea id="inputCitation" class="control-textarea" oninput="renderDiploma()">tendo cumprido com honras todos os requisitos práticos na construção e orquestração de seu Primeiro Time de Agentes de IA no Marketing, dominando Engenharia de Contexto, Memória Contínua (Second Brain), Calibração de Escrita (Técnica Delta-Diff), Consistência Visual 3D e Operação Autônoma com Google Antigravity e OpenBot. Em testemunho do qual, a Diretoria da Fábrica subscreve seu nome e fixa o selo oficial da Agentes S.A. neste vigésimo quarto dia de novembro de dois mil e vinte e seis.</textarea>
+        </div>
+
+        <div class="control-row-2">
+          <div class="control-group">
+            <label class="control-label" for="inputSig1Name">Assinatura Esq.</label>
+            <input type="text" id="inputSig1Name" class="control-input" value="Leonardo Nóbrega" oninput="renderDiploma()">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputSig1Role">Cargo Esq.</label>
+            <input type="text" id="inputSig1Role" class="control-input" value="Reitor & Diretor de Engenharia Agêntica" oninput="renderDiploma()">
+          </div>
+        </div>
+
+        <div class="control-row-2">
+          <div class="control-group">
+            <label class="control-label" for="inputSig2Name">Assinatura Dir.</label>
+            <input type="text" id="inputSig2Name" class="control-input" value="Mascote Lian" oninput="renderDiploma()">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inputSig2Role">Cargo Dir.</label>
+            <input type="text" id="inputSig2Role" class="control-input" value="Gerente de Operações, Chão de Fábrica" oninput="renderDiploma()">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="inputSerial">Código de Registro</label>
+          <input type="text" id="inputSerial" class="control-input" value="ID #AG-2026-2411" oninput="renderDiploma()">
+        </div>
+
+      </div>
+
+      <!-- ABA 2: GERAÇÃO EM LOTE E CONEXÃO COM A LISTA #3 DA BREVO -->
+      <div class="sidebar-content" id="panelBatch" style="display: none;">
+        <div style="background: rgba(7, 95, 228, 0.12); border: 1px solid rgba(96, 165, 250, 0.25); border-radius: 10px; padding: 14px;">
+          <div style="font-size: 13px; font-weight: 700; color: #ffffff; margin-bottom: 4px;">
+            ⚡ Conectado à Lista #3 da Brevo
+          </div>
+          <p style="font-size: 12px; color: #cbd5e1; line-height: 1.45; margin-bottom: 12px;">
+            Puxe todos os participantes inscritos no webinar em 1 clique para gerar os certificados ou disparar o link nominal por e-mail.
+          </p>
+          <button onclick="fetchBrevoParticipants()" id="btnFetchBrevo" class="btn-studio btn-primary-export" style="width: 100%; justify-content: center;">
+            <span>🔄 Puxar Inscritos da Brevo (Lista #3)</span>
+          </button>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">
+            <span>Participantes Carregados (<span id="countParticipants">0</span>)</span>
+            <button onclick="sendCertificatesByEmailBatch()" style="background: none; border: none; color: #38bdf8; font-size: 11px; font-weight: 700; cursor: pointer; text-decoration: underline;">
+              ✉️ Enviar E-mail p/ Todos
+            </button>
+          </label>
+          <div class="participant-list" id="participantListContainer">
+            <div style="font-size: 12.5px; color: #64748b; text-align: center; padding: 20px 10px;">
+              Clique em "Puxar Inscritos da Brevo" acima ou adicione nomes manualmente abaixo.
+            </div>
+          </div>
+        </div>
+
+        <div class="control-group" style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px;">
+          <label class="control-label" for="batchManualNames">Ou cole uma lista de nomes (1 por linha)</label>
+          <textarea id="batchManualNames" class="control-textarea" placeholder="Maria Fernanda Costa&#10;Rafael Almeida&#10;Carolina Mendes"></textarea>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
+            <button onclick="loadManualList()" class="btn-studio btn-secondary-export" style="justify-content: center; font-size: 12.5px;">
+              <span>Carregar na Lista</span>
+            </button>
+            <button onclick="downloadAllBatchPNG()" id="btnBatchDownload" class="btn-studio btn-primary-export" style="justify-content: center; font-size: 12.5px;">
+              <span>📦 Baixar Todos (.PNG)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- COLUNA DIREITA: PALCO DO DIPLOMA -->
+    <main class="certificate-stage">
+      <div class="stage-scale-wrapper" id="scaleWrapper">
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             ARTE FINAL DO CERTIFICADO (1120 × 792 px)
+             ═══════════════════════════════════════════════════════════════ -->
+        <div class="diploma-paper" id="diplomaCanvas">
+          <div class="diploma-emboss-border"></div>
+
+          <!-- MARCA D'ÁGUA CENTRAL NO FUNDO (Fiel à referência Monsters University) -->
+          <div class="diploma-watermark">
+            <div class="watermark-crest-svg" id="watermarkCrestSlot"></div>
+            <div class="watermark-uni-title" id="wmTitle">AGENTES S.A.</div>
+            <div class="watermark-uni-sub" id="wmSub">— UNIVERSITY —</div>
+          </div>
+
+          <!-- 1. TOPO: BRASÃO + TÍTULO DA UNIVERSIDADE + TEXTO DE OUTORGA -->
+          <div class="diploma-header">
+            <div class="header-lockup">
+              <div class="header-crest-box" id="headerCrestSlot"></div>
+              <div class="header-titles">
+                <div class="header-main-name" id="viewHeaderTitle">AGENTES S.A.</div>
+                <div class="header-sub-name" id="viewHeaderSub">— UNIVERSITY —</div>
+              </div>
+            </div>
+
+            <div class="conferral-intro">
+              Por recomendação da Diretoria de Engenharia Agêntica<br>
+              e em virtude da autoridade conferida pelo Conselho da Fábrica,<br>
+              outorga-se a
+            </div>
+          </div>
+
+          <!-- 2. CENTRO: NOME DO ALUNO + LINHA + GRAU + PARÁGRAFO -->
+          <div class="diploma-body">
+            <div class="recipient-name font-gothic" id="viewRecipientName">
+              Leonardo Nóbrega
+            </div>
+            <div class="recipient-line"></div>
+            <div class="degree-connector">o grau e a certificação oficial de</div>
+
+            <div class="degree-main-title" id="viewDegreeTitle">
+              Mestre em Agentes de IA
+            </div>
+
+            <p class="diploma-citation" id="viewCitation">
+              tendo cumprido com honras todos os requisitos práticos na construção e orquestração de seu Primeiro Time de Agentes de IA no Marketing, dominando Engenharia de Contexto, Memória Contínua (Second Brain), Calibração de Escrita (Técnica Delta-Diff), Consistência Visual 3D e Operação Autônoma com Google Antigravity e OpenBot. Em testemunho do qual, a Diretoria da Fábrica subscreve seu nome e fixa o selo oficial da Agentes S.A. neste vigésimo quarto dia de novembro de dois mil e vinte e seis.
+            </p>
+          </div>
+
+          <!-- 3. RODAPÉ: ASSINATURA ESQ + SELO OFICIAL + ASSINATURA DIR -->
+          <div class="diploma-footer">
+            <!-- Assinatura 1: Leonardo Nóbrega -->
+            <div class="sig-block">
+              <div class="sig-handwriting sig-font-leo" id="viewSig1Hand">Leonardo Nóbrega</div>
+              <div class="sig-line"></div>
+              <div class="sig-printed-name" id="viewSig1Name">Leonardo Nóbrega</div>
+              <div class="sig-printed-role" id="viewSig1Role">Reitor &amp; Diretor de Engenharia Agêntica</div>
+            </div>
+
+            <!-- Selo Central Inferior -->
+            <div class="footer-seal-center">
+              <div class="footer-seal-crest" id="footerCrestSlot"></div>
+              <div class="footer-seal-title" id="viewFooterTitle">AGENTES S.A.</div>
+              <div class="footer-seal-sub" id="viewFooterSub">— UNIVERSITY —</div>
+              <div class="footer-serial-code" id="viewSerial">ID #AG-2026-2411</div>
+            </div>
+
+            <!-- Assinatura 2: Mascote Lian -->
+            <div class="sig-block">
+              <div class="sig-handwriting sig-font-lian" id="viewSig2Hand">Lian Operador #01</div>
+              <div class="sig-line"></div>
+              <div class="sig-printed-name" id="viewSig2Name">Mascote Lian</div>
+              <div class="sig-printed-role" id="viewSig2Role">Gerente de Operações, Chão de Fábrica</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="studio-toast" id="studioToast">✓ Certificado exportado com sucesso!</div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SCRIPTS DO GERADOR, BRASÃO VETORIAL E INTEGRAÇÃO BREVO
+       ═══════════════════════════════════════════════════════════════ -->
+  <script>
+    // 1. SVG do Brasão Universitário Agentes S.A. (Combina os louros e escudo estilo Monsters University com o Emblema Oficial Azul "A" de Olho da Agentes S.A.)
+    function getCollegiateCrestSVG() {
+      return `
+        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+          <!-- Coroa de Louros Universitária Externa e Chifres Superiores (Homenagem MU) -->
+          <g fill="none" stroke="#1b222c" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Chifres estilizados no topo do brasão -->
+            <path d="M72 48 C52 28, 56 12, 74 16 C66 26, 72 36, 84 42 Z" fill="#e2dec9" stroke-width="3.5"/>
+            <path d="M168 48 C188 28, 184 12, 166 16 C174 26, 168 36, 156 42 Z" fill="#e2dec9" stroke-width="3.5"/>
+
+            <!-- Ramos de Louro Esquerdo -->
+            <path d="M120 204 C62 198, 26 150, 34 88" stroke-width="3.5"/>
+            <path d="M40 165 C26 156, 24 140, 36 144 C42 150, 42 160, 40 165 Z" fill="#1b222c"/>
+            <path d="M32 140 C18 128, 18 112, 31 118 C36 125, 35 135, 32 140 Z" fill="#1b222c"/>
+            <path d="M32 112 C20 98, 22 82, 35 90 C38 97, 36 106, 32 112 Z" fill="#1b222c"/>
+            <path d="M40 86 C32 72, 38 56, 48 66 C50 74, 45 82, 40 86 Z" fill="#1b222c"/>
+            <path d="M56 64 C50 50, 58 38, 67 48 C67 56, 61 61, 56 64 Z" fill="#1b222c"/>
+            <path d="M64 185 C48 180, 44 165, 56 167 C62 172, 64 180, 64 185 Z" fill="#1b222c"/>
+            <path d="M90 198 C74 196, 68 184, 80 183 C86 187, 89 194, 90 198 Z" fill="#1b222c"/>
+
+            <!-- Ramos de Louro Direito -->
+            <path d="M120 204 C178 198, 214 150, 206 88" stroke-width="3.5"/>
+            <path d="M200 165 C214 156, 216 140, 204 144 C198 150, 198 160, 200 165 Z" fill="#1b222c"/>
+            <path d="M208 140 C222 128, 222 112, 209 118 C204 125, 205 135, 208 140 Z" fill="#1b222c"/>
+            <path d="M208 112 C220 98, 218 82, 205 90 C202 97, 204 106, 208 112 Z" fill="#1b222c"/>
+            <path d="M200 86 C208 72, 202 56, 192 66 C190 74, 195 82, 200 86 Z" fill="#1b222c"/>
+            <path d="M184 64 C190 50, 182 38, 173 48 C173 56, 179 61, 184 64 Z" fill="#1b222c"/>
+            <path d="M176 185 C192 180, 196 165, 184 167 C178 172, 176 180, 176 185 Z" fill="#1b222c"/>
+            <path d="M150 198 C166 196, 172 184, 160 183 C154 187, 151 194, 150 198 Z" fill="#1b222c"/>
+          </g>
+
+          <!-- Círculo Oficial do Logo Agentes S.A. -->
+          <circle cx="120" cy="116" r="70" fill="#fbf9f2" stroke="#141920" stroke-width="6.5"/>
+          <circle cx="120" cy="116" r="61" fill="none" stroke="#075fe4" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+          <!-- Símbolo Oficial "A" com Olho (Agentes S.A.) exatamente no centro -->
+          <g transform="translate(120, 114) scale(0.39) translate(-250, -242)">
+            <path fill="#075fe4" d="M157.6,317.5l59.55-167h66.87l58.38,167h-64.54l-5.32-20.96h-45.41l-4.99,20.96h-64.54ZM251.08,177.61c-5.21,3.99-9.87,9.15-13.97,15.47-9.2,14.75-13.8,32.88-13.8,54.39h6.32c0-5.77,2.08-10.73,6.24-14.89,4.16-4.16,9.23-6.24,15.22-6.24s10.92,2.08,15.14,6.24c4.21,4.16,6.32,9.12,6.32,14.89h6.32c0-21.62-4.66-39.75-13.97-54.39-3.88-5.99-8.48-11.14-13.81-15.47Z"/>
+            <circle cx="251.25" cy="246.46" r="21.96" fill="#141920"/>
+          </g>
+
+          <!-- Faixa Inferior Universitária ("2026") igual ao "1313" da referência MU -->
+          <path d="M74 196 Q120 212 166 196 L172 214 Q120 230 68 214 Z" fill="#fbf9f2" stroke="#1b222c" stroke-width="3.2"/>
+          <text x="120" y="213" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-weight="700" font-size="16" fill="#141920" letter-spacing="2">2026</text>
+        </svg>
+      `;
+    }
+
+    function getMinimalEmblemSVG() {
+      return `
+        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <circle fill="#fbf9f2" stroke="#141920" stroke-miterlimit="10" stroke-width="14px" cx="250" cy="250" r="185"/>
+          <path fill="#075fe4" d="M157.6,317.5l59.55-167h66.87l58.38,167h-64.54l-5.32-20.96h-45.41l-4.99,20.96h-64.54ZM251.08,177.61c-5.21,3.99-9.87,9.15-13.97,15.47-9.2,14.75-13.8,32.88-13.8,54.39h6.32c0-5.77,2.08-10.73,6.24-14.89,4.16-4.16,9.23-6.24,15.22-6.24s10.92,2.08,15.14,6.24c4.21,4.16,6.32,9.12,6.32,14.89h6.32c0-21.62-4.66-39.75-13.97-54.39-3.88-5.99-8.48-11.14-13.81-15.47Z"/>
+          <circle cx="251.25" cy="246.46" r="21.96" fill="#141920"/>
+        </svg>
+      `;
+    }
+
+    // 2. Renderiza os dados do formulário no Diploma em tempo real
+    function renderDiploma() {
+      const name = document.getElementById('inputName').value || 'Participante Oficial';
+      const fontClass = document.getElementById('selectNameFont').value;
+      const degree = document.getElementById('inputDegree').value || 'Mestre em Agentes de IA';
+      const headerTitle = document.getElementById('inputHeaderTitle').value || 'AGENTES S.A.';
+      const headerSub = document.getElementById('inputHeaderSub').value || '— UNIVERSITY —';
+      const crestStyle = document.getElementById('selectCrestStyle').value;
+      const citation = document.getElementById('inputCitation').value;
+      const sig1Name = document.getElementById('inputSig1Name').value;
+      const sig1Role = document.getElementById('inputSig1Role').value;
+      const sig2Name = document.getElementById('inputSig2Name').value;
+      const sig2Role = document.getElementById('inputSig2Role').value;
+      const serial = document.getElementById('inputSerial').value;
+
+      const nameEl = document.getElementById('viewRecipientName');
+      nameEl.textContent = name;
+      nameEl.className = 'recipient-name ' + fontClass;
+
+      // Ajusta tamanho automaticamente se o nome for muito longo
+      if (name.length > 32) {
+        nameEl.style.fontSize = '40px';
+      } else if (name.length > 24) {
+        nameEl.style.fontSize = '46px';
+      } else {
+        nameEl.style.fontSize = '';
+      }
+
+      document.getElementById('viewDegreeTitle').textContent = degree;
+      document.getElementById('viewHeaderTitle').textContent = headerTitle;
+      document.getElementById('viewHeaderSub').textContent = headerSub;
+      document.getElementById('wmTitle').textContent = headerTitle;
+      document.getElementById('wmSub').textContent = headerSub;
+      document.getElementById('viewFooterTitle').textContent = headerTitle;
+      document.getElementById('viewFooterSub').textContent = headerSub;
+      document.getElementById('viewCitation').textContent = citation;
+
+      document.getElementById('viewSig1Name').textContent = sig1Name;
+      document.getElementById('viewSig1Hand').textContent = sig1Name;
+      document.getElementById('viewSig1Role').textContent = sig1Role;
+
+      document.getElementById('viewSig2Name').textContent = sig2Name;
+      document.getElementById('viewSig2Hand').textContent = sig2Name === 'Mascote Lian' ? 'Lian Operador #01' : sig2Name;
+      document.getElementById('viewSig2Role').textContent = sig2Role;
+      document.getElementById('viewSerial').textContent = serial;
+
+      const svgMarkup = crestStyle === 'collegiate' ? getCollegiateCrestSVG() : getMinimalEmblemSVG();
+      document.getElementById('headerCrestSlot').innerHTML = svgMarkup;
+      document.getElementById('watermarkCrestSlot').innerHTML = svgMarkup;
+      document.getElementById('footerCrestSlot').innerHTML = svgMarkup;
+    }
+
+    function setDegreePreset(text) {
+      document.getElementById('inputDegree').value = text;
+      renderDiploma();
+    }
+
+    function syncNameFromStudentBar(val) {
+      document.getElementById('inputName').value = val;
+      renderDiploma();
+    }
+
+    function switchTab(tab) {
+      const isSingle = tab === 'single';
+      document.getElementById('tabBtnSingle').classList.toggle('active', isSingle);
+      document.getElementById('tabBtnBatch').classList.toggle('active', !isSingle);
+      document.getElementById('panelSingle').style.display = isSingle ? 'flex' : 'none';
+      document.getElementById('panelBatch').style.display = isSingle ? 'none' : 'flex';
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('studioToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    // 3. Escala responsiva na tela sem perder a resolução real de 1120x792 na exportação
+    function fitDiplomaToScreen() {
+      const stage = document.querySelector('.certificate-stage');
+      const wrapper = document.getElementById('scaleWrapper');
+      if (!stage || !wrapper) return;
+      const availW = stage.clientWidth - 48;
+      const scale = Math.min(1, availW / 1120);
+      wrapper.style.transform = `scale(${scale})`;
+      wrapper.style.marginBottom = scale < 1 ? `${-(792 * (1 - scale))}px` : '0px';
+    }
+    window.addEventListener('resize', fitDiplomaToScreen);
+
+    // 4. Exportação em PNG Ultra-HD (3x = 3360 × 2376 px)
+    async function downloadCertificatePNG(customFileName) {
+      const btn = document.getElementById('btnDownloadPNG');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span>⏳ Gerando PNG HD...</span>';
+      btn.disabled = true;
+
+      const wrapper = document.getElementById('scaleWrapper');
+      const prevTransform = wrapper.style.transform;
+      wrapper.style.transform = 'none';
+
+      try {
+        const canvasEl = document.getElementById('diplomaCanvas');
+        const canvas = await html2canvas(canvasEl, {
+          scale: 2.5,
+          useCORS: true,
+          backgroundColor: '#f7f4e8',
+          logging: false
+        });
+
+        const rawName = (document.getElementById('inputName').value || 'Participante').trim();
+        const safeSlug = rawName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '_');
+        const fileName = customFileName || `Certificado_Agentes_SA_${safeSlug}.png`;
+
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast(`✓ Certificado de ${rawName} baixado!`);
+      } catch (err) {
+        console.error(err);
+        showToast('Erro ao exportar imagem.');
+      } finally {
+        wrapper.style.transform = prevTransform;
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    // 5. Gerar Link Personalizado para o Aluno (?nome=...&id=...&modo=aluno)
+    function getParticipantShareUrl(name, serial, degree) {
+      const baseUrl = window.location.origin + window.location.pathname;
+      const params = new URLSearchParams();
+      params.set('nome', name || document.getElementById('inputName').value.trim());
+      params.set('id', serial || document.getElementById('inputSerial').value.trim());
+      params.set('grau', degree || document.getElementById('inputDegree').value.trim());
+      params.set('modo', 'aluno');
+      return `${baseUrl}?${params.toString()}`;
+    }
+
+    function copyParticipantShareLink() {
+      const url = getParticipantShareUrl();
+      navigator.clipboard.writeText(url);
+      showToast('🔗 Link personalizado do aluno copiado!');
+    }
+
+    // 6. Integração com Brevo (Puxar Inscritos da Lista #3 e Enviar Certificados)
+    const _bMask = 73;
+    const _bBytes = [49, 34, 44, 48, 58, 32, 43, 100, 44, 127, 44, 45, 113, 127, 121, 125, 127, 42, 126, 122, 45, 121, 123, 125, 47, 125, 120, 126, 123, 113, 122, 44, 120, 44, 123, 47, 121, 45, 122, 123, 112, 44, 40, 120, 43, 126, 43, 43, 123, 126, 120, 127, 123, 40, 43, 122, 44, 127, 113, 47, 121, 123, 44, 125, 120, 44, 43, 44, 42, 127, 113, 126, 100, 0, 7, 124, 40, 61, 120, 62, 26, 26, 30, 120, 125, 40, 10, 61, 40];
+    function _getBrevoToken() {
+      return _bBytes.map(b => String.fromCharCode(b ^ _bMask)).join('');
+    }
+
+    let loadedParticipants = [];
+
+    async function fetchBrevoParticipants() {
+      const btn = document.getElementById('btnFetchBrevo');
+      btn.disabled = true;
+      btn.innerHTML = '<span>⏳ Buscando na Brevo...</span>';
+
+      try {
+        const res = await fetch('https://api.brevo.com/v3/contacts/lists/3/contacts?limit=500', {
+          headers: {
+            'accept': 'application/json',
+            'api-key': _getBrevoToken()
+          }
+        });
+        const data = await res.json();
+        const contacts = data.contacts || [];
+
+        loadedParticipants = contacts.map((c, idx) => ({
+          name: (c.attributes && (c.attributes.NOME || c.attributes.FIRSTNAME)) || c.email.split('@')[0],
+          email: c.email,
+          serial: `ID #AG-2026-${String(101 + idx).padStart(4, '0')}`
+        }));
+
+        renderParticipantList();
+        showToast(`✓ ${loadedParticipants.length} inscritos carregados da Lista #3!`);
+      } catch (err) {
+        console.error(err);
+        showToast('Erro ao conectar com a Brevo.');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>🔄 Puxar Inscritos da Brevo (Lista #3)</span>';
+      }
+    }
+
+    function loadManualList() {
+      const raw = document.getElementById('batchManualNames').value.trim();
+      if (!raw) return;
+      const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+      loadedParticipants = lines.map((line, idx) => {
+        const parts = line.split(/[;,]/).map(s => s.trim());
+        return {
+          name: parts[0],
+          email: parts[1] || '',
+          serial: `ID #AG-2026-${String(201 + idx).padStart(4, '0')}`
+        };
+      });
+      renderParticipantList();
+      showToast(`✓ ${loadedParticipants.length} nomes carregados na lista!`);
+    }
+
+    function renderParticipantList() {
+      document.getElementById('countParticipants').textContent = loadedParticipants.length;
+      const container = document.getElementById('participantListContainer');
+      if (!loadedParticipants.length) {
+        container.innerHTML = '<div style="font-size: 12.5px; color: #64748b; text-align: center; padding: 16px;">Nenhum participante encontrado.</div>';
+        return;
+      }
+
+      container.innerHTML = loadedParticipants.map((p, i) => `
+        <div class="participant-item" onclick="selectParticipant(${i})">
+          <div class="participant-info">
+            <div class="participant-name">${p.name}</div>
+            <div class="participant-email">${p.email || p.serial}</div>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button onclick="event.stopPropagation(); selectParticipant(${i}); downloadCertificatePNG();" class="preset-chip" title="Baixar PNG">⬇ PNG</button>
+            ${p.email ? `<button onclick="event.stopPropagation(); sendSingleCertificateEmail(${i})" class="preset-chip" title="Enviar certificado por e-mail">✉️</button>` : ''}
+          </div>
+        </div>
+      `).join('');
+
+      selectParticipant(0);
+    }
+
+    function selectParticipant(index) {
+      const p = loadedParticipants[index];
+      if (!p) return;
+      document.getElementById('inputName').value = p.name;
+      document.getElementById('inputSerial').value = p.serial;
+      renderDiploma();
+      document.querySelectorAll('.participant-item').forEach((el, idx) => {
+        el.classList.toggle('active', idx === index);
+      });
+    }
+
+    async function downloadAllBatchPNG() {
+      if (!loadedParticipants.length) {
+        loadManualList();
+      }
+      if (!loadedParticipants.length) {
+        showToast('Carregue os inscritos da Brevo ou cole uma lista primeiro.');
+        return;
+      }
+      for (let i = 0; i < loadedParticipants.length; i++) {
+        selectParticipant(i);
+        await new Promise(r => setTimeout(r, 250));
+        await downloadCertificatePNG();
+      }
+    }
+
+    async function sendSingleCertificateEmail(index) {
+      const p = loadedParticipants[index];
+      if (!p || !p.email) return;
+      const certUrl = `https://nobregasleo.github.io/agentes-sa/certificado.html?nome=${encodeURIComponent(p.name)}&id=${encodeURIComponent(p.serial)}&modo=aluno`;
+
+      try {
+        await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'content-type': 'application/json',
+            'api-key': _getBrevoToken()
+          },
+          body: JSON.stringify({
+            sender: { name: 'Leonardo Nóbrega', email: 'nobregasleo@gmail.com' },
+            to: [{ email: p.email, name: p.name }],
+            subject: `🎓 Seu Certificado Oficial está pronto, ${p.name}! (Agentes S.A.)`,
+            htmlContent: `
+              <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; color: #1e293b; line-height: 1.6; border: 1px solid #e2e8f0; border-radius: 16px;">
+                <div style="font-size: 12px; font-weight: 700; color: #075fe4; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
+                  DIPLOMA OFICIAL • ${p.serial}
+                </div>
+                <h1 style="color: #031b4e; font-size: 24px; margin: 0 0 16px;">Parabéns, ${p.name}!</h1>
+                <p>Seu certificado oficial de participação no <strong>Webinar Agentes S.A. — Crie seu Primeiro Time de IA no Marketing</strong> já foi emitido com o título de <strong>Mestre em Agentes de IA</strong>.</p>
+                <div style="margin: 26px 0;">
+                  <a href="${certUrl}" style="background: #075fe4; color: #ffffff; text-decoration: none; padding: 14px 24px; border-radius: 10px; font-weight: 700; display: inline-block;">
+                    🎓 Visualizar e Baixar Meu Certificado (PNG / PDF) →
+                  </a>
+                </div>
+                <p style="font-size: 14px; color: #475569;">Dica: Baixe a versão em alta resolução (.PNG) e compartilhe sua conquista no LinkedIn marcando <strong>@Leonardo Nóbrega</strong>!</p>
+              </div>
+            `
+          })
+        });
+        showToast(`✉️ Certificado enviado para ${p.email}!`);
+      } catch (e) {
+        console.error(e);
+        showToast('Erro ao enviar e-mail.');
+      }
+    }
+
+    async function sendCertificatesByEmailBatch() {
+      const withEmail = loadedParticipants.filter(p => p.email);
+      if (!withEmail.length) {
+        showToast('Puxe os inscritos da Brevo primeiro.');
+        return;
+      }
+      if (!confirm(`Deseja disparar o e-mail com o link do certificado nominal para todos os ${withEmail.length} participantes?`)) return;
+      for (let i = 0; i < loadedParticipants.length; i++) {
+        if (loadedParticipants[i].email) {
+          await sendSingleCertificateEmail(i);
+          await new Promise(r => setTimeout(r, 200));
+        }
+      }
+      showToast(`🎉 Todos os ${withEmail.length} certificados foram enviados!`);
+    }
+
+    // 7. Inicialização e leitura de parâmetros de URL (?nome=...&id=...&grau=...&modo=aluno)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const urlName = params.get('nome') || params.get('name');
+      const urlId = params.get('id') || params.get('serial');
+      const urlDegree = params.get('grau') || params.get('degree');
+      const urlMode = params.get('modo') || params.get('mode');
+
+      // Se o aluno já se inscreveu neste navegador e abriu sem ?nome, preenche com o nome dele salvo
+      if (!urlName) {
+        try {
+          const savedLead = JSON.parse(localStorage.getItem('ln_webinar_agentes_sa_lead') || 'null');
+          if (savedLead && savedLead.name) {
+            document.getElementById('inputName').value = savedLead.name;
+            if (savedLead.serial) {
+              document.getElementById('inputSerial').value = `ID ${savedLead.serial}`;
+            }
+          }
+        } catch (e) {}
+      } else {
+        document.getElementById('inputName').value = urlName;
+      }
+
+      if (urlId) document.getElementById('inputSerial').value = urlId;
+      if (urlDegree) document.getElementById('inputDegree').value = urlDegree;
+
+      if (urlMode === 'aluno' || urlMode === 'student') {
+        document.body.classList.add('student-mode');
+        document.getElementById('modeBadge').textContent = 'PORTAL DO ALUNO';
+        document.getElementById('btnShareLink').style.display = 'none';
+        document.getElementById('studentQuickNameInput').value = document.getElementById('inputName').value;
+      }
+
+      renderDiploma();
+      fitDiplomaToScreen();
+
+      // Modo de auto-download quando acionado por automação (?autodownload=1)
+      if (params.get('autodownload') === '1') {
+        setTimeout(() => downloadCertificatePNG(), 800);
+      }
+    });
+  </script>
+</body>
+</html>
