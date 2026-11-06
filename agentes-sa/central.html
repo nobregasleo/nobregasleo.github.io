@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central do Aluno · Webinar Agentes S.A. | Leonardo Nóbrega</title>
+  <meta name="description" content="Central oficial do aluno do Webinar Agentes S.A. Baixe os arquivos .skill dos 6 agentes, prompts de aprendizado Delta-Diff e os programas gratuitos para a aula.">
+
+  <!-- Fontes Oficiais da Marca -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- CSS Global Oficial do Design System -->
+  <link rel="stylesheet" href="../theme.css">
+
+  <style>
+    :root {
+      --ha-bg: #f4f7fc;
+      --ha-surface: rgba(255, 255, 255, 0.88);
+      --ha-card-bg: rgba(255, 255, 255, 0.86);
+      --ha-title: #031b4e;
+      --ha-text: #1e293b;
+      --ha-text-secondary: #475569;
+      --ha-text-muted: #64748b;
+      --factory-yellow: #f4b400;
+      --factory-cyan: #00d2ff;
+      --factory-dark: #03153a;
+      --ha-blur: blur(24px) saturate(160%);
+      --ease-framer: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      background-color: var(--ha-bg) !important;
+      color: var(--ha-text) !important;
+      font-family: var(--font);
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(1px 1px at 24px 24px, rgba(7, 95, 228, 0.07) 1px, transparent 0),
+        radial-gradient(ellipse 75% 45% at 50% -10%, rgba(7, 95, 228, 0.14), transparent),
+        radial-gradient(ellipse 55% 35% at 95% 25%, rgba(0, 210, 255, 0.08), transparent) !important;
+      background-size: 32px 32px, 100% 100%, 100% 100% !important;
+      background-attachment: fixed !important;
+      line-height: 1.6;
+    }
+
+    .site-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Header Co-Branding */
+    .ha-navbar {
+      position: sticky;
+      top: 16px;
+      z-index: 1000;
+      max-width: 1180px;
+      margin: 16px auto 0;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: var(--ha-blur);
+      -webkit-backdrop-filter: var(--ha-blur);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 9999px;
+      padding: 10px 14px 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(7, 95, 228, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .brand-cobrand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+    }
+    .brand-ln-svg { height: 32px; width: auto; }
+    .brand-divider { width: 1px; height: 24px; background: rgba(3, 27, 78, 0.14); }
+    .brand-agentes-lockup { display: flex; align-items: center; gap: 10px; }
+
+    .nav-links { display: flex; gap: 4px; align-items: center; }
+    .nav-link {
+      color: var(--ha-text-secondary);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: all 180ms ease;
+      text-decoration: none;
+    }
+    .nav-link:hover { color: var(--ha-title); background: rgba(7, 95, 228, 0.06); }
+
+    .nav-cta {
+      background: var(--color-primary);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 13.5px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.3);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 250ms var(--ease-framer);
+    }
+    .nav-cta:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-1px);
+      color: #ffffff;
+    }
+
+    /* Hero da Central do Aluno */
+    .hub-hero {
+      margin-top: 36px;
+      background: linear-gradient(135deg, #031b4e 0%, #06389e 60%, #075fe4 100%);
+      border-radius: 26px;
+      padding: 40px 44px;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(3, 27, 78, 0.18);
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .hub-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #a5f3fc;
+      margin-bottom: 16px;
+    }
+    .hub-hero h1 {
+      font-size: clamp(28px, 3.4vw, 42px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.8px;
+      margin-bottom: 12px;
+    }
+    .hub-hero p {
+      font-size: 16.5px;
+      color: rgba(255, 255, 255, 0.86);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 620px;
+    }
+    .hub-quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn-hub-primary {
+      background: #ffffff;
+      color: var(--color-navy);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      transition: all 200ms ease;
+    }
+    .btn-hub-primary:hover {
+      transform: translateY(-2px);
+      background: #f0f6ff;
+      color: var(--color-primary);
+    }
+    .btn-hub-glass {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 200ms ease;
+    }
+    .btn-hub-glass:hover {
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+    }
+
+    .hub-hero-visual {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+    .hub-hero-visual img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Seções da Central */
+    .section-wrap {
+      padding: 56px 0 20px;
+    }
+    .sec-head-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(7, 95, 228, 0.1);
+    }
+    .step-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .sec-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ha-title);
+      letter-spacing: -0.6px;
+    }
+    .sec-sub {
+      font-size: 15.5px;
+      color: var(--ha-text-secondary);
+      margin-top: 4px;
+    }
+
+    /* Cards de Programas Pré-Aula */
+    .setup-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .spotlight-card {
+      background: var(--ha-card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(7, 95, 228, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
+      backdrop-filter: var(--ha-blur);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 250ms var(--ease-framer);
+    }
+    .spotlight-card:hover {
+      border-color: rgba(7, 95, 228, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(7, 95, 228, 0.1);
+    }
+    .tool-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--color-primary-lightest);
+      color: var(--color-primary);
+      display: inline-block;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+    .card-h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ha-title);
+      margin-bottom: 8px;
+    }
+    .card-p {
+      font-size: 14.5px;
+      color: var(--ha-text-secondary);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+    .btn-card-action {
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 10px;
+      background: rgba(7, 95, 228, 0.08);
+      color: var(--color-primary);
+      font-weight: 700;
+      font-size: 13.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid rgba(7, 95, 228, 0.18);
+      cursor: pointer;
+      transition: all 180ms ease;
+      font-family: var(--font);
+    }
+    .btn-card-action:hover {
+      background: var(--color-primary);
+      color: #ffffff;
+    }
+
+    /* Grid de Skills dos Agentes */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .skill-box {
+      background: #ffffff;
+      border: 1px solid rgba(7, 95, 228, 0.14);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .skill-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .skill-filename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-primary);
+      background: #f0f6ff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(7, 95, 228, 0.15);
+    }
+    .skill-code-preview {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 14px;
+      border-radius: 10px;
+      max-height: 150px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      border: 1px solid #1e293b;
+    }
+    .skill-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .btn-sm-copy {
+      flex: 1;
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: var(--color-primary);
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: var(--font);
+      transition: background 180ms;
+    }
+    .btn-sm-copy:hover { background: var(--color-primary-dark); }
+    .btn-sm-dl {
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: var(--ha-title);
+      font-weight: 600;
+      font-size: 13px;
+      border: 1px solid #cbd5e1;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-sm-dl:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    /* Prompts Mestres */
+    .prompts-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .prompt-card {
+      background: #ffffff;
+      border: 1px solid rgba(7, 95, 228, 0.16);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 8px 24px rgba(7, 95, 228, 0.04);
+    }
+    .prompt-pre {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--color-primary);
+      border-radius: 10px;
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: #1e293b;
+      white-space: pre-wrap;
+      line-height: 1.55;
+      margin: 14px 0;
+    }
+
+    /* Toast de Confirmação */
+    #copyToast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background: var(--color-navy);
+      color: #ffffff;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(3, 27, 78, 0.25);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .ha-footer {
+      margin-top: 64px;
+      padding: 36px 0 56px;
+      border-top: 1px solid rgba(7, 95, 228, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px;
+      color: var(--ha-text-muted);
+    }
+
+    @media (max-width: 960px) {
+      .hub-hero, .setup-grid-3, .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Co-Branding -->
+  <header class="ha-navbar">
+    <a href="index.html" class="brand-cobrand">
+      <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega" class="brand-ln-svg">
+      <div class="brand-divider"></div>
+      <div class="brand-agentes-lockup">
+        <img src="assets/emblema_agentes_sa.svg" alt="Emblema" style="height: 32px;">
+        <img src="assets/logo_agentes_sa_completo.png" alt="Agentes S.A." style="height: 26px;">
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#preparacao" class="nav-link">1. Instalação Pré-Aula</a>
+      <a href="#skills" class="nav-link">2. Skills dos Agentes</a>
+      <a href="#prompts" class="nav-link">3. Prompts Delta-Diff</a>
+      <a href="#certificado" class="nav-link">4. Slides & Certificado</a>
+    </nav>
+
+    <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="nav-cta">
+      <span>Baixar Pacote Completo (.ZIP)</span>
+      <span>⬇</span>
+    </a>
+  </header>
+
+  <main class="site-container">
+
+    <!-- Hero de Boas-Vindas da Central do Aluno -->
+    <section class="hub-hero">
+      <div>
+        <div class="hub-status-pill">
+          <span>🟢 CENTRAL DO ALUNO • ACESSO OFICIAL LIBERADO</span>
+        </div>
+        <h1 id="welcomeStudentTitle">Bem-vindo(a) ao Chão de Fábrica da Agentes S.A.</h1>
+        <p>
+          Aqui estão reunidos todos os programas gratuitos, a estrutura de pastas do projeto modelo, os prompts de aprendizado de máquina e as <strong>.skills</strong> dos 6 agentes que vamos operar ao vivo na <strong>Terça-feira, 24/11 às 20h00</strong>.
+        </p>
+        <div class="hub-quick-actions">
+          <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn-hub-primary">
+            <span>📦 Baixar Tudo de Uma Vez (.ZIP)</span>
+          </a>
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Webinar+Agentes+S.A.+%E2%80%94+Crie+seu+Primeiro+Time+de+IA+no+Marketing+(Leonardo+N%C3%B3brega)&dates=20261124T230000Z/20261125T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.&location=YouTube+Ao+Vivo" target="_blank" class="btn-hub-glass">
+            <span>📅 Salvar Aula na Google Agenda</span>
+          </a>
+          <a href="../assets/downloads/Checklist_5_Passos_Agentes_IA_Leonardo_Nobrega.pdf" download class="btn-hub-glass">
+            <span>📄 Baixar Checklist (.PDF)</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hub-hero-visual">
+        <img src="assets/lian_hero_16x9.jpg" alt="Mascote Lian na Fábrica Agentes S.A.">
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MÓDULO 1: INSTALAÇÃO PRÉ-AULA (PROGRAMAS GRATUITOS)
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="section-wrap" id="preparacao">
+      <div class="sec-head-row">
+        <div>
+          <span class="step-kicker">ETAPA 01 • PREPARAÇÃO RECOMENDADA ANTES DO DIA 24/11</span>
+          <h2 class="sec-title">Ferramentas Gratuitas & Estrutura de Pastas</h2>
+          <p class="sec-sub">Deixe esses 3 itens prontos no seu computador para acompanhar a construção do time sem travar durante a transmissão.</p>
+        </div>
+      </div>
+
+      <div class="setup-grid-3">
+        <!-- Item 1: Antigravity -->
+        <div class="spotlight-card">
+          <div>
+            <span class="tool-tag">FERRAMENTA 01 • O CÉREBRO LOCAL</span>
+            <h3 class="card-h3">Google Antigravity</h3>
+            <p class="card-p">
+              É onde os nossos agentes vivem, leem as pastas da sua marca e executam as <strong>.skills</strong>. Funciona direto no seu computador (Mac, Windows ou Linux) sem precisar saber programar.
+            </p>
+          </div>
+          <a href="https://idx.google.com/" target="_blank" class="btn-card-action">
+            <span>Acessar Site Oficial</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <!-- Item 2: OpenBot -->
+        <div class="spotlight-card">
+          <div>
+            <span class="tool-tag">FERRAMENTA 02 • AS MÃOS NA WEB</span>
+            <h3 class="card-h3">OpenBot (Open-Source)</h3>
+            <p class="card-p">
+              Dá um navegador próprio para o seu agente pesquisar referências, preencher sistemas e enviar confirmações no WhatsApp — 100% gratuito e sem mensalidade em dólar.
+            </p>
+          </div>
+          <a href="../assets/downloads/Roteiro_OpenBot_Automacao_Web.md" download class="btn-card-action">
+            <span>Baixar Guia de Configuração (.MD)</span>
+            <span>⬇</span>
+          </a>
+        </div>
+
+        <!-- Item 3: Projeto Modelo -->
+        <div class="spotlight-card">
+          <div>
+            <span class="tool-tag">ESTRUTURA PRONTA • PLUG & PLAY</span>
+            <h3 class="card-h3">Projeto Modelo da Marca</h3>
+            <p class="card-p">
+              Não comece de uma pasta vazia. Baixe a árvore de diretórios já organizada com os arquivos de Brand DNA, regras visuais e as 6 skills prontas para importar.
+            </p>
+          </div>
+          <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn-card-action">
+            <span>Baixar Pasta Modelo (.ZIP)</span>
+            <span>⬇</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MÓDULO 2: PACOTE DE SKILLS DOS 6 AGENTES (.SKILL / .MD)
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="section-wrap" id="skills">
+      <div class="sec-head-row">
+        <div>
+          <span class="step-kicker">ETAPA 02 • OS MANUAIS DO SEU TIME DE IA</span>
+          <h2 class="sec-title">Biblioteca de Skills dos Agentes Especialistas</h2>
+          <p class="sec-sub">Copie o código direto com 1 clique ou baixe os arquivos individuais em formato Markdown (<code>.md</code>).</p>
+        </div>
+        <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="nav-cta">
+          <span>Baixar todas as 7 Skills (.ZIP)</span>
+        </a>
+      </div>
+
+      <div class="skills-grid">
+
+        <!-- Skill 00: Gerente -->
+        <div class="skill-box">
+          <div class="skill-head">
+            <div>
+              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">00. Agente Gerente de Operação (Lian)</h3>
+              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Coordena os 6 especialistas e gerencia os 2 pontos de aprovação humana (HITL).</p>
+            </div>
+            <span class="skill-filename">00_gerente_operacao.md</span>
+          </div>
+          <pre class="skill-code-preview" id="code-skill-0">---
+name: gerente-operacao
+description: Agente Gerente de Marketing. Coordena os 6 agentes especialistas e gerencia os 2 pontos de aprovação humana (HITL).
+---
+
+# 🏭 Agente Gerente de Operação (Orquestrador)
+Sua missão é coordenar o time de 6 agentes especialistas e garantir que nenhuma etapa avance sem passar pelos 2 Pontos de Controle Humano (HITL).
+
+1. Acione o `agente-pesquisador` para levantar 3 temas quentes das últimas 48h.
+2. Passe os dados para o `agente-estrategista` recomendar a melhor pauta.
+3. ⏸️ PONTO DE APROVAÇÃO 1 (HITL): Apresente o resumo ao usuário e aguarde o "Aprovado".
+4. Após aprovado, acione Redator, Designer e Editor de Vídeo.
+5. ⏸️ PONTO DE APROVAÇÃO 2 (HITL): Apresente as peças prontas para revisão final.
+6. Acione o `agente-social-media` para agendar e avisar no WhatsApp.</pre>
+          <div class="skill-actions">
+            <button class="btn-sm-copy" onclick="copyTextById('code-skill-0', 'Skill 00 (Gerente)')">📋 Copiar Skill</button>
+            <a href="downloads/skills_agentes_sa/00_gerente_operacao.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
+          </div>
+        </div>
+
+        <!-- Skill 01: Pesquisador -->
+        <div class="skill-box">
+          <div class="skill-head">
+            <div>
+              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">01. Agente Pesquisador (Hunter)</h3>
+              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Varre referências, canais e notícias das últimas 48h em busca de pautas quentes.</p>
+            </div>
+            <span class="skill-filename">01_agente_pesquisador.md</span>
+          </div>
+          <pre class="skill-code-preview" id="code-skill-1">---
+name: agente-pesquisador
+description: Monitora canais de referência, notícias e tendências do mercado nas últimas 48h.
+---
+
+# 🔍 Agente 01: Pesquisador de Tendências (Hunter)
+Seu escopo é 100% fechado em pesquisa e curadoria (você não escreve posts finais).
+
+1. Verifique as fontes de referência da marca e notícias recentes do setor.
+2. Identifique 3 assuntos que estão gerando discussão real ou dúvidas práticas no público-alvo.
+3. Entregue uma tabela objetiva com: Tema, Por que está em alta, Dor prática que resolve e Link da fonte.</pre>
+          <div class="skill-actions">
+            <button class="btn-sm-copy" onclick="copyTextById('code-skill-1', 'Skill 01 (Pesquisador)')">📋 Copiar Skill</button>
+            <a href="downloads/skills_agentes_sa/01_agente_pesquisador.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
+          </div>
+        </div>
+
+        <!-- Skill 02: Estrategista -->
+        <div class="skill-box">
+          <div class="skill-head">
+            <div>
+              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">02. Agente Estrategista de Pautas</h3>
+              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Filtra as opções encontradas contra o posicionamento da marca e propõe o ângulo ideal.</p>
+            </div>
+            <span class="skill-filename">02_agente_estrategista.md</span>
+          </div>
+          <pre class="skill-code-preview" id="code-skill-2">---
+name: agente-estrategista
+description: Filtra as pesquisas do Hunter contra o Brand DNA da marca e define o ângulo editorial.
+---
+
+# 🧠 Agente 02: Estrategista de Pautas
+Receba o levantamento do `agente-pesquisador` e cruze com `01_Contexto_e_Brand_DNA/`.
+
+1. Selecione o tema com maior potencial de autoridade e conexão com o público.
+2. Defina: Tese Central, Gancho de Abertura e estrutura para Carrossel + Reels.
+3. Apresente para o Ponto de Controle Humano 1.</pre>
+          <div class="skill-actions">
+            <button class="btn-sm-copy" onclick="copyTextById('code-skill-2', 'Skill 02 (Estrategista)')">📋 Copiar Skill</button>
+            <a href="downloads/skills_agentes_sa/02_agente_estrategista.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
+          </div>
+        </div>
+
+        <!-- Skill 03: Redator -->
+        <div class="skill-box">
+          <div class="skill-head">
+            <div>
+              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">03. Agente Redator Autoral (Copy)</h3>
+              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Escreve legendas, lâminas de carrossel e roteiros seguindo o aprendizado Delta-Diff.</p>
+            </div>
+            <span class="skill-filename">03_agente_redator.md</span>
+          </div>
+          <pre class="skill-code-preview" id="code-skill-3">---
+name: agente-redator
+description: Escreve posts, carrosséis e roteiros seguindo estritamente o tom de voz autoral e regras Delta-Diff.
+---
+
+# ✍️ Agente 03: Redator Autoral (Copywriter)
+Antes de escrever qualquer linha, leia obrigatoriamente `01_Contexto_e_Brand_DNA/tom_de_voz.md`.
+
+- PROIBIDO usar clichês de IA ("No mundo acelerado de hoje", "Desbloqueie seu potencial").
+- Entregue: 1. Legenda do Post, 2. Texto das 5 lâminas do Carrossel, 3. Roteiro de Vídeo de 30s.</pre>
+          <div class="skill-actions">
+            <button class="btn-sm-copy" onclick="copyTextById('code-skill-3', 'Skill 03 (Redator)')">📋 Copiar Skill</button>
+            <a href="downloads/skills_agentes_sa/03_agente_redator.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
+          </div>
+        </div>
+
+        <!-- Skill 04: Designer -->
+        <div class="skill-box">
+          <div class="skill-head">
+            <div>
+              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">04. Agente Designer & Diretor Visual</h3>
+              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Gera imagens consistentes do mascote e monta o carrossel 1080×1350 no Design System.</p>
+            </div>
+            <span class="skill-filename">04_agente_designer.md</span>
+          </div>
+          <pre class="skill-code-preview" id="code-skill-4">---
+name: agente-designer
+description: Diretor de Arte. Gera imagens consistentes e diagrama carrosséis e posts estáticos no Design System.
+---
+
+# 🎨 Agente 04: Designer & Diretor Visual
+Transforma o texto aprovado do `agente-redator` em peças visuais prontas respeitando 100% da paleta de cores, tipografia e uso do mascote na proporção 1080x1350 (4:5 vertical).</pre>
+          <div class="skill-actions">
+            <button class="btn-sm-copy" onclick="copyTextById('code-skill-4', 'Skill 04 (Designer)')">📋 Copiar Skill</button>
+            <a href="downloads/skills_agentes_sa/04_agente_designer.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
+          </div>
+        </div>
+
+        <!-- Skill 05 & 06: Vídeo & Social Media -->
+        <div class="skill-box">
+          <div class="skill-head">
+            <div>
+              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">05 & 06. Editor de Vídeo + Social Media</h3>
+              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Gera locução e vídeo curto (30s) e agenda a publicação enviando aviso no WhatsApp.</p>
+            </div>
+            <span class="skill-filename">06_agente_social_media.md</span>
+          </div>
+          <pre class="skill-code-preview" id="code-skill-6">---
+name: agente-social-media
+description: Agente Distribuidor. Agenda os conteúdos aprovados nas redes e envia confirmação no WhatsApp.
+---
+
+# 📲 Agente 06: Social Media & Distribuidor
+Só entra em ação após a aprovação humana final (Ponto HITL 2).
+1. Verifique se a legenda final e os arquivos visuais estão aprovados.
+2. Adicione a publicação na fila de agendamento no horário definido (08:45).
+3. Envie confirmação no WhatsApp do responsável.</pre>
+          <div class="skill-actions">
+            <button class="btn-sm-copy" onclick="copyTextById('code-skill-6', 'Skill 06 (Social Media)')">📋 Copiar Skill</button>
+            <a href="downloads/skills_agentes_sa/06_agente_social_media.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MÓDULO 3: OS 3 PROMPTS MESTRES (DELTA-DIFF & MASCOTE 3D)
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="section-wrap" id="prompts">
+      <div class="sec-head-row">
+        <div>
+          <span class="step-kicker">ETAPA 03 • APRENDIZADO DE MÁQUINA & CONSISTÊNCIA</span>
+          <h2 class="sec-title">Prompts Mestres de Calibração</h2>
+          <p class="sec-sub">Os 3 prompts fundamentais que usamos no Bloco 2 e no Bloco 4 da aula.</p>
+        </div>
+      </div>
+
+      <div class="prompts-stack">
+        <!-- Prompt 1: Delta-Diff -->
+        <div class="prompt-card">
+          <span class="tool-tag">PROMPT MESTRE 01 • APRENDIZADO DELTA-DIFF</span>
+          <h3 class="card-h3">Calibração de Tom de Voz (V1 Gerada vs. Versão Aprovada)</h3>
+          <p style="font-size: 14.5px; color: var(--ha-text-secondary);">
+            Use este prompt sempre que você editar um texto gerado pelo agente. Ele calcula a diferença exata (delta) e grava a regra na memória permanente da sua marca.
+          </p>
+          <pre class="prompt-pre" id="prompt-delta">Atue como um Engenheiro de Machine Learning e Analista de Estilo Editorial.
+Abaixo estão duas versões do mesmo conteúdo:
+- [VERSÃO 1 - RASCUNHO GERADO PELA IA]: {cole aqui o primeiro rascunho}
+- [VERSÃO FINAL - APROVADA E EDITADA POR MIM]: {cole aqui a versão que você ajustou}
+
+Sua tarefa:
+1. Faça uma análise Delta-Diff comparando frase por frase o que eu cortei, o que eu reescrevi e como mudei o ritmo.
+2. Extraia de 3 a 5 regras práticas e atômicas sobre o meu estilo real de escrita (ex: tamanho de frases, palavras banidas, forma de abrir e fechar).
+3. Atualize o arquivo `01_Contexto_e_Brand_DNA/tom_de_voz.md` adicionando essas novas regras para que o Agente Redator nunca mais repita os vícios da Versão 1.</pre>
+          <button class="btn-sm-copy" style="max-width: 240px;" onclick="copyTextById('prompt-delta', 'Prompt Aprendizado Delta-Diff')">📋 Copiar Prompt Delta-Diff</button>
+        </div>
+
+        <!-- Prompt 2: Second Brain -->
+        <div class="prompt-card">
+          <span class="tool-tag">PROMPT MESTRE 02 • SECOND BRAIN & BRAND DNA</span>
+          <h3 class="card-h3">Compilação de Documentos Próprios para Memória do Agente</h3>
+          <p style="font-size: 14.5px; color: var(--ha-text-secondary);">
+            Use este prompt para transformar seus melhores posts antigos, artigos, apresentações ou materiais de estudo na base de conhecimento do seu time.
+          </p>
+          <pre class="prompt-pre" id="prompt-secondbrain">Leia todos os documentos e textos de referência que coloquei nesta pasta.
+Sintetize um documento mestre chamado `posicionamento_e_voz.md` dividido em:
+1. Tese Central da Marca (no que acreditamos vs. o que combatemos no mercado).
+2. Vocabulário Proprietário (termos, metáforas e expressões que usamos com frequência).
+3. Lista Negra (Negative Constraints): 15 palavras, jargões de guru e estruturas de frase que estão expressamente proibidas em qualquer texto dos agentes.</pre>
+          <button class="btn-sm-copy" style="max-width: 240px;" onclick="copyTextById('prompt-secondbrain', 'Prompt Second Brain')">📋 Copiar Prompt Second Brain</button>
+        </div>
+
+        <!-- Prompt 3: Mascote 3D -->
+        <div class="prompt-card">
+          <span class="tool-tag">PROMPT MESTRE 03 • IDENTIDADE VISUAL & MASCOTE</span>
+          <h3 class="card-h3">Consistência de Personagem 3D em Múltiplos Cenários</h3>
+          <p style="font-size: 14.5px; color: var(--ha-text-secondary);">
+            Estrutura para manter seu mascote 100% fiel (usando a imagem do Character Sheet em anexo como referência visual).
+          </p>
+          <pre class="prompt-pre" id="prompt-mascote">Usando estritamente a folha de personagem (Character Sheet) anexada como referência absoluta de identidade:
+Mantenha 100% idênticos o formato da cabeça, olhos, nariz, proporções corporais, textura de pelúcia/3D e cores oficiais (#075FE4 e #FFFFFF).
+Coloque o personagem na seguinte cena e ação: {descreva a ação e o cenário aqui}.
+Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), profundidade de campo suave, altíssima nitidez 2K.</pre>
+          <button class="btn-sm-copy" style="max-width: 240px;" onclick="copyTextById('prompt-mascote', 'Prompt Mascote 3D')">📋 Copiar Prompt Mascote 3D</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         MÓDULO 4: SLIDES OFICIAIS & CERTIFICADO DE PARTICIPAÇÃO
+         ═══════════════════════════════════════════════════════════════ -->
+    <section class="section-wrap" id="certificado">
+      <div class="sec-head-row">
+        <div>
+          <span class="step-kicker">ETAPA 04 • MATERIAL PÓS-AULA</span>
+          <h2 class="sec-title">Apresentação Oficial & Certificado</h2>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="spotlight-card">
+          <div>
+            <span class="tool-tag">SLIDES DA TRANSMISSÃO</span>
+            <h3 class="card-h3">Deck Completo da Aula (.PDF)</h3>
+            <p class="card-p">
+              Todos os diagramas visuais, comparativos e o passo a passo da esteira dos 6 agentes apresentados pelo Leonardo Nóbrega.
+            </p>
+          </div>
+          <a href="../assets/downloads/Checklist_5_Passos_Agentes_IA_Leonardo_Nobrega.pdf" download class="btn-card-action">
+            <span>Baixar Resumo & Diagramas (.PDF)</span>
+            <span>⬇</span>
+          </a>
+        </div>
+
+        <div class="spotlight-card">
+          <div>
+            <span class="tool-tag">CERTIFICADO OFICIAL • AGENTES S.A.</span>
+            <h3 class="card-h3">Certificado de Participação</h3>
+            <p class="card-p">
+              Liberado ao final da transmissão ao vivo do dia <strong>24/11 às 21h00</strong> para você compartilhar sua certificação prática no LinkedIn.
+            </p>
+          </div>
+          <button class="btn-card-action" onclick="showToast('O código de emissão do Certificado será liberado ao vivo no dia 24/11 às 20h!')">
+            <span>🔒 Liberado ao vivo em 24/11 às 20h</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="ha-footer">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega" style="height: 28px;">
+        <div class="brand-divider"></div>
+        <img src="assets/logo_agentes_sa_completo.png" alt="Agentes S.A." style="height: 22px;">
+      </div>
+      <div>
+        Central do Aluno • Webinar Agentes S.A. (24 de Novembro às 20h00)
+      </div>
+      <div>
+        <a href="index.html" style="font-weight: 600; color: var(--color-primary);">← Voltar para a página do evento</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="copyToast">
+    <span>✓</span>
+    <span id="copyToastText">Copiado com sucesso!</span>
+  </div>
+
+  <script>
+    function copyTextById(elementId, label) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`${label} copiado para a área de transferência!`);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('copyToast');
+      document.getElementById('copyToastText').textContent = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3200);
+    }
+
+    // Personaliza a saudação se o aluno já tiver credencial salva no navegador
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('ln_webinar_agentes_sa_lead');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          if (data.name) {
+            const firstName = data.name.split(' ')[0];
+            document.getElementById('welcomeStudentTitle').textContent =
+              `Olá, ${firstName}! Bem-vindo(a) à Central do Aluno (${data.serial || '#AG-2411'}).`;
+          }
+        } catch (e) {}
+      }
+    });
+  </script>
+
+</body>
+</html>
