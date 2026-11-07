@@ -2,786 +2,1235 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Central do Aluno · Webinar Agentes S.A. | Leonardo Nóbrega</title>
-  <meta name="description" content="Central oficial do aluno do Webinar Agentes S.A. Baixe os arquivos .skill dos 6 agentes, prompts de aprendizado Delta-Diff e os programas gratuitos para a aula.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Central do Aluno · Agentes S.A. | Leonardo Nóbrega</title>
+  <meta name="description" content="Central do Aluno da aula ao vivo e gratuita Agentes S.A. Prepare sua bancada, conheça o time de agentes, copie os prompts e emita seu certificado.">
+  <meta name="theme-color" content="#031b4e">
 
   <!-- Fontes Oficiais da Marca -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- CSS Global Oficial do Design System -->
   <link rel="stylesheet" href="../theme.css">
 
   <style>
-    :root {
-      --ha-bg: #f4f7fc;
-      --ha-surface: rgba(255, 255, 255, 0.88);
-      --ha-card-bg: rgba(255, 255, 255, 0.86);
-      --ha-title: #031b4e;
-      --ha-text: #1e293b;
-      --ha-text-secondary: #475569;
-      --ha-text-muted: #64748b;
-      --factory-yellow: #f4b400;
-      --factory-cyan: #00d2ff;
-      --factory-dark: #03153a;
-      --ha-blur: blur(24px) saturate(160%);
-      --ease-framer: cubic-bezier(0.16, 1, 0.3, 1);
+    /* ═══════════════════════════════════════════════════════════════
+       ISOLAMENTO E RESET DE LAYOUT CONTRA CONFLITOS DO THEME.CSS
+       ═══════════════════════════════════════════════════════════════ */
+    /* Anula o margin-left: 320px e padding que o theme.css aplica na tag <main> e na classe .main */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      overflow-x: hidden !important;
     }
 
     body {
-      background-color: var(--ha-bg) !important;
-      color: var(--ha-text) !important;
-      font-family: var(--font);
-      overflow-x: hidden;
-      background-image:
-        radial-gradient(1px 1px at 24px 24px, rgba(7, 95, 228, 0.07) 1px, transparent 0),
-        radial-gradient(ellipse 75% 45% at 50% -10%, rgba(7, 95, 228, 0.14), transparent),
-        radial-gradient(ellipse 55% 35% at 95% 25%, rgba(0, 210, 255, 0.08), transparent) !important;
-      background-size: 32px 32px, 100% 100%, 100% 100% !important;
-      background-attachment: fixed !important;
-      line-height: 1.6;
+      background-color: #f2f5f9 !important;
+      background-image: none !important;
+      font-family: 'Source Sans 3', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      color: #1a1d21 !important;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .site-container {
-      max-width: 1240px;
+    /* Reset explícito caso qualquer seletor global do theme.css tente afetar a área principal */
+    main.hub-main, .hub-main {
+      all: unset;
+      display: block !important;
+      grid-area: main !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+    }
+
+    :root {
+      --color-primary: #075fe4;
+      --color-primary-dark: #0550c8;
+      --color-primary-light: #3a85f0;
+      --color-primary-lightest: #e8f0fe;
+      --color-primary-10: rgba(7, 95, 228, 0.10);
+      --color-bg: #f2f5f9;
+      --color-text: #1a1d21;
+      --color-text-secondary: #5e6673;
+      --color-text-muted: #9ba3af;
+      --color-navy: #031b4e;
+      --color-success: #0f9d58;
+      --color-warning: #f4b400;
+      --font: 'Source Sans 3', 'Source Sans Pro', -apple-system, sans-serif;
+
+      /* Universo Agentes S.A. */
+      --factory-navy-2: #06389e;
+      --factory-cyan: #00d2ff;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --line: rgba(3, 27, 78, 0.08);
+      --card-shadow: 0 1px 3px rgba(3, 27, 78, 0.04), 0 8px 24px rgba(3, 27, 78, 0.05);
+      --ease: cubic-bezier(0.23, 1, 0.32, 1);
+      --r-card: 22px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+    .i { width: 18px; height: 18px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ESTRUTURA GERAL DO DASHBOARD (hub-app)
+       Larguras proporcionais, respiráveis e sem aperto no centro
+       ═══════════════════════════════════════════════════════════════ */
+    .hub-app {
+      display: grid;
+      grid-template-columns: 216px minmax(0, 1fr) 296px;
+      grid-template-areas: "side main rail";
+      gap: 22px;
+      width: 100%;
+      max-width: 1540px;
       margin: 0 auto;
-      padding: 0 28px;
+      padding: 20px 24px 40px;
+      align-items: start;
+      box-sizing: border-box;
+    }
+
+    /* ─── Sidebar Esquerda ─── */
+    .hub-side {
+      grid-area: side;
+      position: sticky;
+      top: 20px;
+      height: calc(100vh - 40px);
+      background: #fff;
+      border-radius: 24px;
+      padding: 24px 14px 18px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--line);
+      box-sizing: border-box;
+    }
+    .side-brand { display: flex; align-items: center; padding: 0 10px 22px; }
+    .side-brand img { height: 24px; width: auto; }
+    .side-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;
+      color: var(--color-text-muted); padding: 0 10px 8px;
+    }
+    .side-nav { display: flex; flex-direction: column; gap: 2px; }
+    .side-link {
+      display: flex; align-items: center; gap: 11px;
+      padding: 10px 12px; border-radius: 12px;
+      font-size: 14.5px; font-weight: 600; color: var(--color-text-secondary);
+      transition: background 160ms var(--ease), color 160ms var(--ease);
+    }
+    .side-link .i { width: 18px; height: 18px; }
+    .side-link.is-active { background: var(--color-primary-lightest); color: var(--color-primary); }
+    .side-link .side-count {
+      margin-left: auto; font-family: var(--mono); font-size: 11px; font-weight: 700;
+      color: var(--color-text-muted);
+    }
+    .side-link.is-active .side-count { color: var(--color-primary); }
+
+    .side-kit {
+      margin-top: auto;
+      position: relative;
+      background: linear-gradient(160deg, var(--color-navy) 0%, var(--factory-navy-2) 100%);
+      border-radius: 18px;
+      padding: 56px 14px 14px;
+      color: #fff;
+      overflow: visible;
+    }
+    .side-kit img {
+      position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+      height: 92px; width: auto;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.28));
+    }
+    .side-kit strong { display: block; font-size: 14.5px; font-weight: 700; text-align: center; }
+    .side-kit p { margin: 3px 0 12px; font-size: 12.5px; line-height: 1.4; color: rgba(255,255,255,0.78); text-align: center; }
+    .side-back {
+      display: flex; align-items: center; gap: 8px; justify-content: center;
+      margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--color-text-secondary);
+      padding: 6px; border-radius: 10px;
+    }
+
+    /* ─── Botões do Dashboard ─── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      height: 44px; padding: 0 20px; border-radius: 999px;
+      font-size: 14px; font-weight: 700; border: 1px solid transparent; cursor: pointer;
+      transition: background 160ms var(--ease), color 160ms var(--ease), transform 160ms var(--ease), border-color 160ms var(--ease);
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-white { background: #fff; color: var(--color-navy); }
+    .btn-glass { background: rgba(255,255,255,0.12); color: #fff; border-color: rgba(255,255,255,0.24); }
+    .btn-primary { background: var(--color-primary); color: #fff; }
+    .btn-soft { background: var(--color-primary-lightest); color: var(--color-primary); }
+    .btn-line { background: #fff; color: var(--color-navy); border-color: rgba(3, 27, 78, 0.12); }
+    .btn-sm { height: 38px; padding: 0 16px; font-size: 13.5px; }
+    .btn-block { width: 100%; }
+
+    /* ─── Topbar ─── */
+    .hub-topbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 4px 0 20px;
+    }
+    .topbar-title { font-size: 14px; font-weight: 600; color: var(--color-text-secondary); }
+    .topbar-title strong { color: var(--color-navy); font-weight: 800; font-size: 24px; letter-spacing: -0.4px; display: block; line-height: 1.2; }
+    .topbar-actions { display: flex; align-items: center; gap: 10px; }
+    .icon-btn {
+      width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+      background: #fff; border: 1px solid var(--line); color: var(--color-navy); cursor: pointer;
+      transition: transform 160ms var(--ease), color 160ms var(--ease);
+    }
+    .icon-btn:active { transform: scale(0.95); }
+    .user-chip {
+      display: flex; align-items: center; gap: 10px;
+      padding: 4px 16px 4px 4px; background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    }
+    .user-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--color-primary); color: #fff;
+      display: grid; place-items: center; font-weight: 800; font-size: 13px; letter-spacing: 0.4px;
+    }
+    .user-chip span { font-size: 14px; font-weight: 700; color: var(--color-navy); line-height: 1.15; }
+    .user-chip small { display: block; font-family: var(--mono); font-size: 10.5px; font-weight: 500; color: var(--color-text-muted); }
+
+    /* ─── Hero do Dashboard ─── */
+    .hub-hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      min-height: 340px;
+      border-radius: 28px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--color-navy) 0%, var(--factory-navy-2) 70%, var(--color-primary) 120%);
+      color: #fff;
+      box-shadow: 0 20px 50px rgba(3, 27, 78, 0.16);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .hero-copy {
+      padding: 38px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       position: relative;
       z-index: 2;
     }
-
-    /* Header Co-Branding */
-    .ha-navbar {
-      position: sticky;
-      top: 16px;
-      z-index: 1000;
-      max-width: 1180px;
-      margin: 16px auto 0;
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: var(--ha-blur);
-      -webkit-backdrop-filter: var(--ha-blur);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      border-radius: 9999px;
-      padding: 10px 14px 10px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 10px 30px rgba(7, 95, 228, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
-    }
-    .brand-cobrand {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-decoration: none;
-    }
-    .brand-ln-svg { height: 32px; width: auto; }
-    .brand-divider { width: 1px; height: 24px; background: rgba(3, 27, 78, 0.14); }
-    .brand-agentes-lockup { display: flex; align-items: center; gap: 10px; }
-
-    .nav-links { display: flex; gap: 4px; align-items: center; }
-    .nav-link {
-      color: var(--ha-text-secondary);
-      font-size: 14px;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 999px;
-      transition: all 180ms ease;
-      text-decoration: none;
-    }
-    .nav-link:hover { color: var(--ha-title); background: rgba(7, 95, 228, 0.06); }
-
-    .nav-cta {
-      background: var(--color-primary);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 13.5px;
-      padding: 10px 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.3);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 250ms var(--ease-framer);
-    }
-    .nav-cta:hover {
-      background: var(--color-primary-dark);
-      transform: translateY(-1px);
-      color: #ffffff;
-    }
-
-    /* Hero da Central do Aluno */
-    .hub-hero {
-      margin-top: 36px;
-      background: linear-gradient(135deg, #031b4e 0%, #06389e 60%, #075fe4 100%);
-      border-radius: 26px;
-      padding: 40px 44px;
-      color: #ffffff;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 24px 60px rgba(3, 27, 78, 0.18);
-      display: grid;
-      grid-template-columns: 7fr 5fr;
-      gap: 32px;
-      align-items: center;
-    }
-    .hub-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
+    .live-pill {
+      display: inline-flex; align-items: center; gap: 8px; width: fit-content;
+      padding: 5px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+      font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
       color: #a5f3fc;
-      margin-bottom: 16px;
     }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--factory-cyan); box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.6); animation: pulse 2.2s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,210,255,0.55); } 70% { box-shadow: 0 0 0 9px rgba(0,210,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,210,255,0); } }
     .hub-hero h1 {
-      font-size: clamp(28px, 3.4vw, 42px);
+      margin: 16px 0 12px;
+      font-size: clamp(28px, 2.6vw, 40px);
+      line-height: 1.12;
       font-weight: 800;
-      line-height: 1.15;
       letter-spacing: -0.8px;
-      margin-bottom: 12px;
     }
+    .hub-hero h1 em { font-style: normal; color: #a5f3fc; }
     .hub-hero p {
-      font-size: 16.5px;
-      color: rgba(255, 255, 255, 0.86);
-      line-height: 1.6;
-      margin-bottom: 24px;
-      max-width: 620px;
+      margin: 0 0 20px;
+      max-width: 500px;
+      font-size: 16px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.84);
     }
-    .hub-quick-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .hero-meta span {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,0.9);
+      padding: 5px 12px; border-radius: 999px; background: rgba(255,255,255,0.08);
     }
-    .btn-hub-primary {
-      background: #ffffff;
-      color: var(--color-navy);
-      font-weight: 700;
-      font-size: 14px;
-      padding: 12px 22px;
-      border-radius: 12px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      transition: all 200ms ease;
+    .hero-meta .i { width: 15px; height: 15px; opacity: 0.85; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-media { position: relative; min-height: 260px; overflow: hidden; }
+    .hero-media img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: 50% 64%;
     }
-    .btn-hub-primary:hover {
-      transform: translateY(-2px);
-      background: #f0f6ff;
-      color: var(--color-primary);
-    }
-    .btn-hub-glass {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 12px 20px;
-      border-radius: 12px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 200ms ease;
-    }
-    .btn-hub-glass:hover {
-      background: rgba(255, 255, 255, 0.22);
-      color: #ffffff;
+    .hero-media::before {
+      content: ""; position: absolute; inset: 0 auto 0 0; width: 34%; z-index: 1;
+      background: linear-gradient(90deg, #052a78 0%, rgba(5, 42, 120, 0) 100%);
     }
 
-    .hub-hero-visual {
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-    .hub-hero-visual img {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Seções da Central */
-    .section-wrap {
-      padding: 56px 0 20px;
-    }
-    .sec-head-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
+    /* ─── Atalhos Rápidos (3 mini cards) ─── */
+    .hub-quick {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
-      margin-bottom: 28px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(7, 95, 228, 0.1);
+      margin-top: 18px;
     }
-    .step-kicker {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--color-primary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      display: block;
-      margin-bottom: 4px;
+    .quick-card {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; background: #fff; border-radius: 18px; border: 1px solid var(--line);
+      box-shadow: var(--card-shadow);
+      transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
     }
-    .sec-title {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--ha-title);
-      letter-spacing: -0.6px;
+    .quick-icon {
+      width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+      background: var(--color-primary-lightest); color: var(--color-primary); flex-shrink: 0;
     }
-    .sec-sub {
-      font-size: 15.5px;
-      color: var(--ha-text-secondary);
-      margin-top: 4px;
-    }
+    .quick-icon .i { width: 20px; height: 20px; }
+    .quick-card small { display: block; font-size: 12.5px; color: var(--color-text-muted); font-weight: 600; }
+    .quick-card strong { display: block; font-size: 16px; color: var(--color-navy); font-weight: 700; line-height: 1.25; }
+    .quick-bar { height: 4px; border-radius: 4px; background: var(--color-bg); margin-top: 6px; overflow: hidden; width: 100%; }
+    .quick-bar i { display: block; height: 100%; width: 0; background: var(--color-primary); border-radius: 4px; transition: width 500ms var(--ease); }
+    .quick-card > div:last-child { flex: 1; min-width: 0; }
 
-    /* Cards de Programas Pré-Aula */
-    .setup-grid-3 {
+    /* ─── Seções & Blocos ─── */
+    .hub-block { padding-top: 50px; }
+    .block-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 11.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--color-primary);
+    }
+    .kicker::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--color-warning); }
+    .block-head h2 { margin: 6px 0 4px; font-size: 26px; line-height: 1.15; font-weight: 800; letter-spacing: -0.6px; color: var(--color-navy); }
+    .block-head p { margin: 0; font-size: 15px; color: var(--color-text-secondary); max-width: 600px; }
+
+    /* ─── Grid de Cards com Cenários 3D ─── */
+    .hub-grid-3 {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
     }
-    .spotlight-card {
-      background: var(--ha-card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 26px;
-      box-shadow: 0 10px 30px rgba(7, 95, 228, 0.05), 0 2px 6px rgba(0, 0, 0, 0.02);
-      backdrop-filter: var(--ha-blur);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 250ms var(--ease-framer);
+    .hub-card {
+      background: #fff; border-radius: var(--r-card); overflow: hidden;
+      border: 1px solid var(--line); box-shadow: var(--card-shadow);
+      display: flex; flex-direction: column;
+      transition: transform 260ms var(--ease), box-shadow 260ms var(--ease), border-color 260ms var(--ease);
     }
-    .spotlight-card:hover {
-      border-color: rgba(7, 95, 228, 0.3);
-      transform: translateY(-3px);
-      box-shadow: 0 18px 40px rgba(7, 95, 228, 0.1);
+    .card-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--color-navy); }
+    .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease); }
+    .hub-badge {
+      position: absolute; top: 12px; left: 12px; z-index: 1;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 11px; border-radius: 999px;
+      background: rgba(3, 27, 78, 0.65); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff; font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
     }
-    .tool-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: var(--color-primary-lightest);
-      color: var(--color-primary);
-      display: inline-block;
-      margin-bottom: 12px;
-      width: fit-content;
+    .hub-badge-done {
+      left: auto; right: 12px; background: var(--color-success); border-color: transparent;
+      opacity: 0; transform: translateY(-4px); transition: opacity 220ms var(--ease), transform 220ms var(--ease);
     }
-    .card-h3 {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--ha-title);
-      margin-bottom: 8px;
-    }
-    .card-p {
-      font-size: 14.5px;
-      color: var(--ha-text-secondary);
-      line-height: 1.55;
-      margin-bottom: 20px;
-    }
-    .btn-card-action {
-      width: 100%;
-      padding: 11px 16px;
-      border-radius: 10px;
-      background: rgba(7, 95, 228, 0.08);
-      color: var(--color-primary);
-      font-weight: 700;
-      font-size: 13.5px;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: 1px solid rgba(7, 95, 228, 0.18);
-      cursor: pointer;
-      transition: all 180ms ease;
-      font-family: var(--font);
-    }
-    .btn-card-action:hover {
-      background: var(--color-primary);
-      color: #ffffff;
-    }
+    .hub-badge-done .i { width: 13px; height: 13px; stroke-width: 3; }
+    .hub-card.is-done .hub-badge-done { opacity: 1; transform: none; }
+    .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .card-tag { font-size: 12.5px; font-weight: 700; color: var(--color-primary); }
+    .card-title { margin: 0; font-size: 18px; font-weight: 800; line-height: 1.25; letter-spacing: -0.2px; color: var(--color-navy); }
+    .card-text { margin: 0; font-size: 14px; line-height: 1.55; color: var(--color-text-secondary); }
+    .card-actions { margin-top: auto; padding-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 
-    /* Grid de Skills dos Agentes */
-    .skills-grid {
+    .check-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: none; border: 0; padding: 6px 2px; cursor: pointer;
+      font-size: 13.5px; font-weight: 700; color: var(--color-text-muted);
+      transition: color 160ms var(--ease);
+    }
+    .hub-check-box {
+      width: 20px; height: 20px; border-radius: 6px; border: 2px solid #cfd6e0;
+      display: grid; place-items: center; transition: background 180ms var(--ease), border-color 180ms var(--ease);
+    }
+    .hub-check-box .i { width: 12px; height: 12px; stroke-width: 3.5; color: #fff; opacity: 0; transform: scale(0.6); transition: opacity 180ms var(--ease), transform 180ms var(--ease); }
+    .is-done .check-btn, .check-btn[aria-pressed="true"] { color: var(--color-success); }
+    .check-btn[aria-pressed="true"] .hub-check-box { background: var(--color-success); border-color: var(--color-success); }
+    .check-btn[aria-pressed="true"] .hub-check-box .i { opacity: 1; transform: none; }
+
+    /* ─── Banner do Time ─── */
+    .team-banner {
+      position: relative; border-radius: 26px; overflow: hidden;
+      aspect-ratio: 16 / 6; min-height: 240px; background: var(--color-navy);
+      box-shadow: 0 16px 44px rgba(3, 27, 78, 0.14);
+    }
+    .team-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+    .team-banner::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(3,27,78,0.92) 0%, rgba(3,27,78,0.35) 45%, rgba(3,27,78,0) 70%);
+    }
+    .team-banner-copy {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+      padding: 24px 30px; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+      color: #fff;
+    }
+    .team-banner-copy blockquote { margin: 0; font-size: clamp(20px, 2.2vw, 26px); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; max-width: 540px; }
+    .team-banner-copy p { margin: 5px 0 0; font-size: 14.5px; color: rgba(255,255,255,0.8); }
+
+    /* ─── Grade dos 7 Agentes ─── */
+    .hub-agents {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
     }
-    .skill-box {
-      background: #ffffff;
-      border: 1px solid rgba(7, 95, 228, 0.14);
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+    .agent {
+      text-align: left; cursor: pointer; font: inherit; color: inherit;
+      background: #fff; border-radius: 20px; padding: 12px 12px 16px;
+      border: 1px solid var(--line); box-shadow: var(--card-shadow);
+      display: flex; flex-direction: column; gap: 4px;
+      transition: transform 260ms var(--ease), box-shadow 260ms var(--ease), border-color 260ms var(--ease);
+    }
+    .agent:active { transform: scale(0.98); }
+    .agent-stage {
+      height: 124px; border-radius: 14px; margin-bottom: 10px;
+      background: radial-gradient(120% 90% at 50% 100%, #dce8fd 0%, var(--color-primary-lightest) 45%, #f6f9fe 100%);
+      display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+    }
+    .agent-stage img { height: 104px; width: auto; max-width: 82%; object-fit: contain; transition: transform 320ms var(--ease); transform-origin: 50% 100%; }
+    .agent-num { font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px; color: var(--color-primary); padding: 0 4px; }
+    .agent-role { font-size: 15.5px; font-weight: 800; line-height: 1.25; color: var(--color-navy); padding: 0 4px; }
+    .agent-desc {
+      font-size: 13px; line-height: 1.45; color: var(--color-text-secondary); padding: 0 4px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .agent-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 0 4px; font-size: 13px; font-weight: 700; color: var(--color-primary); }
+    .agent-link .i { width: 14px; height: 14px; transition: transform 200ms var(--ease); }
+    .agent-all {
+      background: var(--color-navy); color: #fff; border-color: transparent;
+      justify-content: space-between; padding: 20px;
+    }
+    .agent-all .agent-num { color: #a5f3fc; padding: 0; }
+    .agent-all .agent-role { color: #fff; padding: 0; font-size: 17px; margin-top: 4px; }
+    .agent-all .agent-desc { color: rgba(255,255,255,0.75); padding: 0; -webkit-line-clamp: 3; }
+    .agent-all .agent-link { color: #fff; padding: 0; }
+    .agent-all-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.12); display: grid; place-items: center; }
+    .agent-all-icon .i { width: 22px; height: 22px; }
+
+    /* ─── Pós-Aula (Cards Horizontais) ─── */
+    .hub-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card-row { flex-direction: row; }
+    .card-row .card-media { aspect-ratio: auto; width: 42%; flex-shrink: 0; min-height: 200px; }
+    .card-row .card-media img { position: absolute; inset: 0; }
+
+    /* ─── Rail Lateral Direita (Progresso & Aula) ─── */
+    .hub-rail {
+      grid-area: rail;
+      position: sticky;
+      top: 20px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
+      box-sizing: border-box;
     }
-    .skill-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
+    .panel { background: #fff; border-radius: var(--r-card); border: 1px solid var(--line); box-shadow: var(--card-shadow); padding: 20px; }
+    .panel-title { display: flex; align-items: center; justify-content: space-between; margin: 0 0 14px; font-size: 15.5px; font-weight: 800; color: var(--color-navy); }
+    .panel-title small { font-family: var(--mono); font-size: 10.5px; font-weight: 700; color: var(--color-text-muted); letter-spacing: 0.6px; }
+
+    .progress { text-align: center; }
+    .ring { position: relative; width: 128px; height: 128px; margin: 4px auto 14px; }
+    .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 5; }
+    .ring .ring-bg { stroke: var(--color-primary-lightest); }
+    .ring .ring-fg { stroke: var(--color-primary); stroke-linecap: round; transition: stroke-dashoffset 700ms var(--ease); }
+    .ring-avatar {
+      position: absolute; inset: 13px; border-radius: 50%; overflow: hidden;
+      background: radial-gradient(circle at 50% 80%, #cfe0fd, var(--color-primary-lightest));
+      display: flex; align-items: flex-end; justify-content: center;
     }
-    .skill-filename {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--color-primary);
-      background: #f0f6ff;
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(7, 95, 228, 0.15);
+    .ring-avatar img { width: 80%; transform: translateY(16%); }
+    .ring-pct {
+      position: absolute; top: 4px; right: -4px;
+      background: var(--color-primary); color: #fff; font-size: 11.5px; font-weight: 800;
+      padding: 3px 8px; border-radius: 999px; border: 3px solid #fff;
     }
-    .skill-code-preview {
-      background: #0f172a;
-      color: #e2e8f0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      line-height: 1.5;
-      padding: 14px;
-      border-radius: 10px;
-      max-height: 150px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      border: 1px solid #1e293b;
+    .progress h3 { margin: 0; font-size: 18.5px; font-weight: 800; color: var(--color-navy); letter-spacing: -0.2px; }
+    .progress p { margin: 4px 0 14px; font-size: 13.5px; color: var(--color-text-secondary); }
+    .steps { list-style: none; margin: 0; padding: 12px; background: var(--color-bg); border-radius: 16px; text-align: left; display: flex; flex-direction: column; gap: 2px; }
+    .steps .check-btn { width: 100%; padding: 7px 6px; font-size: 13.5px; color: var(--color-navy); font-weight: 600; border-radius: 10px; }
+    .steps .check-btn[aria-pressed="true"] { color: var(--color-text-muted); text-decoration: line-through; text-decoration-thickness: 1.5px; }
+
+    .live-card { padding: 0; overflow: hidden; }
+    .live-media { position: relative; height: 140px; }
+    .live-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+    .live-body { padding: 16px 18px 18px; }
+    .live-body h3 { margin: 0 0 4px; font-size: 16px; font-weight: 800; line-height: 1.3; color: var(--color-navy); }
+    .live-body > p { margin: 0 0 12px; font-size: 13px; color: var(--color-text-secondary); display: flex; align-items: center; gap: 6px; }
+    .live-body > p .i { width: 15px; height: 15px; }
+    .countdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .countdown div { background: var(--color-bg); border-radius: 12px; padding: 9px 4px; text-align: center; }
+    .countdown b { display: block; font-size: 22px; font-weight: 800; color: var(--color-navy); line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .countdown span { font-size: 11px; font-weight: 600; color: var(--color-text-muted); }
+    .live-status { display: none; margin-bottom: 12px; padding: 10px 12px; border-radius: 12px; background: var(--color-primary-lightest); color: var(--color-primary); font-size: 13.5px; font-weight: 700; }
+
+    .people { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+    .person { display: flex; align-items: center; gap: 12px; }
+    .person-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: var(--color-primary-lightest); display: flex; align-items: flex-end; justify-content: center; }
+    .person-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .person-avatar.is-mascot img { width: 86%; height: auto; transform: translateY(14%); object-fit: contain; }
+    .person strong { display: block; font-size: 14px; font-weight: 700; color: var(--color-navy); line-height: 1.25; }
+    .person small { font-size: 12px; color: var(--color-text-muted); font-weight: 600; }
+
+    /* ─── Rodapé ─── */
+    .foot {
+      margin-top: 56px; padding: 24px 4px 8px; border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      font-size: 13.5px; color: var(--color-text-muted);
     }
-    .skill-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 4px;
+    .foot-brand { display: flex; align-items: center; gap: 14px; }
+    .foot-brand img:first-child { height: 26px; }
+    .foot-brand img:last-child { height: 18px; }
+    .foot-brand i { width: 1px; height: 20px; background: rgba(3,27,78,0.14); }
+    .foot a { color: var(--color-primary); font-weight: 700; }
+
+    /* ─── Gaveta Lateral (Slide-over) ─── */
+    .sheet-overlay {
+      position: fixed; inset: 0; z-index: 900;
+      background: rgba(3, 27, 78, 0.42); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none; transition: opacity 260ms var(--ease);
     }
-    .btn-sm-copy {
-      flex: 1;
-      padding: 9px 14px;
-      border-radius: 8px;
-      background: var(--color-primary);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: 13px;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-family: var(--font);
-      transition: background 180ms;
+    .sheet {
+      position: fixed; top: 12px; right: 12px; bottom: 12px; z-index: 901;
+      width: min(560px, calc(100vw - 24px));
+      background: #fff; border-radius: 26px; overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 30px 80px rgba(3, 27, 78, 0.3);
+      transform: translateX(calc(100% + 24px)); transition: transform 360ms var(--ease);
+      visibility: hidden;
     }
-    .btn-sm-copy:hover { background: var(--color-primary-dark); }
-    .btn-sm-dl {
-      padding: 9px 14px;
-      border-radius: 8px;
-      background: #f8fafc;
-      color: var(--ha-title);
-      font-weight: 600;
-      font-size: 13px;
-      border: 1px solid #cbd5e1;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    body.sheet-open { overflow: hidden; }
+    body.sheet-open .sheet-overlay { opacity: 1; pointer-events: auto; }
+    body.sheet-open .sheet { transform: none; visibility: visible; }
+    .sheet-media { position: relative; height: 170px; flex-shrink: 0; background: radial-gradient(120% 100% at 50% 100%, #dce8fd 0%, var(--color-primary-lightest) 50%, #f6f9fe 100%); display: flex; align-items: flex-end; justify-content: center; overflow: hidden; }
+    .sheet-media img { height: 150px; width: auto; }
+    .sheet-media.is-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .sheet-close {
+      position: absolute; top: 14px; right: 14px; z-index: 2;
+      width: 38px; height: 38px; border-radius: 50%; border: 0; cursor: pointer;
+      background: rgba(255,255,255,0.92); color: var(--color-navy); display: grid; place-items: center;
+      box-shadow: 0 4px 14px rgba(3,27,78,0.15);
     }
-    .btn-sm-dl:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
+    .sheet-body { padding: 22px 26px; overflow-y: auto; flex: 1; }
+    .sheet-body h3 { margin: 6px 0 6px; font-size: 23px; font-weight: 800; letter-spacing: -0.4px; color: var(--color-navy); line-height: 1.2; }
+    .sheet-body > p { margin: 0 0 16px; font-size: 15px; color: var(--color-text-secondary); }
+    .sheet-file { display: inline-block; margin-bottom: 10px; font-family: var(--mono); font-size: 11.5px; font-weight: 700; color: var(--color-text-muted); }
+    .code {
+      margin: 0; padding: 18px; border-radius: 16px;
+      background: #0f172a; color: #e2e8f0;
+      font-family: var(--mono); font-size: 12.5px; line-height: 1.65; white-space: pre-wrap; word-break: break-word;
+    }
+    .sheet-foot { display: flex; gap: 10px; padding: 16px 26px 20px; border-top: 1px solid var(--line); flex-shrink: 0; }
+    .sheet-foot .btn { flex: 1; }
+
+    /* ─── Toast Feedback ─── */
+    .hub-toast {
+      position: fixed; left: 50%; bottom: 24px; z-index: 1000;
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 20px; border-radius: 999px;
+      background: var(--color-navy); color: #fff; font-size: 14px; font-weight: 600;
+      box-shadow: 0 14px 34px rgba(3, 27, 78, 0.3);
+      opacity: 0; transform: translate(-50%, 12px); pointer-events: none;
+      transition: opacity 220ms var(--ease), transform 220ms var(--ease);
+    }
+    .hub-toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+    .hub-toast .i { color: #4ade80; stroke-width: 3; }
+
+    :focus-visible { outline: 3px solid rgba(7, 95, 228, 0.45); outline-offset: 2px; }
+
+    /* Hover em desktop */
+    @media (hover: hover) and (pointer: fine) {
+      .side-link:hover { background: var(--color-bg); color: var(--color-navy); }
+      .side-link.is-active:hover { background: var(--color-primary-lightest); color: var(--color-primary); }
+      .side-back:hover { color: var(--color-primary); }
+      .btn-white:hover { background: #eef4ff; }
+      .btn-glass:hover { background: rgba(255,255,255,0.2); }
+      .btn-primary:hover { background: var(--color-primary-dark); }
+      .btn-soft:hover { background: #d9e7fd; }
+      .btn-line:hover { border-color: var(--color-primary); color: var(--color-primary); }
+      .icon-btn:hover { color: var(--color-primary); }
+      .quick-card:hover { transform: translateY(-2px); box-shadow: var(--card-shadow); }
+      .hub-card:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(3,27,78,0.04), 0 20px 40px rgba(3,27,78,0.09); }
+      .hub-card:hover .card-media img { transform: scale(1.04); }
+      .check-btn:hover { color: var(--color-navy); }
+      .agent:hover { transform: translateY(-3px); border-color: rgba(7,95,228,0.22); box-shadow: 0 2px 4px rgba(3,27,78,0.04), 0 20px 40px rgba(3,27,78,0.09); }
+      .agent:hover .agent-stage img { transform: translateY(-4px) scale(1.04); }
+      .agent:hover .agent-link .i { transform: translateX(3px); }
+      .steps .check-btn:hover { background: #fff; }
     }
 
-    /* Prompts Mestres */
-    .prompts-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .prompt-card {
-      background: #ffffff;
-      border: 1px solid rgba(7, 95, 228, 0.16);
-      border-radius: 20px;
-      padding: 26px;
-      box-shadow: 0 8px 24px rgba(7, 95, 228, 0.04);
-    }
-    .prompt-pre {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      border-left: 4px solid var(--color-primary);
-      border-radius: 10px;
-      padding: 16px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12.5px;
-      color: #1e293b;
-      white-space: pre-wrap;
-      line-height: 1.55;
-      margin: 14px 0;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation: none !important; }
+      html { scroll-behavior: auto; }
     }
 
-    /* Toast de Confirmação */
-    #copyToast {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      z-index: 9999;
-      background: var(--color-navy);
-      color: #ffffff;
-      padding: 14px 22px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0 12px 30px rgba(3, 27, 78, 0.25);
-      display: none;
-      align-items: center;
-      gap: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .ha-footer {
-      margin-top: 64px;
-      padding: 36px 0 56px;
-      border-top: 1px solid rgba(7, 95, 228, 0.12);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 14px;
-      color: var(--ha-text-muted);
-    }
-
-    @media (max-width: 960px) {
-      .hub-hero, .setup-grid-3, .skills-grid {
-        grid-template-columns: 1fr;
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVIDADE CALIBRADA (NUNCA ESPREME O CENTRO)
+       ═══════════════════════════════════════════════════════════════ */
+    /* Em telas médias (laptops menores, 1024px a 1240px): Rail passa para 2 colunas embaixo do hero */
+    @media (max-width: 1240px) {
+      .hub-app {
+        grid-template-columns: 216px minmax(0, 1fr);
+        grid-template-areas:
+          "side main"
+          "side rail";
+        gap: 20px;
+        padding: 16px 20px;
       }
-      .nav-links { display: none; }
+      .hub-rail {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 36px;
+      }
+      .hub-agents { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    /* Em tablets (860px a 1024px) */
+    @media (max-width: 1024px) {
+      .hub-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hub-grid-2 { grid-template-columns: 1fr; }
+      .hub-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hub-rail .panel:last-child { grid-column: 1 / -1; }
+    }
+
+    /* Em telas móveis e tablets verticais (< 860px) */
+    @media (max-width: 860px) {
+      .hub-app {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+          "side"
+          "main"
+          "rail";
+        padding: 0 14px 24px;
+        gap: 0;
+      }
+      .hub-side {
+        position: sticky; top: 0; z-index: 50; height: auto; margin: 0 -14px 16px;
+        border-radius: 0; padding: 12px 14px 0; flex-direction: column;
+        background: rgba(255,255,255,0.94); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 1px 0 var(--line);
+        border: none;
+      }
+      .side-brand { padding: 2px 4px 8px; }
+      .side-brand img { height: 22px; }
+      .side-label, .side-kit, .side-back { display: none; }
+      .side-nav { flex-direction: row; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
+      .side-nav::-webkit-scrollbar { display: none; }
+      .side-link { flex-shrink: 0; padding: 8px 12px; font-size: 14px; gap: 8px; }
+      .side-link .side-count { display: none; }
+      .hub-rail { margin-top: 40px; grid-template-columns: 1fr; }
+      .hub-topbar { padding-top: 4px; }
+      .topbar-actions .icon-btn { display: none; }
+      .hub-hero { grid-template-columns: 1fr; }
+      .hero-media { order: -1; min-height: 240px; }
+      .hero-media::before { inset: auto 0 0 0; width: auto; height: 50%; background: linear-gradient(0deg, #04205e 0%, rgba(4,32,94,0) 100%); }
+      .hub-quick { grid-template-columns: 1fr; gap: 10px; }
+      .hub-agents { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      .card-row { flex-direction: column; }
+      .card-row .card-media { width: 100%; aspect-ratio: 16 / 9; min-height: 0; }
+      .team-banner { aspect-ratio: 4 / 3.2; }
+      .team-banner img { object-position: 50% 62%; }
+    }
+
+    @media (max-width: 600px) {
+      .hub-grid-3 { grid-template-columns: 1fr; }
+      .hero-copy { padding: 26px 20px; }
+      .hub-hero h1 { font-size: 30px; }
+      .hero-ctas .btn { flex: 1 1 100%; }
+      .user-chip { padding-right: 4px; }
+      .user-chip > div { display: none; }
+      .block-head h2 { font-size: 24px; }
+      .team-banner-copy { padding: 20px; }
+      .team-banner-copy .btn { width: 100%; }
+      .agent-stage { height: 104px; }
+      .agent-stage img { height: 88px; }
+      .agent-role { font-size: 15px; }
+      .sheet { top: auto; right: 0; bottom: 0; left: 0; width: 100%; max-height: 92vh; border-radius: 26px 26px 0 0; transform: translateY(100%); }
+      .sheet-foot { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header Co-Branding -->
-  <header class="ha-navbar">
-    <a href="index.html" class="brand-cobrand">
-      <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega" class="brand-ln-svg">
-      <div class="brand-divider"></div>
-      <div class="brand-agentes-lockup">
-        <img src="assets/emblema_agentes_sa.svg" alt="Emblema" style="height: 32px;">
-        <img src="assets/logo_agentes_sa_completo.png" alt="Agentes S.A." style="height: 26px;">
+  <!-- Ícones SVG reutilizáveis -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-live" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49M7.76 16.24a6 6 0 0 1 0-8.49M19.07 4.93a10 10 0 0 1 0 14.14M4.93 19.07a10 10 0 0 1 0-14.14"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></symbol>
+    <symbol id="i-package" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></symbol>
+  </svg>
+
+  <div class="hub-app">
+
+    <!-- ═════════════ SIDEBAR ═════════════ -->
+    <aside class="hub-side" aria-label="Navegação da Central do Aluno">
+      <a href="#inicio" class="side-brand" aria-label="Agentes S.A. — início">
+        <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+      </a>
+
+      <div class="side-label">Sua jornada</div>
+      <nav class="side-nav">
+        <a href="#inicio" class="side-link is-active" data-spy="inicio"><svg class="i"><use href="#i-home"/></svg>Início</a>
+        <a href="#antes" class="side-link" data-spy="antes"><svg class="i"><use href="#i-tool"/></svg>Antes da aula<span class="side-count" data-progress-text>0/3</span></a>
+        <a href="#time" class="side-link" data-spy="time"><svg class="i"><use href="#i-users"/></svg>Seu time<span class="side-count">7</span></a>
+        <a href="#prompts" class="side-link" data-spy="prompts"><svg class="i"><use href="#i-terminal"/></svg>Prompts<span class="side-count">3</span></a>
+        <a href="#depois" class="side-link" data-spy="depois"><svg class="i"><use href="#i-award"/></svg>Certificado</a>
+      </nav>
+
+      <div class="side-kit">
+        <img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="" aria-hidden="true">
+        <strong>Kit completo</strong>
+        <p>Skills, prompts e pasta modelo num só arquivo.</p>
+        <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-white btn-sm btn-block">
+          <svg class="i"><use href="#i-download"/></svg>Baixar .zip
+        </a>
       </div>
-    </a>
+      <a href="index.html" class="side-back"><svg class="i"><use href="#i-arrow-left"/></svg>Página da aula</a>
+    </aside>
 
-    <nav class="nav-links">
-      <a href="#preparacao" class="nav-link">1. Instalação Pré-Aula</a>
-      <a href="#skills" class="nav-link">2. Skills dos Agentes</a>
-      <a href="#prompts" class="nav-link">3. Prompts Delta-Diff</a>
-      <a href="#certificado" class="nav-link">4. Slides & Certificado</a>
-    </nav>
+    <!-- ═════════════ CONTEÚDO PRINCIPAL (hub-main) ═════════════ -->
+    <main class="hub-main" id="inicio">
 
-    <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="nav-cta">
-      <span>Baixar Pacote Completo (.ZIP)</span>
-      <span>⬇</span>
-    </a>
-  </header>
-
-  <main class="site-container">
-
-    <!-- Hero de Boas-Vindas da Central do Aluno -->
-    <section class="hub-hero">
-      <div>
-        <div class="hub-status-pill">
-          <span>🟢 CENTRAL DO ALUNO • ACESSO OFICIAL LIBERADO</span>
+      <header class="hub-topbar">
+        <div class="topbar-title">
+          <strong>Central do Aluno</strong>
+          Aula ao vivo e gratuita
         </div>
-        <h1 id="welcomeStudentTitle">Bem-vindo(a) ao Chão de Fábrica da Agentes S.A.</h1>
-        <p>
-          Aqui estão reunidos todos os programas gratuitos, a estrutura de pastas do projeto modelo, os prompts de aprendizado de máquina e as <strong>.skills</strong> dos 6 agentes que vamos operar ao vivo na <strong>Terça-feira, 24/11 às 20h00</strong>.
-        </p>
-        <div class="hub-quick-actions">
-          <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn-hub-primary">
-            <span>📦 Baixar Tudo de Uma Vez (.ZIP)</span>
+        <div class="topbar-actions">
+          <a class="icon-btn" href="#" data-calendar target="_blank" rel="noopener" aria-label="Salvar aula na agenda" title="Salvar na agenda">
+            <svg class="i"><use href="#i-calendar"/></svg>
           </a>
-          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Webinar+Agentes+S.A.+%E2%80%94+Crie+seu+Primeiro+Time+de+IA+no+Marketing+(Leonardo+N%C3%B3brega)&dates=20261124T230000Z/20261125T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.&location=YouTube+Ao+Vivo" target="_blank" class="btn-hub-glass">
-            <span>📅 Salvar Aula na Google Agenda</span>
-          </a>
-          <a href="../assets/downloads/Checklist_5_Passos_Agentes_IA_Leonardo_Nobrega.pdf" download class="btn-hub-glass">
-            <span>📄 Baixar Checklist (.PDF)</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="hub-hero-visual">
-        <img src="assets/lian_hero_16x9.jpg" alt="Mascote Lian na Fábrica Agentes S.A.">
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         MÓDULO 1: INSTALAÇÃO PRÉ-AULA (PROGRAMAS GRATUITOS)
-         ═══════════════════════════════════════════════════════════════ -->
-    <section class="section-wrap" id="preparacao">
-      <div class="sec-head-row">
-        <div>
-          <span class="step-kicker">ETAPA 01 • PREPARAÇÃO RECOMENDADA ANTES DO DIA 24/11</span>
-          <h2 class="sec-title">Ferramentas Gratuitas & Estrutura de Pastas</h2>
-          <p class="sec-sub">Deixe esses 3 itens prontos no seu computador para acompanhar a construção do time sem travar durante a transmissão.</p>
-        </div>
-      </div>
-
-      <div class="setup-grid-3">
-        <!-- Item 1: Antigravity -->
-        <div class="spotlight-card">
-          <div>
-            <span class="tool-tag">FERRAMENTA 01 • O CÉREBRO LOCAL</span>
-            <h3 class="card-h3">Google Antigravity</h3>
-            <p class="card-p">
-              É onde os nossos agentes vivem, leem as pastas da sua marca e executam as <strong>.skills</strong>. Funciona direto no seu computador (Mac, Windows ou Linux) sem precisar saber programar.
-            </p>
+          <div class="user-chip">
+            <div class="user-avatar" id="userInitials" aria-hidden="true">AG</div>
+            <div>
+              <span id="userName">Aluno(a)</span>
+              <small id="userId">CRACHÁ #AG-2411</small>
+            </div>
           </div>
-          <a href="https://idx.google.com/" target="_blank" class="btn-card-action">
-            <span>Acessar Site Oficial</span>
-            <span>↗</span>
-          </a>
         </div>
+      </header>
 
-        <!-- Item 2: OpenBot -->
-        <div class="spotlight-card">
-          <div>
-            <span class="tool-tag">FERRAMENTA 02 • AS MÃOS NA WEB</span>
-            <h3 class="card-h3">OpenBot (Open-Source)</h3>
-            <p class="card-p">
-              Dá um navegador próprio para o seu agente pesquisar referências, preencher sistemas e enviar confirmações no WhatsApp — 100% gratuito e sem mensalidade em dólar.
-            </p>
+      <!-- Hero Principal com Proporção Confortável -->
+      <section class="hub-hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <span class="live-pill"><span class="live-dot"></span>Seu crachá está ativo</span>
+          <h1 id="heroTitle">Bem-vindo à fábrica<span id="heroName"></span>.</h1>
+          <p>Aqui ficam as ferramentas, as skills e os prompts do time de agentes de IA que vamos montar juntos na aula.</p>
+          <div class="hero-meta">
+            <span><svg class="i"><use href="#i-calendar"/></svg>Terça, 24/11 · 20h</span>
+            <span><svg class="i"><use href="#i-live"/></svg>Ao vivo no YouTube</span>
           </div>
-          <a href="../assets/downloads/Roteiro_OpenBot_Automacao_Web.md" download class="btn-card-action">
-            <span>Baixar Guia de Configuração (.MD)</span>
-            <span>⬇</span>
-          </a>
-        </div>
-
-        <!-- Item 3: Projeto Modelo -->
-        <div class="spotlight-card">
-          <div>
-            <span class="tool-tag">ESTRUTURA PRONTA • PLUG & PLAY</span>
-            <h3 class="card-h3">Projeto Modelo da Marca</h3>
-            <p class="card-p">
-              Não comece de uma pasta vazia. Baixe a árvore de diretórios já organizada com os arquivos de Brand DNA, regras visuais e as 6 skills prontas para importar.
-            </p>
+          <div class="hero-ctas">
+            <a href="#antes" class="btn btn-white">Começar preparação<svg class="i"><use href="#i-arrow"/></svg></a>
+            <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-glass"><svg class="i"><use href="#i-download"/></svg>Baixar kit completo</a>
           </div>
-          <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn-card-action">
-            <span>Baixar Pasta Modelo (.ZIP)</span>
-            <span>⬇</span>
-          </a>
         </div>
-      </div>
-    </section>
+        <div class="hero-media">
+          <img src="assets/central/hero_time.jpg" alt="Lian e o time de agentes da Agentes S.A. no chão de fábrica" fetchpriority="high">
+        </div>
+      </section>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         MÓDULO 2: PACOTE DE SKILLS DOS 6 AGENTES (.SKILL / .MD)
-         ═══════════════════════════════════════════════════════════════ -->
-    <section class="section-wrap" id="skills">
-      <div class="sec-head-row">
-        <div>
-          <span class="step-kicker">ETAPA 02 • OS MANUAIS DO SEU TIME DE IA</span>
-          <h2 class="sec-title">Biblioteca de Skills dos Agentes Especialistas</h2>
-          <p class="sec-sub">Copie o código direto com 1 clique ou baixe os arquivos individuais em formato Markdown (<code>.md</code>).</p>
-        </div>
-        <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="nav-cta">
-          <span>Baixar todas as 7 Skills (.ZIP)</span>
+      <!-- Atalhos de Progresso Rápido -->
+      <div class="hub-quick">
+        <a href="#antes" class="quick-card">
+          <span class="quick-icon"><svg class="i"><use href="#i-tool"/></svg></span>
+          <div>
+            <small>Antes da aula</small>
+            <strong><span data-progress-text>0/3</span> prontos</strong>
+            <div class="quick-bar"><i data-progress-bar></i></div>
+          </div>
+        </a>
+        <a href="#time" class="quick-card">
+          <span class="quick-icon"><svg class="i"><use href="#i-users"/></svg></span>
+          <div>
+            <small>Seu time</small>
+            <strong>7 agentes</strong>
+          </div>
+        </a>
+        <a href="#prompts" class="quick-card">
+          <span class="quick-icon"><svg class="i"><use href="#i-terminal"/></svg></span>
+          <div>
+            <small>Calibração</small>
+            <strong>3 prompts</strong>
+          </div>
         </a>
       </div>
 
-      <div class="skills-grid">
-
-        <!-- Skill 00: Gerente -->
-        <div class="skill-box">
-          <div class="skill-head">
-            <div>
-              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">00. Agente Gerente de Operação (Lian)</h3>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Coordena os 6 especialistas e gerencia os 2 pontos de aprovação humana (HITL).</p>
-            </div>
-            <span class="skill-filename">00_gerente_operacao.md</span>
+      <!-- ═════════════ ETAPA 1 · ANTES DA AULA ═════════════ -->
+      <section class="hub-block" id="antes" aria-labelledby="antesTitle">
+        <div class="block-head">
+          <div>
+            <span class="kicker">Etapa 1 · Antes da aula</span>
+            <h2 id="antesTitle">Prepare sua bancada</h2>
+            <p>Três coisas para deixar prontas no computador e acompanhar a aula sem travar.</p>
           </div>
-          <pre class="skill-code-preview" id="code-skill-0">---
+        </div>
+
+        <div class="hub-grid-3">
+          <article class="hub-card" data-step="antigravity">
+            <div class="card-media">
+              <span class="hub-badge">Passo 1</span>
+              <span class="hub-badge hub-badge-done"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
+              <img src="assets/central/prep_antigravity.jpg" alt="Sala de controle da fábrica com vários monitores" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">O cérebro do time</span>
+              <h3 class="card-title">Google Antigravity</h3>
+              <p class="card-text">Onde os agentes vivem, leem as pastas da sua marca e executam as skills. Não precisa programar.</p>
+              <div class="card-actions">
+                <a href="https://antigravity.google/" target="_blank" rel="noopener" class="btn btn-soft btn-sm">Instalar<svg class="i"><use href="#i-external"/></svg></a>
+                <button class="check-btn" type="button" data-toggle="antigravity" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card" data-step="openbot">
+            <div class="card-media">
+              <span class="hub-badge">Passo 2</span>
+              <span class="hub-badge hub-badge-done"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
+              <img src="assets/central/prep_openbot.jpg" alt="Estação de acoplamento de portas da fábrica" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">As mãos na web</span>
+              <h3 class="card-title">OpenBot</h3>
+              <p class="card-text">Dá um navegador para o agente pesquisar, preencher sistemas e avisar você no WhatsApp. Gratuito.</p>
+              <div class="card-actions">
+                <a href="downloads/materiais/Roteiro_OpenBot_Automacao_Web.md" download class="btn btn-soft btn-sm"><svg class="i"><use href="#i-download"/></svg>Guia de instalação</a>
+                <button class="check-btn" type="button" data-toggle="openbot" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card" data-step="pasta">
+            <div class="card-media">
+              <span class="hub-badge">Passo 3</span>
+              <span class="hub-badge hub-badge-done"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
+              <img src="assets/central/prep_projeto.jpg" alt="Vestiário da fábrica com armários e capacetes azuis" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Seu armário organizado</span>
+              <h3 class="card-title">Pasta modelo da marca</h3>
+              <p class="card-text">A estrutura de pastas pronta, com Brand DNA, regras visuais e as skills do time.</p>
+              <div class="card-actions">
+                <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-soft btn-sm"><svg class="i"><use href="#i-download"/></svg>Baixar pasta</a>
+                <button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ═════════════ ETAPA 2 · SEU TIME ═════════════ -->
+      <section class="hub-block" id="time" aria-labelledby="timeTitle">
+        <div class="block-head">
+          <div>
+            <span class="kicker">Etapa 2 · O time</span>
+            <h2 id="timeTitle">Conheça seu time de agentes</h2>
+            <p>Cada agente tem uma função e um manual (a skill). Você aprova, eles executam.</p>
+          </div>
+        </div>
+
+        <div class="team-banner">
+          <img src="assets/central/time_completo.jpg" alt="Os oito personagens da Agentes S.A. lado a lado no chão de fábrica" loading="lazy">
+          <div class="team-banner-copy">
+            <div>
+              <blockquote>Eles podem parecer monstros… mas têm coração.</blockquote>
+              <p>7 agentes especialistas, prontos para copiar e usar.</p>
+            </div>
+            <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-white"><svg class="i"><use href="#i-download"/></svg>Baixar as 7 skills</a>
+          </div>
+        </div>
+
+        <div class="hub-agents">
+          <button class="agent" type="button" data-open="skill-00">
+            <div class="agent-stage"><img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="" loading="lazy"></div>
+            <span class="agent-num">AGENTE 00</span>
+            <span class="agent-role">Gerente de Operação</span>
+            <span class="agent-desc">Coordena o time e pede sua aprovação nos 2 momentos certos.</span>
+            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+          </button>
+          <button class="agent" type="button" data-open="skill-01">
+            <div class="agent-stage"><img src="assets/personagens_carteirinha/08_amarelo_oculos_nobg.png" alt="" loading="lazy"></div>
+            <span class="agent-num">AGENTE 01</span>
+            <span class="agent-role">Pesquisador</span>
+            <span class="agent-desc">Varre referências e notícias das últimas 48h atrás de pautas quentes.</span>
+            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+          </button>
+          <button class="agent" type="button" data-open="skill-02">
+            <div class="agent-stage"><img src="assets/personagens_carteirinha/07_azul_boina_nobg.png" alt="" loading="lazy"></div>
+            <span class="agent-num">AGENTE 02</span>
+            <span class="agent-role">Estrategista de Pautas</span>
+            <span class="agent-desc">Cruza as pesquisas com o DNA da marca e escolhe o melhor ângulo.</span>
+            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+          </button>
+          <button class="agent" type="button" data-open="skill-03">
+            <div class="agent-stage"><img src="assets/personagens_carteirinha/03_rosa_coracao_nobg.png" alt="" loading="lazy"></div>
+            <span class="agent-num">AGENTE 03</span>
+            <span class="agent-role">Redator</span>
+            <span class="agent-desc">Escreve legendas, carrosséis e roteiros com o seu tom de voz.</span>
+            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+          </button>
+          <button class="agent" type="button" data-open="skill-04">
+            <div class="agent-stage"><img src="assets/personagens_carteirinha/04_laranja_cubo_nobg.png" alt="" loading="lazy"></div>
+            <span class="agent-num">AGENTE 04</span>
+            <span class="agent-role">Designer</span>
+            <span class="agent-desc">Transforma o texto aprovado em peças visuais dentro da sua identidade.</span>
+            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+          </button>
+          <button class="agent" type="button" data-open="skill-05">
+            <div class="agent-stage"><img src="assets/personagens_carteirinha/06_branco_vinil_nobg.png" alt="" loading="lazy"></div>
+            <span class="agent-num">AGENTE 05</span>
+            <span class="agent-role">Editor de Vídeo</span>
+            <span class="agent-desc">Gera a locução e monta o vídeo curto com legendas.</span>
+            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+          </button>
+          <button class="agent" type="button" data-open="skill-06">
+            <div class="agent-stage"><img src="assets/personagens_carteirinha/02_verde_sapo_nobg.png" alt="" loading="lazy"></div>
+            <span class="agent-num">AGENTE 06</span>
+            <span class="agent-role">Social Media</span>
+            <span class="agent-desc">Agenda a publicação e te avisa no WhatsApp quando estiver no ar.</span>
+            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+          </button>
+          <a class="agent agent-all" href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download>
+            <span class="agent-all-icon"><svg class="i"><use href="#i-package"/></svg></span>
+            <div>
+              <span class="agent-num">PACOTE COMPLETO</span>
+              <span class="agent-role">Todas as skills de uma vez</span>
+              <span class="agent-desc">Os 7 arquivos .md mais a pasta modelo, prontos para importar.</span>
+            </div>
+            <span class="agent-link">Baixar .zip<svg class="i"><use href="#i-download"/></svg></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ═════════════ ETAPA 3 · PROMPTS ═════════════ -->
+      <section class="hub-block" id="prompts" aria-labelledby="promptsTitle">
+        <div class="block-head">
+          <div>
+            <span class="kicker">Etapa 3 · Calibração</span>
+            <h2 id="promptsTitle">Prompts para treinar o time</h2>
+            <p>Os 3 prompts que usamos na aula para ensinar seu jeito de escrever e manter o mascote igual em qualquer cena.</p>
+          </div>
+        </div>
+
+        <div class="hub-grid-3">
+          <article class="hub-card">
+            <div class="card-media">
+              <span class="hub-badge">Prompt 01</span>
+              <img src="assets/central/prompt_delta.jpg" alt="Laboratório de engenharia com braços robóticos amarelos" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Tom de voz</span>
+              <h3 class="card-title">Aprendizado Delta-Diff</h3>
+              <p class="card-text">Compara o rascunho da IA com a versão que você aprovou e grava as regras do seu estilo.</p>
+              <div class="card-actions">
+                <button class="btn btn-soft btn-sm" type="button" data-open="prompt-delta">Ver prompt<svg class="i"><use href="#i-arrow"/></svg></button>
+                <button class="icon-btn" type="button" data-copy="prompt-delta" aria-label="Copiar prompt Delta-Diff" title="Copiar"><svg class="i"><use href="#i-copy"/></svg></button>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div class="card-media">
+              <span class="hub-badge">Prompt 02</span>
+              <img src="assets/central/prompt_brain.jpg" alt="Núcleo de IA da fábrica com cilindros de energia" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Memória da marca</span>
+              <h3 class="card-title">Segundo cérebro</h3>
+              <p class="card-text">Transforma seus posts, artigos e materiais antigos na base de conhecimento do time.</p>
+              <div class="card-actions">
+                <button class="btn btn-soft btn-sm" type="button" data-open="prompt-brain">Ver prompt<svg class="i"><use href="#i-arrow"/></svg></button>
+                <button class="icon-btn" type="button" data-copy="prompt-brain" aria-label="Copiar prompt Segundo cérebro" title="Copiar"><svg class="i"><use href="#i-copy"/></svg></button>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div class="card-media">
+              <span class="hub-badge">Prompt 03</span>
+              <img src="assets/central/prompt_mascote.jpg" alt="Bancada de espelhos iluminados no vestiário da fábrica" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Identidade visual</span>
+              <h3 class="card-title">Mascote consistente</h3>
+              <p class="card-text">Mantém seu personagem 3D idêntico em qualquer cenário, a partir do character sheet.</p>
+              <div class="card-actions">
+                <button class="btn btn-soft btn-sm" type="button" data-open="prompt-mascote">Ver prompt<svg class="i"><use href="#i-arrow"/></svg></button>
+                <button class="icon-btn" type="button" data-copy="prompt-mascote" aria-label="Copiar prompt Mascote consistente" title="Copiar"><svg class="i"><use href="#i-copy"/></svg></button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ═════════════ ETAPA 4 · DEPOIS DA AULA ═════════════ -->
+      <section class="hub-block" id="depois" aria-labelledby="depoisTitle">
+        <div class="block-head">
+          <div>
+            <span class="kicker">Etapa 4 · Depois da aula</span>
+            <h2 id="depoisTitle">Leve o que aprendeu</h2>
+            <p>Seu certificado e o material de apoio para revisar com calma.</p>
+          </div>
+        </div>
+
+        <div class="hub-grid-2">
+          <article class="hub-card card-row">
+            <div class="card-media">
+              <span class="hub-badge">Certificado</span>
+              <img src="assets/central/pos_certificado.jpg" alt="Anfiteatro de treinamento da Agentes S.A. University" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Agentes S.A. University</span>
+              <h3 class="card-title">Emita seu certificado</h3>
+              <p class="card-text">Com seu nome, em PNG para o LinkedIn ou PDF para imprimir.</p>
+              <div class="card-actions">
+                <a href="certificado.html?modo=aluno" id="btnCertLink" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-award"/></svg>Emitir certificado</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card card-row">
+            <div class="card-media">
+              <span class="hub-badge">Material</span>
+              <img src="assets/central/pos_resumo.jpg" alt="Sala de reunião da diretoria com vista para o chão de fábrica" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Para revisar</span>
+              <h3 class="card-title">Checklist e diagramas</h3>
+              <p class="card-text">Os 5 passos para montar seu time e os diagramas da esteira de agentes.</p>
+              <div class="card-actions">
+                <a href="downloads/materiais/Checklist_5_Passos_Agentes_IA_Leonardo_Nobrega.pdf" download class="btn btn-line btn-sm"><svg class="i"><use href="#i-file"/></svg>Baixar PDF</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <div class="foot-brand">
+          <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega">
+          <i></i>
+          <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+        </div>
+        <span>Aula ao vivo e gratuita · 24 de novembro, 20h</span>
+        <a href="index.html">← Voltar para a página da aula</a>
+      </footer>
+    </main>
+
+    <!-- ═════════════ RAIL LATERAL DIREITA ═════════════ -->
+    <aside class="hub-rail" aria-label="Seu progresso e próxima aula">
+
+      <section class="panel progress" aria-labelledby="progressTitle">
+        <div class="panel-title"><span>Sua bancada</span><small id="railId">#AG-2411</small></div>
+        <div class="ring">
+          <svg viewBox="0 0 128 128" aria-hidden="true">
+            <circle class="ring-bg" cx="64" cy="64" r="59"/>
+            <circle class="ring-fg" cx="64" cy="64" r="59" stroke-dasharray="370.7" stroke-dashoffset="370.7" id="ringFg"/>
+          </svg>
+          <div class="ring-avatar"><img src="assets/personagens_carteirinha/01_lian_nobg.png" alt=""></div>
+          <span class="ring-pct" id="ringPct">0%</span>
+        </div>
+        <h3 id="progressTitle"><span id="greeting">Olá</span><span id="greetName"></span>!</h3>
+        <p id="progressMsg">Faltam 3 passos para sua bancada ficar pronta.</p>
+        <ul class="steps">
+          <li><button class="check-btn" type="button" data-toggle="antigravity" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Instalar o Antigravity</button></li>
+          <li><button class="check-btn" type="button" data-toggle="openbot" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Configurar o OpenBot</button></li>
+          <li><button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Baixar a pasta modelo</button></li>
+        </ul>
+      </section>
+
+      <section class="panel live-card" aria-labelledby="liveTitle">
+        <div class="live-media">
+          <span class="hub-badge"><svg class="i" style="width:13px;height:13px"><use href="#i-live"/></svg>Aula ao vivo</span>
+          <img src="assets/central/aula_fachada.jpg" alt="Fachada da fábrica Agentes S.A. iluminada à noite" loading="lazy">
+        </div>
+        <div class="live-body">
+          <h3 id="liveTitle">Crie seu primeiro time de agentes de IA</h3>
+          <p><svg class="i"><use href="#i-clock"/></svg>Terça, 24 de novembro · 20h (Brasília)</p>
+          <div class="countdown" id="countdown" aria-live="polite">
+            <div><b id="cdDays">--</b><span>dias</span></div>
+            <div><b id="cdHours">--</b><span>horas</span></div>
+            <div><b id="cdMins">--</b><span>min</span></div>
+          </div>
+          <div class="live-status" id="liveStatus"></div>
+          <a href="#" data-calendar target="_blank" rel="noopener" class="btn btn-primary btn-sm btn-block"><svg class="i"><use href="#i-calendar"/></svg>Salvar na agenda</a>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="peopleTitle">
+        <div class="panel-title" id="peopleTitle"><span>Quem conduz</span></div>
+        <ul class="people">
+          <li class="person">
+            <span class="person-avatar"><img src="assets/central/leonardo.jpg" alt=""></span>
+            <div><strong>Leonardo Nóbrega</strong><small>Professor da aula</small></div>
+          </li>
+          <li class="person">
+            <span class="person-avatar is-mascot"><img src="assets/personagens_carteirinha/01_lian_nobg.png" alt=""></span>
+            <div><strong>Lian</strong><small>Gerente do time de agentes</small></div>
+          </li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+
+  <!-- ═════════════ GAVETA LATERAL (SLIDE-OVER) ═════════════ -->
+  <div class="sheet-overlay" data-close></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheet">
+    <div class="sheet-media" id="sheetMedia">
+      <button class="sheet-close" type="button" data-close aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button>
+      <img id="sheetImg" src="" alt="">
+    </div>
+    <div class="sheet-body">
+      <span class="kicker" id="sheetKicker"></span>
+      <h3 id="sheetTitle"></h3>
+      <p id="sheetDesc"></p>
+      <span class="sheet-file" id="sheetFile"></span>
+      <pre class="code" id="sheetCode"></pre>
+    </div>
+    <div class="sheet-foot">
+      <button class="btn btn-primary" type="button" id="sheetCopy"><svg class="i"><use href="#i-copy"/></svg>Copiar</button>
+      <a class="btn btn-line" id="sheetDownload" href="#" download><svg class="i"><use href="#i-download"/></svg>Baixar .md</a>
+    </div>
+  </div>
+
+  <div class="hub-toast" id="toast" role="status" aria-live="polite"><svg class="i"><use href="#i-check"/></svg><span id="toastText">Copiado!</span></div>
+
+  <!-- ═════════════ CONTEÚDO DAS SKILLS E PROMPTS ═════════════ -->
+  <template id="skill-00">---
 name: gerente-operacao
 description: Agente Gerente de Marketing. Coordena os 6 agentes especialistas e gerencia os 2 pontos de aprovação humana (HITL).
 ---
 
 # 🏭 Agente Gerente de Operação (Orquestrador)
-Sua missão é coordenar o time de 6 agentes especialistas e garantir que nenhuma etapa avance sem passar pelos 2 Pontos de Controle Humano (HITL).
 
+Você é o **Gerente de Marketing Autônomo** da marca. Sua missão é coordenar o time de 6 agentes especialistas e garantir que nenhuma etapa avance sem passar pelos **2 Pontos de Controle Humano (HITL)**.
+
+## Fluxo Obrigatório da Esteira
 1. Acione o `agente-pesquisador` para levantar 3 temas quentes das últimas 48h.
 2. Passe os dados para o `agente-estrategista` recomendar a melhor pauta.
-3. ⏸️ PONTO DE APROVAÇÃO 1 (HITL): Apresente o resumo ao usuário e aguarde o "Aprovado".
-4. Após aprovado, acione Redator, Designer e Editor de Vídeo.
-5. ⏸️ PONTO DE APROVAÇÃO 2 (HITL): Apresente as peças prontas para revisão final.
-6. Acione o `agente-social-media` para agendar e avisar no WhatsApp.</pre>
-          <div class="skill-actions">
-            <button class="btn-sm-copy" onclick="copyTextById('code-skill-0', 'Skill 00 (Gerente)')">📋 Copiar Skill</button>
-            <a href="downloads/skills_agentes_sa/00_gerente_operacao.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
-          </div>
-        </div>
+3. **⏸️ PONTO DE APROVAÇÃO 1 (HITL):** Apresente o resumo executivo ao usuário (CEO) e aguarde o "Aprovado".
+4. Após aprovado, acione em paralelo:
+   - `agente-redator` (legenda, carrossel de 5 lâminas e roteiro de Reel 30s)
+   - `agente-designer` (diagramação visual do carrossel e post estático)
+   - `agente-video` (locução e vídeo curto)
+5. **⏸️ PONTO DE APROVAÇÃO 2 (HITL):** Apresente os materiais finalizados para revisão do usuário.
+6. Após aprovado, acione o `agente-social-media` para agendar a publicação e confirmar via WhatsApp.</template>
 
-        <!-- Skill 01: Pesquisador -->
-        <div class="skill-box">
-          <div class="skill-head">
-            <div>
-              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">01. Agente Pesquisador (Hunter)</h3>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Varre referências, canais e notícias das últimas 48h em busca de pautas quentes.</p>
-            </div>
-            <span class="skill-filename">01_agente_pesquisador.md</span>
-          </div>
-          <pre class="skill-code-preview" id="code-skill-1">---
+  <template id="skill-01">---
 name: agente-pesquisador
 description: Monitora canais de referência, notícias e tendências do mercado nas últimas 48h.
 ---
 
 # 🔍 Agente 01: Pesquisador de Tendências (Hunter)
-Seu escopo é 100% fechado em pesquisa e curadoria (você não escreve posts finais).
 
+Você é o **Pesquisador de Inteligência de Mercado**. Seu escopo é 100% fechado em pesquisa e curadoria (você não escreve posts finais).
+
+## Como Executar
 1. Verifique as fontes de referência da marca e notícias recentes do setor.
 2. Identifique 3 assuntos que estão gerando discussão real ou dúvidas práticas no público-alvo.
-3. Entregue uma tabela objetiva com: Tema, Por que está em alta, Dor prática que resolve e Link da fonte.</pre>
-          <div class="skill-actions">
-            <button class="btn-sm-copy" onclick="copyTextById('code-skill-1', 'Skill 01 (Pesquisador)')">📋 Copiar Skill</button>
-            <a href="downloads/skills_agentes_sa/01_agente_pesquisador.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
-          </div>
-        </div>
+3. Entregue uma tabela objetiva contendo:
+   - **Tema / Notícia**
+   - **Por que está em alta**
+   - **Dor prática que resolve para o nosso público**
+   - **Fonte / Link de referência**</template>
 
-        <!-- Skill 02: Estrategista -->
-        <div class="skill-box">
-          <div class="skill-head">
-            <div>
-              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">02. Agente Estrategista de Pautas</h3>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Filtra as opções encontradas contra o posicionamento da marca e propõe o ângulo ideal.</p>
-            </div>
-            <span class="skill-filename">02_agente_estrategista.md</span>
-          </div>
-          <pre class="skill-code-preview" id="code-skill-2">---
+  <template id="skill-02">---
 name: agente-estrategista
 description: Filtra as pesquisas do Hunter contra o Brand DNA da marca e define o ângulo editorial.
 ---
 
 # 🧠 Agente 02: Estrategista de Pautas
-Receba o levantamento do `agente-pesquisador` e cruze com `01_Contexto_e_Brand_DNA/`.
 
-1. Selecione o tema com maior potencial de autoridade e conexão com o público.
-2. Defina: Tese Central, Gancho de Abertura e estrutura para Carrossel + Reels.
-3. Apresente para o Ponto de Controle Humano 1.</pre>
-          <div class="skill-actions">
-            <button class="btn-sm-copy" onclick="copyTextById('code-skill-2', 'Skill 02 (Estrategista)')">📋 Copiar Skill</button>
-            <a href="downloads/skills_agentes_sa/02_agente_estrategista.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
-          </div>
-        </div>
+Você é o **Estrategista Editorial**. Você recebe o levantamento do `agente-pesquisador` e cruza com os arquivos da pasta `01_Contexto_e_Brand_DNA/`.
 
-        <!-- Skill 03: Redator -->
-        <div class="skill-box">
-          <div class="skill-head">
-            <div>
-              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">03. Agente Redator Autoral (Copy)</h3>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Escreve legendas, lâminas de carrossel e roteiros seguindo o aprendizado Delta-Diff.</p>
-            </div>
-            <span class="skill-filename">03_agente_redator.md</span>
-          </div>
-          <pre class="skill-code-preview" id="code-skill-3">---
+## Como Executar
+1. Avalie os 3 temas encontrados pelo Pesquisador.
+2. Selecione o tema com maior potencial de autoridade e conexão com o público.
+3. Defina:
+   - **Tese Central (Visão contrária ao senso comum)**
+   - **Gancho de abertura (Primeira linha)**
+   - **Desdobramento para Carrossel (5 lâminas) + Vídeo Curto (30s)**
+4. Entregue para aprovação humana antes de acionar a redação.</template>
+
+  <template id="skill-03">---
 name: agente-redator
 description: Escreve posts, carrosséis e roteiros seguindo estritamente o tom de voz autoral e regras Delta-Diff.
 ---
 
 # ✍️ Agente 03: Redator Autoral (Copywriter)
-Antes de escrever qualquer linha, leia obrigatoriamente `01_Contexto_e_Brand_DNA/tom_de_voz.md`.
 
-- PROIBIDO usar clichês de IA ("No mundo acelerado de hoje", "Desbloqueie seu potencial").
-- Entregue: 1. Legenda do Post, 2. Texto das 5 lâminas do Carrossel, 3. Roteiro de Vídeo de 30s.</pre>
-          <div class="skill-actions">
-            <button class="btn-sm-copy" onclick="copyTextById('code-skill-3', 'Skill 03 (Redator)')">📋 Copiar Skill</button>
-            <a href="downloads/skills_agentes_sa/03_agente_redator.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
-          </div>
-        </div>
+Você é o **Redator Oficial da Marca**. Você nunca escreve textos genéricos com cara de IA. Antes de escrever qualquer linha, leia obrigatoriamente `01_Contexto_e_Brand_DNA/tom_de_voz.md`.
 
-        <!-- Skill 04: Designer -->
-        <div class="skill-box">
-          <div class="skill-head">
-            <div>
-              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">04. Agente Designer & Diretor Visual</h3>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Gera imagens consistentes do mascote e monta o carrossel 1080×1350 no Design System.</p>
-            </div>
-            <span class="skill-filename">04_agente_designer.md</span>
-          </div>
-          <pre class="skill-code-preview" id="code-skill-4">---
+## Regras Inegociáveis (Negative Constraints)
+- PROIBIDO usar clichês de IA ("No mundo acelerado de hoje", "Desbloqueie seu potencial", "Navegar pelas complexidades", "Mergulhe fundo").
+- Use frases diretas, parágrafos curtos e exemplos práticos de bastidores.
+
+## Entregáveis por Pauta
+1. **Legenda do Post (LinkedIn / Instagram):** Gancho forte nas 2 primeiras linhas + desenvolvimento direto + chamada para ação natural.
+2. **Estrutura do Carrossel (5 a 7 lâminas):** Título curto e texto enxuto para cada slide.
+3. **Roteiro de Vídeo Curto (30s):** Gancho (0-3s), Desenvolvimento prático (3-22s) e Conclusão/CTA (22-30s).</template>
+
+  <template id="skill-04">---
 name: agente-designer
 description: Diretor de Arte. Gera imagens consistentes e diagrama carrosséis e posts estáticos no Design System.
 ---
 
-# 🎨 Agente 04: Designer & Diretor Visual
-Transforma o texto aprovado do `agente-redator` em peças visuais prontas respeitando 100% da paleta de cores, tipografia e uso do mascote na proporção 1080x1350 (4:5 vertical).</pre>
-          <div class="skill-actions">
-            <button class="btn-sm-copy" onclick="copyTextById('code-skill-4', 'Skill 04 (Designer)')">📋 Copiar Skill</button>
-            <a href="downloads/skills_agentes_sa/04_agente_designer.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
-          </div>
-        </div>
+# 🎨 Agente 04: Designer &amp; Diretor Visual
 
-        <!-- Skill 05 & 06: Vídeo & Social Media -->
-        <div class="skill-box">
-          <div class="skill-head">
-            <div>
-              <h3 style="font-size: 18px; font-weight: 800; color: var(--ha-title);">05 & 06. Editor de Vídeo + Social Media</h3>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Gera locução e vídeo curto (30s) e agenda a publicação enviando aviso no WhatsApp.</p>
-            </div>
-            <span class="skill-filename">06_agente_social_media.md</span>
-          </div>
-          <pre class="skill-code-preview" id="code-skill-6">---
+Você é o **Diretor de Arte da Marca**. Você transforma o texto aprovado do `agente-redator` em peças visuais prontas respeitando 100% da paleta de cores, tipografia e uso do mascote.
+
+## Como Executar
+1. Leia `04_Identidade_Visual/regras_visuais.md` para carregar as cores e fontes oficiais.
+2. Para geração de imagem com o mascote, utilize sempre o Prompt de Consistência (Character Sheet) mantendo os traços originais.
+3. Monte as lâminas na proporção 1080x1350 (4:5 vertical) com hierarquia limpa e alto contraste.</template>
+
+  <template id="skill-05">---
+name: agente-video
+description: Produtor Audiovisual. Sintetiza locução com voz natural e monta vídeos curtos (Reels/Shorts).
+---
+
+# 🎬 Agente 05: Editor de Vídeo &amp; Voz
+
+Você é o **Editor Audiovisual**. Sua função é transformar o roteiro de 30s em um vídeo dinâmico com locução natural e legendas sincronizadas.
+
+## Como Executar
+1. Receba o roteiro de 30s aprovado pelo `agente-redator`.
+2. Gere a faixa de narração em áudio limpo (WAV/MP3) respeitando as pausas de respiração.
+3. Combine a locução com os takes visuais e gere as legendas dinâmicas na proporção 9:16 (1080x1920).</template>
+
+  <template id="skill-06">---
 name: agente-social-media
 description: Agente Distribuidor. Agenda os conteúdos aprovados nas redes e envia confirmação no WhatsApp.
 ---
 
-# 📲 Agente 06: Social Media & Distribuidor
-Só entra em ação após a aprovação humana final (Ponto HITL 2).
-1. Verifique se a legenda final e os arquivos visuais estão aprovados.
-2. Adicione a publicação na fila de agendamento no horário definido (08:45).
-3. Envie confirmação no WhatsApp do responsável.</pre>
-          <div class="skill-actions">
-            <button class="btn-sm-copy" onclick="copyTextById('code-skill-6', 'Skill 06 (Social Media)')">📋 Copiar Skill</button>
-            <a href="downloads/skills_agentes_sa/06_agente_social_media.md" download class="btn-sm-dl">⬇ Baixar .MD</a>
-          </div>
-        </div>
+# 📲 Agente 06: Social Media &amp; Distribuidor
 
-      </div>
-    </section>
+Você é o **Gestor de Publicação e Fila**. Você só entra em ação após a aprovação humana final (Ponto HITL 2).
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         MÓDULO 3: OS 3 PROMPTS MESTRES (DELTA-DIFF & MASCOTE 3D)
-         ═══════════════════════════════════════════════════════════════ -->
-    <section class="section-wrap" id="prompts">
-      <div class="sec-head-row">
-        <div>
-          <span class="step-kicker">ETAPA 03 • APRENDIZADO DE MÁQUINA & CONSISTÊNCIA</span>
-          <h2 class="sec-title">Prompts Mestres de Calibração</h2>
-          <p class="sec-sub">Os 3 prompts fundamentais que usamos no Bloco 2 e no Bloco 4 da aula.</p>
-        </div>
-      </div>
+## Como Executar
+1. Verifique se a legenda final e os arquivos visuais (PNG/PDF/MP4) estão aprovados.
+2. Adicione a publicação na fila de agendamento no horário de pico definido (ex: 08:45).
+3. Envie uma mensagem de confirmação para o WhatsApp do responsável informando data, horário e link do agendamento.</template>
 
-      <div class="prompts-stack">
-        <!-- Prompt 1: Delta-Diff -->
-        <div class="prompt-card">
-          <span class="tool-tag">PROMPT MESTRE 01 • APRENDIZADO DELTA-DIFF</span>
-          <h3 class="card-h3">Calibração de Tom de Voz (V1 Gerada vs. Versão Aprovada)</h3>
-          <p style="font-size: 14.5px; color: var(--ha-text-secondary);">
-            Use este prompt sempre que você editar um texto gerado pelo agente. Ele calcula a diferença exata (delta) e grava a regra na memória permanente da sua marca.
-          </p>
-          <pre class="prompt-pre" id="prompt-delta">Atue como um Engenheiro de Machine Learning e Analista de Estilo Editorial.
+  <template id="prompt-delta">Atue como um Engenheiro de Machine Learning e Analista de Estilo Editorial.
 Abaixo estão duas versões do mesmo conteúdo:
 - [VERSÃO 1 - RASCUNHO GERADO PELA IA]: {cole aqui o primeiro rascunho}
 - [VERSÃO FINAL - APROVADA E EDITADA POR MIM]: {cole aqui a versão que você ajustou}
@@ -789,158 +1238,198 @@ Abaixo estão duas versões do mesmo conteúdo:
 Sua tarefa:
 1. Faça uma análise Delta-Diff comparando frase por frase o que eu cortei, o que eu reescrevi e como mudei o ritmo.
 2. Extraia de 3 a 5 regras práticas e atômicas sobre o meu estilo real de escrita (ex: tamanho de frases, palavras banidas, forma de abrir e fechar).
-3. Atualize o arquivo `01_Contexto_e_Brand_DNA/tom_de_voz.md` adicionando essas novas regras para que o Agente Redator nunca mais repita os vícios da Versão 1.</pre>
-          <button class="btn-sm-copy" style="max-width: 240px;" onclick="copyTextById('prompt-delta', 'Prompt Aprendizado Delta-Diff')">📋 Copiar Prompt Delta-Diff</button>
-        </div>
+3. Atualize o arquivo `01_Contexto_e_Brand_DNA/tom_de_voz.md` adicionando essas novas regras para que o Agente Redator nunca mais repita os vícios da Versão 1.</template>
 
-        <!-- Prompt 2: Second Brain -->
-        <div class="prompt-card">
-          <span class="tool-tag">PROMPT MESTRE 02 • SECOND BRAIN & BRAND DNA</span>
-          <h3 class="card-h3">Compilação de Documentos Próprios para Memória do Agente</h3>
-          <p style="font-size: 14.5px; color: var(--ha-text-secondary);">
-            Use este prompt para transformar seus melhores posts antigos, artigos, apresentações ou materiais de estudo na base de conhecimento do seu time.
-          </p>
-          <pre class="prompt-pre" id="prompt-secondbrain">Leia todos os documentos e textos de referência que coloquei nesta pasta.
+  <template id="prompt-brain">Leia todos os documentos e textos de referência que coloquei nesta pasta.
 Sintetize um documento mestre chamado `posicionamento_e_voz.md` dividido em:
 1. Tese Central da Marca (no que acreditamos vs. o que combatemos no mercado).
 2. Vocabulário Proprietário (termos, metáforas e expressões que usamos com frequência).
-3. Lista Negra (Negative Constraints): 15 palavras, jargões de guru e estruturas de frase que estão expressamente proibidas em qualquer texto dos agentes.</pre>
-          <button class="btn-sm-copy" style="max-width: 240px;" onclick="copyTextById('prompt-secondbrain', 'Prompt Second Brain')">📋 Copiar Prompt Second Brain</button>
-        </div>
+3. Lista Negra (Negative Constraints): 15 palavras, jargões de guru e estruturas de frase que estão expressamente proibidas em qualquer texto dos agentes.</template>
 
-        <!-- Prompt 3: Mascote 3D -->
-        <div class="prompt-card">
-          <span class="tool-tag">PROMPT MESTRE 03 • IDENTIDADE VISUAL & MASCOTE</span>
-          <h3 class="card-h3">Consistência de Personagem 3D em Múltiplos Cenários</h3>
-          <p style="font-size: 14.5px; color: var(--ha-text-secondary);">
-            Estrutura para manter seu mascote 100% fiel (usando a imagem do Character Sheet em anexo como referência visual).
-          </p>
-          <pre class="prompt-pre" id="prompt-mascote">Usando estritamente a folha de personagem (Character Sheet) anexada como referência absoluta de identidade:
+  <template id="prompt-mascote">Usando estritamente a folha de personagem (Character Sheet) anexada como referência absoluta de identidade:
 Mantenha 100% idênticos o formato da cabeça, olhos, nariz, proporções corporais, textura de pelúcia/3D e cores oficiais (#075FE4 e #FFFFFF).
 Coloque o personagem na seguinte cena e ação: {descreva a ação e o cenário aqui}.
-Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), profundidade de campo suave, altíssima nitidez 2K.</pre>
-          <button class="btn-sm-copy" style="max-width: 240px;" onclick="copyTextById('prompt-mascote', 'Prompt Mascote 3D')">📋 Copiar Prompt Mascote 3D</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         MÓDULO 4: SLIDES OFICIAIS & CERTIFICADO DE PARTICIPAÇÃO
-         ═══════════════════════════════════════════════════════════════ -->
-    <section class="section-wrap" id="certificado">
-      <div class="sec-head-row">
-        <div>
-          <span class="step-kicker">ETAPA 04 • MATERIAL PÓS-AULA</span>
-          <h2 class="sec-title">Apresentação Oficial & Certificado</h2>
-        </div>
-      </div>
-
-      <div class="skills-grid">
-        <div class="spotlight-card">
-          <div>
-            <span class="tool-tag">SLIDES DA TRANSMISSÃO</span>
-            <h3 class="card-h3">Deck Completo da Aula (.PDF)</h3>
-            <p class="card-p">
-              Todos os diagramas visuais, comparativos e o passo a passo da esteira dos 6 agentes apresentados pelo Leonardo Nóbrega.
-            </p>
-          </div>
-          <a href="../assets/downloads/Checklist_5_Passos_Agentes_IA_Leonardo_Nobrega.pdf" download class="btn-card-action">
-            <span>Baixar Resumo & Diagramas (.PDF)</span>
-            <span>⬇</span>
-          </a>
-        </div>
-
-        <div class="spotlight-card">
-          <div>
-            <span class="tool-tag">CERTIFICADO OFICIAL • AGENTES S.A.</span>
-            <h3 class="card-h3">Diploma Mestre em Agentes de IA</h3>
-            <p class="card-p">
-              Emita seu certificado oficial estilo <em>Agentes S.A. University</em> em alta resolução (.PNG para LinkedIn ou .PDF A4) com seu nome completo.
-            </p>
-          </div>
-          <a href="certificado.html?modo=aluno" id="btnCertLink" class="btn-card-action">
-            <span>🎓 Acessar Emissor de Certificado</span>
-            <span>→</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Rodapé -->
-    <footer class="ha-footer">
-      <div style="display: flex; align-items: center; gap: 16px;">
-        <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega" style="height: 28px;">
-        <div class="brand-divider"></div>
-        <img src="assets/logo_agentes_sa_completo.png" alt="Agentes S.A." style="height: 22px;">
-      </div>
-      <div>
-        Central do Aluno • Webinar Agentes S.A. (24 de Novembro às 20h00)
-      </div>
-      <div>
-        <a href="index.html" style="font-weight: 600; color: var(--color-primary);">← Voltar para a página do evento</a>
-      </div>
-    </footer>
-
-  </main>
-
-  <!-- Toast Notification -->
-  <div id="copyToast">
-    <span>✓</span>
-    <span id="copyToastText">Copiado com sucesso!</span>
-  </div>
+Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), profundidade de campo suave, altíssima nitidez 2K.</template>
 
   <script>
-    function copyTextById(elementId, label) {
-      const text = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        showToast(`${label} copiado para a área de transferência!`);
-      });
-    }
+    (function () {
+      /* ─── Dados da Gaveta (Slide-over) ─── */
+      const CHAR = 'assets/personagens_carteirinha/';
+      const ITEMS = {
+        'skill-00': { kicker: 'Agente 00', title: 'Gerente de Operação', desc: 'Coordena os 6 especialistas e só avança depois da sua aprovação, nos 2 pontos de controle.', img: CHAR + '01_lian_nobg.png', file: '00_gerente_operacao.md' },
+        'skill-01': { kicker: 'Agente 01', title: 'Pesquisador', desc: 'Varre referências, canais e notícias das últimas 48h em busca de pautas quentes.', img: CHAR + '08_amarelo_oculos_nobg.png', file: '01_agente_pesquisador.md' },
+        'skill-02': { kicker: 'Agente 02', title: 'Estrategista de Pautas', desc: 'Filtra as opções contra o posicionamento da marca e propõe o ângulo ideal.', img: CHAR + '07_azul_boina_nobg.png', file: '02_agente_estrategista.md' },
+        'skill-03': { kicker: 'Agente 03', title: 'Redator', desc: 'Escreve legendas, carrosséis e roteiros seguindo o seu tom de voz.', img: CHAR + '03_rosa_coracao_nobg.png', file: '03_agente_redator.md' },
+        'skill-04': { kicker: 'Agente 04', title: 'Designer', desc: 'Gera imagens consistentes e monta as peças 1080×1350 na sua identidade visual.', img: CHAR + '04_laranja_cubo_nobg.png', file: '04_agente_designer.md' },
+        'skill-05': { kicker: 'Agente 05', title: 'Editor de Vídeo', desc: 'Gera a locução e monta o vídeo curto (30s) com legendas sincronizadas.', img: CHAR + '06_branco_vinil_nobg.png', file: '05_agente_video.md' },
+        'skill-06': { kicker: 'Agente 06', title: 'Social Media', desc: 'Agenda a publicação aprovada e te avisa no WhatsApp.', img: CHAR + '02_verde_sapo_nobg.png', file: '06_agente_social_media.md' },
+        'prompt-delta': { kicker: 'Prompt 01 · Tom de voz', title: 'Aprendizado Delta-Diff', desc: 'Use sempre que editar um texto do agente. Ele calcula a diferença e grava a regra na memória da marca.', img: 'assets/central/prompt_delta.jpg', photo: true },
+        'prompt-brain': { kicker: 'Prompt 02 · Memória da marca', title: 'Segundo cérebro', desc: 'Transforma seus melhores materiais na base de conhecimento do time.', img: 'assets/central/prompt_brain.jpg', photo: true },
+        'prompt-mascote': { kicker: 'Prompt 03 · Identidade visual', title: 'Mascote consistente', desc: 'Anexe o character sheet do seu mascote e descreva a cena.', img: 'assets/central/prompt_mascote.jpg', photo: true }
+      };
 
-    function showToast(msg) {
-      const toast = document.getElementById('copyToast');
-      document.getElementById('copyToastText').textContent = msg;
-      toast.style.display = 'flex';
-      setTimeout(() => {
-        toast.style.display = 'none';
-      }, 3200);
-    }
+      const $ = (s, el = document) => el.querySelector(s);
+      const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+      const textOf = (id) => document.getElementById(id).content.textContent.trim();
 
-    // Personaliza a saudação lendo ?nome= e ?id= da URL (vindo do e-mail) ou do localStorage
-    window.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
+      /* ─── Toast Feedback ─── */
+      let toastTimer;
+      function toast(msg) {
+        $('#toastText').textContent = msg;
+        $('#toast').classList.add('is-on');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => $('#toast').classList.remove('is-on'), 2400);
+      }
+      function copy(id) {
+        const text = textOf(id);
+        const done = () => toast((ITEMS[id] ? ITEMS[id].title : 'Texto') + ' copiado');
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+        } else { fallbackCopy(text, done); }
+      }
+      function fallbackCopy(text, done) {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (e) {}
+        ta.remove();
+      }
+
+      /* ─── Gaveta Lateral ─── */
+      let currentId = null, lastFocus = null;
+      function openSheet(id) {
+        const item = ITEMS[id]; if (!item) return;
+        currentId = id; lastFocus = document.activeElement;
+        $('#sheetKicker').textContent = item.kicker;
+        $('#sheetTitle').textContent = item.title;
+        $('#sheetDesc').textContent = item.desc;
+        $('#sheetCode').textContent = textOf(id);
+        $('#sheetImg').src = item.img;
+        $('#sheetMedia').classList.toggle('is-photo', !!item.photo);
+        const dl = $('#sheetDownload');
+        if (item.file) {
+          dl.style.display = ''; dl.href = 'downloads/skills_agentes_sa/' + item.file; dl.setAttribute('download', item.file);
+          $('#sheetFile').textContent = item.file;
+        } else {
+          dl.style.display = 'none'; $('#sheetFile').textContent = '';
+        }
+        $('#sheetCopy').lastChild.textContent = item.file ? 'Copiar skill' : 'Copiar prompt';
+        document.body.classList.add('sheet-open');
+        $('.sheet-body').scrollTop = 0;
+        setTimeout(() => $('.sheet-close').focus(), 50);
+      }
+      function closeSheet() {
+        document.body.classList.remove('sheet-open');
+        if (lastFocus) lastFocus.focus({ preventScroll: true });
+      }
+      $$('[data-open]').forEach(b => b.addEventListener('click', () => openSheet(b.dataset.open)));
+      $$('[data-close]').forEach(b => b.addEventListener('click', closeSheet));
+      $$('[data-copy]').forEach(b => b.addEventListener('click', () => copy(b.dataset.copy)));
+      $('#sheetCopy').addEventListener('click', () => currentId && copy(currentId));
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('sheet-open')) closeSheet(); });
+
+      /* ─── Checklist da Bancada (salvo em localStorage) ─── */
+      const STEPS = ['antigravity', 'openbot', 'pasta'];
+      const KEY = 'ln_agentes_sa_bancada';
+      let state = {};
+      try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+      const CIRC = 370.7; // 2 * PI * 59
+      function render() {
+        const done = STEPS.filter(s => state[s]).length;
+        const pct = Math.round((done / STEPS.length) * 100);
+        STEPS.forEach(s => {
+          $$('[data-toggle="' + s + '"]').forEach(b => b.setAttribute('aria-pressed', state[s] ? 'true' : 'false'));
+          const card = $('[data-step="' + s + '"]'); if (card) card.classList.toggle('is-done', !!state[s]);
+        });
+        $$('[data-progress-text]').forEach(el => el.textContent = done + '/3');
+        $$('[data-progress-bar]').forEach(el => el.style.width = pct + '%');
+        $('#ringFg').style.strokeDashoffset = CIRC - (CIRC * pct / 100);
+        $('#ringPct').textContent = pct + '%';
+        const left = STEPS.length - done;
+        $('#progressMsg').textContent = left === 0
+          ? 'Bancada pronta. Agora é só chegar na aula.'
+          : 'Falta' + (left > 1 ? 'm ' : ' ') + left + ' passo' + (left > 1 ? 's' : '') + ' para sua bancada ficar pronta.';
+      }
+      $$('[data-toggle]').forEach(b => b.addEventListener('click', () => {
+        const s = b.dataset.toggle; state[s] = !state[s];
+        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+        render();
+        if (STEPS.every(x => state[x]) && state[s]) toast('Bancada pronta! Nos vemos na aula.');
+      }));
+      render();
+
+      /* ─── Agenda ─── */
+      const CAL = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' +
+        encodeURIComponent('Aula ao vivo Agentes S.A. — Crie seu primeiro time de agentes de IA (Leonardo Nóbrega)') +
+        '&dates=20261124T230000Z/20261125T000000Z&details=' +
+        encodeURIComponent('Aula ao vivo e gratuita: como criar seu primeiro time de agentes de IA no marketing. Central do Aluno: https://nobregasleo.github.io/agentes-sa/central.html') +
+        '&location=' + encodeURIComponent('YouTube ao vivo');
+      $$('[data-calendar]').forEach(a => a.href = CAL);
+
+      /* ─── Contagem Regressiva ─── */
+      const START = new Date('2026-11-24T20:00:00-03:00').getTime();
+      const END = START + 2 * 60 * 60 * 1000;
+      const pad = n => String(n).padStart(2, '0');
+      function tick() {
+        const now = Date.now();
+        const status = $('#liveStatus');
+        if (now >= START) {
+          $('#countdown').style.display = 'none';
+          status.style.display = 'block';
+          status.textContent = now < END ? 'Estamos ao vivo agora!' : 'Aula encerrada. Seu certificado já está liberado.';
+          return;
+        }
+        const diff = START - now;
+        $('#cdDays').textContent = pad(Math.floor(diff / 864e5));
+        $('#cdHours').textContent = pad(Math.floor(diff / 36e5) % 24);
+        $('#cdMins').textContent = pad(Math.floor(diff / 6e4) % 60);
+      }
+      tick(); setInterval(tick, 30000);
+
+      /* ─── Saudação e Dados do Aluno ─── */
+      const h = new Date().getHours();
+      $('#greeting').textContent = h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
+
+      const params = new URLSearchParams(location.search);
       const urlName = params.get('nome') || params.get('name');
       const urlId = params.get('id') || params.get('serial');
-
-      let studentData = null;
+      let student = null;
       if (urlName) {
-        studentData = {
-          name: urlName.trim(),
-          serial: (urlId || '#AG-2411').trim()
-        };
+        student = { name: urlName.trim(), serial: (urlId || '#AG-2411').trim() };
         try {
           const existing = JSON.parse(localStorage.getItem('ln_webinar_agentes_sa_lead') || '{}');
-          localStorage.setItem('ln_webinar_agentes_sa_lead', JSON.stringify({ ...existing, ...studentData }));
+          localStorage.setItem('ln_webinar_agentes_sa_lead', JSON.stringify({ ...existing, ...student }));
         } catch (e) {}
       } else {
-        try {
-          studentData = JSON.parse(localStorage.getItem('ln_webinar_agentes_sa_lead') || 'null');
-        } catch (e) {}
+        try { student = JSON.parse(localStorage.getItem('ln_webinar_agentes_sa_lead') || 'null'); } catch (e) {}
+      }
+      if (student && student.name) {
+        const parts = student.name.split(/\s+/).filter(Boolean);
+        const first = parts[0];
+        const serial = student.serial || '#AG-2411';
+        const initials = (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
+        $('#heroName').textContent = ', ' + first;
+        $('#greetName').textContent = ', ' + first;
+        $('#userName').textContent = first;
+        $('#userInitials').textContent = initials;
+        $('#userId').textContent = 'CRACHÁ ' + serial;
+        $('#railId').textContent = serial;
+        $('#btnCertLink').href = 'certificado.html?nome=' + encodeURIComponent(student.name) + '&id=' + encodeURIComponent('ID ' + serial) + '&modo=aluno';
       }
 
-      if (studentData && studentData.name) {
-        const firstName = studentData.name.split(' ')[0];
-        const serialCode = studentData.serial || '#AG-2411';
-        document.getElementById('welcomeStudentTitle').textContent =
-          `Olá, ${firstName}! Bem-vindo(a) à sua Central do Aluno (${serialCode}).`;
-
-        const certLink = document.getElementById('btnCertLink');
-        if (certLink) {
-          certLink.href = `certificado.html?nome=${encodeURIComponent(studentData.name)}&id=${encodeURIComponent('ID ' + serialCode)}&modo=aluno`;
-        }
+      /* ─── Spy de Navegação no Scroll ─── */
+      const links = $$('[data-spy]');
+      const sections = links.map(l => document.getElementById(l.dataset.spy)).filter(Boolean);
+      function spy() {
+        const y = window.scrollY + window.innerHeight * 0.35;
+        let current = sections[0].id;
+        sections.forEach(s => { if (s.offsetTop <= y && s.id !== 'inicio') current = s.id; });
+        if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) current = sections[sections.length - 1].id;
+        links.forEach(l => l.classList.toggle('is-active', l.dataset.spy === current));
       }
-    });
+      window.addEventListener('scroll', spy, { passive: true });
+      spy();
+    })();
   </script>
-
 </body>
 </html>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galeria de Carteirinhas Oficiais — Agentes S.A. & Leonardo</title>
+  <link rel="icon" type="image/svg+xml" href="assets/emblema_agentes_sa.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Courier+Prime:wght@700&family=Gloria+Hallelujah&family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <script src="assets/carteirinha_assets_b64.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #090e1a;
+      color: #f1f5f9;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── HEADER DO CATÁLOGO ─── */
+    header {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-box img {
+      width: 34px;
+      height: 34px;
+      background: #ffffff;
+      border-radius: 50%;
+      padding: 2px;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: rgba(7, 95, 228, 0.25);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+      transition: all 0.18s ease;
+    }
+
+    .btn-primary {
+      background: #075fe4;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.35);
+    }
+    .btn-primary:hover {
+      background: #054ec2;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* ─── BARRA DE NAVEGAÇÃO DOS PERSONAGENS ─── */
+    .tabs-bar {
+      background: #0d1527;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 24px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .tab-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.18s ease;
+    }
+
+    .tab-item:hover {
+      background: rgba(7, 95, 228, 0.18);
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+
+    .tab-item.active {
+      background: #075fe4;
+      border-color: #60a5fa;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(7, 95, 228, 0.4);
+    }
+
+    .tab-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.2);
+      object-fit: contain;
+    }
+
+    /* ─── PALCO DA CARTEIRINHA EM DESTAQUE ─── */
+    .main-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      gap: 20px;
+    }
+
+    .card-scale-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       ESTRUTURA RETANGULAR DA CARTEIRINHA (1230 × 742 px)
+       ═══════════════════════════════════════════════════════════════════ */
+    .id-card-view {
+      width: 1230px;
+      height: 742px;
+      position: relative;
+      border-radius: 54px;
+      overflow: hidden;
+      background-image: url('assets/carteirinha_agentes_sa_fundo_sem_textos.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.65);
+      user-select: none;
+      --card-blue: #4b7ca8;
+      --card-ink: #16181b;
+    }
+
+    .card-photo-box {
+      position: absolute;
+      left: 76px;
+      top: 62px;
+      width: 422px;
+      height: 424px;
+      overflow: hidden;
+      background-image: url('assets/carteirinha_foto_fundo_azul.png');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+    }
+
+    .card-photo-img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, calc(-50% + 150px));
+      filter: drop-shadow(0 6px 11px rgba(10, 28, 54, 0.38));
+      user-select: none;
+      -webkit-user-drag: none;
+      transition: transform 0.25s ease;
+    }
+
+    .card-photo-box:hover::after {
+      content: "📷 Clique para trocar a foto";
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.85);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    /* Campos de Texto Editáveis */
+    .auto-txt {
+      white-space: nowrap;
+      outline: none;
+      border-radius: 6px;
+      transition: background 0.15s, box-shadow 0.15s;
+      cursor: text;
+    }
+    .auto-txt:hover {
+      background: rgba(7, 95, 228, 0.08);
+      box-shadow: 0 0 0 2px rgba(7, 95, 228, 0.25);
+    }
+    .auto-txt:focus {
+      background: rgba(7, 95, 228, 0.12);
+      box-shadow: 0 0 0 2px rgba(7, 95, 228, 0.5);
+    }
+
+    .card-validity {
+      position: absolute;
+      left: 574px;
+      top: 228px;
+      width: 524px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      font-size: 25.5px;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      color: var(--card-blue);
+      text-transform: uppercase;
+    }
+
+    .card-student-val {
+      position: absolute;
+      left: 582px;
+      top: 268px;
+      width: 516px;
+      height: 64px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Courier Prime', monospace;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--card-ink);
+      line-height: 1;
+    }
+
+    .card-student-lbl {
+      position: absolute;
+      left: 574px;
+      top: 344px;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--card-blue);
+      text-transform: uppercase;
+    }
+
+    .card-major-val {
+      position: absolute;
+      left: 582px;
+      top: 396px;
+      width: 516px;
+      height: 64px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Courier Prime', monospace;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--card-ink);
+      line-height: 1;
+    }
+
+    .card-major-lbl {
+      position: absolute;
+      left: 574px;
+      top: 472px;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--card-blue);
+      text-transform: uppercase;
+    }
+
+    .card-sig-val {
+      position: absolute;
+      left: 82px;
+      top: 528px;
+      width: 990px;
+      height: 110px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 68px;
+      color: #15171a;
+      line-height: 1;
+    }
+
+    .card-sig-lbl {
+      position: absolute;
+      left: 66px;
+      top: 649px;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--card-blue);
+      text-transform: uppercase;
+    }
+
+    .card-id-num {
+      position: absolute;
+      right: 124px;
+      top: 649px;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--card-blue);
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    /* ─── BARRA DE CONTROLE INFERIOR ─── */
+    .controls-panel {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 20px;
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* ─── GRID DE MINIATURAS DAS 9 CARTEIRINHAS ─── */
+    .catalog-section {
+      background: #0b1120;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 36px 24px 50px;
+    }
+
+    .section-head {
+      max-width: 1240px;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-head h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .cards-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .grid-item {
+      background: #111827;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+    .grid-item:hover {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    .grid-item-thumb {
+      width: 100%;
+      background: #070c18;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .grid-item-thumb img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+
+    .grid-item-info {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .grid-item-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .grid-item-role {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .btn-download-thumb {
+      padding: 6px 12px;
+      background: rgba(7, 95, 228, 0.2);
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      color: #60a5fa;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-download-thumb:hover {
+      background: #075fe4;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="file" id="uploadFotoInput" accept="image/*" style="display: none;">
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="brand-box">
+      <img src="assets/emblema_agentes_sa.svg" alt="Agentes S.A.">
+      <div class="brand-title">
+        <span>Carteirinhas Oficiais • Agentes S.A.</span>
+        <span class="badge-tag">ELENCO COMPLETO (9 CARDS)</span>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button class="btn-top btn-secondary" onclick="alternarModoFoto()">
+        <span id="btnPoseLabel">🪪 Modo Retrato</span>
+      </button>
+      <button class="btn-top btn-primary" id="btnBaixarPNG" onclick="baixarCarteirinhaAtualPNG()">
+        <span>📥 Baixar Carteirinha Atual (.PNG)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ABAS DOS 9 PERSONAGENS -->
+  <div class="tabs-bar" id="tabsBar"></div>
+
+  <!-- PALCO PRINCIPAL (EDITÁVEL AO VIVO) -->
+  <div class="main-stage">
+    <div class="card-scale-box" id="scaleWrapper">
+      <div class="id-card-view" id="cardCanvas">
+
+        <!-- FOTO -->
+        <div class="card-photo-box" id="photoBox" onclick="document.getElementById('uploadFotoInput').click()">
+          <img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="Foto" class="card-photo-img" id="cardPhoto">
+        </div>
+
+
+
+        <!-- TEXTOS EDITÁVEIS COM AUTO-FONTE -->
+        <div class="card-validity auto-txt" id="txtValidade" data-max-font="25.5" data-min-font="13" data-max-w="520" contenteditable="true">VÁLIDO • 1º E 2º SEMESTRE</div>
+
+        <div class="card-student-val auto-txt" id="txtAluno" data-max-font="56" data-min-font="18" data-max-w="514" contenteditable="true">L.Nóbrega (Lian)</div>
+        <div class="card-student-lbl auto-txt" id="txtAlunoLbl" data-max-font="25" data-min-font="14" data-max-w="520" contenteditable="true">ESTUDANTE</div>
+
+        <div class="card-major-val auto-txt" id="txtMajor" data-max-font="56" data-min-font="18" data-max-w="514" contenteditable="true">Liderança de Agentes</div>
+        <div class="card-major-lbl auto-txt" id="txtMajorLbl" data-max-font="25" data-min-font="14" data-max-w="520" contenteditable="true">ESPECIALIDADE</div>
+
+        <div class="card-sig-val auto-txt" id="txtSig" data-max-font="68" data-min-font="22" data-max-w="980" contenteditable="true">Lian Mascote</div>
+        <div class="card-sig-lbl auto-txt" id="txtSigLbl" data-max-font="26" data-min-font="14" data-max-w="440" contenteditable="true">ASSINATURA</div>
+
+        <div class="card-id-num auto-txt" id="txtId" data-max-font="26" data-min-font="14" data-max-w="500" contenteditable="true">Nº ID 20261124001</div>
+
+      </div>
+    </div>
+
+    <!-- CONTROLES RÁPIDOS -->
+    <div class="controls-panel">
+      <span style="font-size: 13px; color: #94a3b8;">💡 Clique em qualquer texto da carteirinha para digitar livremente.</span>
+      <button class="btn-top btn-secondary" onclick="document.getElementById('uploadFotoInput').click()">
+        <span>📷 Trocar Foto</span>
+      </button>
+      <button class="btn-top btn-primary" onclick="baixarCarteirinhaAtualPNG()">
+        <span>📥 Baixar Este Card (.PNG)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SEÇÃO DE CATÁLOGO: OS 9 CARDS GERADOS -->
+  <section class="catalog-section">
+    <div class="section-head">
+      <div>
+        <h2>Todas as 9 Carteirinhas Prontas</h2>
+        <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Clique em qualquer carteirinha para carregar no editor ou baixe direto o PNG em alta resolução.</p>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="cardsGrid"></div>
+  </section>
+
+  <script>
+    // Dados dos 9 integrantes
+    const PERSONAGENS = [
+      {
+        id: "leonardo",
+        nome: "Leonardo Nóbrega",
+        papel: "Criador & Engenharia Agêntica",
+        especialidade: "Engenharia Agêntica",
+        assinatura: "Leonardo Nóbrega",
+        id_num: "Nº ID 20261124000",
+        foto: "assets/personagens_carteirinha/09_leonardo_capacete_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_leonardo.png",
+        scale_w: 360,
+        peek_y: 140,
+        normal_y: 30
+      },
+      {
+        id: "lian",
+        nome: "L.Nóbrega (Lian)",
+        papel: "Mascote & Líder dos Agentes",
+        especialidade: "Liderança de Agentes",
+        assinatura: "Lian Mascote",
+        id_num: "Nº ID 20261124001",
+        foto: "assets/personagens_carteirinha/01_lian_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_lian.png",
+        scale_w: 410,
+        peek_y: 150,
+        normal_y: 38
+      },
+      {
+        id: "verde",
+        nome: "Sapo Verde",
+        papel: "Automação & Execução de Scripts",
+        especialidade: "Automação e Scripts",
+        assinatura: "Sapo Operador",
+        id_num: "Nº ID 20261124002",
+        foto: "assets/personagens_carteirinha/02_verde_sapo_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_verde.png",
+        scale_w: 390,
+        peek_y: 138,
+        normal_y: 10
+      },
+      {
+        id: "rosa",
+        nome: "Coração Rosa",
+        papel: "Experiência, Branding & Encanto",
+        especialidade: "Experiência e Branding",
+        assinatura: "Coração Rosa",
+        id_num: "Nº ID 20261124003",
+        foto: "assets/personagens_carteirinha/03_rosa_coracao_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_rosa.png",
+        scale_w: 380,
+        peek_y: 145,
+        normal_y: 15
+      },
+      {
+        id: "laranja",
+        nome: "Cubo Laranja",
+        papel: "Arquitetura & Estruturas de Dados",
+        especialidade: "Arquitetura de Dados",
+        assinatura: "Cubo Laranja",
+        id_num: "Nº ID 20261124004",
+        foto: "assets/personagens_carteirinha/04_laranja_cubo_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_laranja.png",
+        scale_w: 380,
+        peek_y: 145,
+        normal_y: 15
+      },
+      {
+        id: "creme",
+        nome: "Yeti Creme",
+        papel: "Pesquisa & Monitoramento de Mercado",
+        especialidade: "Pesquisa e Inteligência",
+        assinatura: "Yeti Creme",
+        id_num: "Nº ID 20261124005",
+        foto: "assets/personagens_carteirinha/05_creme_yeti_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_creme.png",
+        scale_w: 370,
+        peek_y: 145,
+        normal_y: 15
+      },
+      {
+        id: "branco",
+        nome: "Branco Vinil",
+        papel: "Operações & Infraestrutura",
+        especialidade: "Operações e Infra",
+        assinatura: "Branco Vinil",
+        id_num: "Nº ID 20261124006",
+        foto: "assets/personagens_carteirinha/06_branco_vinil_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_branco.png",
+        scale_w: 350,
+        peek_y: 145,
+        normal_y: 15
+      },
+      {
+        id: "azul",
+        nome: "Azul de Boina",
+        papel: "Design Gráfico & Direção de Arte",
+        especialidade: "Direção de Arte",
+        assinatura: "Azul de Boina",
+        id_num: "Nº ID 20261124007",
+        foto: "assets/personagens_carteirinha/07_azul_boina_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_azul.png",
+        scale_w: 380,
+        peek_y: 145,
+        normal_y: 15
+      },
+      {
+        id: "amarelo",
+        nome: "Amarelo Óculos",
+        papel: "Estratégia, Métricas & Planejamento",
+        especialidade: "Estratégia e Métricas",
+        assinatura: "Amarelo Óculos",
+        id_num: "Nº ID 20261124008",
+        foto: "assets/personagens_carteirinha/08_amarelo_oculos_nobg.png",
+        png_pronto: "assets/carteirinha_agentes_sa_amarelo.png",
+        scale_w: 380,
+        peek_y: 145,
+        normal_y: 15
+      }
+    ];
+
+    let currentIdx = 0;
+    let modoCortado = true;
+    let fotoCustom = null;
+
+    const measureCanvas = document.createElement('canvas');
+    const measureCtx = measureCanvas.getContext('2d');
+
+    function autoFit(el) {
+      if (!el) return;
+      const maxFont = parseFloat(el.dataset.maxFont) || 56;
+      const minFont = parseFloat(el.dataset.minFont) || 16;
+      const maxW = parseFloat(el.dataset.maxW) || 514;
+      const txt = (el.textContent || '').replace(/\r?\n/g, ' ');
+
+      if (!txt.trim()) {
+        el.style.fontSize = `${maxFont}px`;
+        return;
+      }
+
+      const style = window.getComputedStyle(el);
+      let fontSize = maxFont;
+      measureCtx.font = `${style.fontWeight || '700'} ${fontSize}px ${style.fontFamily || 'sans-serif'}`;
+      let w = measureCtx.measureText(txt).width + txt.length * (fontSize * 0.025);
+
+      if (w > maxW) {
+        fontSize = Math.max(minFont, Math.floor(maxFont * (maxW / w) * 0.97));
+      }
+      el.style.fontSize = `${fontSize}px`;
+
+      while (el.scrollWidth > maxW + 4 && fontSize > minFont) {
+        fontSize -= 1;
+        el.style.fontSize = `${fontSize}px`;
+      }
+    }
+
+    function autoFitAll() {
+      document.querySelectorAll('.auto-txt').forEach(autoFit);
+    }
+
+    document.querySelectorAll('.auto-txt').forEach(el => {
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          el.blur();
+        }
+      });
+      el.addEventListener('input', () => autoFit(el));
+      el.addEventListener('paste', e => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text/plain').replace(/\r?\n/g, ' ');
+        document.execCommand('insertText', false, text);
+        autoFit(el);
+      });
+    });
+
+    function carregarPersonagem(idx) {
+      currentIdx = idx;
+      fotoCustom = null;
+      const p = PERSONAGENS[idx];
+
+      document.querySelectorAll('.tab-item').forEach((tab, i) => {
+        tab.classList.toggle('active', i === idx);
+      });
+
+      document.getElementById('txtAluno').textContent = p.nome;
+      document.getElementById('txtMajor').textContent = p.especialidade;
+      document.getElementById('txtSig').textContent = p.assinatura;
+      document.getElementById('txtId').textContent = p.id_num;
+
+      const img = document.getElementById('cardPhoto');
+      img.src = p.foto;
+      img.style.width = `${p.scale_w}px`;
+      img.style.height = 'auto';
+      img.style.objectFit = 'contain';
+
+      aplicarPosicaoFoto();
+      autoFitAll();
+    }
+
+    function alternarModoFoto() {
+      modoCortado = !modoCortado;
+      document.getElementById('btnPoseLabel').textContent = modoCortado ? '🪪 Modo Retrato' : '👀 Modo Cortado (Mike)';
+      aplicarPosicaoFoto();
+    }
+
+    function aplicarPosicaoFoto() {
+      const p = PERSONAGENS[currentIdx];
+      const img = document.getElementById('cardPhoto');
+      const offsetY = modoCortado ? p.peek_y : p.normal_y;
+
+      if (fotoCustom) {
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.transform = 'translate(-50%, -50%)';
+      } else {
+        img.style.transform = `translate(-50%, calc(-50% + ${offsetY}px))`;
+      }
+    }
+
+    // Upload customizado
+    document.getElementById('uploadFotoInput').addEventListener('change', e => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        fotoCustom = ev.target.result;
+        const img = document.getElementById('cardPhoto');
+        img.src = fotoCustom;
+        aplicarPosicaoFoto();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Renderiza Abas e Grid
+    function renderTabsAndGrid() {
+      const tabsBar = document.getElementById('tabsBar');
+      const cardsGrid = document.getElementById('cardsGrid');
+
+      tabsBar.innerHTML = PERSONAGENS.map((p, i) => `
+        <button class="tab-item ${i === 0 ? 'active' : ''}" onclick="carregarPersonagem(${i})">
+          <img src="${p.foto}" class="tab-avatar" alt="${p.nome}">
+          <span>${p.nome.split(' ')[0]}</span>
+        </button>
+      `).join('');
+
+      cardsGrid.innerHTML = PERSONAGENS.map((p, i) => `
+        <div class="grid-item">
+          <div class="grid-item-thumb" onclick="carregarPersonagem(${i}); window.scrollTo({top: 0, behavior: 'smooth'});">
+            <img src="${p.png_pronto}" alt="Carteirinha ${p.nome}">
+          </div>
+          <div class="grid-item-info">
+            <div>
+              <div class="grid-item-title">${p.nome}</div>
+              <div class="grid-item-role">${p.papel}</div>
+            </div>
+            <a href="${p.png_pronto}" download="Carteirinha_${p.id}.png" class="btn-download-thumb">
+              ⬇ Baixar
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function ajustarEscala() {
+      const wrapper = document.getElementById('scaleWrapper');
+      const availW = window.innerWidth - 48;
+      const availH = window.innerHeight - 200;
+      const scale = Math.min(1, availW / 1230, availH > 300 ? availH / 742 : 1);
+      wrapper.style.transform = `scale(${scale})`;
+      wrapper.style.marginTop = scale < 1 ? `${-(742 * (1 - scale)) / 2}px` : '0px';
+      wrapper.style.marginBottom = scale < 1 ? `${-(742 * (1 - scale)) / 2}px` : '0px';
+    }
+    window.addEventListener('resize', ajustarEscala);
+
+    function loadImageSafe(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    async function baixarCarteirinhaAtualPNG() {
+      const btn = document.getElementById('btnBaixarPNG');
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<span>⏳ Gerando...</span>';
+      btn.disabled = true;
+
+      try {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        autoFitAll();
+
+        const SCALE = 2;
+        const W = 1230, H = 742;
+        const canvas = document.createElement('canvas');
+        canvas.width = W * SCALE;
+        canvas.height = H * SCALE;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(SCALE, SCALE);
+
+        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+        const baseImg = await loadImageSafe(B64.fundo_sem_textos || 'assets/carteirinha_agentes_sa_fundo_sem_textos.png');
+        ctx.drawImage(baseImg, 0, 0, W, H);
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(76, 62, 422, 424);
+        ctx.clip();
+
+        const blueImg = await loadImageSafe(B64.foto_fundo_azul || 'assets/carteirinha_foto_fundo_azul.png');
+        ctx.drawImage(blueImg, 76, 62, 422, 424);
+
+        const imgEl = document.getElementById('cardPhoto');
+        const charImg = await loadImageSafe(imgEl.src);
+        const p = PERSONAGENS[currentIdx];
+
+        ctx.shadowColor = 'rgba(10, 28, 54, 0.38)';
+        ctx.shadowBlur = 11;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 6;
+
+        const centerX = 76 + 422 / 2;
+        const centerY = 62 + 424 / 2;
+        const offsetY = modoCortado ? p.peek_y : p.normal_y;
+
+        if (fotoCustom) {
+          ctx.shadowColor = 'transparent';
+          ctx.drawImage(charImg, 76, 62, 422, 424);
+        } else {
+          const drawW = p.scale_w;
+          const drawH = charImg.height * (drawW / charImg.width);
+          ctx.drawImage(charImg, centerX - drawW / 2, centerY - drawH / 2 + offsetY, drawW, drawH);
+        }
+        ctx.restore();
+
+        function drawText(elId, x, y, align = 'left', upper = false) {
+          const el = document.getElementById(elId);
+          let txt = (el.textContent || '').trim();
+          if (upper) txt = txt.toUpperCase();
+          const s = window.getComputedStyle(el);
+          ctx.font = `${s.fontWeight || '700'} ${parseFloat(s.fontSize) || 26}px ${s.fontFamily}`;
+          ctx.fillStyle = s.color;
+          ctx.textAlign = align;
+          ctx.textBaseline = 'alphabetic';
+          ctx.fillText(txt, x, y);
+        }
+
+        drawText('txtValidade', 574, 253, 'left', true);
+        drawText('txtAluno', 582, 327, 'left', false);
+        drawText('txtAlunoLbl', 574, 366, 'left', true);
+        drawText('txtMajor', 582, 455, 'left', false);
+        drawText('txtMajorLbl', 574, 494, 'left', true);
+        drawText('txtSig', 82, 626, 'left', false);
+        drawText('txtSigLbl', 66, 672, 'left', true);
+        drawText('txtId', 1106, 672, 'right', true);
+
+        const slug = p.id;
+        const link = document.createElement('a');
+        link.download = `Carteirinha_Agentes_SA_${slug}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao exportar.');
+      } finally {
+        btn.innerHTML = orig;
+        btn.disabled = false;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderTabsAndGrid();
+      carregarPersonagem(0);
+      ajustarEscala();
+    });
+  </script>
+</body>
+</html>

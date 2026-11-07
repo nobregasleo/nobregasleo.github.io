@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carteirinha Oficial — Agentes S.A. (Editável em HTML/CSS)</title>
+  <link rel="icon" type="image/svg+xml" href="assets/emblema_agentes_sa.svg">
+
+  <!-- Google Fonts: Tipografias idênticas à carteirinha (Courier Prime / Máquina de Escrever, Gloria Hallelujah / Assinatura, Cinzel, Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Gloria+Hallelujah&family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bundle Base64 local para garantir que o Download PNG funcione 100% mesmo aberto via file:// -->
+  <script src="assets/carteirinha_assets_b64.js"></script>
+
+  <style>
+    :root {
+      --card-ink-blue: #4b7ca8;
+      --brand-royal: #075fe4;
+      --typewriter-ink: #16181b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0b1120;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ─── TOPBAR DO EDITOR ─── */
+    .studio-topbar {
+      height: 60px;
+      background: rgba(15, 23, 42, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .studio-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .studio-brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .studio-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: rgba(7, 95, 228, 0.25);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .studio-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-studio {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--brand-royal);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.38);
+    }
+    .btn-primary:hover {
+      background: #054ec2;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    /* ─── WORKSPACE: SIDEBAR + PALCO DA CARTEIRINHA ─── */
+    .studio-workspace {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      flex: 1;
+      min-height: calc(100vh - 60px);
+    }
+
+    /* Modo "Só a Carteirinha" (Clean Mode) */
+    body.clean-card-mode .studio-topbar,
+    body.clean-card-mode .studio-sidebar,
+    body.clean-card-mode .stage-hint-bar {
+      display: none !important;
+    }
+    body.clean-card-mode .studio-workspace {
+      grid-template-columns: 1fr;
+      min-height: 100vh;
+    }
+    body.clean-card-mode .card-stage {
+      background: #0f172a;
+      padding: 24px;
+    }
+    .btn-only-clean {
+      display: none;
+    }
+    body.clean-card-mode .btn-only-clean {
+      display: inline-flex;
+    }
+
+    /* ─── SIDEBAR DE EDIÇÃO ─── */
+    .studio-sidebar {
+      background: #111827;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      height: calc(100vh - 60px);
+      position: sticky;
+      top: 60px;
+      overflow-y: auto;
+    }
+
+    .section-box {
+      background: rgba(30, 41, 59, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .section-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #60a5fa;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .control-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .font-badge-live {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .control-input, .control-select {
+      width: 100%;
+      padding: 8px 11px;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 7px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 13.5px;
+      outline: none;
+      transition: border-color 0.18s;
+    }
+    .control-input:focus, .control-select:focus {
+      border-color: #3b82f6;
+    }
+
+    .control-row-2 {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 8px;
+    }
+
+    /* Seletor Rápido de Personagens da Agentes S.A. */
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .char-thumb-btn {
+      background: #0f172a;
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      height: 52px;
+      padding: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .char-thumb-btn:hover, .char-thumb-btn.active {
+      border-color: #3b82f6;
+      background: rgba(7, 95, 228, 0.22);
+      transform: translateY(-1px);
+    }
+    .char-thumb-btn img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .preset-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .preset-pill {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.15s;
+      flex: 1;
+      text-align: center;
+    }
+    .preset-pill:hover, .preset-pill.active {
+      background: rgba(7, 95, 228, 0.3);
+      border-color: #60a5fa;
+      color: #ffffff;
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 44px;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: #3b82f6;
+      cursor: pointer;
+    }
+
+    /* ─── PALCO PRINCIPAL DA CARTEIRINHA ─── */
+    .card-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(7, 95, 228, 0.14), transparent 70%),
+        #0b1120;
+      overflow: auto;
+      gap: 18px;
+    }
+
+    .stage-hint-bar {
+      font-size: 13px;
+      color: #94a3b8;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 8px 16px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stage-scale-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+    }
+
+    .stage-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 18px;
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════════
+       A CARTEIRINHA RETANGULAR OFICIAL — AGENTES S.A. (1230 × 742 px)
+       ═══════════════════════════════════════════════════════════════════════════ */
+    .id-card-rectangular {
+      width: 1230px;
+      height: 742px;
+      position: relative;
+      border-radius: 54px;
+      overflow: hidden;
+      background-image: url('assets/carteirinha_fundo_base.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      box-shadow:
+        0 28px 65px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+      user-select: none;
+      --ink-color: var(--card-ink-blue);
+    }
+
+    .id-card-rectangular.theme-royal {
+      --ink-color: var(--brand-royal);
+    }
+
+    /* ─── 1. CAMPO DA FOTO (422 × 424 px na posição exata x:76, y:62) ─── */
+    .id-photo-viewport {
+      position: absolute;
+      left: 76px;
+      top: 62px;
+      width: 422px;
+      height: 424px;
+      overflow: hidden;
+      background-image: url('assets/carteirinha_foto_fundo_azul.png');
+      background-size: cover;
+      background-position: center;
+      cursor: grab;
+      z-index: 2;
+    }
+    .id-photo-viewport:active {
+      cursor: grabbing;
+    }
+
+    .id-photo-subject {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform-origin: center center;
+      pointer-events: none;
+      filter: drop-shadow(0 6px 11px rgba(10, 28, 54, 0.38));
+      max-width: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .photo-hover-badge {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: rgba(15, 23, 42, 0.82);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 6px;
+      opacity: 0;
+      transition: opacity 0.18s;
+      pointer-events: auto;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      z-index: 5;
+    }
+    .id-photo-viewport:hover .photo-hover-badge {
+      opacity: 1;
+    }
+
+    /* ─── 2. LOGO DO AGENTES S.A. NO TOPO DIREITO (x: 574..1106, y: 56..210) ─── */
+    .id-header-block {
+      position: absolute;
+      left: 574px;
+      top: 56px;
+      width: 532px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      z-index: 3;
+    }
+
+    .id-logo-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 82px;
+    }
+
+    .id-logo-img {
+      max-width: 524px;
+      max-height: 76px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Subtítulo Universitário com os traços pontiagudos laterais (— U N I V E R S I D A D E —) */
+    .id-university-subline {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      color: var(--ink-color);
+    }
+
+    .taper-dash-left,
+    .taper-dash-right {
+      width: 34px;
+      height: 9px;
+      flex-shrink: 0;
+    }
+
+    .id-university-text {
+      font-family: 'Cinzel', 'Times New Roman', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding-left: 0.12em;
+      color: var(--ink-color);
+      text-transform: uppercase;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* ─── 3. SUBTÍTULO DE VALIDADE / SEMESTRE (y: 228, largura máx: 524px) ─── */
+    .id-semester-line {
+      position: absolute;
+      left: 574px;
+      top: 228px;
+      width: 524px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 25.5px;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      color: var(--ink-color);
+      text-transform: uppercase;
+      line-height: 1.1;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    /* ─── 4. CAMPOS PREENCHIDOS (MÁQUINA DE ESCREVER) E RÓTULOS EM PORTUGUÊS ─── */
+    /* Campo 1: Nome do Estudante (acima da linha 1 em y=336, largura máx: 516px) */
+    .id-field-student-value {
+      position: absolute;
+      left: 582px;
+      top: 268px;
+      width: 516px;
+      height: 64px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Courier Prime', 'Courier New', monospace;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--typewriter-ink);
+      line-height: 1;
+      white-space: nowrap;
+      z-index: 4;
+    }
+
+    .id-field-student-label {
+      position: absolute;
+      left: 574px;
+      top: 344px;
+      width: 524px;
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--ink-color);
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    /* Campo 2: Especialidade (acima da linha 2 em y=464, largura máx: 516px) */
+    .id-field-major-value {
+      position: absolute;
+      left: 582px;
+      top: 396px;
+      width: 516px;
+      height: 64px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Courier Prime', 'Courier New', monospace;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--typewriter-ink);
+      line-height: 1;
+      white-space: nowrap;
+      z-index: 4;
+    }
+
+    .id-field-major-label {
+      position: absolute;
+      left: 574px;
+      top: 472px;
+      width: 524px;
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--ink-color);
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    /* ─── 5. ASSINATURA MANUSCRITA E RODAPÉ (Linha 3 em y=640, largura máx: 990px) ─── */
+    .id-field-signature-value {
+      position: absolute;
+      left: 82px;
+      top: 528px;
+      width: 990px;
+      height: 110px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 68px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: #15171a;
+      line-height: 1;
+      white-space: nowrap;
+      z-index: 4;
+    }
+
+    .id-field-signature-label {
+      position: absolute;
+      left: 66px;
+      top: 649px;
+      max-width: 440px;
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--ink-color);
+      text-transform: uppercase;
+      line-height: 1;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    .id-field-serial-number {
+      position: absolute;
+      right: 124px;
+      top: 649px;
+      max-width: 520px;
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--ink-color);
+      text-transform: uppercase;
+      line-height: 1;
+      text-align: right;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    /* Realce suave nos textos editáveis direto no cartão */
+    [contenteditable="true"] {
+      outline: none;
+      border-radius: 6px;
+      transition: background-color 0.15s, box-shadow 0.15s;
+      cursor: text;
+    }
+    [contenteditable="true"]:hover {
+      background-color: rgba(7, 95, 228, 0.06);
+      box-shadow: 0 0 0 2px rgba(7, 95, 228, 0.18);
+    }
+    [contenteditable="true"]:focus {
+      background-color: rgba(7, 95, 228, 0.1);
+      box-shadow: 0 0 0 2px rgba(7, 95, 228, 0.45);
+    }
+
+    /* Toast */
+    .studio-toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #10b981;
+      color: #ffffff;
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13.5px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      transform: translateY(90px);
+      opacity: 0;
+      transition: all 0.25s ease;
+      z-index: 1000;
+    }
+    .studio-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Input invisível para upload de foto própria -->
+  <input type="file" id="filePhotoInput" accept="image/*" style="display: none;" onchange="handleCustomPhotoUpload(event)">
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TOPBAR DO ESTÚDIO
+       ═══════════════════════════════════════════════════════════════ -->
+  <header class="studio-topbar">
+    <div class="studio-brand">
+      <img src="assets/emblema_agentes_sa.svg" alt="Agentes S.A." style="height: 30px; background: #fff; border-radius: 50%; padding: 2px;">
+      <div class="studio-brand-title">
+        <span>Gerador de Carteirinha Oficial • Agentes S.A.</span>
+        <span class="studio-badge">PORTUGUÊS • AUTO-FONTE</span>
+      </div>
+    </div>
+
+    <div class="studio-actions">
+      <button onclick="toggleCleanMode()" class="btn-studio btn-secondary" title="Oculta os painéis laterais e exibe só a carteirinha com o botão de download">
+        <span>👁️ Ver Só a Carteirinha</span>
+      </button>
+      <a href="assets/carteirinha_agentes_sa_fundo.png" download="Carteirinha_Agentes_SA_Fundo.png" class="btn-studio btn-secondary" title="Baixar apenas a imagem de fundo da carteirinha">
+        <span>🖼️ Baixar Só o Fundo (.PNG)</span>
+      </a>
+      <button onclick="exportCardPNG()" class="btn-studio btn-primary" id="btnExportPNGTop">
+        <span>📥 Baixar Carteirinha (.PNG)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       WORKSPACE: CONTROLES LATERAIS + CARTEIRINHA AO VIVO
+       ═══════════════════════════════════════════════════════════════ -->
+  <div class="studio-workspace">
+
+    <!-- PAINEL LATERAL DE EDIÇÃO -->
+    <aside class="studio-sidebar">
+
+      <!-- 1. CAMPO DA FOTO -->
+      <div class="section-box">
+        <div class="section-title">
+          <span>📸 1. Foto da Carteirinha</span>
+          <button onclick="document.getElementById('filePhotoInput').click()" class="btn-studio btn-primary" style="padding: 4px 10px; font-size: 11.5px;">
+            <span>+ Subir Foto</span>
+          </button>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Escolher Agente Oficial (ou envie sua foto)</label>
+          <div class="char-grid" id="charGrid">
+            <button class="char-thumb-btn active" onclick="selectCharacter('char_01_lian', 'assets/personagens_carteirinha/01_lian_nobg.png', 'lian', this)" title="Mascote Lian">
+              <img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="Lian">
+            </button>
+            <button class="char-thumb-btn" onclick="selectCharacter('char_02_verde', 'assets/personagens_carteirinha/02_verde_sapo_nobg.png', 'verde', this)" title="Sapo Verde (Estilo Mike)">
+              <img src="assets/personagens_carteirinha/02_verde_sapo_nobg.png" alt="Verde">
+            </button>
+            <button class="char-thumb-btn" onclick="selectCharacter('char_09_leo', 'assets/personagens_carteirinha/09_leonardo_capacete_nobg.png', 'leo', this)" title="Leonardo Nóbrega">
+              <img src="assets/personagens_carteirinha/09_leonardo_capacete_nobg.png" alt="Leonardo">
+            </button>
+            <button class="char-thumb-btn" onclick="selectCharacter('char_03_rosa', 'assets/personagens_carteirinha/03_rosa_coracao_nobg.png', 'outro', this)" title="Coração Rosa">
+              <img src="assets/personagens_carteirinha/03_rosa_coracao_nobg.png" alt="Rosa">
+            </button>
+            <button class="char-thumb-btn" onclick="selectCharacter('char_04_laranja', 'assets/personagens_carteirinha/04_laranja_cubo_nobg.png', 'outro', this)" title="Cubo Laranja">
+              <img src="assets/personagens_carteirinha/04_laranja_cubo_nobg.png" alt="Laranja">
+            </button>
+            <button class="char-thumb-btn" onclick="selectCharacter('char_05_yeti', 'assets/personagens_carteirinha/05_creme_yeti_nobg.png', 'outro', this)" title="Yeti Creme">
+              <img src="assets/personagens_carteirinha/05_creme_yeti_nobg.png" alt="Yeti">
+            </button>
+            <button class="char-thumb-btn" onclick="selectCharacter('char_06_branco', 'assets/personagens_carteirinha/06_branco_vinil_nobg.png', 'outro', this)" title="Boneco Branco">
+              <img src="assets/personagens_carteirinha/06_branco_vinil_nobg.png" alt="Branco">
+            </button>
+            <button class="char-thumb-btn" onclick="selectCharacter('char_07_azul', 'assets/personagens_carteirinha/07_azul_boina_nobg.png', 'outro', this)" title="Azul Boina">
+              <img src="assets/personagens_carteirinha/07_azul_boina_nobg.png" alt="Azul">
+            </button>
+            <button class="char-thumb-btn" onclick="selectCharacter('char_08_amarelo', 'assets/personagens_carteirinha/08_amarelo_oculos_nobg.png', 'outro', this)" title="Amarelo Óculos">
+              <img src="assets/personagens_carteirinha/08_amarelo_oculos_nobg.png" alt="Amarelo">
+            </button>
+            <button class="char-thumb-btn" onclick="document.getElementById('filePhotoInput').click()" title="Enviar foto do computador" style="font-size: 18px; color: #60a5fa; font-weight: 800;">
+              📁
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label">Enquadramento Rápido (Ou arraste a foto com o mouse)</label>
+          <div class="preset-pills">
+            <button class="preset-pill active" id="btnPosePeek" onclick="applyPhotoPose('peek')">👀 Cortado Embaixo (Mike Wazowski)</button>
+            <button class="preset-pill" id="btnPoseNormal" onclick="applyPhotoPose('normal')">🪪 Retrato 3x4 Normal</button>
+          </div>
+        </div>
+
+        <div class="slider-row">
+          <span>Zoom:</span>
+          <input type="range" id="sliderZoom" min="30" max="260" value="100" oninput="updatePhotoTransform()">
+          <span id="valZoom">100%</span>
+        </div>
+        <div class="slider-row">
+          <span>Altura (Y):</span>
+          <input type="range" id="sliderPosY" min="-220" max="320" value="150" oninput="updatePhotoTransform()">
+          <span id="valPosY">150px</span>
+        </div>
+        <div class="slider-row">
+          <span>Lado (X):</span>
+          <input type="range" id="sliderPosX" min="-200" max="200" value="0" oninput="updatePhotoTransform()">
+          <span id="valPosX">0px</span>
+        </div>
+      </div>
+
+      <!-- 2. LOGO AGENTES S.A. E CABEÇALHO -->
+      <div class="section-box">
+        <div class="section-title">
+          <span>🏛️ 2. Logo Agentes S.A. &amp; Topo</span>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="selectLogoVariant">Versão do Logo Agentes S.A.</label>
+          <select id="selectLogoVariant" class="control-select" onchange="updateLogoVariant()">
+            <option value="wordmark_steel" selected>AGENTES S.A. (Com Olho no "A" • Azul Carteirinha)</option>
+            <option value="wordmark_royal">AGENTES S.A. (Com Olho no "A" • Azul Royal Oficial)</option>
+            <option value="horizontal">Emblema Circular "A" + AGENTES S.A. (Horizontal)</option>
+            <option value="completo">Logo Completo Empilhado (Círculo "A" + Texto)</option>
+            <option value="olhos">Logo AGENTES S.A. (Olhos em todas as letras)</option>
+          </select>
+        </div>
+
+        <div class="control-row-2">
+          <div class="control-group">
+            <label class="control-label" for="inpUniSub">Subtítulo do Logo</label>
+            <input type="text" id="inpUniSub" class="control-input" value="Aula - 24/11 - 20h" oninput="syncFromSidebar()">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="selectShowUni">Exibir Subtítulo</label>
+            <select id="selectShowUni" class="control-select" onchange="syncFromSidebar()">
+              <option value="show" selected>Mostrar</option>
+              <option value="hide">Ocultar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="inpSemester">
+            <span>Linha de Validade / Semestre</span>
+            <span class="font-badge-live" id="badgeFontSemester">25.5px</span>
+          </label>
+          <input type="text" id="inpSemester" class="control-input" value="VÁLIDO • 1º E 2º SEMESTRE" oninput="syncFromSidebar()">
+        </div>
+      </div>
+
+      <!-- 3. CAMPOS DE TEXTO EDITÁVEIS (COM AUTO-AJUSTE DE FONTE) -->
+      <div class="section-box">
+        <div class="section-title">
+          <span>⌨️ 3. Textos (Auto-Ajuste na Linha)</span>
+        </div>
+
+        <div class="control-row-2">
+          <div class="control-group">
+            <label class="control-label" for="inpStudentVal">
+              <span>Estudante / Nome</span>
+              <span class="font-badge-live" id="badgeFontStudent">56px</span>
+            </label>
+            <input type="text" id="inpStudentVal" class="control-input" value="L.Nobrega" oninput="syncFromSidebar()">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inpStudentLbl">Rótulo 1</label>
+            <input type="text" id="inpStudentLbl" class="control-input" value="ESTUDANTE" oninput="syncFromSidebar()">
+          </div>
+        </div>
+
+        <div class="control-row-2">
+          <div class="control-group">
+            <label class="control-label" for="inpMajorVal">
+              <span>Especialidade</span>
+              <span class="font-badge-live" id="badgeFontMajor">56px</span>
+            </label>
+            <input type="text" id="inpMajorVal" class="control-input" value="Agentes de IA" oninput="syncFromSidebar()">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inpMajorLbl">Rótulo 2</label>
+            <input type="text" id="inpMajorLbl" class="control-input" value="ESPECIALIDADE" oninput="syncFromSidebar()">
+          </div>
+        </div>
+
+        <div class="control-row-2">
+          <div class="control-group">
+            <label class="control-label" for="inpSigVal">
+              <span>Assinatura</span>
+              <span class="font-badge-live" id="badgeFontSig">68px</span>
+            </label>
+            <input type="text" id="inpSigVal" class="control-input" value="Leonardo Nóbrega" oninput="syncFromSidebar()">
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="inpSigLbl">Rótulo Assinatura</label>
+            <input type="text" id="inpSigLbl" class="control-input" value="ASSINATURA" oninput="syncFromSidebar()">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="inpSerialVal">Código ID (Canto Inferior Direito)</label>
+          <input type="text" id="inpSerialVal" class="control-input" value="Nº ID 600962011054255" oninput="syncFromSidebar()">
+        </div>
+
+        <button onclick="exportCardPNG()" class="btn-studio btn-primary" style="width: 100%; justify-content: center; margin-top: 4px;">
+          <span>📥 Baixar Carteirinha Pronta (.PNG)</span>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- PALCO CENTRAL: A CARTEIRINHA RETANGULAR -->
+    <main class="card-stage">
+      <div class="stage-hint-bar">
+        <span>💡 <strong>Auto-Fonte Ativo:</strong> Digite qualquer texto (curto ou longo) — o tamanho da fonte se adapta sozinho para nunca passar da linha!</span>
+      </div>
+
+      <div class="stage-scale-wrapper" id="scaleWrapper">
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             A CARTEIRINHA RETANGULAR (1230 × 742 px)
+             ═══════════════════════════════════════════════════════════════ -->
+        <div class="id-card-rectangular" id="idCardCanvas">
+
+          <!-- 1. CAMPO DA FOTO (Editável por clique ou arraste) -->
+          <div class="id-photo-viewport" id="photoViewport" title="Arraste para posicionar ou clique no botão para trocar a foto">
+            <img
+              src="assets/personagens_carteirinha/01_lian_nobg.png"
+              alt="Foto do Agente"
+              class="id-photo-subject"
+              id="photoSubject"
+            >
+            <div class="photo-hover-badge" onclick="document.getElementById('filePhotoInput').click()">
+              📷 Trocar Foto
+            </div>
+          </div>
+
+          <!-- 2. CABEÇALHO COM O LOGO OFICIAL DO AGENTES S.A. -->
+          <div class="id-header-block">
+            <div class="id-logo-wrapper">
+              <img
+                src="assets/logo_agentes_sa_wordmark_olho_steel.png"
+                alt="Agentes S.A."
+                class="id-logo-img"
+                id="cardLogoImg"
+              >
+            </div>
+
+            <div class="id-university-subline" id="uniSublineRow">
+              <svg class="taper-dash-left" viewBox="0 0 34 9" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="0,4.5 34,0.5 34,8.5" fill="currentColor"/>
+              </svg>
+              <div
+                class="id-university-text auto-fit-field"
+                id="viewUniSub"
+                data-max-font="28"
+                data-min-font="14"
+                data-max-width="440"
+                contenteditable="true"
+                spellcheck="false"
+              >Aula - 24/11 - 20h</div>
+              <svg class="taper-dash-right" viewBox="0 0 34 9" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="34,4.5 0,0.5 0,8.5" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 3. LINHA DE SEMESTRE / VALIDADE -->
+          <div
+            class="id-semester-line auto-fit-field"
+            id="viewSemester"
+            data-max-font="25.5"
+            data-min-font="13"
+            data-max-width="520"
+            data-badge="badgeFontSemester"
+            contenteditable="true"
+            spellcheck="false"
+          >VÁLIDO • 1º E 2º SEMESTRE</div>
+
+          <!-- 4. CAMPO 1: NOME DIGITADO + RÓTULO ESTUDANTE -->
+          <div
+            class="id-field-student-value auto-fit-field"
+            id="viewStudentVal"
+            data-max-font="56"
+            data-min-font="18"
+            data-max-width="514"
+            data-badge="badgeFontStudent"
+            contenteditable="true"
+            spellcheck="false"
+          >L.Nobrega</div>
+          <div
+            class="id-field-student-label auto-fit-field"
+            id="viewStudentLbl"
+            data-max-font="25"
+            data-min-font="14"
+            data-max-width="520"
+            contenteditable="true"
+            spellcheck="false"
+          >ESTUDANTE</div>
+
+          <!-- 5. CAMPO 2: ESPECIALIDADE + RÓTULO ESPECIALIDADE -->
+          <div
+            class="id-field-major-value auto-fit-field"
+            id="viewMajorVal"
+            data-max-font="56"
+            data-min-font="18"
+            data-max-width="514"
+            data-badge="badgeFontMajor"
+            contenteditable="true"
+            spellcheck="false"
+          >Agentes de IA</div>
+          <div
+            class="id-field-major-label auto-fit-field"
+            id="viewMajorLbl"
+            data-max-font="25"
+            data-min-font="14"
+            data-max-width="520"
+            contenteditable="true"
+            spellcheck="false"
+          >ESPECIALIDADE</div>
+
+          <!-- 6. CAMPO 3: ASSINATURA MANUSCRITA + RÓTULO ASSINATURA + Nº ID -->
+          <div
+            class="id-field-signature-value auto-fit-field"
+            id="viewSigVal"
+            data-max-font="68"
+            data-min-font="22"
+            data-max-width="980"
+            data-badge="badgeFontSig"
+            contenteditable="true"
+            spellcheck="false"
+          >Leonardo Nóbrega</div>
+          <div
+            class="id-field-signature-label auto-fit-field"
+            id="viewSigLbl"
+            data-max-font="26"
+            data-min-font="14"
+            data-max-width="440"
+            contenteditable="true"
+            spellcheck="false"
+          >ASSINATURA</div>
+          <div
+            class="id-field-serial-number auto-fit-field"
+            id="viewSerialVal"
+            data-max-font="26"
+            data-min-font="14"
+            data-max-width="500"
+            contenteditable="true"
+            spellcheck="false"
+          >Nº ID 600962011054255</div>
+
+        </div>
+
+      </div>
+
+      <!-- BARRA INFERIOR COM BOTÃO DE DOWNLOAD DIRETO NO PALCO -->
+      <div class="stage-bottom-bar">
+        <button onclick="document.getElementById('filePhotoInput').click()" class="btn-studio btn-secondary">
+          <span>📷 Trocar Foto</span>
+        </button>
+        <button onclick="exportCardPNG()" class="btn-studio btn-primary" id="btnExportPNGBottom">
+          <span>📥 Baixar Carteirinha (.PNG)</span>
+        </button>
+        <button onclick="toggleCleanMode()" class="btn-studio btn-secondary btn-only-clean">
+          <span>⚙️ Mostrar Painel de Edição</span>
+        </button>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="studio-toast" id="studioToast">✓ Carteirinha exportada com sucesso!</div>
+
+  <script>
+    let currentCharKey = 'char_01_lian';
+    let currentCharType = 'lian';
+    let currentPose = 'peek';
+    let photoBaseWidth = 410;
+    let isCustomUploaded = false;
+
+    const CHAR_PRESETS = {
+      lian: {
+        baseW: 410,
+        peek:   { zoom: 100, x: 0, y: 150 },
+        normal: { zoom: 88,  x: 0, y: 38 }
+      },
+      verde: {
+        baseW: 390,
+        peek:   { zoom: 100, x: 0, y: 138 },
+        normal: { zoom: 82,  x: 0, y: 10 }
+      },
+      leo: {
+        baseW: 340,
+        peek:   { zoom: 125, x: 0, y: 420 },
+        normal: { zoom: 118, x: 0, y: 285 }
+      },
+      outro: {
+        baseW: 360,
+        peek:   { zoom: 105, x: 0, y: 145 },
+        normal: { zoom: 84,  x: 0, y: 12 }
+      },
+      custom: {
+        baseW: 422,
+        peek:   { zoom: 100, x: 0, y: 120 },
+        normal: { zoom: 100, x: 0, y: 0 }
+      }
+    };
+
+    // Canvas 2D auxiliar invisível para medir largura exata de qualquer texto
+    const measureCanvas = document.createElement('canvas');
+    const measureCtx = measureCanvas.getContext('2d');
+
+    /**
+     * Auto-ajuste de tamanho da fonte de acordo com os caracteres e largura em pixels
+     * para NUNCA ultrapassar o tamanho da linha horizontal da carteirinha.
+     */
+    function autoFitSingleField(el) {
+      if (!el) return;
+      const maxFont = parseFloat(el.dataset.maxFont) || 56;
+      const minFont = parseFloat(el.dataset.minFont) || 16;
+      const maxWidth = parseFloat(el.dataset.maxWidth) || 514;
+
+      const cleanText = (el.textContent || '').replace(/\r?\n/g, ' ');
+      if (el.textContent !== cleanText) {
+        el.textContent = cleanText;
+      }
+
+      if (!cleanText.trim()) {
+        el.style.fontSize = `${maxFont}px`;
+        if (el.dataset.badge) {
+          const b = document.getElementById(el.dataset.badge);
+          if (b) b.textContent = `${maxFont}px`;
+        }
+        return;
+      }
+
+      const style = window.getComputedStyle(el);
+      const fontWeight = style.fontWeight || '700';
+      const fontFamily = style.fontFamily || 'monospace';
+      const isTrackedSub = el.id === 'viewUniSub';
+
+      let fontSize = maxFont;
+      measureCtx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+      const rawW = measureCtx.measureText(cleanText).width;
+      const spacingFactor = isTrackedSub ? 0.34 : 0.025;
+      const totalW = rawW + cleanText.length * (fontSize * spacingFactor);
+
+      if (totalW > maxWidth) {
+        const ratio = maxWidth / totalW;
+        fontSize = Math.max(minFont, Math.floor(maxFont * ratio * 0.97));
+      }
+
+      el.style.fontSize = `${fontSize}px`;
+
+      // Verificação real no DOM para garantir que scrollWidth nunca passe de maxWidth
+      while (el.scrollWidth > maxWidth + 4 && fontSize > minFont) {
+        fontSize -= 1;
+        el.style.fontSize = `${fontSize}px`;
+      }
+
+      if (el.dataset.badge) {
+        const b = document.getElementById(el.dataset.badge);
+        if (b) b.textContent = `${fontSize}px`;
+      }
+    }
+
+    function autoFitAllFields() {
+      document.querySelectorAll('.auto-fit-field').forEach(autoFitSingleField);
+    }
+
+    // Configura eventos de digitação direta nos campos contenteditable da carteirinha
+    document.querySelectorAll('.auto-fit-field').forEach((el) => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          el.blur();
+        }
+      });
+      el.addEventListener('input', () => {
+        autoFitSingleField(el);
+        syncFromCard();
+      });
+      el.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text/plain').replace(/\r?\n/g, ' ');
+        document.execCommand('insertText', false, text);
+        autoFitSingleField(el);
+        syncFromCard();
+      });
+    });
+
+    function selectCharacter(b64Key, src, type, btnEl) {
+      const img = document.getElementById('photoSubject');
+      img.src = src;
+      currentCharKey = b64Key;
+      currentCharType = type || 'outro';
+      isCustomUploaded = false;
+
+      if (btnEl) {
+        document.querySelectorAll('.char-thumb-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+
+      applyPhotoPose(currentPose);
+    }
+
+    function applyPhotoPose(pose) {
+      currentPose = pose;
+      document.getElementById('btnPosePeek').classList.toggle('active', pose === 'peek');
+      document.getElementById('btnPoseNormal').classList.toggle('active', pose === 'normal');
+
+      const presetGroup = CHAR_PRESETS[currentCharType] || CHAR_PRESETS.outro;
+      photoBaseWidth = presetGroup.baseW;
+      const p = presetGroup[pose] || presetGroup.peek;
+
+      document.getElementById('sliderZoom').value = p.zoom;
+      document.getElementById('sliderPosX').value = p.x;
+      document.getElementById('sliderPosY').value = p.y;
+      updatePhotoTransform();
+    }
+
+    function updatePhotoTransform() {
+      const zoom = parseFloat(document.getElementById('sliderZoom').value) || 100;
+      const posX = parseFloat(document.getElementById('sliderPosX').value) || 0;
+      const posY = parseFloat(document.getElementById('sliderPosY').value) || 0;
+
+      document.getElementById('valZoom').textContent = `${Math.round(zoom)}%`;
+      document.getElementById('valPosX').textContent = `${Math.round(posX)}px`;
+      document.getElementById('valPosY').textContent = `${Math.round(posY)}px`;
+
+      const img = document.getElementById('photoSubject');
+      img.style.width = `${photoBaseWidth}px`;
+      img.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px)) scale(${zoom / 100})`;
+    }
+
+    function handleCustomPhotoUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('photoSubject');
+        img.src = e.target.result;
+        currentCharType = 'custom';
+        isCustomUploaded = true;
+        document.querySelectorAll('.char-thumb-btn').forEach(b => b.classList.remove('active'));
+        applyPhotoPose('normal');
+        showToast('📸 Foto carregada! Arraste para ajustar.');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Arrastar a foto diretamente na moldura 3x4
+    (function initPhotoDrag() {
+      const viewport = document.getElementById('photoViewport');
+      let isDragging = false;
+      let startX = 0, startY = 0;
+      let origX = 0, origY = 0;
+
+      viewport.addEventListener('mousedown', (e) => {
+        if (e.target.classList.contains('photo-hover-badge')) return;
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        origX = parseFloat(document.getElementById('sliderPosX').value) || 0;
+        origY = parseFloat(document.getElementById('sliderPosY').value) || 0;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const wrapper = document.getElementById('scaleWrapper');
+        const match = wrapper.style.transform.match(/scale\(([^)]+)\)/);
+        const currentScale = match ? parseFloat(match[1]) : 1;
+
+        const dx = (e.clientX - startX) / currentScale;
+        const dy = (e.clientY - startY) / currentScale;
+
+        document.getElementById('sliderPosX').value = Math.round(origX + dx);
+        document.getElementById('sliderPosY').value = Math.round(origY + dy);
+        updatePhotoTransform();
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      viewport.addEventListener('dragover', (e) => e.preventDefault());
+      viewport.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            const img = document.getElementById('photoSubject');
+            img.src = ev.target.result;
+            currentCharType = 'custom';
+            isCustomUploaded = true;
+            applyPhotoPose('normal');
+            showToast('📸 Foto solta na moldura!');
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    })();
+
+    function updateLogoVariant() {
+      const variant = document.getElementById('selectLogoVariant').value;
+      const logoImg = document.getElementById('cardLogoImg');
+      const card = document.getElementById('idCardCanvas');
+
+      if (variant === 'wordmark_steel') {
+        logoImg.src = 'assets/logo_agentes_sa_wordmark_olho_steel.png';
+        logoImg.style.maxHeight = '76px';
+        card.classList.remove('theme-royal');
+      } else if (variant === 'wordmark_royal') {
+        logoImg.src = 'assets/logo_agentes_sa_wordmark_olho.png';
+        logoImg.style.maxHeight = '76px';
+        card.classList.add('theme-royal');
+      } else if (variant === 'horizontal') {
+        logoImg.src = 'assets/logo_agentes_sa_horizontal.png';
+        logoImg.style.maxHeight = '86px';
+        card.classList.remove('theme-royal');
+      } else if (variant === 'completo') {
+        logoImg.src = 'assets/logo_agentes_sa_completo_trim.png';
+        logoImg.style.maxHeight = '108px';
+        card.classList.remove('theme-royal');
+      } else if (variant === 'olhos') {
+        logoImg.src = 'assets/logo_agentes_sa_olhos_trim.png';
+        logoImg.style.maxHeight = '108px';
+        card.classList.remove('theme-royal');
+      }
+    }
+
+    function syncFromSidebar() {
+      document.getElementById('viewUniSub').textContent = document.getElementById('inpUniSub').value;
+      const showUni = document.getElementById('selectShowUni').value === 'show';
+      document.getElementById('uniSublineRow').style.display = showUni ? 'flex' : 'none';
+
+      document.getElementById('viewSemester').textContent = document.getElementById('inpSemester').value;
+      document.getElementById('viewStudentVal').textContent = document.getElementById('inpStudentVal').value;
+      document.getElementById('viewStudentLbl').textContent = document.getElementById('inpStudentLbl').value;
+      document.getElementById('viewMajorVal').textContent = document.getElementById('inpMajorVal').value;
+      document.getElementById('viewMajorLbl').textContent = document.getElementById('inpMajorLbl').value;
+      document.getElementById('viewSigVal').textContent = document.getElementById('inpSigVal').value;
+      document.getElementById('viewSigLbl').textContent = document.getElementById('inpSigLbl').value;
+      document.getElementById('viewSerialVal').textContent = document.getElementById('inpSerialVal').value;
+
+      autoFitAllFields();
+    }
+
+    function syncFromCard() {
+      document.getElementById('inpUniSub').value = document.getElementById('viewUniSub').textContent;
+      document.getElementById('inpSemester').value = document.getElementById('viewSemester').textContent;
+      document.getElementById('inpStudentVal').value = document.getElementById('viewStudentVal').textContent;
+      document.getElementById('inpStudentLbl').value = document.getElementById('viewStudentLbl').textContent;
+      document.getElementById('inpMajorVal').value = document.getElementById('viewMajorVal').textContent;
+      document.getElementById('inpMajorLbl').value = document.getElementById('viewMajorLbl').textContent;
+      document.getElementById('inpSigVal').value = document.getElementById('viewSigVal').textContent;
+      document.getElementById('inpSigLbl').value = document.getElementById('viewSigLbl').textContent;
+      document.getElementById('inpSerialVal').value = document.getElementById('viewSerialVal').textContent;
+    }
+
+    function toggleCleanMode() {
+      document.body.classList.toggle('clean-card-mode');
+      fitCardToScreen();
+    }
+
+    function fitCardToScreen() {
+      const stage = document.querySelector('.card-stage');
+      const wrapper = document.getElementById('scaleWrapper');
+      if (!stage || !wrapper) return;
+      const availW = stage.clientWidth - 48;
+      const availH = stage.clientHeight - 130;
+      const scaleW = availW / 1230;
+      const scaleH = availH > 300 ? availH / 742 : 1;
+      const scale = Math.min(1, scaleW, scaleH);
+      wrapper.style.transform = `scale(${scale})`;
+      wrapper.style.marginBottom = scale < 1 ? `${-(742 * (1 - scale)) / 2}px` : '0px';
+      wrapper.style.marginTop = scale < 1 ? `${-(742 * (1 - scale)) / 2}px` : '0px';
+    }
+    window.addEventListener('resize', fitCardToScreen);
+
+    function showToast(msg) {
+      const t = document.getElementById('studioToast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    function loadImageSafe(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    /**
+     * Exporta APENAS a carteirinha retangular em PNG Ultra-HD (2460 × 1484 px)
+     * usando Canvas 2D nativo + Base64 para funcionar 100% em file:// e https://
+     */
+    async function exportCardPNG() {
+      const btnTop = document.getElementById('btnExportPNGTop');
+      const btnBot = document.getElementById('btnExportPNGBottom');
+      const origTop = btnTop.innerHTML;
+      btnTop.innerHTML = '<span>⏳ Gerando PNG...</span>';
+      btnBot.innerHTML = '<span>⏳ Gerando PNG...</span>';
+      btnTop.disabled = true;
+      btnBot.disabled = true;
+
+      try {
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+        autoFitAllFields();
+
+        const SCALE = 2; // 2460 x 1484 px
+        const W = 1230, H = 742;
+        const canvas = document.createElement('canvas');
+        canvas.width = W * SCALE;
+        canvas.height = H * SCALE;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(SCALE, SCALE);
+
+        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+
+        // 1. Base retangular da carteirinha
+        const baseImg = await loadImageSafe(B64.fundo_base || 'assets/carteirinha_fundo_base.png');
+        ctx.drawImage(baseImg, 0, 0, W, H);
+
+        // 2. Quadro 3x4 da foto (x=76, y=62, w=422, h=424)
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(76, 62, 422, 424);
+        ctx.clip();
+
+        const blueImg = await loadImageSafe(B64.foto_fundo_azul || 'assets/carteirinha_foto_fundo_azul.png');
+        ctx.drawImage(blueImg, 76, 62, 422, 424);
+
+        const photoEl = document.getElementById('photoSubject');
+        const charSrc = isCustomUploaded ? photoEl.src : (B64[currentCharKey] || photoEl.src);
+        const charImg = await loadImageSafe(charSrc);
+
+        const zoom = (parseFloat(document.getElementById('sliderZoom').value) || 100) / 100;
+        const posX = parseFloat(document.getElementById('sliderPosX').value) || 0;
+        const posY = parseFloat(document.getElementById('sliderPosY').value) || 0;
+
+        const drawW = photoBaseWidth * zoom;
+        const drawH = (charImg.height * (photoBaseWidth / charImg.width)) * zoom;
+        const centerX = 76 + 422 / 2 + posX;
+        const centerY = 62 + 424 / 2 + posY;
+
+        ctx.shadowColor = 'rgba(10, 28, 54, 0.38)';
+        ctx.shadowBlur = 11;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 6;
+        ctx.drawImage(charImg, centerX - drawW / 2, centerY - drawH / 2, drawW, drawH);
+        ctx.restore();
+
+        // 3. Logo Oficial do Agentes S.A. no topo direito
+        const variant = document.getElementById('selectLogoVariant').value;
+        const logoKeyMap = {
+          wordmark_steel: 'logo_wordmark_steel',
+          wordmark_royal: 'logo_wordmark_royal',
+          horizontal: 'logo_horizontal',
+          completo: 'logo_completo',
+          olhos: 'logo_olhos'
+        };
+        const logoImgEl = document.getElementById('cardLogoImg');
+        const logoSrc = B64[logoKeyMap[variant]] || logoImgEl.src;
+        const logoImg = await loadImageSafe(logoSrc);
+
+        const maxLogoW = 524;
+        const maxLogoH = (variant === 'completo' || variant === 'olhos') ? 108 : (variant === 'horizontal' ? 86 : 76);
+        const scaleLogo = Math.min(maxLogoW / logoImg.width, maxLogoH / logoImg.height);
+        const lw = logoImg.width * scaleLogo;
+        const lh = logoImg.height * scaleLogo;
+        const lx = 574 + (532 - lw) / 2;
+        const ly = 56 + (82 - lh) / 2;
+        ctx.drawImage(logoImg, lx, ly, lw, lh);
+
+        const inkColor = variant === 'wordmark_royal' ? '#075fe4' : '#4b7ca8';
+
+        // 4. Subtítulo — U N I V E R S I D A D E —
+        if (document.getElementById('selectShowUni').value === 'show') {
+          const uniEl = document.getElementById('viewUniSub');
+          const uniTxt = (uniEl.textContent || '').trim().toUpperCase();
+          const uniFontPx = parseFloat(window.getComputedStyle(uniEl).fontSize) || 28;
+          const subY = 164;
+
+          // Triângulo esquerdo e direito
+          ctx.fillStyle = inkColor;
+          ctx.beginPath();
+          ctx.moveTo(574, subY);
+          ctx.lineTo(608, subY - 4);
+          ctx.lineTo(608, subY + 4);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.moveTo(1106, subY);
+          ctx.lineTo(1072, subY - 4);
+          ctx.lineTo(1072, subY + 4);
+          ctx.closePath();
+          ctx.fill();
+
+          if (uniTxt.length > 0) {
+            ctx.font = `700 ${uniFontPx}px Cinzel, Georgia, serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const letters = Array.from(uniTxt);
+            const span = Math.min(436, letters.length * uniFontPx * 1.15);
+            const startX = 840 - span / 2;
+            const step = letters.length > 1 ? span / (letters.length - 1) : 0;
+            letters.forEach((ch, idx) => {
+              ctx.fillText(ch, letters.length > 1 ? startX + idx * step : 840, subY + 1);
+            });
+          }
+        }
+
+        // 5. Textos e Rótulos com tamanho de fonte auto-ajustado
+        function drawCardText(elId, x, yBaseline, align = 'left', forceUpper = false) {
+          const el = document.getElementById(elId);
+          let txt = (el.textContent || '').trim();
+          if (forceUpper) txt = txt.toUpperCase();
+          const style = window.getComputedStyle(el);
+          const fontSize = parseFloat(style.fontSize) || 25;
+          const fontWeight = style.fontWeight || '600';
+          const fontFamily = style.fontFamily;
+          ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+          ctx.fillStyle = style.color;
+          ctx.textAlign = align;
+          ctx.textBaseline = 'alphabetic';
+          ctx.fillText(txt, x, yBaseline);
+        }
+
+        drawCardText('viewSemester', 574, 253, 'left', true);
+        drawCardText('viewStudentVal', 582, 327, 'left', false);
+        drawCardText('viewStudentLbl', 574, 366, 'left', true);
+        drawCardText('viewMajorVal', 582, 455, 'left', false);
+        drawCardText('viewMajorLbl', 574, 494, 'left', true);
+        drawCardText('viewSigVal', 82, 626, 'left', false);
+        drawCardText('viewSigLbl', 66, 672, 'left', true);
+        drawCardText('viewSerialVal', 1106, 672, 'right', true);
+
+        const studentName = (document.getElementById('viewStudentVal').textContent || 'Agente').trim();
+        const safeSlug = studentName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '_');
+
+        const link = document.createElement('a');
+        link.download = `Carteirinha_Agentes_SA_${safeSlug}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('✓ Carteirinha exportada em PNG Ultra-HD!');
+      } catch (err) {
+        console.error(err);
+        showToast('Erro ao exportar PNG.');
+      } finally {
+        btnTop.innerHTML = origTop;
+        btnBot.innerHTML = '<span>📥 Baixar Carteirinha (.PNG)</span>';
+        btnTop.disabled = false;
+        btnBot.disabled = false;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('modo') === 'card' || params.get('clean') === '1') {
+        document.body.classList.add('clean-card-mode');
+      }
+      applyPhotoPose('peek');
+      fitCardToScreen();
+      autoFitAllFields();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(autoFitAllFields);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carteirinha Oficial — Agentes S.A. (HTML/CSS Editável)</title>
+  <link rel="icon" type="image/svg+xml" href="assets/emblema_agentes_sa.svg">
+
+  <!-- Fontes idênticas à referência: Courier Prime (Máquina de Escrever) + Gloria Hallelujah (Assinatura) + Cinzel + Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Courier+Prime:wght@700&family=Gloria+Hallelujah&family=Inter:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Base64 dos assets locais para que o botão de Download PNG funcione 100% mesmo abrindo via file:// -->
+  <script src="assets/carteirinha_assets_b64.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      background: #0f172a;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    /* Wrapper responsivo para caber em qualquer tela mantendo 1230x742 reais */
+    .palco-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       CARTEIRINHA RETANGULAR — AGENTES S.A. (1230 × 742 px)
+       ═══════════════════════════════════════════════════════════════════ */
+    .carteirinha-agentes-sa {
+      width: 1230px;
+      height: 742px;
+      position: relative;
+      border-radius: 54px;
+      overflow: hidden;
+      background-image: url('assets/carteirinha_agentes_sa_fundo_sem_textos.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+      --azul-carteirinha: #4b7ca8;
+      --preto-tinta: #16181b;
+      user-select: none;
+    }
+
+    /* ─── 1. CAMPO DA FOTO EDITÁVEL (Clique para trocar) ─── */
+    .campo-foto {
+      position: absolute;
+      left: 76px;
+      top: 62px;
+      width: 422px;
+      height: 424px;
+      overflow: hidden;
+      background-image: url('assets/carteirinha_foto_fundo_azul.png');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+    }
+
+    .campo-foto img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 410px;
+      transform: translate(-50%, calc(-50% + 150px));
+      filter: drop-shadow(0 6px 11px rgba(10, 28, 54, 0.38));
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .campo-foto::after {
+      content: "📷 Clique para trocar a foto";
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.82);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.18s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .campo-foto:hover::after {
+      opacity: 1;
+    }
+
+    /* ─── 2. CAMPOS DE TEXTO EDITÁVEIS COM AUTO-AJUSTE DE FONTE ─── */
+    [contenteditable="true"] {
+      outline: none;
+      border-radius: 6px;
+      cursor: text;
+      white-space: nowrap;
+      transition: background-color 0.15s, box-shadow 0.15s;
+    }
+    [contenteditable="true"]:hover {
+      background: rgba(7, 95, 228, 0.06);
+      box-shadow: 0 0 0 2px rgba(7, 95, 228, 0.2);
+    }
+    [contenteditable="true"]:focus {
+      background: rgba(7, 95, 228, 0.1);
+      box-shadow: 0 0 0 2px rgba(7, 95, 228, 0.45);
+    }
+
+    /* Validade / Semestre (Largura máxima da linha: 524px) */
+    .texto-validade {
+      position: absolute;
+      left: 574px;
+      top: 228px;
+      width: 524px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-size: 25.5px;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      color: var(--azul-carteirinha);
+      text-transform: uppercase;
+    }
+
+    /* Nome do Estudante / Agente (Largura máxima da linha: 516px) */
+    .texto-aluno-valor {
+      position: absolute;
+      left: 582px;
+      top: 268px;
+      width: 516px;
+      height: 64px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Courier Prime', 'Courier New', monospace;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--preto-tinta);
+      line-height: 1;
+    }
+
+    .texto-aluno-label {
+      position: absolute;
+      left: 574px;
+      top: 344px;
+      width: 524px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--azul-carteirinha);
+      text-transform: uppercase;
+    }
+
+    /* Especialidade / Curso (Largura máxima da linha: 516px) */
+    .texto-major-valor {
+      position: absolute;
+      left: 582px;
+      top: 396px;
+      width: 516px;
+      height: 64px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Courier Prime', 'Courier New', monospace;
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--preto-tinta);
+      line-height: 1;
+    }
+
+    .texto-major-label {
+      position: absolute;
+      left: 574px;
+      top: 472px;
+      width: 524px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-size: 25px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--azul-carteirinha);
+      text-transform: uppercase;
+    }
+
+    /* Assinatura Manuscrita (Largura máxima da linha inferior: 990px) */
+    .texto-assinatura-valor {
+      position: absolute;
+      left: 82px;
+      top: 528px;
+      width: 990px;
+      height: 110px;
+      display: flex;
+      align-items: flex-end;
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 68px;
+      color: #15171a;
+      line-height: 1;
+    }
+
+    .texto-assinatura-label {
+      position: absolute;
+      left: 66px;
+      top: 649px;
+      max-width: 460px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--azul-carteirinha);
+      text-transform: uppercase;
+    }
+
+    /* Número de Identificação (Nº ID) */
+    .texto-id-numero {
+      position: absolute;
+      right: 124px;
+      top: 649px;
+      max-width: 520px;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--azul-carteirinha);
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    /* ─── BARRA DE AÇÕES (BOTÃO DE DOWNLOAD + TROCAR FOTO) ─── */
+    .barra-acoes {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 18px;
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-acao {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 9px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+      text-decoration: none;
+    }
+
+    .btn-download {
+      background: #075fe4;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.4);
+    }
+    .btn-download:hover {
+      background: #054ec2;
+      transform: translateY(-1px);
+    }
+
+    .btn-secundario {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+    .btn-secundario:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .dica-edicao {
+      font-size: 13px;
+      color: #94a3b8;
+      padding: 0 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Input oculto para trocar a foto ao clicar no quadro 3x4 -->
+  <input type="file" id="uploadFoto" accept="image/*" style="display: none;">
+
+  <div class="palco-wrapper" id="scaleWrapper">
+    <!-- SÓ A CARTEIRINHA RETANGULAR -->
+    <div class="carteirinha-agentes-sa" id="carteirinha">
+
+      <!-- CAMPO DA FOTO (Clique para escolher outra imagem do computador) -->
+      <div class="campo-foto" id="quadroFoto" title="Clique para trocar a foto">
+        <img
+          id="fotoAgente"
+          src="assets/personagens_carteirinha/01_lian_nobg.png"
+          alt="Foto da Carteirinha"
+        >
+      </div>
+
+  
+
+    <!-- CAMPOS DE TEXTO EDITÁVEIS EM PORTUGUÊS (Auto-ajustam a fonte para nunca passar da linha) -->
+      <div
+        class="texto-validade auto-fit-text"
+        id="txtValidade"
+        data-max-font="25.5"
+        data-min-font="13"
+        data-max-width="520"
+        contenteditable="true"
+        spellcheck="false"
+      >VÁLIDO • 1º E 2º SEMESTRE</div>
+
+      <div
+        class="texto-aluno-valor auto-fit-text"
+        id="txtAlunoValor"
+        data-max-font="56"
+        data-min-font="18"
+        data-max-width="514"
+        contenteditable="true"
+        spellcheck="false"
+      >L.Nobrega</div>
+      <div
+        class="texto-aluno-label auto-fit-text"
+        id="txtAlunoLabel"
+        data-max-font="25"
+        data-min-font="14"
+        data-max-width="520"
+        contenteditable="true"
+        spellcheck="false"
+      >ESTUDANTE</div>
+
+      <div
+        class="texto-major-valor auto-fit-text"
+        id="txtMajorValor"
+        data-max-font="56"
+        data-min-font="18"
+        data-max-width="514"
+        contenteditable="true"
+        spellcheck="false"
+      >Agentes de IA</div>
+      <div
+        class="texto-major-label auto-fit-text"
+        id="txtMajorLabel"
+        data-max-font="25"
+        data-min-font="14"
+        data-max-width="520"
+        contenteditable="true"
+        spellcheck="false"
+      >ESPECIALIDADE</div>
+
+      <div
+        class="texto-assinatura-valor auto-fit-text"
+        id="txtAssinaturaValor"
+        data-max-font="68"
+        data-min-font="22"
+        data-max-width="980"
+        contenteditable="true"
+        spellcheck="false"
+      >Leonardo Nóbrega</div>
+      <div
+        class="texto-assinatura-label auto-fit-text"
+        id="txtAssinaturaLabel"
+        data-max-font="26"
+        data-min-font="14"
+        data-max-width="440"
+        contenteditable="true"
+        spellcheck="false"
+      >ASSINATURA</div>
+
+      <div
+        class="texto-id-numero auto-fit-text"
+        id="txtIdNumero"
+        data-max-font="26"
+        data-min-font="14"
+        data-max-width="500"
+        contenteditable="true"
+        spellcheck="false"
+      >Nº ID 600962011054255</div>
+
+    </div>
+  </div>
+
+  <!-- BARRA COM BOTÃO DE DOWNLOAD PNG E TROCA DE FOTO -->
+  <div class="barra-acoes">
+    <span class="dica-edicao">✏️ Clique em qualquer texto ou na foto para editar</span>
+    <button class="btn-acao btn-secundario" onclick="document.getElementById('uploadFoto').click()">
+      <span>📷 Trocar Foto</span>
+    </button>
+    <button class="btn-acao btn-secundario" id="btnTogglePose" onclick="alternarModoFoto()">
+      <span>🪪 Mudar p/ Retrato Normal</span>
+    </button>
+    <button class="btn-acao btn-download" id="btnBaixarPNG" onclick="baixarCarteirinhaPNG()">
+      <span>📥 Baixar Carteirinha (.PNG)</span>
+    </button>
+  </div>
+
+  <script>
+    const quadroFoto = document.getElementById('quadroFoto');
+    const uploadFoto = document.getElementById('uploadFoto');
+    const fotoAgente = document.getElementById('fotoAgente');
+
+    let isCustomPhoto = false;
+    let modoCortadoEmbaixo = true; // true = efeito Mike Wazowski, false = retrato centralizado
+
+    // Canvas auxiliar invisível para medir largura exata em pixels de qualquer texto
+    const measureCanvas = document.createElement('canvas');
+    const measureCtx = measureCanvas.getContext('2d');
+
+    /**
+     * Ajusta automaticamente o tamanho da fonte (font-size) de acordo com os caracteres
+     * e a largura real em pixels para NUNCA ultrapassar a linha da carteirinha.
+     */
+    function ajustarTamanhoFonteElemento(el) {
+      const maxFont = parseFloat(el.dataset.maxFont) || 56;
+      const minFont = parseFloat(el.dataset.minFont) || 16;
+      const maxWidth = parseFloat(el.dataset.maxWidth) || 514;
+
+      const text = (el.textContent || '').replace(/\r?\n/g, ' ');
+      if (el.textContent !== text) {
+        el.textContent = text;
+      }
+
+      if (!text.trim()) {
+        el.style.fontSize = `${maxFont}px`;
+        return;
+      }
+
+      const style = window.getComputedStyle(el);
+      const fontWeight = style.fontWeight || '700';
+      const fontFamily = style.fontFamily || 'monospace';
+
+      // Começa no tamanho máximo e reduz até caber perfeitamente dentro de maxWidth
+      let fontSize = maxFont;
+      measureCtx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+      let measuredW = measureCtx.measureText(text).width;
+
+      // Considera letter-spacing aproximado (~0.025em por caractere)
+      const extraSpacing = text.length * (fontSize * 0.025);
+      let totalWidth = measuredW + extraSpacing;
+
+      if (totalWidth > maxWidth) {
+        const ratio = maxWidth / totalWidth;
+        fontSize = Math.max(minFont, Math.floor(maxFont * ratio * 0.97));
+      }
+
+      el.style.fontSize = `${fontSize}px`;
+
+      // Verificação extra pelo scrollWidth real do DOM
+      while (el.scrollWidth > maxWidth + 4 && fontSize > minFont) {
+        fontSize -= 1;
+        el.style.fontSize = `${fontSize}px`;
+      }
+    }
+
+    function ajustarTodasAsFontes() {
+      document.querySelectorAll('.auto-fit-text').forEach(ajustarTamanhoFonteElemento);
+    }
+
+    // Impede quebra de linha (Enter) e recalcula o tamanho da fonte a cada tecla digitada
+    document.querySelectorAll('.auto-fit-text').forEach((el) => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          el.blur();
+        }
+      });
+      el.addEventListener('input', () => ajustarTamanhoFonteElemento(el));
+      el.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text/plain').replace(/\r?\n/g, ' ');
+        document.execCommand('insertText', false, text);
+        ajustarTamanhoFonteElemento(el);
+      });
+    });
+
+    // Trocar foto ao clicar no quadro 3x4
+    quadroFoto.addEventListener('click', () => uploadFoto.click());
+    uploadFoto.addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        fotoAgente.src = ev.target.result;
+        isCustomPhoto = true;
+        modoCortadoEmbaixo = false;
+        aplicarPosicaoFoto();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function alternarModoFoto() {
+      modoCortadoEmbaixo = !modoCortadoEmbaixo;
+      aplicarPosicaoFoto();
+    }
+
+    function aplicarPosicaoFoto() {
+      const btn = document.getElementById('btnTogglePose');
+      if (modoCortadoEmbaixo) {
+        fotoAgente.style.width = isCustomPhoto ? '422px' : '410px';
+        fotoAgente.style.height = 'auto';
+        fotoAgente.style.objectFit = 'contain';
+        fotoAgente.style.transform = 'translate(-50%, calc(-50% + 150px))';
+        btn.innerHTML = '<span>🪪 Mudar p/ Retrato Normal</span>';
+      } else {
+        if (isCustomPhoto) {
+          fotoAgente.style.width = '100%';
+          fotoAgente.style.height = '100%';
+          fotoAgente.style.objectFit = 'cover';
+          fotoAgente.style.transform = 'translate(-50%, -50%)';
+        } else {
+          fotoAgente.style.width = '360px';
+          fotoAgente.style.height = 'auto';
+          fotoAgente.style.objectFit = 'contain';
+          fotoAgente.style.transform = 'translate(-50%, calc(-50% + 36px))';
+        }
+        btn.innerHTML = '<span>👀 Mudar p/ Cortado Embaixo (Mike)</span>';
+      }
+    }
+
+    // Escala responsiva automática na tela
+    function ajustarEscalaTela() {
+      const wrapper = document.getElementById('scaleWrapper');
+      const availW = window.innerWidth - 48;
+      const availH = window.innerHeight - 120;
+      const scale = Math.min(1, availW / 1230, availH > 320 ? availH / 742 : 1);
+      wrapper.style.transform = `scale(${scale})`;
+      wrapper.style.marginTop = scale < 1 ? `${-(742 * (1 - scale)) / 2}px` : '0px';
+      wrapper.style.marginBottom = scale < 1 ? `${-(742 * (1 - scale)) / 2}px` : '0px';
+    }
+    window.addEventListener('resize', ajustarEscalaTela);
+
+    // Utilitário para carregar imagem no Canvas 2D sem erro de CORS/file://
+    function loadImageSafe(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    }
+
+    /**
+     * Renderiza e baixa a Carteirinha Retangular em PNG Ultra-HD (2460 × 1484 px)
+     * funcionando 100% offline mesmo aberto via file://
+     */
+    async function baixarCarteirinhaPNG() {
+      const btn = document.getElementById('btnBaixarPNG');
+      const textoOriginal = btn.innerHTML;
+      btn.innerHTML = '<span>⏳ Gerando PNG...</span>';
+      btn.disabled = true;
+
+      try {
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+        ajustarTodasAsFontes();
+
+        const SCALE = 2; // 2460 x 1484 px
+        const W = 1230, H = 742;
+        const canvas = document.createElement('canvas');
+        canvas.width = W * SCALE;
+        canvas.height = H * SCALE;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(SCALE, SCALE);
+
+        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+
+        // 1. Fundo da carteirinha com Logo Agentes S.A. e UNIVERSIDADE
+        const bgSrc = B64.fundo_sem_textos || 'assets/carteirinha_agentes_sa_fundo_sem_textos.png';
+        const bgImg = await loadImageSafe(bgSrc);
+        ctx.drawImage(bgImg, 0, 0, W, H);
+
+        // 2. Quadro 3x4 da foto (x=76, y=62, w=422, h=424)
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(76, 62, 422, 424);
+        ctx.clip();
+
+        const blueSrc = B64.foto_fundo_azul || 'assets/carteirinha_foto_fundo_azul.png';
+        const blueImg = await loadImageSafe(blueSrc);
+        ctx.drawImage(blueImg, 76, 62, 422, 424);
+
+        const currentPhotoSrc = isCustomPhoto ? fotoAgente.src : (B64.char_01_lian || fotoAgente.src);
+        const charImg = await loadImageSafe(currentPhotoSrc);
+
+        ctx.shadowColor = 'rgba(10, 28, 54, 0.38)';
+        ctx.shadowBlur = 11;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 6;
+
+        const centerX = 76 + 422 / 2;
+        const centerY = 62 + 424 / 2;
+
+        if (modoCortadoEmbaixo) {
+          const drawW = isCustomPhoto ? 422 : 410;
+          const drawH = charImg.height * (drawW / charImg.width);
+          ctx.drawImage(charImg, centerX - drawW / 2, centerY - drawH / 2 + 150, drawW, drawH);
+        } else if (isCustomPhoto) {
+          ctx.shadowColor = 'transparent';
+          const imgRatio = charImg.width / charImg.height;
+          const boxRatio = 422 / 424;
+          let drawW = 422, drawH = 424;
+          if (imgRatio > boxRatio) {
+            drawH = 424;
+            drawW = 424 * imgRatio;
+          } else {
+            drawW = 422;
+            drawH = 422 / imgRatio;
+          }
+          ctx.drawImage(charImg, centerX - drawW / 2, centerY - drawH / 2, drawW, drawH);
+        } else {
+          const drawW = 360;
+          const drawH = charImg.height * (drawW / charImg.width);
+          ctx.drawImage(charImg, centerX - drawW / 2, centerY - drawH / 2 + 36, drawW, drawH);
+        }
+        ctx.restore();
+
+        // 3. Desenha todos os textos com o tamanho de fonte auto-ajustado exato
+        function drawFieldText(elId, x, yBaseline, align = 'left', isUpper = false) {
+          const el = document.getElementById(elId);
+          let txt = (el.textContent || '').trim();
+          if (isUpper) txt = txt.toUpperCase();
+          const style = window.getComputedStyle(el);
+          const fontSize = parseFloat(style.fontSize) || 25;
+          const fontWeight = style.fontWeight || '600';
+          const fontFamily = style.fontFamily;
+          ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+          ctx.fillStyle = style.color;
+          ctx.textAlign = align;
+          ctx.textBaseline = 'alphabetic';
+          ctx.fillText(txt, x, yBaseline);
+        }
+
+        drawFieldText('txtValidade', 574, 253, 'left', true);
+        drawFieldText('txtAlunoValor', 582, 327, 'left', false);
+        drawFieldText('txtAlunoLabel', 574, 366, 'left', true);
+        drawFieldText('txtMajorValor', 582, 455, 'left', false);
+        drawFieldText('txtMajorLabel', 574, 494, 'left', true);
+        drawFieldText('txtAssinaturaValor', 82, 626, 'left', false);
+        drawFieldText('txtAssinaturaLabel', 66, 672, 'left', true);
+        drawFieldText('txtIdNumero', 1106, 672, 'right', true);
+
+        const nomeAluno = (document.getElementById('txtAlunoValor').textContent || 'Agente').trim();
+        const slug = nomeAluno.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '_');
+
+        const link = document.createElement('a');
+        link.download = `Carteirinha_Agentes_SA_${slug}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao gerar o download da imagem.');
+      } finally {
+        btn.innerHTML = textoOriginal;
+        btn.disabled = false;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      ajustarEscalaTela();
+      ajustarTodasAsFontes();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(ajustarTodasAsFontes);
+      }
+    });
+  </script>
+</body>
+</html>
