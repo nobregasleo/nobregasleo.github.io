@@ -858,7 +858,7 @@ Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), p
               Emita seu certificado oficial estilo <em>Agentes S.A. University</em> em alta resolução (.PNG para LinkedIn ou .PDF A4) com seu nome completo.
             </p>
           </div>
-          <a href="certificado.html?modo=aluno" class="btn-card-action">
+          <a href="certificado.html?modo=aluno" id="btnCertLink" class="btn-card-action">
             <span>🎓 Acessar Emissor de Certificado</span>
             <span>→</span>
           </a>
@@ -906,18 +906,38 @@ Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), p
       }, 3200);
     }
 
-    // Personaliza a saudação se o aluno já tiver credencial salva no navegador
+    // Personaliza a saudação lendo ?nome= e ?id= da URL (vindo do e-mail) ou do localStorage
     window.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('ln_webinar_agentes_sa_lead');
-      if (saved) {
+      const params = new URLSearchParams(window.location.search);
+      const urlName = params.get('nome') || params.get('name');
+      const urlId = params.get('id') || params.get('serial');
+
+      let studentData = null;
+      if (urlName) {
+        studentData = {
+          name: urlName.trim(),
+          serial: (urlId || '#AG-2411').trim()
+        };
         try {
-          const data = JSON.parse(saved);
-          if (data.name) {
-            const firstName = data.name.split(' ')[0];
-            document.getElementById('welcomeStudentTitle').textContent =
-              `Olá, ${firstName}! Bem-vindo(a) à Central do Aluno (${data.serial || '#AG-2411'}).`;
-          }
+          const existing = JSON.parse(localStorage.getItem('ln_webinar_agentes_sa_lead') || '{}');
+          localStorage.setItem('ln_webinar_agentes_sa_lead', JSON.stringify({ ...existing, ...studentData }));
         } catch (e) {}
+      } else {
+        try {
+          studentData = JSON.parse(localStorage.getItem('ln_webinar_agentes_sa_lead') || 'null');
+        } catch (e) {}
+      }
+
+      if (studentData && studentData.name) {
+        const firstName = studentData.name.split(' ')[0];
+        const serialCode = studentData.serial || '#AG-2411';
+        document.getElementById('welcomeStudentTitle').textContent =
+          `Olá, ${firstName}! Bem-vindo(a) à sua Central do Aluno (${serialCode}).`;
+
+        const certLink = document.getElementById('btnCertLink');
+        if (certLink) {
+          certLink.href = `certificado.html?nome=${encodeURIComponent(studentData.name)}&id=${encodeURIComponent('ID ' + serialCode)}&modo=aluno`;
+        }
       }
     });
   </script>

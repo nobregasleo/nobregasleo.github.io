@@ -1082,7 +1082,7 @@
             </a>
 
             <!-- Passo 3: Acesso imediato à Central do Aluno -->
-            <a href="central.html" class="showup-step-btn btn-download-guide">
+            <a href="central.html" id="btnCentralLink" class="showup-step-btn btn-download-guide">
               <span>3. Acessar a Central do Aluno (Skills, Prompts e Programas)</span>
               <span>Acessar →</span>
             </a>
@@ -1457,7 +1457,11 @@
           })
         });
 
-        // B. Dispara imediatamente o e-mail de confirmação com link da Agenda e Central do Aluno
+        // B. Dispara imediatamente o e-mail de confirmação simpático com link da Central do Aluno personalizada
+        const firstName = name.split(' ')[0];
+        const centralPersonalUrl = `https://nobregasleo.github.io/agentes-sa/central.html?nome=${encodeURIComponent(name)}&id=${encodeURIComponent(serial)}`;
+        const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Webinar+Agentes+S.A.+%E2%80%94+Crie+seu+Primeiro+Time+de+IA+no+Marketing+(Leonardo+N%C3%B3brega)&dates=20261124T230000Z/20261125T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.&location=YouTube+Ao+Vivo';
+
         await fetch('https://api.brevo.com/v3/smtp/email', {
           method: 'POST',
           headers: {
@@ -1468,28 +1472,61 @@
           body: JSON.stringify({
             sender: { name: 'Leonardo Nóbrega', email: 'nobregasleo@gmail.com' },
             to: [{ email: email, name: name }],
-            subject: '🚪 Credencial Confirmada: Webinar Agentes S.A. (24/11 às 20h)',
+            subject: `🚪 Tudo certo, ${firstName}! Seu crachá e sua Central do Aluno estão liberados (Agentes S.A.)`,
             htmlContent: `
-              <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 24px; color: #1e293b; line-height: 1.6; border: 1px solid #e2e8f0; border-radius: 16px;">
-                <div style="font-size: 12px; font-weight: 700; color: #075fe4; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
-                  CREDENCIAL ${serial} • INSCRIÇÃO CONFIRMADA
+              <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 26px; color: #1e293b; line-height: 1.65; border: 1px solid #e2e8f0; border-radius: 18px; background: #ffffff;">
+                <div style="display: inline-block; background: #eff6ff; color: #075fe4; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.5px; margin-bottom: 16px;">
+                  ✓ INSCRIÇÃO CONFIRMADA • CRACHÁ ${serial}
                 </div>
-                <h1 style="color: #031b4e; font-size: 24px; margin: 0 0 16px;">Olá, ${name}! As portas da fábrica vão se abrir para você.</h1>
-                <p>Sua inscrição gratuita no webinar <strong>Agentes S.A. — Crie seu Primeiro Time de IA no Marketing</strong> está confirmada.</p>
-                <div style="background: #f4f7fc; border-left: 4px solid #075fe4; padding: 16px; border-radius: 8px; margin: 20px 0;">
-                  <strong>📅 Quando:</strong> Terça-feira, 24 de Novembro de 2026<br>
+
+                <h1 style="color: #031b4e; font-size: 24px; line-height: 1.25; margin: 0 0 14px;">
+                  Fala, ${firstName}! Que alegria ter você com a gente.
+                </h1>
+
+                <p style="margin: 0 0 14px; font-size: 15.5px; color: #334155;">
+                  Seu lugar está oficialmente guardado para o nosso webinar ao vivo <strong>Agentes S.A. — Crie seu Primeiro Time de IA no Marketing</strong>.
+                </p>
+
+                <p style="margin: 0 0 18px; font-size: 15.5px; color: #334155;">
+                  A ideia dessa aula é bem direta: mostrar na prática, abrindo a tela do meu computador, como você sai daquele trabalho manual de ficar digitando prompts soltos no chat e passa a liderar um time de <strong>6 agentes especialistas</strong> trabalhando para você.
+                </p>
+
+                <div style="background: #f4f7fc; border-left: 4px solid #075fe4; padding: 18px 20px; border-radius: 10px; margin: 22px 0; font-size: 14.5px;">
+                  <div style="font-weight: 800; color: #031b4e; margin-bottom: 8px; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;">
+                    📌 Anote os detalhes do nosso encontro:
+                  </div>
+                  <strong>📅 Data:</strong> Terça-feira, 24 de Novembro de 2026<br>
                   <strong>⏰ Horário:</strong> 20h00 às 21h00 (Horário de Brasília)<br>
-                  <strong>📺 Onde:</strong> Ao vivo no YouTube<br>
-                  <strong>🎓 Certificação:</strong> Inclui Certificado Oficial de Participação
+                  <strong>📺 Onde:</strong> Transmissão ao vivo no YouTube<br>
+                  <strong>🎓 Certificado:</strong> Entrega de Certificado Oficial de Participação (<em>Mestre em Agentes de IA</em>)
                 </div>
-                <p><strong>Próximos passos importantes:</strong></p>
-                <ol>
-                  <li><a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Webinar+Agentes+S.A.+%E2%80%94+Crie+seu+Primeiro+Time+de+IA+no+Marketing+(Leonardo+N%C3%B3brega)&dates=20261124T230000Z/20261125T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.&location=YouTube+Ao+Vivo" style="color: #075fe4; font-weight: 700;">Clique aqui para salvar o evento na sua Google Agenda</a> (para não esquecer no dia).</li>
-                  <li><a href="https://nobregasleo.github.io/agentes-sa/central.html" style="color: #075fe4; font-weight: 700;">Acesse aqui a sua Central do Aluno</a> (já liberada com o Guia de Instalação, as 7 Skills dos Agentes, os Prompts Mestres e o Projeto Modelo em .ZIP).</li>
-                </ol>
-                <p style="margin-top: 24px; font-size: 14px; color: #64748b;">
-                  Nos vemos ao vivo no chão de fábrica!<br>
-                  <strong>Leonardo Nóbrega</strong>
+
+                <h3 style="color: #031b4e; font-size: 17px; margin: 24px 0 8px;">
+                  🎁 Sua Central do Aluno já está liberada (com seu nome!)
+                </h3>
+                <p style="margin: 0 0 16px; font-size: 15px; color: #334155;">
+                  Para você já ir aquecendo e não precisar anotar códigos na correria durante a aula, preparei uma área exclusiva no seu nome com o <strong>Guia de Instalação das ferramentas gratuitas (Antigravity + OpenBot)</strong>, os <strong>arquivos .skill dos 6 agentes</strong>, os <strong>Prompts Mestres</strong> e o <strong>Projeto Modelo em .ZIP</strong>:
+                </p>
+
+                <div style="margin: 22px 0;">
+                  <a href="${centralPersonalUrl}" style="background: #075fe4; color: #ffffff; text-decoration: none; padding: 14px 24px; border-radius: 10px; font-weight: 700; font-size: 15px; display: inline-block;">
+                    📂 Acessar a Central do Aluno de ${firstName} →
+                  </a>
+                </div>
+
+                <div style="margin: 18px 0 26px; padding-top: 16px; border-top: 1px dashed #cbd5e1; font-size: 14.5px;">
+                  <strong>📅 Dica rápida para não esquecer no dia:</strong><br>
+                  <a href="${gcalUrl}" style="color: #075fe4; font-weight: 700; text-decoration: underline;">
+                    Clique aqui para salvar o lembrete na sua Google Agenda em 1 clique
+                  </a>.
+                </div>
+
+                <p style="margin: 0; font-size: 15px; color: #334155;">
+                  Qualquer dúvida antes da aula, é só responder a este e-mail que cai direto na minha caixa.<br><br>
+                  Nos vemos no chão de fábrica no dia 24/11 às 20h!<br>
+                  Um grande abraço,<br>
+                  <strong style="color: #031b4e;">Leonardo Nóbrega</strong><br>
+                  <span style="font-size: 13px; color: #64748b;">& Mascote Lian (Operador Chefe • Agentes S.A.)</span>
                 </p>
               </div>
             `
@@ -1506,9 +1543,14 @@
     }
 
     function showIssuedCredential(data) {
-      document.getElementById('ticketSerialCode').textContent = data.serial || 'ID #AG-2411';
+      const serialCode = data.serial || '#AG-2411';
+      document.getElementById('ticketSerialCode').textContent = serialCode;
       document.getElementById('credUserName').textContent = data.name;
       document.getElementById('credUserRole').textContent = data.role;
+      const centralBtn = document.getElementById('btnCentralLink');
+      if (centralBtn && data.name) {
+        centralBtn.href = `central.html?nome=${encodeURIComponent(data.name)}&id=${encodeURIComponent(serialCode)}`;
+      }
       document.getElementById('signupFormView').style.display = 'none';
       document.getElementById('signupSuccessView').style.display = 'block';
     }
