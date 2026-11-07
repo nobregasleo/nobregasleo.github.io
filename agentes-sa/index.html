@@ -1076,7 +1076,7 @@
             </a>
 
             <!-- Passo 2: Google Calendar -->
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Webinar+Agentes+S.A.+%E2%80%94+Crie+seu+Primeiro+Time+de+IA+no+Marketing+(Leonardo+N%C3%B3brega)&dates=20261124T230000Z/20261125T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.+Os+arquivos+.skill+da+Central+do+Aluno+ser%C3%A3o+liberados+na+aula.&location=YouTube+Ao+Vivo" target="_blank" class="showup-step-btn btn-gcal">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Webinar+Agentes+S.A.+%E2%80%94+Crie+seu+Primeiro+Time+de+IA+no+Marketing+(Leonardo+N%C3%B3brega)&dates=20261124T230000Z/20261125T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.+Link+da+sala:+https://www.youtube.com/live/1SrbjZXtYwk&location=https://www.youtube.com/live/1SrbjZXtYwk" target="_blank" class="showup-step-btn btn-gcal">
               <span>2. Salvar na minha Google Agenda (1 clique)</span>
               <span>Agendar 📅</span>
             </a>
@@ -1460,7 +1460,7 @@
         // B. Dispara imediatamente o e-mail de confirmação simpático com link da Central do Aluno personalizada
         const firstName = name.split(' ')[0];
         const centralPersonalUrl = `https://nobregasleo.github.io/agentes-sa/central.html?nome=${encodeURIComponent(name)}&id=${encodeURIComponent(serial)}`;
-        const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Webinar+Agentes+S.A.+%E2%80%94+Crie+seu+Primeiro+Time+de+IA+no+Marketing+(Leonardo+N%C3%B3brega)&dates=20261124T230000Z/20261125T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.&location=YouTube+Ao+Vivo';
+        const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Webinar+Agentes+S.A.+%E2%80%94+Crie+seu+Primeiro+Time+de+IA+no+Marketing+(Leonardo+N%C3%B3brega)&dates=20261124T230000Z/20261125T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.+Link+da+sala:+https://www.youtube.com/live/1SrbjZXtYwk&location=https://www.youtube.com/live/1SrbjZXtYwk';
 
         await fetch('https://api.brevo.com/v3/smtp/email', {
           method: 'POST',
@@ -1497,7 +1497,7 @@
                   </div>
                   <strong>📅 Data:</strong> Terça-feira, 24 de Novembro de 2026<br>
                   <strong>⏰ Horário:</strong> 20h00 às 21h00 (Horário de Brasília)<br>
-                  <strong>📺 Onde:</strong> Transmissão ao vivo no YouTube<br>
+                  <strong>📺 Onde:</strong> Ao vivo no YouTube (<a href="https://www.youtube.com/live/1SrbjZXtYwk" style="color: #075fe4; font-weight: 700;">clique aqui para abrir a sala</a>)<br>
                   <strong>🎓 Certificado:</strong> Entrega de Certificado Oficial de Participação (<em>Mestre em Agentes de IA</em>)
                 </div>
 
