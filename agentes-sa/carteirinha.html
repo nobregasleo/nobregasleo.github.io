@@ -789,7 +789,7 @@
         <div class="control-row-2">
           <div class="control-group">
             <label class="control-label" for="inpUniSub">Subtítulo do Logo</label>
-            <input type="text" id="inpUniSub" class="control-input" value="Aula - 24/11 - 20h" oninput="syncFromSidebar()">
+            <input type="text" id="inpUniSub" class="control-input" value="Aula - 25/11 - 20h" oninput="syncFromSidebar()">
           </div>
           <div class="control-group">
             <label class="control-label" for="selectShowUni">Exibir Subtítulo</label>
@@ -918,7 +918,7 @@
                 data-max-width="440"
                 contenteditable="true"
                 spellcheck="false"
-              >Aula - 24/11 - 20h</div>
+              >Aula - 25/11 - 20h</div>
               <svg class="taper-dash-right" viewBox="0 0 34 9" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="34,4.5 0,0.5 0,8.5" fill="currentColor"/>
               </svg>
@@ -1346,11 +1346,55 @@
       setTimeout(() => t.classList.remove('show'), 3200);
     }
 
+    function downloadBlobOrDataUrl(dataUrlOrBlob, filename) {
+      try {
+        let blobUrl;
+        if (typeof dataUrlOrBlob === 'string' && dataUrlOrBlob.startsWith('data:')) {
+          const parts = dataUrlOrBlob.split(',');
+          const mime = (parts[0].match(/:(.*?);/) || [])[1] || 'image/png';
+          const bstr = atob(parts[1]);
+          let n = bstr.length;
+          const u8arr = new Uint8Array(n);
+          while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+          }
+          const blob = new Blob([u8arr], { type: mime });
+          blobUrl = URL.createObjectURL(blob);
+        } else if (dataUrlOrBlob instanceof Blob) {
+          blobUrl = URL.createObjectURL(dataUrlOrBlob);
+        } else {
+          blobUrl = dataUrlOrBlob;
+        }
+
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          try {
+            document.body.removeChild(a);
+            if (typeof blobUrl === 'string' && blobUrl.startsWith('blob:')) {
+              URL.revokeObjectURL(blobUrl);
+            }
+          } catch (e) {}
+        }, 1200);
+        return true;
+      } catch (err) {
+        console.error('Falha ao baixar via Blob:', err);
+        return false;
+      }
+    }
+
     function loadImageSafe(src) {
       return new Promise((resolve, reject) => {
         const img = new Image();
+        if (!src.startsWith('data:')) {
+          img.crossOrigin = 'anonymous';
+        }
         img.onload = () => resolve(img);
-        img.onerror = reject;
+        img.onerror = () => reject(new Error('Falha ao carregar imagem'));
         img.src = src;
       });
     }
@@ -1505,11 +1549,19 @@
 
         const studentName = (document.getElementById('viewStudentVal').textContent || 'Agente').trim();
         const safeSlug = studentName.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '_');
+        const filename = `Carteirinha_Agentes_SA_${safeSlug}.png`;
 
-        const link = document.createElement('a');
-        link.download = `Carteirinha_Agentes_SA_${safeSlug}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+        if (canvas.toBlob) {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              downloadBlobOrDataUrl(blob, filename);
+            } else {
+              downloadBlobOrDataUrl(canvas.toDataURL('image/png'), filename);
+            }
+          }, 'image/png');
+        } else {
+          downloadBlobOrDataUrl(canvas.toDataURL('image/png'), filename);
+        }
         showToast('✓ Carteirinha exportada em PNG Ultra-HD!');
       } catch (err) {
         console.error(err);
