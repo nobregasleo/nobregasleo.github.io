@@ -10,7 +10,10 @@
   <!-- Fontes Oficiais da Marca -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Courier+Prime:wght@700&family=Gloria+Hallelujah&family=Inter:wght@600;700;800&family=JetBrains+Mono:wght@500;700&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Base64 dos Assets Oficiais da Carteirinha (Garante download offline 100% resiliente em file://) -->
+  <script src="assets/carteirinha_assets_b64.js"></script>
 
   <!-- CSS Global Oficial do Design System -->
   <link rel="stylesheet" href="../theme.css">
@@ -652,12 +655,357 @@
       .sheet { top: auto; right: 0; bottom: 0; left: 0; width: 100%; max-height: 92vh; border-radius: 26px 26px 0 0; transform: translateY(100%); }
       .sheet-foot { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
     }
+  
+    /* ═══════════════════════════════════════════════════════════════
+       BLOCO DO CRACHÁ OFICIAL DO ALUNO
+       ═══════════════════════════════════════════════════════════════ */
+    .cracha-card-container {
+      background: #ffffff;
+      border-radius: var(--r-card);
+      border: 1px solid var(--line);
+      box-shadow: var(--card-shadow);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      overflow: hidden;
+    }
+
+    .cracha-stage-wrapper {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      transition: height 0.2s ease;
+    }
+
+    .cracha-card-scaler {
+      width: 1230px;
+      height: 742px;
+      transform-origin: top center;
+      flex-shrink: 0;
+    }
+
+    .cracha-card {
+      width: 1230px;
+      height: 742px;
+      position: relative;
+      border-radius: 54px;
+      overflow: hidden;
+      background-image: url('assets/carteirinha_agentes_sa_fundo_sem_textos.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      box-shadow: 0 16px 40px rgba(3, 27, 78, 0.18), 0 2px 8px rgba(3, 27, 78, 0.08);
+      user-select: none;
+    }
+
+    /* Foto do crachá */
+    .cracha-photo-box {
+      position: absolute;
+      left: 76px;
+      top: 62px;
+      width: 422px;
+      height: 424px;
+      overflow: hidden;
+      background-image: url('assets/carteirinha_foto_fundo_azul.png');
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cracha-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.25s var(--ease), filter 0.25s var(--ease);
+    }
+    .cracha-photo-box:hover .cracha-photo-img {
+      transform: scale(1.02);
+      filter: brightness(1.04);
+    }
+
+    .cracha-photo-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 14px;
+      background: linear-gradient(180deg, transparent 0%, rgba(3, 27, 78, 0.88) 100%);
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .cracha-photo-box:hover .cracha-photo-overlay {
+      background: linear-gradient(180deg, transparent 0%, rgba(7, 95, 228, 0.95) 100%);
+    }
+
+    /* Rótulos e textos da carteirinha */
+    .cracha-txt-lbl {
+      position: absolute;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 700;
+      color: #4b7ca8;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .cracha-txt-val {
+      position: absolute;
+      font-family: 'Courier Prime', 'Courier New', monospace;
+      font-weight: 700;
+      color: #16181b;
+      white-space: nowrap;
+      outline: none;
+      border-radius: 4px;
+      cursor: text;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .cracha-txt-val:hover {
+      background: rgba(7, 95, 228, 0.08);
+    }
+    .cracha-txt-val:focus {
+      background: rgba(7, 95, 228, 0.14);
+      box-shadow: 0 0 0 2px rgba(7, 95, 228, 0.35);
+    }
+
+    .cracha-validity-lbl {
+      left: 574px;
+      top: 228px;
+      width: 524px;
+      font-size: 25.5px;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+    }
+
+    .cracha-student-val {
+      left: 582px;
+      top: 278px;
+      width: 516px;
+      font-size: 56px;
+      line-height: 1;
+    }
+    .cracha-student-lbl {
+      left: 574px;
+      top: 342px;
+      width: 524px;
+      font-size: 25px;
+    }
+
+    .cracha-major-val {
+      left: 582px;
+      top: 406px;
+      width: 516px;
+      font-size: 56px;
+      line-height: 1;
+    }
+    .cracha-major-lbl {
+      left: 574px;
+      top: 470px;
+      width: 524px;
+      font-size: 25px;
+    }
+
+    .cracha-sig-val {
+      position: absolute;
+      left: 82px;
+      top: 585px;
+      width: 440px;
+      height: 52px;
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 38px;
+      color: #16181b;
+      line-height: 1.1;
+      cursor: text;
+      white-space: nowrap;
+      outline: none;
+      border-radius: 4px;
+      z-index: 2;
+      transition: background 0.15s;
+    }
+    .cracha-student-val:empty::before,
+    .cracha-major-val:empty::before,
+    .cracha-sig-val:empty::before {
+      content: attr(data-placeholder);
+      color: #94a3b8;
+      pointer-events: none;
+      font-weight: 500;
+    }
+    .cracha-sig-val:hover { background: rgba(7, 95, 228, 0.08); }
+    .cracha-sig-val:focus { background: rgba(7, 95, 228, 0.14); }
+    .cracha-sig-lbl {
+      left: 66px;
+      top: 652px;
+      width: 440px;
+      font-size: 26px;
+    }
+
+    .cracha-id-val {
+      position: absolute;
+      right: 124px;
+      top: 652px;
+      width: 500px;
+      text-align: right;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: #4b7ca8;
+      outline: none;
+      border-radius: 4px;
+      cursor: text;
+    }
+
+    /* Controles do crachá */
+    .cracha-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--color-bg);
+      border-radius: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+    }
+
+    .cracha-ctrl-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cracha-input-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 260px;
+    }
+    .cracha-input-group label {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-navy);
+      white-space: nowrap;
+    }
+    .cracha-input-wrap {
+      flex: 1;
+      position: relative;
+    }
+    .cracha-input-wrap input {
+      width: 100%;
+      height: 40px;
+      padding: 0 14px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--color-navy);
+      outline: none;
+      transition: border-color 0.16s, box-shadow 0.16s;
+    }
+    .cracha-input-wrap input:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-primary-10);
+    }
+
+    .cracha-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .cracha-cargos-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cracha-cargos-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .cracha-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .cracha-chip {
+      padding: 6px 14px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      transition: all 160ms var(--ease);
+    }
+    .cracha-chip:hover {
+      background: var(--color-primary-lightest);
+      color: var(--color-primary);
+      border-color: rgba(7, 95, 228, 0.25);
+    }
+    .cracha-chip.is-active {
+      background: var(--color-primary);
+      color: #ffffff;
+      border-color: var(--color-primary);
+      box-shadow: 0 4px 12px rgba(7, 95, 228, 0.25);
+    }
+
+    .cracha-export-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+    .cracha-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+    }
+    .side-badge {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      padding: 2px 6px;
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 999px;
+      margin-left: auto;
+    }
+
   </style>
 </head>
 <body>
 
   <!-- Ícones SVG reutilizáveis -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="M15 8h2M15 12h2M7 16h10"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
     <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
     <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
@@ -688,6 +1036,7 @@
       <div class="side-label">Sua jornada</div>
       <nav class="side-nav">
         <a href="#inicio" class="side-link is-active" data-spy="inicio"><svg class="i"><use href="#i-home"/></svg>Início</a>
+        <a href="#cracha" class="side-link" data-spy="cracha"><svg class="i"><use href="#i-id"/></svg>Seu crachá<span class="side-badge">NOVO</span></a>
         <a href="#antes" class="side-link" data-spy="antes"><svg class="i"><use href="#i-tool"/></svg>Antes da aula<span class="side-count" data-progress-text>0/3</span></a>
         <a href="#time" class="side-link" data-spy="time"><svg class="i"><use href="#i-users"/></svg>Seu time<span class="side-count">7</span></a>
         <a href="#prompts" class="side-link" data-spy="prompts"><svg class="i"><use href="#i-terminal"/></svg>Prompts<span class="side-count">3</span></a>
@@ -738,6 +1087,7 @@
             <span><svg class="i"><use href="#i-live"/></svg>Ao vivo no YouTube</span>
           </div>
           <div class="hero-ctas">
+            <a href="#cracha" class="btn btn-white"><svg class="i"><use href="#i-id"/></svg>Personalizar meu crachá</a>
             <a href="#antes" class="btn btn-white">Começar preparação<svg class="i"><use href="#i-arrow"/></svg></a>
             <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-glass"><svg class="i"><use href="#i-download"/></svg>Baixar kit completo</a>
           </div>
@@ -772,6 +1122,104 @@
           </div>
         </a>
       </div>
+
+      
+      <!-- ═════════════ SEU CRACHÁ OFICIAL DE AGENTE ═════════════ -->
+      <section class="hub-block" id="cracha" aria-labelledby="crachaTitle">
+        <div class="block-head">
+          <div>
+            <span class="kicker">Credencial Oficial · Agentes S.A.</span>
+            <h2 id="crachaTitle">Seu crachá da aula ao vivo</h2>
+            <p>Personalize sua credencial de acesso com seu nome, cargo temático e sua foto. Baixe em PNG de alta resolução para guardar ou postar no LinkedIn e Instagram.</p>
+          </div>
+        </div>
+
+        <div class="cracha-card-container">
+          <!-- PALCO DO CRACHÁ EM ESCALA RESPONSIVA -->
+          <div class="cracha-stage-wrapper" id="crachaStageWrapper">
+            <div class="cracha-card-scaler" id="crachaCardScaler">
+              <div class="cracha-card" id="crachaCard">
+
+                <!-- FOTO EDITÁVEL -->
+                <div class="cracha-photo-box" id="crachaPhotoBox" title="Clique para trocar a foto">
+                  <img src="assets/carteirinha_foto_placeholder_generica.png" alt="Foto do Crachá" class="cracha-photo-img" id="crachaPhotoImg">
+                  <div class="cracha-photo-overlay" id="crachaPhotoOverlay">
+                    <svg class="i" style="width:16px;height:16px;"><use href="#i-camera"/></svg>
+                    <span>Trocar foto</span>
+                  </div>
+                </div>
+
+                <!-- TEXTOS COM AUTO-AJUSTE DE TAMANHO DE FONTE -->
+                <div class="cracha-txt-val cracha-student-val" id="crachaAluno" data-placeholder="Seu Nome Aqui" data-max-font="54" data-min-font="18" data-max-w="514" contenteditable="true" spellcheck="false"></div>
+                <div class="cracha-txt-lbl cracha-student-lbl" id="crachaAlunoLbl">ESTUDANTE</div>
+
+                <div class="cracha-txt-val cracha-major-val" id="crachaMajor" data-placeholder="Sua Especialidade / Cargo" data-max-font="52" data-min-font="18" data-max-w="514" contenteditable="true" spellcheck="false">Engenharia Agêntica &amp; Automação</div>
+                <div class="cracha-txt-lbl cracha-major-lbl" id="crachaMajorLbl">ESPECIALIDADE</div>
+
+                <div class="cracha-sig-val" id="crachaSig" data-placeholder="Sua Assinatura" data-max-font="38" data-min-font="18" data-max-w="440" contenteditable="true" spellcheck="false"></div>
+                <div class="cracha-txt-lbl cracha-sig-lbl" id="crachaSigLbl">ASSINATURA</div>
+
+                <div class="cracha-id-val" id="crachaId" data-max-font="26" data-min-font="14" data-max-w="500" contenteditable="true" spellcheck="false">Nº ID 20261124-ALUNO</div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- PAINEL DE CONTROLES E AÇÕES -->
+          <div class="cracha-controls">
+            <div class="cracha-ctrl-row">
+              <div class="cracha-input-group">
+                <label for="inputAlunoNome">Nome no Crachá:</label>
+                <div class="cracha-input-wrap">
+                  <input type="text" id="inputAlunoNome" placeholder="Digite seu nome completo..." value="">
+                </div>
+              </div>
+
+              <div class="cracha-input-group">
+                <label for="inputAlunoCargo">Especialidade / Cargo:</label>
+                <div class="cracha-input-wrap">
+                  <input type="text" id="inputAlunoCargo" placeholder="Ex: Engenharia Agêntica &amp; Automação" value="Engenharia Agêntica &amp; Automação">
+                </div>
+              </div>
+
+              <div class="cracha-actions-group">
+                <input type="file" id="crachaFileInput" accept="image/*" style="display:none;">
+                <button type="button" class="btn btn-line btn-sm" id="btnEscolherFoto">
+                  <svg class="i"><use href="#i-camera"/></svg>Trocar foto
+                </button>
+                <button type="button" class="btn btn-soft btn-sm" id="btnUsarMascote">
+                  <span>🪪 Usar Mascote Lian</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- CARGOS TEMÁTICOS SUGERIDOS -->
+            <div class="cracha-cargos-box">
+              <span class="cracha-cargos-label">Cargos temáticos sugeridos (clique para aplicar):</span>
+              <div class="cracha-chips" id="crachaChips">
+                <button type="button" class="cracha-chip is-active" data-cargo="Engenharia Agêntica &amp; Automação">⚙️ Engenharia Agêntica</button>
+                <button type="button" class="cracha-chip" data-cargo="Operador Chefe de Agentes">🚀 Operador Chefe</button>
+                <button type="button" class="cracha-chip" data-cargo="Estratégia e Inteligência de IA">🧠 Estrategista de IA</button>
+                <button type="button" class="cracha-chip" data-cargo="Direção de Arte &amp; Design Agêntico">🎨 Direção Criativa</button>
+                <button type="button" class="cracha-chip" data-cargo="Automação de Esteiras de IA">⚡ Automação &amp; Scripts</button>
+                <button type="button" class="cracha-chip" data-cargo="Comandante de Operações de IA">🛡️ Comandante de IA</button>
+              </div>
+            </div>
+
+            <!-- BARRA DE EXPORTAÇÃO -->
+            <div class="cracha-export-bar">
+              <div class="cracha-hint">
+                <svg class="i" style="width:16px;height:16px;color:var(--color-primary);"><use href="#i-check"/></svg>
+                <span>Dica: Você também pode clicar direto sobre qualquer texto do crachá para editar.</span>
+              </div>
+              <button type="button" class="btn btn-primary" id="btnBaixarCracha">
+                <svg class="i"><use href="#i-download"/></svg>
+                <span>Baixar Meu Crachá (.PNG Ultra-HD)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- ═════════════ ETAPA 1 · ANTES DA AULA ═════════════ -->
       <section class="hub-block" id="antes" aria-labelledby="antesTitle">
@@ -810,9 +1258,10 @@
             <div class="card-body">
               <span class="card-tag">As mãos na web</span>
               <h3 class="card-title">OpenBot</h3>
-              <p class="card-text">Dá um navegador para o agente pesquisar, preencher sistemas e avisar você no WhatsApp. Gratuito.</p>
+              <p class="card-text">Dá um navegador para o agente pesquisar, preencher sistemas e avisar no WhatsApp. Gratuito.</p>
               <div class="card-actions">
-                <a href="downloads/materiais/Roteiro_OpenBot_Automacao_Web.md" download class="btn btn-soft btn-sm"><svg class="i"><use href="#i-download"/></svg>Guia de instalação</a>
+                <a href="downloads/openbot_agentes_sa_import_grokbot.zip" download class="btn btn-primary btn-sm"><svg class="i"><use href="#i-download"/></svg>Pacote OpenBot (.zip)</a>
+                <a href="downloads/materiais/Roteiro_OpenBot_Automacao_Web.md" download class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>Guia</a>
                 <button class="check-btn" type="button" data-toggle="openbot" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
               </div>
             </div>
@@ -825,11 +1274,11 @@
               <img src="assets/central/prep_projeto.jpg" alt="Vestiário da fábrica com armários e capacetes azuis" loading="lazy">
             </div>
             <div class="card-body">
-              <span class="card-tag">Seu armário organizado</span>
+              <span class="card-tag">Empresa Modelo NexoFlow</span>
               <h3 class="card-title">Pasta modelo da marca</h3>
-              <p class="card-text">A estrutura de pastas pronta, com Brand DNA, regras visuais e as skills do time.</p>
+              <p class="card-text">Estrutura completa com Brand DNA, Tom de Voz, histórico Delta-Diff, personas, produtos e skills.</p>
               <div class="card-actions">
-                <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-soft btn-sm"><svg class="i"><use href="#i-download"/></svg>Baixar pasta</a>
+                <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-soft btn-sm"><svg class="i"><use href="#i-download"/></svg>Baixar kit completo</a>
                 <button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
               </div>
             </div>
@@ -1386,6 +1835,405 @@ Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), p
       }
       tick(); setInterval(tick, 30000);
 
+      
+      /* ─── Crachá Oficial do Aluno (Interativo + Auto-fonte + Download) ─── */
+      const crachaStageWrapper = $('#crachaStageWrapper');
+      const crachaCardScaler = $('#crachaCardScaler');
+      const crachaAluno = $('#crachaAluno');
+      const crachaMajor = $('#crachaMajor');
+      const crachaSig = $('#crachaSig');
+      const crachaId = $('#crachaId');
+      const inputAlunoNome = $('#inputAlunoNome');
+      const inputAlunoCargo = $('#inputAlunoCargo');
+      const crachaFileInput = $('#crachaFileInput');
+      const crachaPhotoImg = $('#crachaPhotoImg');
+      const crachaPhotoBox = $('#crachaPhotoBox');
+      const crachaPhotoOverlay = $('#crachaPhotoOverlay');
+      const btnEscolherFoto = $('#btnEscolherFoto');
+      const btnUsarMascote = $('#btnUsarMascote');
+      const btnBaixarCracha = $('#btnBaixarCracha');
+
+      let crachaCustomPhoto = null;
+      let crachaModoLian = false;
+
+      function ajustarEscalaCracha() {
+        if (!crachaStageWrapper || !crachaCardScaler) return;
+        const availW = crachaStageWrapper.clientWidth;
+        const scale = Math.min(1, availW / 1230);
+        crachaCardScaler.style.transform = `scale(${scale})`;
+        crachaCardScaler.style.transformOrigin = 'top center';
+        crachaStageWrapper.style.height = `${Math.ceil(742 * scale)}px`;
+      }
+      window.addEventListener('resize', ajustarEscalaCracha);
+
+      const crachaMeasureCanvas = document.createElement('canvas');
+      const crachaMeasureCtx = crachaMeasureCanvas.getContext('2d');
+
+      function autoFitCracha(el) {
+        if (!el) return;
+        const maxFont = parseFloat(el.dataset.maxFont) || 56;
+        const minFont = parseFloat(el.dataset.minFont) || 16;
+        const maxW = parseFloat(el.dataset.maxW) || 514;
+        const txt = (el.textContent || '').replace(/\r?\n/g, ' ');
+
+        if (!txt.trim()) {
+          el.style.fontSize = `${maxFont}px`;
+          return;
+        }
+
+        const style = window.getComputedStyle(el);
+        let fontSize = maxFont;
+        crachaMeasureCtx.font = `${style.fontWeight || '700'} ${fontSize}px ${style.fontFamily || 'monospace'}`;
+        let w = crachaMeasureCtx.measureText(txt).width + txt.length * (fontSize * 0.025);
+
+        if (w > maxW) {
+          fontSize = Math.max(minFont, Math.floor(maxFont * (maxW / w) * 0.97));
+        }
+        el.style.fontSize = `${fontSize}px`;
+
+        while (el.scrollWidth > maxW + 4 && fontSize > minFont) {
+          fontSize -= 1;
+          el.style.fontSize = `${fontSize}px`;
+        }
+      }
+
+      function autoFitCrachaAll() {
+        $$('#crachaCard [data-max-font]').forEach(autoFitCracha);
+      }
+
+      function syncNomeCracha(novoNome) {
+        const limpo = (novoNome || '').trim();
+        crachaAluno.textContent = limpo;
+        crachaSig.textContent = limpo;
+        autoFitCracha(crachaAluno);
+        autoFitCracha(crachaSig);
+        if (limpo) {
+          const first = limpo.split(/\s+/)[0];
+          $('#userName').textContent = first;
+          $('#heroName').textContent = ', ' + first;
+          $('#greetName').textContent = ', ' + first;
+          const parts = limpo.split(/\s+/).filter(Boolean);
+          const initials = (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
+          $('#userInitials').textContent = initials;
+        }
+      }
+
+      function syncCargoCracha(novoCargo) {
+        const limpo = (novoCargo || '').trim();
+        crachaMajor.textContent = limpo;
+        autoFitCracha(crachaMajor);
+        $$('.cracha-chip').forEach(c => {
+          c.classList.toggle('is-active', c.dataset.cargo === limpo);
+        });
+      }
+
+      if (inputAlunoNome) {
+        inputAlunoNome.addEventListener('input', (e) => {
+          syncNomeCracha(e.target.value);
+        });
+      }
+
+      if (inputAlunoCargo) {
+        inputAlunoCargo.addEventListener('input', (e) => {
+          syncCargoCracha(e.target.value);
+        });
+      }
+
+      if (crachaAluno) {
+        crachaAluno.addEventListener('input', () => {
+          const txt = (crachaAluno.textContent || '').trim();
+          if (inputAlunoNome) inputAlunoNome.value = txt;
+          crachaSig.textContent = txt;
+          autoFitCracha(crachaAluno);
+          autoFitCracha(crachaSig);
+        });
+        crachaAluno.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') { e.preventDefault(); crachaAluno.blur(); }
+        });
+      }
+
+      if (crachaSig) {
+        crachaSig.addEventListener('input', () => autoFitCracha(crachaSig));
+        crachaSig.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') { e.preventDefault(); crachaSig.blur(); }
+        });
+      }
+
+      if (crachaMajor) {
+        crachaMajor.addEventListener('input', () => {
+          const txt = (crachaMajor.textContent || '').trim();
+          if (inputAlunoCargo) inputAlunoCargo.value = txt;
+          autoFitCracha(crachaMajor);
+          $$('.cracha-chip').forEach(c => {
+            c.classList.toggle('is-active', c.dataset.cargo === txt);
+          });
+        });
+        crachaMajor.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') { e.preventDefault(); crachaMajor.blur(); }
+        });
+      }
+
+      $$('.cracha-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          $$('.cracha-chip').forEach(c => c.classList.remove('is-active'));
+          chip.classList.add('is-active');
+          const cargo = chip.dataset.cargo;
+          crachaMajor.textContent = cargo;
+          if (inputAlunoCargo) inputAlunoCargo.value = cargo;
+          autoFitCracha(crachaMajor);
+          toast('Cargo atualizado: ' + chip.textContent.trim());
+        });
+      });
+
+      // Foto Upload e Mascote
+      if (crachaPhotoBox && crachaFileInput) {
+        crachaPhotoBox.addEventListener('click', () => crachaFileInput.click());
+      }
+      if (btnEscolherFoto && crachaFileInput) {
+        btnEscolherFoto.addEventListener('click', () => crachaFileInput.click());
+      }
+
+      if (crachaFileInput) {
+        crachaFileInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            crachaCustomPhoto = ev.target.result;
+            crachaModoLian = false;
+            crachaPhotoImg.src = crachaCustomPhoto;
+            crachaPhotoImg.style.objectFit = 'cover';
+            crachaPhotoImg.style.width = '100%';
+            crachaPhotoImg.style.height = '100%';
+            crachaPhotoImg.style.transform = 'none';
+            if (crachaPhotoOverlay) crachaPhotoOverlay.style.display = 'none';
+            if (btnUsarMascote) btnUsarMascote.innerHTML = '<span>🪪 Usar Mascote Lian</span>';
+            toast('Foto adicionada ao crachá!');
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      if (btnUsarMascote) {
+        btnUsarMascote.addEventListener('click', () => {
+          crachaModoLian = !crachaModoLian;
+          const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+          if (crachaModoLian) {
+            crachaPhotoImg.src = B64.char_01_lian || 'assets/personagens_carteirinha/01_lian_nobg.png';
+            crachaPhotoImg.style.width = '410px';
+            crachaPhotoImg.style.height = 'auto';
+            crachaPhotoImg.style.objectFit = 'contain';
+            crachaPhotoImg.style.transform = 'translate(0, 75px)';
+            if (crachaPhotoOverlay) crachaPhotoOverlay.style.display = 'none';
+            btnUsarMascote.innerHTML = '<span>📷 Minha Foto / Avatar</span>';
+            toast('Mascote Lian aplicado ao crachá!');
+          } else {
+            if (crachaCustomPhoto) {
+              crachaPhotoImg.src = crachaCustomPhoto;
+              crachaPhotoImg.style.width = '100%';
+              crachaPhotoImg.style.height = '100%';
+              crachaPhotoImg.style.objectFit = 'cover';
+              crachaPhotoImg.style.transform = 'none';
+              if (crachaPhotoOverlay) crachaPhotoOverlay.style.display = 'none';
+            } else {
+              crachaPhotoImg.src = B64.foto_placeholder_generica || 'assets/carteirinha_foto_placeholder_generica.png';
+              crachaPhotoImg.style.width = '100%';
+              crachaPhotoImg.style.height = '100%';
+              crachaPhotoImg.style.objectFit = 'cover';
+              crachaPhotoImg.style.transform = 'none';
+              if (crachaPhotoOverlay) crachaPhotoOverlay.style.display = 'flex';
+            }
+            btnUsarMascote.innerHTML = '<span>🪪 Usar Mascote Lian</span>';
+            toast('Foto restaurada!');
+          }
+        });
+      }
+
+      // Download Infalível via Blob
+      function downloadBlobOrDataUrl(dataUrlOrBlob, filename) {
+        try {
+          let blobUrl;
+          if (typeof dataUrlOrBlob === 'string' && dataUrlOrBlob.startsWith('data:')) {
+            const parts = dataUrlOrBlob.split(',');
+            const mime = (parts[0].match(/:(.*?);/) || [])[1] || 'image/png';
+            const bstr = atob(parts[1]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            while (n--) {
+              u8arr[n] = bstr.charCodeAt(n);
+            }
+            const blob = new Blob([u8arr], { type: mime });
+            blobUrl = URL.createObjectURL(blob);
+          } else if (dataUrlOrBlob instanceof Blob) {
+            blobUrl = URL.createObjectURL(dataUrlOrBlob);
+          } else {
+            blobUrl = dataUrlOrBlob;
+          }
+
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = blobUrl;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            try {
+              document.body.removeChild(a);
+              if (typeof blobUrl === 'string' && blobUrl.startsWith('blob:')) {
+                URL.revokeObjectURL(blobUrl);
+              }
+            } catch (e) {}
+          }, 1200);
+          return true;
+        } catch (err) {
+          console.error('Falha ao baixar:', err);
+          return false;
+        }
+      }
+
+      function loadImageSafe(src) {
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          if (!src.startsWith('data:')) {
+            img.crossOrigin = 'anonymous';
+          }
+          img.onload = () => resolve(img);
+          img.onerror = () => reject(new Error('Falha ao carregar imagem'));
+          img.src = src;
+        });
+      }
+
+      async function baixarCrachaAlunoPNG() {
+        const btn = $('#btnBaixarCracha');
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<svg class="i"><use href="#i-clock"/></svg><span>Gerando Crachá...</span>';
+        btn.disabled = true;
+
+        try {
+          if (document.fonts && document.fonts.ready) await document.fonts.ready;
+          autoFitCrachaAll();
+
+          const SCALE = 2; // 2460 × 1484 px
+          const W = 1230, H = 742;
+          const canvas = document.createElement('canvas');
+          canvas.width = W * SCALE;
+          canvas.height = H * SCALE;
+          const ctx = canvas.getContext('2d');
+          ctx.scale(SCALE, SCALE);
+
+          const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+
+          // 1. Fundo da carteirinha sem textos
+          const baseSrc = B64.fundo_sem_textos || 'assets/carteirinha_agentes_sa_fundo_sem_textos.png';
+          const baseImg = await loadImageSafe(baseSrc);
+          ctx.drawImage(baseImg, 0, 0, W, H);
+
+          // 2. Quadro 3x4 da foto
+          ctx.save();
+          ctx.beginPath();
+          ctx.rect(76, 62, 422, 424);
+          ctx.clip();
+
+          const blueSrc = B64.foto_fundo_azul || 'assets/carteirinha_foto_fundo_azul.png';
+          const blueImg = await loadImageSafe(blueSrc);
+          ctx.drawImage(blueImg, 76, 62, 422, 424);
+
+          let pSrc;
+          if (crachaCustomPhoto) {
+            pSrc = crachaCustomPhoto;
+          } else if (crachaModoLian) {
+            pSrc = B64.char_01_lian || 'assets/personagens_carteirinha/01_lian_nobg.png';
+          } else {
+            pSrc = B64.foto_placeholder_generica || 'assets/carteirinha_foto_placeholder_generica.png';
+          }
+          const pImg = await loadImageSafe(pSrc);
+
+          const centerX = 76 + 422 / 2;
+          const centerY = 62 + 424 / 2;
+
+          if (crachaModoLian) {
+            ctx.shadowColor = 'rgba(10, 28, 54, 0.38)';
+            ctx.shadowBlur = 11;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 6;
+            const dw = 410;
+            const dh = pImg.height * (dw / pImg.width);
+            ctx.drawImage(pImg, centerX - dw / 2, centerY - dh / 2 + 150, dw, dh);
+          } else if (crachaCustomPhoto) {
+            ctx.shadowColor = 'transparent';
+            const imgRatio = pImg.width / pImg.height;
+            const boxRatio = 422 / 424;
+            let dw = 422, dh = 424;
+            if (imgRatio > boxRatio) {
+              dh = 424;
+              dw = 424 * imgRatio;
+            } else {
+              dw = 422;
+              dh = 422 / imgRatio;
+            }
+            ctx.drawImage(pImg, centerX - dw / 2, centerY - dw / 2, dw, dh);
+          } else {
+            ctx.shadowColor = 'transparent';
+            ctx.drawImage(pImg, 76, 62, 422, 424);
+          }
+          ctx.restore();
+
+          // 3. Desenhar Textos
+          function drawCrachaText(elId, x, yBaseline, align = 'left', forceUpper = false) {
+            const el = document.getElementById(elId);
+            if (!el) return;
+            let txt = (el.textContent || '').trim();
+            if (forceUpper) txt = txt.toUpperCase();
+            const style = window.getComputedStyle(el);
+            const fontSize = parseFloat(style.fontSize) || 25;
+            const fontWeight = style.fontWeight || '700';
+            const fontFamily = style.fontFamily;
+            ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+            ctx.fillStyle = style.color;
+            ctx.textAlign = align;
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText(txt, x, yBaseline);
+          }
+
+          // Sem texto de validade (removido a pedido)
+          drawCrachaText('crachaAluno', 582, 327, 'left', false);
+          drawCrachaText('crachaAlunoLbl', 574, 366, 'left', true);
+          drawCrachaText('crachaMajor', 582, 455, 'left', false);
+          drawCrachaText('crachaMajorLbl', 574, 494, 'left', true);
+          drawCrachaText('crachaSig', 82, 628, 'left', false);
+          drawCrachaText('crachaSigLbl', 66, 672, 'left', true);
+          drawCrachaText('crachaId', 1106, 672, 'right', true);
+
+          const studentTxt = (crachaAluno.textContent || 'Aluno').trim();
+          const slug = studentTxt.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '_') || 'Aluno';
+          const exportFilename = `Cracha_Agentes_SA_${slug}.png`;
+
+          if (canvas.toBlob) {
+            canvas.toBlob(blob => {
+              if (blob) {
+                downloadBlobOrDataUrl(blob, exportFilename);
+              } else {
+                downloadBlobOrDataUrl(canvas.toDataURL('image/png'), exportFilename);
+              }
+            }, 'image/png');
+          } else {
+            downloadBlobOrDataUrl(canvas.toDataURL('image/png'), exportFilename);
+          }
+          toast('✓ Crachá baixado em Ultra-HD!');
+        } catch (err) {
+          console.error(err);
+          alert('Erro ao gerar o download do crachá.');
+        } finally {
+          btn.innerHTML = orig;
+          btn.disabled = false;
+        }
+      }
+
+      if (btnBaixarCracha) {
+        btnBaixarCracha.addEventListener('click', baixarCrachaAlunoPNG);
+      }
+
+
       /* ─── Saudação e Dados do Aluno ─── */
       const h = new Date().getHours();
       $('#greeting').textContent = h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
@@ -1415,6 +2263,20 @@ Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), p
         $('#userId').textContent = 'CRACHÁ ' + serial;
         $('#railId').textContent = serial;
         $('#btnCertLink').href = 'certificado.html?nome=' + encodeURIComponent(student.name) + '&id=' + encodeURIComponent('ID ' + serial) + '&modo=aluno';
+        syncNomeCracha(student.name);
+        if (inputAlunoNome) inputAlunoNome.value = student.name;
+        if (crachaId) crachaId.textContent = 'Nº ID ' + serial.replace('#', '');
+      } else {
+        ajustarEscalaCracha();
+        autoFitCrachaAll();
+      }
+      ajustarEscalaCracha();
+      autoFitCrachaAll();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          autoFitCrachaAll();
+          ajustarEscalaCracha();
+        });
       }
 
       /* ─── Spy de Navegação no Scroll ─── */

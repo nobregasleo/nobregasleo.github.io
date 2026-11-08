@@ -546,6 +546,9 @@
         <h2>Todas as 9 Carteirinhas Prontas</h2>
         <p style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Clique em qualquer carteirinha para carregar no editor ou baixe direto o PNG em alta resolução.</p>
       </div>
+      <button class="btn-top btn-secondary" id="btnBaixarTodas" onclick="baixarTodasAsCarteirinhas()" style="font-size: 13px; padding: 8px 16px;">
+        <span>📥 Baixar Todas as 9 (.PNG)</span>
+      </button>
     </div>
 
     <div class="cards-grid" id="cardsGrid"></div>
@@ -561,6 +564,8 @@
         especialidade: "Engenharia Agêntica",
         assinatura: "Leonardo Nóbrega",
         id_num: "Nº ID 20261124000",
+        char_key: "char_09_leo",
+        card_key: "card_leonardo",
         foto: "assets/personagens_carteirinha/09_leonardo_capacete_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_leonardo.png",
         scale_w: 360,
@@ -574,6 +579,8 @@
         especialidade: "Liderança de Agentes",
         assinatura: "Lian Mascote",
         id_num: "Nº ID 20261124001",
+        char_key: "char_01_lian",
+        card_key: "card_lian",
         foto: "assets/personagens_carteirinha/01_lian_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_lian.png",
         scale_w: 410,
@@ -587,6 +594,8 @@
         especialidade: "Automação e Scripts",
         assinatura: "Sapo Operador",
         id_num: "Nº ID 20261124002",
+        char_key: "char_02_verde",
+        card_key: "card_verde",
         foto: "assets/personagens_carteirinha/02_verde_sapo_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_verde.png",
         scale_w: 390,
@@ -600,6 +609,8 @@
         especialidade: "Experiência e Branding",
         assinatura: "Coração Rosa",
         id_num: "Nº ID 20261124003",
+        char_key: "char_03_rosa",
+        card_key: "card_rosa",
         foto: "assets/personagens_carteirinha/03_rosa_coracao_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_rosa.png",
         scale_w: 380,
@@ -613,6 +624,8 @@
         especialidade: "Arquitetura de Dados",
         assinatura: "Cubo Laranja",
         id_num: "Nº ID 20261124004",
+        char_key: "char_04_laranja",
+        card_key: "card_laranja",
         foto: "assets/personagens_carteirinha/04_laranja_cubo_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_laranja.png",
         scale_w: 380,
@@ -626,6 +639,8 @@
         especialidade: "Pesquisa e Inteligência",
         assinatura: "Yeti Creme",
         id_num: "Nº ID 20261124005",
+        char_key: "char_05_yeti",
+        card_key: "card_creme",
         foto: "assets/personagens_carteirinha/05_creme_yeti_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_creme.png",
         scale_w: 370,
@@ -639,6 +654,8 @@
         especialidade: "Operações e Infra",
         assinatura: "Branco Vinil",
         id_num: "Nº ID 20261124006",
+        char_key: "char_06_branco",
+        card_key: "card_branco",
         foto: "assets/personagens_carteirinha/06_branco_vinil_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_branco.png",
         scale_w: 350,
@@ -652,6 +669,8 @@
         especialidade: "Direção de Arte",
         assinatura: "Azul de Boina",
         id_num: "Nº ID 20261124007",
+        char_key: "char_07_azul",
+        card_key: "card_azul",
         foto: "assets/personagens_carteirinha/07_azul_boina_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_azul.png",
         scale_w: 380,
@@ -665,6 +684,8 @@
         especialidade: "Estratégia e Métricas",
         assinatura: "Amarelo Óculos",
         id_num: "Nº ID 20261124008",
+        char_key: "char_08_amarelo",
+        card_key: "card_amarelo",
         foto: "assets/personagens_carteirinha/08_amarelo_oculos_nobg.png",
         png_pronto: "assets/carteirinha_agentes_sa_amarelo.png",
         scale_w: 380,
@@ -802,16 +823,16 @@
       cardsGrid.innerHTML = PERSONAGENS.map((p, i) => `
         <div class="grid-item">
           <div class="grid-item-thumb" onclick="carregarPersonagem(${i}); window.scrollTo({top: 0, behavior: 'smooth'});">
-            <img src="${p.png_pronto}" alt="Carteirinha ${p.nome}">
+            <img src="${(window.CARTEIRINHA_ASSETS_B64 && window.CARTEIRINHA_ASSETS_B64[p.card_key]) || p.png_pronto}" alt="Carteirinha ${p.nome}">
           </div>
           <div class="grid-item-info">
             <div>
               <div class="grid-item-title">${p.nome}</div>
               <div class="grid-item-role">${p.papel}</div>
             </div>
-            <a href="${p.png_pronto}" download="Carteirinha_${p.id}.png" class="btn-download-thumb">
+            <button onclick="baixarCardPronto('${p.id}')" class="btn-download-thumb">
               ⬇ Baixar
-            </a>
+            </button>
           </div>
         </div>
       `).join('');
@@ -828,11 +849,94 @@
     }
     window.addEventListener('resize', ajustarEscala);
 
+    // Utilitário de download infalível via Blob (funciona 100% offline e via file:// sem bloqueio do Chrome)
+    function downloadBlobOrDataUrl(dataUrlOrBlob, filename) {
+      try {
+        let blobUrl;
+        if (typeof dataUrlOrBlob === 'string' && dataUrlOrBlob.startsWith('data:')) {
+          const parts = dataUrlOrBlob.split(',');
+          const mime = (parts[0].match(/:(.*?);/) || [])[1] || 'image/png';
+          const bstr = atob(parts[1]);
+          let n = bstr.length;
+          const u8arr = new Uint8Array(n);
+          while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+          }
+          const blob = new Blob([u8arr], { type: mime });
+          blobUrl = URL.createObjectURL(blob);
+        } else if (dataUrlOrBlob instanceof Blob) {
+          blobUrl = URL.createObjectURL(dataUrlOrBlob);
+        } else {
+          blobUrl = dataUrlOrBlob;
+        }
+
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          try {
+            document.body.removeChild(a);
+            if (typeof blobUrl === 'string' && blobUrl.startsWith('blob:')) {
+              URL.revokeObjectURL(blobUrl);
+            }
+          } catch (e) {}
+        }, 1200);
+        return true;
+      } catch (err) {
+        console.error('Falha ao baixar via Blob:', err);
+        return false;
+      }
+    }
+
+    // Baixa o PNG pré-renderizado ultra-HD de qualquer personagem do catálogo
+    function baixarCardPronto(id) {
+      const p = PERSONAGENS.find(item => item.id === id);
+      if (!p) return;
+      const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+      const filename = `Carteirinha_Agentes_SA_${p.id}.png`;
+      const b64Data = B64[p.card_key];
+
+      if (b64Data) {
+        downloadBlobOrDataUrl(b64Data, filename);
+      } else {
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = p.png_pronto;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => document.body.removeChild(a), 500);
+      }
+    }
+
+    // Baixa todas as 9 carteirinhas em sequência com pequeno intervalo
+    async function baixarTodasAsCarteirinhas() {
+      const btn = document.getElementById('btnBaixarTodas');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳ Baixando todas...</span>';
+      }
+      for (let i = 0; i < PERSONAGENS.length; i++) {
+        baixarCardPronto(PERSONAGENS[i].id);
+        await new Promise(r => setTimeout(r, 450));
+      }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<span>📥 Baixar Todas as 9 (.PNG)</span>';
+      }
+    }
+
     function loadImageSafe(src) {
       return new Promise((resolve, reject) => {
         const img = new Image();
+        if (!src.startsWith('data:')) {
+          img.crossOrigin = 'anonymous';
+        }
         img.onload = () => resolve(img);
-        img.onerror = reject;
+        img.onerror = (e) => reject(new Error('Falha ao carregar imagem'));
         img.src = src;
       });
     }
@@ -844,6 +948,29 @@
       btn.disabled = true;
 
       try {
+        const p = PERSONAGENS[currentIdx];
+        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+        const filename = `Carteirinha_Agentes_SA_${p.id}.png`;
+
+        const txtAluno = (document.getElementById('txtAluno').textContent || '').trim();
+        const txtMajor = (document.getElementById('txtMajor').textContent || '').trim();
+        const txtSig = (document.getElementById('txtSig').textContent || '').trim();
+        const txtId = (document.getElementById('txtId').textContent || '').trim();
+
+        // Se o card não foi editado nem foto trocada, baixa direto o PNG pré-renderizado oficial 2460x1484
+        const isUnmodified = !fotoCustom &&
+                             modoCortado &&
+                             txtAluno === p.nome.trim() &&
+                             txtMajor === p.especialidade.trim() &&
+                             txtSig === p.assinatura.trim() &&
+                             txtId === p.id_num.trim();
+
+        if (isUnmodified && B64[p.card_key]) {
+          downloadBlobOrDataUrl(B64[p.card_key], filename);
+          return;
+        }
+
+        // Caso o usuário tenha editado textos ou foto: renderiza em Canvas com assets Base64
         if (document.fonts && document.fonts.ready) await document.fonts.ready;
         autoFitAll();
 
@@ -855,21 +982,24 @@
         const ctx = canvas.getContext('2d');
         ctx.scale(SCALE, SCALE);
 
-        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
-        const baseImg = await loadImageSafe(B64.fundo_sem_textos || 'assets/carteirinha_agentes_sa_fundo_sem_textos.png');
+        // 1. Fundo sem textos (usando Base64 para não taint o canvas)
+        const baseSrc = B64.fundo_sem_textos || 'assets/carteirinha_agentes_sa_fundo_sem_textos.png';
+        const baseImg = await loadImageSafe(baseSrc);
         ctx.drawImage(baseImg, 0, 0, W, H);
 
+        // 2. Quadro 3x4 da foto
         ctx.save();
         ctx.beginPath();
         ctx.rect(76, 62, 422, 424);
         ctx.clip();
 
-        const blueImg = await loadImageSafe(B64.foto_fundo_azul || 'assets/carteirinha_foto_fundo_azul.png');
+        const blueSrc = B64.foto_fundo_azul || 'assets/carteirinha_foto_fundo_azul.png';
+        const blueImg = await loadImageSafe(blueSrc);
         ctx.drawImage(blueImg, 76, 62, 422, 424);
 
-        const imgEl = document.getElementById('cardPhoto');
-        const charImg = await loadImageSafe(imgEl.src);
-        const p = PERSONAGENS[currentIdx];
+        // IMPORTANTE: Se não for foto custom, usar SEMPRE B64[p.char_key] para NUNCA contaminar o canvas
+        const charSrc = fotoCustom || B64[p.char_key] || p.foto;
+        const charImg = await loadImageSafe(charSrc);
 
         ctx.shadowColor = 'rgba(10, 28, 54, 0.38)';
         ctx.shadowBlur = 11;
@@ -882,7 +1012,17 @@
 
         if (fotoCustom) {
           ctx.shadowColor = 'transparent';
-          ctx.drawImage(charImg, 76, 62, 422, 424);
+          const imgRatio = charImg.width / charImg.height;
+          const boxRatio = 422 / 424;
+          let dw = 422, dh = 424;
+          if (imgRatio > boxRatio) {
+            dh = 424;
+            dw = 424 * imgRatio;
+          } else {
+            dw = 422;
+            dh = 422 / imgRatio;
+          }
+          ctx.drawImage(charImg, centerX - dw / 2, centerY - dh / 2, dw, dh);
         } else {
           const drawW = p.scale_w;
           const drawH = charImg.height * (drawW / charImg.width);
@@ -890,6 +1030,7 @@
         }
         ctx.restore();
 
+        // 3. Textos editados
         function drawText(elId, x, y, align = 'left', upper = false) {
           const el = document.getElementById(elId);
           let txt = (el.textContent || '').trim();
@@ -911,14 +1052,29 @@
         drawText('txtSigLbl', 66, 672, 'left', true);
         drawText('txtId', 1106, 672, 'right', true);
 
-        const slug = p.id;
-        const link = document.createElement('a');
-        link.download = `Carteirinha_Agentes_SA_${slug}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+        const safeSlug = txtAluno.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '_') || p.id;
+        const exportFilename = `Carteirinha_Agentes_SA_${safeSlug}.png`;
+
+        if (canvas.toBlob) {
+          canvas.toBlob(blob => {
+            if (blob) {
+              downloadBlobOrDataUrl(blob, exportFilename);
+            } else {
+              downloadBlobOrDataUrl(canvas.toDataURL('image/png'), exportFilename);
+            }
+          }, 'image/png');
+        } else {
+          downloadBlobOrDataUrl(canvas.toDataURL('image/png'), exportFilename);
+        }
       } catch (err) {
-        console.error(err);
-        alert('Erro ao exportar.');
+        console.error('Erro na exportação:', err);
+        const p = PERSONAGENS[currentIdx];
+        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+        if (B64[p.card_key]) {
+          downloadBlobOrDataUrl(B64[p.card_key], `Carteirinha_Agentes_SA_${p.id}.png`);
+        } else {
+          alert('Erro ao exportar a carteirinha. Verifique se o navegador tem permissão para downloads.');
+        }
       } finally {
         btn.innerHTML = orig;
         btn.disabled = false;

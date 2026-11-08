@@ -548,12 +548,57 @@
     }
     window.addEventListener('resize', ajustarEscalaTela);
 
+    // Utilitário de download infalível via Blob (funciona 100% offline e via file:// sem bloqueio do Chrome)
+    function downloadBlobOrDataUrl(dataUrlOrBlob, filename) {
+      try {
+        let blobUrl;
+        if (typeof dataUrlOrBlob === 'string' && dataUrlOrBlob.startsWith('data:')) {
+          const parts = dataUrlOrBlob.split(',');
+          const mime = (parts[0].match(/:(.*?);/) || [])[1] || 'image/png';
+          const bstr = atob(parts[1]);
+          let n = bstr.length;
+          const u8arr = new Uint8Array(n);
+          while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+          }
+          const blob = new Blob([u8arr], { type: mime });
+          blobUrl = URL.createObjectURL(blob);
+        } else if (dataUrlOrBlob instanceof Blob) {
+          blobUrl = URL.createObjectURL(dataUrlOrBlob);
+        } else {
+          blobUrl = dataUrlOrBlob;
+        }
+
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          try {
+            document.body.removeChild(a);
+            if (typeof blobUrl === 'string' && blobUrl.startsWith('blob:')) {
+              URL.revokeObjectURL(blobUrl);
+            }
+          } catch (e) {}
+        }, 1200);
+        return true;
+      } catch (err) {
+        console.error('Falha ao baixar via Blob:', err);
+        return false;
+      }
+    }
+
     // Utilitário para carregar imagem no Canvas 2D sem erro de CORS/file://
     function loadImageSafe(src) {
       return new Promise((resolve, reject) => {
         const img = new Image();
+        if (!src.startsWith('data:')) {
+          img.crossOrigin = 'anonymous';
+        }
         img.onload = () => resolve(img);
-        img.onerror = reject;
+        img.onerror = () => reject(new Error('Falha ao carregar imagem'));
         img.src = src;
       });
     }
@@ -569,6 +614,25 @@
       btn.disabled = true;
 
       try {
+        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+        const nomeAluno = (document.getElementById('txtAlunoValor').textContent || 'Agente').trim();
+        const slug = nomeAluno.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '_') || 'Agente';
+        const exportFilename = `Carteirinha_Agentes_SA_${slug}.png`;
+
+        // Se o usuário não alterou nada, pode baixar direto a imagem pré-renderizada
+        const majorVal = (document.getElementById('txtMajorValor').textContent || '').trim();
+        const sigVal = (document.getElementById('txtAssinaturaValor').textContent || '').trim();
+        const isDefaultLian = !isCustomPhoto &&
+                              modoCortadoEmbaixo &&
+                              nomeAluno === 'L.Nóbrega (Lian)' &&
+                              majorVal === 'Liderança de Agentes' &&
+                              sigVal === 'Lian Mascote';
+
+        if (isDefaultLian && B64.card_lian) {
+          downloadBlobOrDataUrl(B64.card_lian, exportFilename);
+          return;
+        }
+
         if (document.fonts && document.fonts.ready) {
           await document.fonts.ready;
         }
@@ -582,9 +646,7 @@
         const ctx = canvas.getContext('2d');
         ctx.scale(SCALE, SCALE);
 
-        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
-
-        // 1. Fundo da carteirinha com Logo Agentes S.A. e UNIVERSIDADE
+        // 1. Fundo da carteirinha com Logo Agentes S.A.
         const bgSrc = B64.fundo_sem_textos || 'assets/carteirinha_agentes_sa_fundo_sem_textos.png';
         const bgImg = await loadImageSafe(bgSrc);
         ctx.drawImage(bgImg, 0, 0, W, H);
@@ -659,16 +721,25 @@
         drawFieldText('txtAssinaturaLabel', 66, 672, 'left', true);
         drawFieldText('txtIdNumero', 1106, 672, 'right', true);
 
-        const nomeAluno = (document.getElementById('txtAlunoValor').textContent || 'Agente').trim();
-        const slug = nomeAluno.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9]+/g, '_');
-
-        const link = document.createElement('a');
-        link.download = `Carteirinha_Agentes_SA_${slug}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+        if (canvas.toBlob) {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              downloadBlobOrDataUrl(blob, exportFilename);
+            } else {
+              downloadBlobOrDataUrl(canvas.toDataURL('image/png'), exportFilename);
+            }
+          }, 'image/png');
+        } else {
+          downloadBlobOrDataUrl(canvas.toDataURL('image/png'), exportFilename);
+        }
       } catch (err) {
-        console.error(err);
-        alert('Erro ao gerar o download da imagem.');
+        console.error('Erro na exportação:', err);
+        const B64 = window.CARTEIRINHA_ASSETS_B64 || {};
+        if (B64.card_lian) {
+          downloadBlobOrDataUrl(B64.card_lian, 'Carteirinha_Agentes_SA_Lian.png');
+        } else {
+          alert('Erro ao gerar o download da imagem.');
+        }
       } finally {
         btn.innerHTML = textoOriginal;
         btn.disabled = false;

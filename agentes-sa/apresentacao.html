@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Apresentação Oficial · Agentes S.A. | Leonardo Nóbrega</title>
+  <meta name="description" content="Apresentação keynote de alto impacto da aula ao vivo Agentes S.A. com Leonardo Nóbrega. Design clean, minimalista e visual.">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Fontes Oficiais da Marca -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       RESET & DESIGN SYSTEM KEYNOTE EDITORIAL (CLEAN / FUNDO BRANCO)
+       Inspirado na Central do Aluno, design Apple e palestras Top Voice
+       ═══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* Paleta Oficial da Marca */
+      --color-primary: #075fe4;
+      --color-primary-dark: #0550c8;
+      --color-primary-light: #3a85f0;
+      --color-primary-soft: #e8f0fe;
+      --color-navy: #031b4e;
+      --color-navy-dark: #021133;
+      --color-slate: #5e6673;
+      --color-slate-light: #8e9bb2;
+      --color-slate-border: rgba(3, 27, 78, 0.08);
+      
+      --color-bg-clean: #ffffff;
+      --color-bg-subtle: #f8fafc;
+      --color-bg-card: #ffffff;
+      
+      --color-warning: #f4b400;
+      --color-warning-soft: #fef9c3;
+      --color-cyan: #0090d9;
+      --color-cyan-bright: #00d2ff;
+      --color-success: #0f9d58;
+      --color-success-soft: #dcfce7;
+      --color-danger: #e11d48;
+      --color-danger-soft: #ffe4e6;
+
+      --font-main: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+      --transition-normal: 320ms var(--ease-out);
+
+      --shadow-clean: 0 4px 20px -2px rgba(3, 27, 78, 0.05), 0 2px 6px -1px rgba(3, 27, 78, 0.04);
+      --shadow-hover: 0 12px 32px -4px rgba(3, 27, 78, 0.08), 0 4px 12px -2px rgba(3, 27, 78, 0.05);
+      --shadow-punch: 0 20px 40px -8px rgba(7, 95, 228, 0.14);
+    }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--color-bg-clean);
+      color: var(--color-navy);
+      font-family: var(--font-main);
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sprites e Ícones */
+    .i {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       STAGE PRINCIPAL DO DECK DE SLIDES
+       ═══════════════════════════════════════════════════════════════ */
+    .deck-stage {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      background: var(--color-bg-clean);
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .slides-wrapper {
+      flex: 1;
+      width: 100%;
+      min-width: 0;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      transition: width var(--transition-normal);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ESTRUTURA DE CADA SLIDE
+       ═══════════════════════════════════════════════════════════════ */
+    .slide {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 52px 76px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateY(16px) scale(0.995);
+      pointer-events: none;
+      transition: opacity 320ms var(--ease-out), transform 320ms var(--ease-out);
+      box-sizing: border-box;
+      background: var(--color-bg-clean);
+      overflow-y: auto;
+    }
+
+    body.split-mode .slide {
+      padding: 36px 48px 90px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+      z-index: 5;
+    }
+
+    /* ─── Slides Hero (Imagens Full-Bleed de Fundo para Transições de Impacto) ─── */
+    .slide.slide-hero {
+      position: absolute !important;
+      background-size: cover !important;
+      background-position: center center !important;
+      color: #ffffff !important;
+    }
+
+    .slide.slide-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(3, 27, 78, 0.94) 0%, rgba(3, 27, 78, 0.78) 55%, rgba(3, 27, 78, 0.45) 100%);
+      z-index: 1;
+    }
+
+    .slide.slide-hero > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide.slide-hero .slide-title {
+      color: #ffffff !important;
+    }
+    .slide.slide-hero .slide-subtitle {
+      color: rgba(255, 255, 255, 0.88) !important;
+    }
+    .slide.slide-hero .slide-kicker {
+      color: #7dd3fc !important;
+    }
+    .slide.slide-hero .slide-kicker::before {
+      background: var(--color-warning) !important;
+    }
+    .slide.slide-hero .slide-footer {
+      border-top-color: rgba(255, 255, 255, 0.15) !important;
+      color: rgba(255, 255, 255, 0.65) !important;
+    }
+
+    /* ─── Topo do Slide ─── */
+    .slide-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .slide-kicker-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slide-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--color-primary);
+    }
+
+    .slide-kicker::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: var(--color-warning);
+    }
+
+    .slide-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .slide-header-brand img {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* ─── Corpo do Slide ─── */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .slide-title {
+      font-size: clamp(38px, 4.2vw, 64px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--color-navy);
+      margin-bottom: 14px;
+    }
+
+    .slide-title .hl-blue {
+      color: var(--color-primary);
+    }
+    .slide-title .hl-yellow {
+      color: #d97706;
+    }
+
+    .slide-subtitle {
+      font-size: clamp(18px, 1.5vw, 24px);
+      line-height: 1.45;
+      color: var(--color-slate);
+      max-width: 920px;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    /* ─── Rodapé do Slide ─── */
+    .slide-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-slate-border);
+      font-size: 12.5px;
+      font-family: var(--font-mono);
+      color: var(--color-slate-light);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       COMPONENTES EDITORIAL / CARDS LIMPOS (DESIGN SYSTEM DA CENTRAL)
+       ═══════════════════════════════════════════════════════════════ */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      width: 100%;
+    }
+
+    .card-clean {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-slate-border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow-clean);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+
+    .card-clean:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-clean.featured {
+      border-color: rgba(7, 95, 228, 0.35);
+      background: #ffffff;
+      box-shadow: var(--shadow-punch);
+    }
+
+    .card-clean.danger {
+      border-color: rgba(225, 29, 72, 0.25);
+      background: #fffafa;
+    }
+
+    .card-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+    .pill-blue { background: var(--color-primary-soft); color: var(--color-primary); }
+    .pill-yellow { background: var(--color-warning-soft); color: #b45309; }
+    .pill-red { background: var(--color-danger-soft); color: var(--color-danger); }
+    .pill-green { background: var(--color-success-soft); color: #15803d; }
+
+    .card-title-lg {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--color-navy);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .card-text-lg {
+      font-size: 16px;
+      color: var(--color-slate);
+      line-height: 1.5;
+    }
+
+    .punch-number {
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1;
+      font-family: var(--font-mono);
+      letter-spacing: -2px;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .punch-tagline {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--color-navy);
+      margin-bottom: 8px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       COMPONENTES ESPECÍFICOS: TIMELINE, FLOW & TIME
+       ═══════════════════════════════════════════════════════════════ */
+    .team-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 14px;
+      width: 100%;
+    }
+
+    .team-member-card {
+      background: #ffffff;
+      border: 1px solid var(--color-slate-border);
+      border-radius: 18px;
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--shadow-clean);
+      transition: all var(--transition-normal);
+    }
+
+    .team-member-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--color-primary);
+    }
+
+    .team-member-avatar {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-member-avatar img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .team-member-code {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .team-member-name {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--color-navy);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .team-member-desc {
+      font-size: 11.5px;
+      color: var(--color-slate);
+      line-height: 1.35;
+    }
+
+    /* Pipeline Limpo */
+    .clean-pipeline {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .pipe-step {
+      background: #ffffff;
+      border: 1px solid var(--color-slate-border);
+      border-radius: 16px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-clean);
+      position: relative;
+    }
+
+    .pipe-step.gate {
+      border: 2px solid var(--color-warning);
+      background: #fffdf5;
+    }
+
+    .pipe-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .pipe-step.gate .pipe-num {
+      color: #b45309;
+    }
+
+    .pipe-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--color-navy);
+      margin-bottom: 6px;
+    }
+
+    .pipe-desc {
+      font-size: 12px;
+      color: var(--color-slate);
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MODO SPLIT-SCREEN (OBS / CÂMERA AO VIVO)
+       ═══════════════════════════════════════════════════════════════ */
+    .split-panel {
+      width: 0;
+      min-width: 0;
+      max-width: 0;
+      height: 100vh;
+      background: #ffffff;
+      border-left: none;
+      position: relative;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: width var(--transition-normal);
+      z-index: 10;
+    }
+
+    body.split-mode .split-panel {
+      display: flex;
+      width: 42vw;
+      min-width: 42vw;
+      max-width: 42vw;
+      border-left: 1px solid var(--color-slate-border);
+    }
+
+    body.split-mode .team-strip {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    body.split-mode .team-member-card {
+      padding: 12px 8px;
+    }
+
+    body.split-mode .team-member-avatar {
+      width: 56px;
+      height: 56px;
+    }
+
+    body.split-mode .grid-2 {
+      gap: 18px;
+    }
+
+    body.split-mode .grid-3 {
+      gap: 16px;
+    }
+
+    @media (max-width: 1400px) {
+      .slide {
+        padding: 44px 56px 90px;
+      }
+      .slide-title {
+        font-size: clamp(34px, 4vw, 56px);
+      }
+      .team-strip {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+    }
+
+    .camera-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #031b4e;
+    }
+
+    .camera-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1);
+    }
+
+    .camera-clean-card {
+      text-align: center;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      color: #ffffff;
+    }
+
+    .camera-avatar-ring {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid var(--color-primary);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      background: #ffffff;
+    }
+
+    .camera-avatar-ring img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BARRA FLUTUANTE DE CONTROLE DO APRESENTADOR (BOTTOM PILL)
+       ═══════════════════════════════════════════════════════════════ */
+    .control-pill {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(3, 27, 78, 0.12);
+      border-radius: 999px;
+      padding: 6px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(3, 27, 78, 0.08), 0 2px 8px rgba(3, 27, 78, 0.04);
+    }
+
+    .control-counter {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--color-navy);
+      min-width: 65px;
+      text-align: center;
+    }
+
+    .control-timer {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-primary);
+      background: var(--color-primary-soft);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .control-sep {
+      width: 1px;
+      height: 20px;
+      background: rgba(3, 27, 78, 0.1);
+    }
+
+    .control-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-slate);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all 160ms var(--ease-out);
+    }
+
+    .control-btn:hover {
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+      transform: scale(1.06);
+    }
+
+    .control-btn.active {
+      background: var(--color-primary);
+      color: #ffffff;
+    }
+
+    .global-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 4px;
+      background: rgba(3, 27, 78, 0.06);
+      z-index: 200;
+    }
+
+    .global-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--color-primary);
+      transition: width 260ms var(--ease-out);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       GAVETA DE NOTAS DO APRESENTADOR (SPEAKER NOTES)
+       ═══════════════════════════════════════════════════════════════ */
+    .speaker-drawer {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 420px;
+      height: 100vh;
+      background: #ffffff;
+      border-left: 1px solid var(--color-slate-border);
+      box-shadow: -15px 0 40px rgba(3, 27, 78, 0.08);
+      z-index: 150;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform var(--transition-normal);
+    }
+
+    .speaker-drawer.open {
+      transform: translateX(0);
+    }
+
+    .speaker-drawer-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--color-slate-border);
+      margin-bottom: 20px;
+    }
+
+    .speaker-drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .note-block {
+      margin-bottom: 22px;
+    }
+
+    .note-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .note-text {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--color-navy);
+    }
+
+    .note-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 8px;
+    }
+
+    .note-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--color-slate);
+      line-height: 1.5;
+    }
+
+    .note-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--color-primary);
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       OVERVIEW MODAL (GRADE DE SLIDES)
+       ═══════════════════════════════════════════════════════════════ */
+    .overview-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 27, 78, 0.6);
+      backdrop-filter: blur(12px);
+      z-index: 300;
+      padding: 40px;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .overview-backdrop.open {
+      display: flex;
+    }
+
+    .overview-container {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .overview-card {
+      background: var(--color-bg-subtle);
+      border: 1px solid var(--color-slate-border);
+      border-radius: 14px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 160ms var(--ease-out);
+    }
+
+    .overview-card:hover, .overview-card.active {
+      border-color: var(--color-primary);
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-clean);
+    }
+
+    /* Blackout */
+    body.blackout .slides-wrapper {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sprite de Ícones SVG -->
+  <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+    <symbol id="i-split" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M14 3v18"/></symbol>
+    <symbol id="i-fullscreen" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+    <symbol id="i-notes" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+  </svg>
+
+  <!-- Barra de Progresso Global no Topo -->
+  <div class="global-progress">
+    <div class="global-progress-fill" id="progressFill"></div>
+  </div>
+
+  <div class="deck-stage">
+    
+    <!-- ÁREA DE APRESENTAÇÃO DOS SLIDES -->
+    <main class="slides-wrapper" id="slidesWrapper">
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 01 [HERO IMPACTO]: CAPA OFICIAL
+           Fundo Full-Bleed com Imagem da Fábrica + Tipografia Monumental
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide slide-hero active" data-slide="1" style="background-image: url('assets/central/hero_time.jpg');">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Aula Ao Vivo Oficial</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega" style="filter: brightness(0) invert(1);">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <span class="card-pill pill-yellow" style="margin-bottom: 20px;">A Nova Era do Marketing Agêntico</span>
+          <h1 class="slide-title" style="font-size: clamp(48px, 6vw, 92px); margin-bottom: 18px;">
+            AGENTES <span style="color:#7dd3fc;">S.A.</span>
+          </h1>
+          <p class="slide-subtitle" style="font-size: 26px; font-weight: 600; max-width: 820px;">
+            Como criar seu primeiro time de agentes de IA especializados, autônomos e com memória permanente.
+          </p>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Leonardo Nóbrega &amp; Mascote Lian</span>
+          <span>Slide 01 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 02 [CLEAN]: A MUDANÇA DE CADEIRA
+           Foco Editorial: 1 Grande Pergunta Provocativa
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="2">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">O Diagnóstico da Dor</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body" style="text-align: center; max-width: 1040px; margin: 0 auto;">
+          <span class="card-pill pill-red" style="margin: 0 auto 20px;">A Realidade Oculta</span>
+          <h2 class="slide-title" style="font-size: clamp(42px, 4.6vw, 70px); margin-bottom: 24px;">
+            Você é o <span class="hl-blue">CEO</span> da sua marca...<br>
+            ou o <span style="color:var(--color-danger);">estagiário de luxo</span> da sua IA?
+          </h2>
+          <p class="slide-subtitle" style="margin: 0 auto 36px; max-width: 780px;">
+            A maioria dos profissionais gasta mais tempo copiando, colando e corrigindo respostas de robô do que se escrevessem sozinhos.
+          </p>
+
+          <div style="display:flex; justify-content:center; gap:32px;">
+            <div style="text-align:center;">
+              <div class="punch-number" style="color:var(--color-danger);">40m</div>
+              <div style="font-weight:700; color:var(--color-navy);">Ajustando vírgula no braço</div>
+            </div>
+            <div style="width:1px; height:70px; background:var(--color-slate-border); align-self:center;"></div>
+            <div style="text-align:center;">
+              <div class="punch-number" style="color:var(--color-primary);">2m</div>
+              <div style="font-weight:700; color:var(--color-navy);">Aprovando como Diretor</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Da sobrecarga mecânica para a governança estratégica</span>
+          <span>Slide 02 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 03 [CLEAN]: CONTRASTE VISUAL NÍTIDO
+           2 Colunas Amplas e Espaçosas
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="3">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">A Mudança Definitiva</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">Dois jeitos de usar IA. <span class="hl-blue">Um deles cansa.</span></h2>
+          <p class="slide-subtitle">A diferença entre quem continua sobrecarregado e quem escala a operação.</p>
+
+          <div class="grid-2">
+            <div class="card-clean danger">
+              <span class="card-pill pill-red">❌ O Modelo Reativo (Chat Comum)</span>
+              <h3 class="card-title-lg">A Caixa de Vidro</h3>
+              <p class="card-text-lg">Você abre a aba todo dia, tenta explicar seu negócio do zero, recebe clichês batidos e perde a manhã editando.</p>
+              <div style="margin-top:20px; font-weight:700; font-size:14px; color:var(--color-danger);">
+                • Sem memória · Sem mãos · Sem autonomia
+              </div>
+            </div>
+
+            <div class="card-clean featured">
+              <span class="card-pill pill-blue">🚀 O Modelo Agêntico (Agentes S.A.)</span>
+              <h3 class="card-title-lg">A Fábrica Especializada</h3>
+              <p class="card-text-lg">Agentes que já conhecem seu Brand DNA, leem suas pastas e entregam peças prontas. Você apenas valida e decide.</p>
+              <div style="margin-top:20px; font-weight:700; font-size:14px; color:var(--color-primary);">
+                • Memória de disco · Execução autônoma · Você no controle
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Menos digitação, mais tomada de decisão</span>
+          <span>Slide 03 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 04 [CLEAN]: A CAIXA DE VIDRO
+           Metáfora Central da Aula com Imagem e Minimalismo
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="4">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Conceito Central</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="grid-2" style="align-items: center; gap: 48px;">
+            <div>
+              <span class="card-pill pill-yellow">A Quebra da Caixa de Vidro</span>
+              <h2 class="slide-title" style="font-size: clamp(36px, 3.8vw, 56px);">
+                A IA de Chat é brilhante.<br>
+                <span class="hl-blue">Mas ela não tem mãos.</span>
+              </h2>
+              <p class="slide-subtitle" style="font-size: 19px; margin-bottom: 24px;">
+                Trancada no navegador de outra empresa, ela não mexe no seu disco, não abre pastas e não publica nada por você.
+              </p>
+              <div class="card-clean" style="padding: 16px 20px; background:#f8fafc;">
+                <strong style="color:var(--color-navy); font-size:15px; display:block; margin-bottom:4px;">O que o Agente Real faz:</strong>
+                <span style="color:var(--color-slate); font-size:14px;">Ele ganha um computador próprio, lê arquivos locais e opera ferramentas reais.</span>
+              </div>
+            </div>
+
+            <div style="position:relative; border-radius:22px; overflow:hidden; box-shadow:var(--shadow-punch); border:1px solid var(--color-slate-border);">
+              <img src="assets/central/prep_openbot.jpg" alt="Estação de controle dos agentes" style="width:100%; height:auto; display:block;">
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Agentes têm memória permanente e ferramentas locais</span>
+          <span>Slide 04 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 05 [CLEAN]: A TRÍADE DA ENGENHARIA AGÊNTICA
+           3 Pilares Limpos: Cérebro · Mãos · Manual
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="5">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Arquitetura Sem Código</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">A Tríade que faz o agente <span class="hl-blue">trabalhar de verdade</span>.</h2>
+          <p class="slide-subtitle">Sem termos complicados. Qualquer agente é formado por apenas 3 engrenagens simples:</p>
+
+          <div class="grid-3">
+            <div class="card-clean">
+              <span class="punch-number">01</span>
+              <div class="punch-tagline">O CÉREBRO (LLM)</div>
+              <p class="card-text-lg">Modelos de linguagem como Gemini 2.5 Flash ou Claude. Responsável por raciocinar, sintetizar e conectar ideias.</p>
+            </div>
+
+            <div class="card-clean featured">
+              <span class="punch-number" style="color:var(--color-warning);">02</span>
+              <div class="punch-tagline">AS MÃOS (Tools / MCP)</div>
+              <p class="card-text-lg">A capacidade de agir: abrir o navegador, pesquisar no YouTube, diagramar imagens e enviar mensagens no WhatsApp.</p>
+            </div>
+
+            <div class="card-clean">
+              <span class="punch-number" style="color:var(--color-success);">03</span>
+              <div class="punch-tagline">O MANUAL (Skill .md)</div>
+              <p class="card-text-lg">Um texto simples em português com o escopo fechado: o que ele deve fazer, como aprovar e o que está proibido.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>LLM + Ferramentas + Skill = Agente Autônomo</span>
+          <span>Slide 05 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 06 [HERO IMPACTO]: TRANSIÇÃO PARA A FÁBRICA
+           Imagem Inteira Ocupando o Fundo
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide slide-hero" data-slide="6" style="background-image: url('assets/fachada_fabrica.jpg');">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">O Chão de Fábrica</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <span class="card-pill pill-yellow" style="margin-bottom: 20px;">Portas Abertas</span>
+          <h2 class="slide-title" style="font-size: clamp(48px, 5.5vw, 84px); margin-bottom: 16px;">
+            Bem-vindo ao chão de fábrica.
+          </h2>
+          <p class="slide-subtitle" style="font-size: 24px; font-weight: 600; max-width: 800px;">
+            Onde a inteligência artificial deixa de ser um brinquedo de perguntas e respostas para virar a esteira de marketing da sua empresa.
+          </p>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Agentes S.A. · Operação em Escala Real</span>
+          <span>Slide 06 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 07 [CLEAN]: PREPARE SUA BANCADA
+           Os 3 Recursos Prontos da Central do Aluno
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="7">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Central do Aluno · Etapa 1</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">Prepare sua bancada. <span class="hl-blue">Zero custo de licença.</span></h2>
+          <p class="slide-subtitle">Três coisas para ter no seu computador e acompanhar a aula sem travar:</p>
+
+          <div class="grid-3">
+            <div class="card-clean" style="padding: 20px;">
+              <div style="height: 140px; border-radius: 14px; overflow: hidden; margin-bottom: 16px;">
+                <img src="assets/central/prep_antigravity.jpg" alt="Google Antigravity" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+              <span class="card-pill pill-blue">O Cérebro</span>
+              <h3 class="card-title-lg" style="font-size: 20px;">Google Antigravity</h3>
+              <p class="card-text-lg" style="font-size: 14.5px;">Onde os agentes vivem e leem os arquivos da sua marca localmente.</p>
+            </div>
+
+            <div class="card-clean" style="padding: 20px;">
+              <div style="height: 140px; border-radius: 14px; overflow: hidden; margin-bottom: 16px;">
+                <img src="assets/central/prep_openbot.jpg" alt="OpenBot" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+              <span class="card-pill pill-yellow">As Mãos</span>
+              <h3 class="card-title-lg" style="font-size: 20px;">OpenBot</h3>
+              <p class="card-text-lg" style="font-size: 14.5px;">O navegador autônomo para pesquisas na web e avisos no WhatsApp.</p>
+            </div>
+
+            <div class="card-clean" style="padding: 20px;">
+              <div style="height: 140px; border-radius: 14px; overflow: hidden; margin-bottom: 16px;">
+                <img src="assets/central/prep_projeto.jpg" alt="Pasta Modelo" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+              <span class="card-pill pill-green">O Armário</span>
+              <h3 class="card-title-lg" style="font-size: 20px;">Pasta Modelo da Marca</h3>
+              <p class="card-text-lg" style="font-size: 14.5px;">A árvore de diretórios pronta com Brand DNA e as 7 skills oficiais.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Arquivos disponíveis para download na Central do Aluno</span>
+          <span>Slide 07 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 08 [CLEAN]: O SEGUNDO CÉREBRO (BRAND DNA)
+           Palavras Chave e Frase Curta
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="8">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Calibração de Estilo</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="grid-2" style="align-items: center; gap: 48px;">
+            <div>
+              <span class="card-pill pill-blue">Prompt Mestre 02</span>
+              <h2 class="slide-title" style="font-size: clamp(38px, 4vw, 58px);">
+                A IA só escreve mal se você <span class="hl-blue">não ensinar quem você é</span>.
+              </h2>
+              <p class="slide-subtitle" style="font-size: 20px; margin-bottom: 28px;">
+                Sem o contexto da sua marca, qualquer IA vai recorrer à média medíocre da internet.
+              </p>
+              
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="card-clean" style="padding: 14px 18px; border-left: 4px solid var(--color-primary);">
+                  <strong style="color:var(--color-navy); font-size:15px;">1. Tese Central:</strong>
+                  <span style="color:var(--color-slate); font-size:14px;"> O que você defende vs. o que você combate.</span>
+                </div>
+                <div class="card-clean" style="padding: 14px 18px; border-left: 4px solid var(--color-warning);">
+                  <strong style="color:var(--color-navy); font-size:15px;">2. Vocabulário:</strong>
+                  <span style="color:var(--color-slate); font-size:14px;"> Metáforas e expressões exclusivas da sua voz.</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="border-radius:22px; overflow:hidden; box-shadow:var(--shadow-punch);">
+              <img src="assets/central/prompt_brain.jpg" alt="Núcleo de memória de IA" style="width:100%; height:auto; display:block;">
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>O Segundo Cérebro grava sua identidade permanentemente</span>
+          <span>Slide 08 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 09 [CLEAN]: NEGATIVE CONSTRAINTS (PALAVRAS BANIDAS)
+           Impacto com Linhas Cortadas e Visual Despojado
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="9">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Regras Inegociáveis</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body" style="text-align: center; max-width: 980px; margin: 0 auto;">
+          <span class="card-pill pill-red" style="margin: 0 auto 16px;">Negative Constraints</span>
+          <h2 class="slide-title" style="font-size: clamp(38px, 4.2vw, 62px); margin-bottom: 28px;">
+            Quer texto autoral? <span class="hl-blue">Proíba o clichê.</span>
+          </h2>
+
+          <div class="card-clean danger" style="padding: 32px 40px; text-align: left; font-family: var(--font-mono); font-size: 17px; line-height: 2.1;">
+            <div style="color: var(--color-danger); text-decoration: line-through;">✕ "No mundo acelerado e dinâmico de hoje..."</div>
+            <div style="color: var(--color-danger); text-decoration: line-through;">✕ "Desbloqueie todo o seu verdadeiro potencial..."</div>
+            <div style="color: var(--color-danger); text-decoration: line-through;">✕ "Mergulhe fundo nas complexidades do mercado..."</div>
+            <div style="color: var(--color-danger); text-decoration: line-through;">✕ "Um divisor de águas revolucionário..."</div>
+          </div>
+
+          <p style="margin-top: 24px; font-size: 18px; color: var(--color-navy); font-weight: 700;">
+            💡 Quando o robô é impedido de usar jargões fáceis, ele é obrigado a ser autoral.
+          </p>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Lista de 15 proibições salva no Brand DNA</span>
+          <span>Slide 09 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 10 [CLEAN]: MÉTODO DELTA-DIFF
+           V1 ➔ V Final ➔ Delta
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="10">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Machine Learning Local</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">Método Delta-Diff: <span class="hl-blue">A IA que aprende com você</span>.</h2>
+          <p class="slide-subtitle">Como calibrar o agente para ele nunca mais repetir o mesmo erro de escrita:</p>
+
+          <div class="grid-3">
+            <div class="card-clean danger">
+              <span class="card-pill pill-red">Passo 1</span>
+              <h3 class="card-title-lg">V1 da IA</h3>
+              <p class="card-text-lg">O rascunho cru gerado pelo agente, com frases longas e entonação robótica.</p>
+            </div>
+
+            <div class="card-clean">
+              <span class="card-pill pill-green">Passo 2</span>
+              <h3 class="card-title-lg">Sua Edição</h3>
+              <p class="card-text-lg">Você ajusta em 30 segundos no seu ritmo: encurta palavras e coloca sua voz.</p>
+            </div>
+
+            <div class="card-clean featured">
+              <span class="card-pill pill-yellow">Passo 3</span>
+              <h3 class="card-title-lg">O Delta Gravado</h3>
+              <p class="card-text-lg">O prompt extrai as regras exatas do que você cortou e salva direto em <code>tom_de_voz.md</code>.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>A cada texto seu, o time fica mais afiado para sempre</span>
+          <span>Slide 10 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 11 [CLEAN EDITORIAL / TOP VOICE IMPACT]: A REGRA DE OURO
+           Tipografia Monumental, Fundo Branco Puro, Steve Jobs Style
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="11" style="background:#ffffff;">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">A Lei da Engenharia Agêntica</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body" style="text-align: center; max-width: 1000px; margin: 0 auto;">
+          <span class="card-pill pill-blue" style="margin: 0 auto 28px; font-size: 13px; padding: 6px 16px;">ESCOPO FECHADO</span>
+          
+          <h2 style="font-size: clamp(48px, 5.2vw, 84px); font-weight: 900; line-height: 1.08; color: var(--color-navy); letter-spacing: -0.035em; margin-bottom: 32px;">
+            "Agente que faz tudo,<br>
+            <span style="color: var(--color-primary);">faz tudo meia-boca."</span>
+          </h2>
+
+          <p style="font-size: 24px; color: var(--color-slate); line-height: 1.45; max-width: 800px; margin: 0 auto;">
+            Não crie um assistente genérico. Divida o trabalho em <strong>especialistas cirúrgicos</strong>.
+          </p>
+        </div>
+
+        <footer class="slide-footer">
+          <span>O segredo da alta assertividade é o escopo restrito</span>
+          <span>Slide 11 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 12 [CLEAN]: O TIME DE 7 AGENTES
+           Avatares Transparentes em Fila Nítida
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="12">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Central do Aluno · Etapa 2</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title" style="margin-bottom: 8px;">Conheça o seu time de <span class="hl-blue">7 Agentes</span>.</h2>
+          <p class="slide-subtitle" style="margin-bottom: 24px;">Cada um com sua função cirúrgica. Prontos para rodar no seu computador.</p>
+
+          <div class="team-strip">
+            <!-- 00 Lian -->
+            <div class="team-member-card" style="border-color: var(--color-primary); background: #f0f7ff;">
+              <div class="team-member-avatar"><img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="Lian"></div>
+              <span class="team-member-code">Agente 00</span>
+              <h4 class="team-member-name">Gerente</h4>
+              <p class="team-member-desc">Coordena o time e pede sua aprovação nos 2 momentos certos.</p>
+            </div>
+
+            <!-- 01 Hunter -->
+            <div class="team-member-card">
+              <div class="team-member-avatar"><img src="assets/personagens_carteirinha/08_amarelo_oculos_nobg.png" alt="Pesquisador"></div>
+              <span class="team-member-code">Agente 01</span>
+              <h4 class="team-member-name">Pesquisador</h4>
+              <p class="team-member-desc">Varre notícias e referências das últimas 48h atrás de pautas quentes.</p>
+            </div>
+
+            <!-- 02 Estrategista -->
+            <div class="team-member-card">
+              <div class="team-member-avatar"><img src="assets/personagens_carteirinha/07_azul_boina_nobg.png" alt="Estrategista"></div>
+              <span class="team-member-code">Agente 02</span>
+              <h4 class="team-member-name">Estrategista</h4>
+              <p class="team-member-desc">Cruza pautas com o Brand DNA e define o melhor ângulo.</p>
+            </div>
+
+            <!-- 03 Redator -->
+            <div class="team-member-card">
+              <div class="team-member-avatar"><img src="assets/personagens_carteirinha/03_rosa_coracao_nobg.png" alt="Redator"></div>
+              <span class="team-member-code">Agente 03</span>
+              <h4 class="team-member-name">Redator</h4>
+              <p class="team-member-desc">Escreve carrosséis, legendas e roteiros no seu tom autoral.</p>
+            </div>
+
+            <!-- 04 Designer -->
+            <div class="team-member-card">
+              <div class="team-member-avatar"><img src="assets/personagens_carteirinha/04_laranja_cubo_nobg.png" alt="Designer"></div>
+              <span class="team-member-code">Agente 04</span>
+              <h4 class="team-member-name">Designer</h4>
+              <p class="team-member-desc">Gera peças visuais 1080×1350 na identidade da marca.</p>
+            </div>
+
+            <!-- 05 Vídeo -->
+            <div class="team-member-card">
+              <div class="team-member-avatar"><img src="assets/personagens_carteirinha/06_branco_vinil_nobg.png" alt="Vídeo"></div>
+              <span class="team-member-code">Agente 05</span>
+              <h4 class="team-member-name">Editor Vídeo</h4>
+              <p class="team-member-desc">Gera locução natural e monta vídeos curtos legendados.</p>
+            </div>
+
+            <!-- 06 Social Media -->
+            <div class="team-member-card">
+              <div class="team-member-avatar"><img src="assets/personagens_carteirinha/02_verde_sapo_nobg.png" alt="Social Media"></div>
+              <span class="team-member-code">Agente 06</span>
+              <h4 class="team-member-name">Social Media</h4>
+              <p class="team-member-desc">Agenda a publicação e avisa você no WhatsApp.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>7 arquivos .md prontos no pacote para download</span>
+          <span>Slide 12 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 13 [CLEAN]: INTELIGÊNCIA DE MERCADO (HUNTER & ESTRATEGISTA)
+           Sem Tela em Branco
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="13">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">A Dupla de Abertura</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">Nunca mais sofra com a <span class="hl-blue">tela em branco</span>.</h2>
+          <p class="slide-subtitle">Como os dois primeiros agentes encontram temas de alta autoridade:</p>
+
+          <div class="grid-2">
+            <div class="card-clean" style="display: flex; gap: 20px; align-items: flex-start;">
+              <div style="width: 80px; flex-shrink: 0;"><img src="assets/personagens_carteirinha/08_amarelo_oculos_nobg.png" alt="Hunter" style="width:100%;"></div>
+              <div>
+                <span class="card-pill pill-yellow">Agente 01 · Pesquisador</span>
+                <h3 class="card-title-lg">Curadoria das últimas 48h</h3>
+                <p class="card-text-lg">Varre notícias, YouTube e artigos recentes. Não escreve posts: apenas entrega a dor prática do público.</p>
+              </div>
+            </div>
+
+            <div class="card-clean featured" style="display: flex; gap: 20px; align-items: flex-start;">
+              <div style="width: 80px; flex-shrink: 0;"><img src="assets/personagens_carteirinha/07_azul_boina_nobg.png" alt="Estrategista" style="width:100%;"></div>
+              <div>
+                <span class="card-pill pill-blue">Agente 02 · Estrategista</span>
+                <h3 class="card-title-lg">O Ângulo Editorial</h3>
+                <p class="card-text-lg">Cruza as pautas com o Brand DNA. Define a tese contrária e o gancho que vai prender a atenção.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Pesquisa sem ângulo é ruído; Estratégia gera autoridade</span>
+          <span>Slide 13 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 14 [CLEAN]: GOVERNANÇA HITL (2 PONTOS DE CONTROLE)
+           Human-In-The-Loop
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="14">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Governança Absoluta</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">Você aprova em <span class="hl-blue">2 cliques</span>. Zero risco.</h2>
+          <p class="slide-subtitle">A IA nunca publica nada sem a sua validação prévia. O Lian pausa a esteira em 2 momentos:</p>
+
+          <div class="grid-2">
+            <div class="card-clean" style="border: 2px solid var(--color-warning); background: #fffdf7;">
+              <span class="card-pill pill-yellow">Ponto de Controle 1</span>
+              <h3 class="card-title-lg">Aprovar a Pauta (10 segundos)</h3>
+              <p class="card-text-lg">Você valida o briefing e o ângulo sugerido antes de gastar qualquer esforço de produção.</p>
+              <div style="margin-top:16px; font-size:14px; color:#b45309; font-weight:700;">
+                👉 Você autoriza: "Tema aprovado. Podem executar!"
+              </div>
+            </div>
+
+            <div class="card-clean featured" style="border: 2px solid var(--color-primary); background: #f0f7ff;">
+              <span class="card-pill pill-blue">Ponto de Controle 2</span>
+              <h3 class="card-title-lg">Revisar a Entrega (30 segundos)</h3>
+              <p class="card-text-lg">Você confere o carrossel diagramado, o texto final e o vídeo curto antes do agendamento.</p>
+              <div style="margin-top:16px; font-size:14px; color:var(--color-primary); font-weight:700;">
+                👉 Você autoriza: "Perfeito, agendar no horário nobre."
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Você nunca perde o controle da sua marca</span>
+          <span>Slide 14 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 15 [CLEAN]: A TRINCA DE PRODUÇÃO
+           Redator · Designer · Vídeo
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="15">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Execução Paralela</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">Uma pauta. <span class="hl-blue">Três formatos prontos.</span></h2>
+          <p class="slide-subtitle">Após o seu primeiro OK, os especialistas produzem ao mesmo tempo:</p>
+
+          <div class="grid-3">
+            <div class="card-clean" style="text-align: center;">
+              <div style="width: 80px; height: 80px; margin: 0 auto 12px;"><img src="assets/personagens_carteirinha/03_rosa_coracao_nobg.png" alt="Redator" style="width:100%;"></div>
+              <span class="card-pill pill-blue">Texto Puro</span>
+              <h3 class="card-title-lg" style="font-size: 20px;">Redator</h3>
+              <p class="card-text-lg" style="font-size: 14.5px;">Legenda com gancho forte, carrossel de 5 lâminas e roteiro de Reel 30s.</p>
+            </div>
+
+            <div class="card-clean featured" style="text-align: center;">
+              <div style="width: 80px; height: 80px; margin: 0 auto 12px;"><img src="assets/personagens_carteirinha/04_laranja_cubo_nobg.png" alt="Designer" style="width:100%;"></div>
+              <span class="card-pill pill-yellow">Visual 1080p</span>
+              <h3 class="card-title-lg" style="font-size: 20px;">Designer</h3>
+              <p class="card-text-lg" style="font-size: 14.5px;">Diagramação com o Mascote Lian e as cores oficiais do Design System.</p>
+            </div>
+
+            <div class="card-clean" style="text-align: center;">
+              <div style="width: 80px; height: 80px; margin: 0 auto 12px;"><img src="assets/personagens_carteirinha/06_branco_vinil_nobg.png" alt="Vídeo" style="width:100%;"></div>
+              <span class="card-pill pill-green">Vídeo 9:16</span>
+              <h3 class="card-title-lg" style="font-size: 20px;">Editor de Vídeo</h3>
+              <p class="card-text-lg" style="font-size: 14.5px;">Locução natural com voz clonada e legendas dinâmicas sincronizadas.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Produção multimídia completa em poucos minutos</span>
+          <span>Slide 15 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 16 [CLEAN]: WHATSAPP & OPENBOT
+           Notificação Direta no Celular
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="16">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">A Última Milha</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <div class="grid-2" style="align-items: center; gap: 48px;">
+            <div>
+              <span class="card-pill pill-green">Agente 06 · OpenBot</span>
+              <h2 class="slide-title" style="font-size: clamp(38px, 4vw, 56px);">
+                O trabalho manual de postar <span class="hl-blue">simplesmente acaba</span>.
+              </h2>
+              <p class="slide-subtitle" style="font-size: 19px; margin-bottom: 24px;">
+                O Agente Distribuidor agenda as publicações no horário de pico e manda a confirmação no seu WhatsApp.
+              </p>
+              <div class="card-clean" style="background:#f8fafc; padding:16px 20px;">
+                <span style="font-size:14px; color:var(--color-slate);">Você não precisa abrir a rede social para conferir se deu certo.</span>
+              </div>
+            </div>
+
+            <div class="card-clean featured" style="background: #ffffff; padding: 28px;">
+              <span style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #15803d; text-transform: uppercase;">MENSAGEM REAL RECEBIDA NO WHATSAPP</span>
+              
+              <div style="background: #e7f7ef; border: 1px solid #bbf7d0; border-radius: 14px; padding: 18px; margin-top: 14px;">
+                <div style="font-weight: 800; font-size: 14px; color: #166534; margin-bottom: 6px;">Agentes S.A. Bot</div>
+                <div style="font-size: 15px; color: #14532d; line-height: 1.45;">
+                  "Chefe, o carrossel <strong>'A Morte do Prompt Manual'</strong> foi agendado para amanhã às 08:45 no LinkedIn. 🚀"
+                </div>
+                <div style="font-size: 11px; color: #166534; text-align: right; margin-top: 8px;">20:38 · Lido ✓✓</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Automação completa da pesquisa ao agendamento</span>
+          <span>Slide 16 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 17 [HERO IMPACTO]: O CASE DO MASCOTE LIAN
+           Imagem Inteira de Referência 3D
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide slide-hero" data-slide="17" style="background-image: url('assets/central/prompt_mascote.jpg');">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Identidade Visual 3D</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <span class="card-pill pill-blue" style="margin-bottom: 18px;">Prompt Mestre 03</span>
+          <h2 class="slide-title" style="font-size: clamp(44px, 5vw, 76px); margin-bottom: 16px;">
+            Mascote com IA: Consistência 100%.
+          </h2>
+          <p class="slide-subtitle" style="font-size: 24px; font-weight: 600; max-width: 840px;">
+            Como criar um personagem proprietário estilo Pixar e manter o mesmo rosto em dezenas de cenas diferentes usando Character Sheet.
+          </p>
+        </div>
+
+        <footer class="slide-footer">
+          <span>O mesmo Lian na Times Square, na fábrica ou no estúdio</span>
+          <span>Slide 17 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 18 [CLEAN]: AUDIOVISUAL EM SEGUNDOS
+           VoiceStudio & Legendas Bouncing
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="18">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Audiovisual Autônomo</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">Vídeos com sua voz em <span class="hl-blue">3 segundos</span>.</h2>
+          <p class="slide-subtitle">Como o Agente 05 produz vídeos verticais sem você abrir softwares pesados:</p>
+
+          <div class="grid-2">
+            <div class="card-clean featured">
+              <span class="card-pill pill-yellow">Protocolo dos 8s</span>
+              <h3 class="card-title-lg">Voz Clonada Ultra-Realista</h3>
+              <p class="card-text-lg">Treinada com uma amostra limpa da sua voz. Preserva pausas naturais de respiração e cadência brasileira.</p>
+              <div class="punch-number" style="font-size:42px; margin-top:16px;">3s</div>
+              <span style="font-size:13px; color:var(--color-slate); font-weight:600;">Para sintetizar um roteiro completo de 30 segundos</span>
+            </div>
+
+            <div class="card-clean">
+              <span class="card-pill pill-blue">Whisper + Remotion</span>
+              <h3 class="card-title-lg">Legendas Dinâmicas</h3>
+              <p class="card-text-lg">Sincronização milimétrica de legendas saltitantes com as cores oficiais e animação automática para Reels e Shorts.</p>
+              <div class="punch-number" style="font-size:42px; margin-top:16px; color:var(--color-success);">9:16</div>
+              <span style="font-size:13px; color:var(--color-slate); font-weight:600;">Formato vertical pronto para publicação imediata</span>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Produção audiovisual sem depender de editores manuais</span>
+          <span>Slide 18 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 19 [CLEAN]: CENTRAL DO ALUNO (ENTREGA DA CHAVE)
+           Cards Limpos com os 4 Entregáveis
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide" data-slide="19">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Central do Aluno · Entrega</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body">
+          <h2 class="slide-title">Você não sai de mãos vazias. <span class="hl-blue">Tudo liberado.</span></h2>
+          <p class="slide-subtitle">O pacote completo com os arquivos prontos para download imediato:</p>
+
+          <div class="grid-2">
+            <div class="card-clean">
+              <span class="card-pill pill-blue">Entregável 01</span>
+              <h3 class="card-title-lg">As 7 Skills Oficiais (.md)</h3>
+              <p class="card-text-lg">O manual pronto do Lian e dos 6 agentes especialistas para importar direto no Antigravity.</p>
+            </div>
+
+            <div class="card-clean">
+              <span class="card-pill pill-yellow">Entregável 02</span>
+              <h3 class="card-title-lg">3 Prompts Mestres</h3>
+              <p class="card-text-lg">Delta-Diff (tom de voz), Segundo Cérebro (Brand DNA) e Consistência do Mascote 3D.</p>
+            </div>
+
+            <div class="card-clean">
+              <span class="card-pill pill-green">Entregável 03</span>
+              <h3 class="card-title-lg">Pasta Modelo da Marca</h3>
+              <p class="card-text-lg">Estrutura organizada de diretórios para você apenas copiar e colar seus arquivos.</p>
+            </div>
+
+            <div class="card-clean featured">
+              <span class="card-pill pill-blue">Entregável 04</span>
+              <h3 class="card-title-lg">Certificado Oficial</h3>
+              <p class="card-text-lg">Diploma nominal registrado pela Agentes S.A. University para compartilhar no LinkedIn.</p>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Acesso direto em: nobregasleo.github.io/agentes-sa/central.html</span>
+          <span>Slide 19 / 20</span>
+        </footer>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           SLIDE 20 [HERO IMPACTO]: ENCERRAMENTO & Q&A
+           Impacto Emocional e Frase Final
+           ══════════════════════════════════════════════════════════ -->
+      <section class="slide slide-hero" data-slide="20" style="background-image: url('assets/central/time_completo.jpg');">
+        <header class="slide-header">
+          <div class="slide-kicker-wrap">
+            <span class="slide-kicker">Fechamento Oficial</span>
+          </div>
+          <div class="slide-header-brand">
+            <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega" style="filter: brightness(0) invert(1);">
+            <img src="assets/logo_agentes_sa_horizontal.png" alt="Agentes S.A.">
+          </div>
+        </header>
+
+        <div class="slide-body" style="text-align: center; max-width: 920px; margin: 0 auto;">
+          <h2 class="slide-title" style="font-size: clamp(40px, 4.8vw, 72px); margin-bottom: 20px;">
+            "Eles podem parecer monstros…<br>
+            <span style="color:#7dd3fc;">mas eles têm coração."</span>
+          </h2>
+          <p class="slide-subtitle" style="font-size: 22px; max-width: 740px; margin: 0 auto 36px; color: rgba(255,255,255,0.9);">
+            A IA não substitui a sua mente estratégica — ela liberta você para ser o verdadeiro líder da sua marca.
+          </p>
+
+          <div style="display:flex; justify-content:center; gap:20px;">
+            <div style="background:rgba(255,255,255,0.14); backdrop-filter:blur(10px); padding:16px 28px; border-radius:14px; border:1px solid rgba(255,255,255,0.3);">
+              <span style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:#7dd3fc; display:block;">CENTRAL DO ALUNO</span>
+              <strong style="font-size:16px;">nobregasleo.github.io/agentes-sa/central.html</strong>
+            </div>
+          </div>
+        </div>
+
+        <footer class="slide-footer">
+          <span>Obrigado por participar! · Leonardo Nóbrega</span>
+          <span>Slide 20 / 20</span>
+        </footer>
+      </section>
+
+    </main>
+
+    <!-- ══════════════════════════════════════════════════════════
+         PAINEL SPLIT-SCREEN (OBS / CÂMERA 60/40)
+         ══════════════════════════════════════════════════════════ -->
+    <aside class="split-panel" id="splitPanel">
+      <div class="camera-container">
+        <video id="webcamVideo" autoplay playsinline muted style="display:none;"></video>
+        <div class="camera-clean-card" id="cameraCleanCard">
+          <div class="camera-avatar-ring">
+            <img src="assets/central/leonardo.jpg" alt="Leonardo Nóbrega">
+          </div>
+          <h3 style="font-size:22px; font-weight:800;">Leonardo Nóbrega</h3>
+          <p style="font-size:14px; color:rgba(255,255,255,0.7); max-width:280px;">
+            Apresentador da aula ao vivo Agentes S.A.
+          </p>
+          <button type="button" id="btnToggleCam" style="margin-top:10px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); color:#fff; padding:8px 16px; border-radius:8px; font-family:var(--font-mono); font-size:12px; cursor:pointer;">
+            Ligar Câmera Local
+          </button>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       BARRA FLUTUANTE DE CONTROLE DO APRESENTADOR
+       ══════════════════════════════════════════════════════════ -->
+  <footer class="control-pill" aria-label="Controles">
+    <button class="control-btn" id="btnPrev" title="Slide Anterior (←)"><svg class="i"><use href="#i-arrow-left"/></svg></button>
+    <div class="control-counter" id="counterDisplay">01 / 20</div>
+    <button class="control-btn" id="btnNext" title="Próximo Slide (→ ou Espaço)"><svg class="i"><use href="#i-arrow-right"/></svg></button>
+    
+    <div class="control-sep"></div>
+    <div class="control-timer" id="timerDisplay">00:00</div>
+    <div class="control-sep"></div>
+
+    <button class="control-btn" id="btnSplit" title="Modo Split-Screen Câmera (S)"><svg class="i"><use href="#i-split"/></svg></button>
+    <button class="control-btn" id="btnNotes" title="Notas do Apresentador (N ou P)"><svg class="i"><use href="#i-notes"/></svg></button>
+    <button class="control-btn" id="btnOverview" title="Grade de Slides (O ou G)"><svg class="i"><use href="#i-grid"/></svg></button>
+    <button class="control-btn" id="btnFullscreen" title="Tela Cheia (F)"><svg class="i"><use href="#i-fullscreen"/></svg></button>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════════
+       GAVETA DE NOTAS DO APRESENTADOR (SPEAKER NOTES)
+       ══════════════════════════════════════════════════════════ -->
+  <aside class="speaker-drawer" id="speakerDrawer">
+    <div class="speaker-drawer-head">
+      <strong style="color:var(--color-navy); font-size:16px;">Notas do Apresentador</strong>
+      <button class="control-btn" id="btnCloseNotes"><svg class="i"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="speaker-drawer-body" id="speakerDrawerContent"></div>
+  </aside>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL DE GRADE DE SLIDES
+       ══════════════════════════════════════════════════════════ -->
+  <div class="overview-backdrop" id="overviewModal">
+    <div class="overview-container">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="font-size:22px; font-weight:800; color:var(--color-navy);">Navegação dos 20 Slides</h3>
+        <button class="control-btn" id="btnCloseOverview"><svg class="i"><use href="#i-close"/></svg></button>
+      </div>
+      <div class="overview-grid" id="overviewGrid"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       BANCO DE NOTAS & MOTOR JS DO DECK
+       ══════════════════════════════════════════════════════════ -->
+  <script>
+    const SPEAKER_NOTES = {
+      1: {
+        bloco: "Bloco 1 · Abertura (00:00 – 02:00)",
+        gancho: "Boas-vindas calorosas e teste de áudio/vídeo.",
+        pontos: [
+          "Dê boa noite a todos no chat do YouTube e peça confirmação de áudio e vídeo.",
+          "Explique em 60s quem é Leonardo Nóbrega: a virada de digitador de prompt para líder de uma fábrica de agentes.",
+          "Apresente o Mascote Lian uniformizado com capacete azul de segurança.",
+          "Avise que todos vão receber os arquivos prontos e o Certificado Oficial da Agentes S.A. University no final."
+        ],
+        chatPrompt: "Pergunte no chat: 'Quem aqui já usa ChatGPT todo dia no trabalho? Digite 1'."
+      },
+      2: {
+        bloco: "Bloco 1 · Diagnóstico (02:00 – 05:00)",
+        gancho: "A dor do estagiário de luxo da IA.",
+        pontos: [
+          "Mostre a realidade: você comprou a promessa de ganhar tempo, mas hoje passa metade do dia corrigindo textos de robô.",
+          "O ciclo vicioso: prompt longo, resposta genérica, 40 minutos editando no braço.",
+          "Apresente a virada de chave: sentar na cadeira de CEO da sua marca."
+        ],
+        chatPrompt: "Pergunte: 'Quantos de vocês sentem que perdem tempo demais consertando texto de IA?'"
+      },
+      3: {
+        bloco: "Bloco 1 · A Virada (05:00 – 08:00)",
+        gancho: "Dois jeitos de usar IA. Um deles cansa.",
+        pontos: [
+          "Contraste o modelo reativo de chat contra a fábrica especializada.",
+          "No chat, você digita tudo todo dia do zero.",
+          "Na fábrica, agentes já possuem memória de disco e executam a rotina inteira."
+        ],
+        chatPrompt: "Diga: 'Quem quer sair da sobrecarga manual digite EU no chat!'"
+      },
+      4: {
+        bloco: "Bloco 1 · A Caixa de Vidro (08:00 – 11:00)",
+        gancho: "A metáfora da Caixa de Vidro.",
+        pontos: [
+          "O ChatGPT comum está preso numa caixa de vidro: sem mãos para abrir navegador ou salvar arquivos no seu disco.",
+          "O Agente Real ganha um computador próprio e ferramentas locais."
+        ],
+        chatPrompt: "Destaque: 'Hoje vocês vão ver uma IA que diagrama e avisa no WhatsApp ao vivo.'"
+      },
+      5: {
+        bloco: "Bloco 1 · A Tríade (11:00 – 14:00)",
+        gancho: "Desmistificando a engenharia de agentes sem jargão.",
+        pontos: [
+          "A Tríade Básica: 1) LLM é o Cérebro; 2) MCPs e Tools são as Mãos; 3) Skill .md é o Manual.",
+          "Uma Skill é apenas um arquivo de texto simples em português claro."
+        ],
+        chatPrompt: "Reforce: 'Se você sabe escrever em português, você sabe criar um agente.'"
+      },
+      6: {
+        bloco: "Bloco 1 · Transição (14:00 – 16:00)",
+        gancho: "Bem-vindos ao chão de fábrica.",
+        pontos: [
+          "Momento cinematográfico: abrir as portas da fábrica Agentes S.A.",
+          "Apresente o conceito de chão de fábrica inspirado na dinâmica de Monstros S.A."
+        ],
+        chatPrompt: "Peça para colocarem o capacete azul nos comentários!"
+      },
+      7: {
+        bloco: "Bloco 1 · Bancada (16:00 – 19:00)",
+        gancho: "As 3 ferramentas gratuitas da Central do Aluno.",
+        pontos: [
+          "Antigravity: o cérebro onde rodam os agentes com segurança.",
+          "OpenBot: o navegador autônomo para pesquisas e WhatsApp.",
+          "Pasta Modelo: o armário organizado que você só precisa baixar e usar."
+        ],
+        chatPrompt: "Avise: 'Tudo isso já está na Central do Aluno para download gratuito.'"
+      },
+      8: {
+        bloco: "Bloco 2 · Segundo Cérebro (19:00 – 22:00)",
+        gancho: "Como matar o texto de robô com Brand DNA.",
+        pontos: [
+          "A IA escreve mal quando não conhece quem você é.",
+          "A pasta Brand DNA com Tese Central e Vocabulário Proprietário."
+        ],
+        chatPrompt: "Pergunte: 'Alguém aqui aguenta mais ler texto genérico de LinkedIn?'"
+      },
+      9: {
+        bloco: "Bloco 2 · Negative Constraints (22:00 – 25:00)",
+        gancho: "Quer texto autoral? Proíba o clichê.",
+        pontos: [
+          "Mostre as 5 frases proibidas na tela com corte vermelho.",
+          "Quando você proíbe as muletas fáceis, a IA é forçada a ser autoral."
+        ],
+        chatPrompt: "Brinque: 'Qual desses jargões você mais odeia ler?'"
+      },
+      10: {
+        bloco: "Bloco 2 · Delta-Diff (25:00 – 28:00)",
+        gancho: "A IA que aprende com suas correções.",
+        pontos: [
+          "Apresente a técnica Delta-Diff: V1 crua vs. Versão Aprovada.",
+          "O agente calcula o Delta e grava as regras em tom_de_voz.md."
+        ],
+        chatPrompt: "Diga: 'Esse método sozinho vai te economizar 15 horas por semana.'"
+      },
+      11: {
+        bloco: "Bloco 3 · Regra de Ouro (28:00 – 31:00)",
+        gancho: "Agente que faz tudo, faz tudo meia-boca.",
+        pontos: [
+          "O maior erro do mercado: criar um assistente genérico que tenta fazer tudo.",
+          "O segredo é a especialização cirúrgica com escopo fechado."
+        ],
+        chatPrompt: "Diga com firmeza: 'Na fábrica, quem pesquisa não desenha.'"
+      },
+      12: {
+        bloco: "Bloco 3 · Os 7 Agentes (31:00 – 34:00)",
+        gancho: "Apresentação dos 7 especialistas e seus crachás.",
+        pontos: [
+          "Passe pelos 7 personagens: do Lian (Gerente) ao Social Media.",
+          "Mostre que cada um tem uma carteirinha e um arquivo de skill dedicado."
+        ],
+        chatPrompt: "Pergunte: 'Qual desses especialistas você mais precisa hoje?'"
+      },
+      13: {
+        bloco: "Bloco 3 · Inteligência (34:00 – 37:00)",
+        gancho: "Nunca mais sofra com a tela em branco.",
+        pontos: [
+          "Demonstre o Agente 01 (Hunter) varrendo notícias das últimas 48h.",
+          "O Agente 02 (Estrategista) cruza os dados com o Brand DNA e propõe o ângulo certo."
+        ],
+        chatPrompt: "Peça uma sugestão rápida de tema no chat."
+      },
+      14: {
+        bloco: "Bloco 3 · Governança HITL (37:00 – 40:00)",
+        gancho: "Você no comando em 2 cliques.",
+        pontos: [
+          "Ponto 1: Você aprova o tema antes de escrever qualquer linha.",
+          "Ponto 2: Você revisa o material pronto antes de publicar.",
+          "Zero risco de alucinação ou post fora do tom."
+        ],
+        chatPrompt: "Enfatize: 'A IA trabalha; quem manda na marca é você.'"
+      },
+      15: {
+        bloco: "Bloco 3 · Trinca de Produção (40:00 – 43:00)",
+        gancho: "Uma pauta aprovada, três formatos prontos.",
+        pontos: [
+          "Redator (texto autoral), Designer (carrossel 1080p) e Editor (vídeo curto) trabalhando juntos.",
+          "Tempo de entrega: poucos minutos."
+        ],
+        chatPrompt: "Comente: 'Isso numa agência tradicional levaria dias.'"
+      },
+      16: {
+        bloco: "Bloco 3 · WhatsApp & OpenBot (43:00 – 46:00)",
+        gancho: "A notificação apitando no celular.",
+        pontos: [
+          "Demonstre a ação do OpenBot agendando no LinkedIn para amanhã às 08:45.",
+          "Mostre a notificação real chegando no WhatsApp ao vivo."
+        ],
+        chatPrompt: "Mostre o celular para a câmera: 'Post agendado e confirmado no WhatsApp!'"
+      },
+      17: {
+        bloco: "Bloco 4 · Mascote Lian (46:00 – 49:00)",
+        gancho: "Consistência de personagem 3D com IA.",
+        pontos: [
+          "O case do Mascote Lian e o uso do Character Sheet.",
+          "Como manter o mesmo rosto em qualquer cena ou iluminação."
+        ],
+        chatPrompt: "Comente sobre o poder de ter um mascote próprio."
+      },
+      18: {
+        bloco: "Bloco 4 · Audiovisual (49:00 – 52:00)",
+        gancho: "Vídeos com voz clonada em 3 segundos.",
+        pontos: [
+          "Dê o play na narração do VoiceStudio e nas legendas dinâmicas.",
+          "O Protocolo dos 8s de amostra de áudio limpo."
+        ],
+        chatPrompt: "Peça feedback no chat sobre a naturalidade da voz."
+      },
+      19: {
+        bloco: "Bloco 5 · Central do Aluno (52:00 – 56:00)",
+        gancho: "Acesso liberado aos entregáveis.",
+        pontos: [
+          "Abra central.html e mostre os botões de download do pacote completo.",
+          "Apresente a emissão do Certificado Oficial Agentes S.A. University."
+        ],
+        chatPrompt: "Coloque o link da Central no chat e fixe no topo."
+      },
+      20: {
+        bloco: "Bloco 5 · Fechamento & Q&A (56:00 – 60:00)",
+        gancho: "Agradecimentos, frase final e resposta de 3 dúvidas.",
+        pontos: [
+          "Frase final: 'Eles podem parecer monstros, mas têm coração.'",
+          "Responda 2 a 3 perguntas rápidas do chat ao vivo.",
+          "Encerre com energia alta pontualmente às 21:00."
+        ],
+        chatPrompt: "Agradeça a todos e convide para postar o certificado no LinkedIn!"
+      }
+    };
+
+    (function() {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      let currentSlide = 1;
+
+      const counterDisplay = document.getElementById('counterDisplay');
+      const progressFill = document.getElementById('progressFill');
+      const timerDisplay = document.getElementById('timerDisplay');
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      const btnSplit = document.getElementById('btnSplit');
+      const btnNotes = document.getElementById('btnNotes');
+      const btnOverview = document.getElementById('btnOverview');
+      const btnFullscreen = document.getElementById('btnFullscreen');
+      
+      const speakerDrawer = document.getElementById('speakerDrawer');
+      const speakerDrawerContent = document.getElementById('speakerDrawerContent');
+      const btnCloseNotes = document.getElementById('btnCloseNotes');
+      
+      const overviewModal = document.getElementById('overviewModal');
+      const overviewGrid = document.getElementById('overviewGrid');
+      const btnCloseOverview = document.getElementById('btnCloseOverview');
+
+      const btnToggleCam = document.getElementById('btnToggleCam');
+      const webcamVideo = document.getElementById('webcamVideo');
+      const cameraCleanCard = document.getElementById('cameraCleanCard');
+      let webcamStream = null;
+
+      function goToSlide(num) {
+        if (num < 1) num = 1;
+        if (num > totalSlides) num = totalSlides;
+        currentSlide = num;
+
+        slides.forEach(s => {
+          const sNum = parseInt(s.dataset.slide, 10);
+          s.classList.toggle('active', sNum === currentSlide);
+        });
+
+        counterDisplay.textContent = `${String(currentSlide).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+        const pct = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+        progressFill.style.width = `${pct}%`;
+
+        renderNotes();
+        updateOverviewActive();
+      }
+
+      function nextSlide() { if (currentSlide < totalSlides) goToSlide(currentSlide + 1); }
+      function prevSlide() { if (currentSlide > 1) goToSlide(currentSlide - 1); }
+
+      // Timer
+      const startTime = Date.now();
+      setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const mins = String(Math.floor(elapsed / 60)).padStart(2, '0');
+        const secs = String(elapsed % 60).padStart(2, '0');
+        timerDisplay.textContent = `${mins}:${secs}`;
+      }, 1000);
+
+      // Notes
+      function renderNotes() {
+        const note = SPEAKER_NOTES[currentSlide];
+        if (!note) return;
+        const bullets = note.pontos.map(p => `<li>${p}</li>`).join('');
+        speakerDrawerContent.innerHTML = `
+          <div class="note-block">
+            <span class="note-label">${note.bloco}</span>
+            <div style="font-size:18px; font-weight:800; color:var(--color-navy); margin-bottom:8px;">Slide ${currentSlide} de ${totalSlides}</div>
+          </div>
+          <div class="note-block">
+            <span class="note-label">🎯 Gancho de Abertura</span>
+            <p class="note-text" style="color:var(--color-primary); font-weight:700;">"${note.gancho}"</p>
+          </div>
+          <div class="note-block">
+            <span class="note-label">📌 Pontos Inegociáveis</span>
+            <ul class="note-list">${bullets}</ul>
+          </div>
+          <div class="note-block">
+            <span class="note-label">💬 Interação Chat do YouTube</span>
+            <div style="background:var(--color-warning-soft); border:1px solid rgba(244,180,0,0.3); border-radius:10px; padding:12px; font-size:13.5px; color:#b45309; font-weight:600;">
+              ${note.chatPrompt}
+            </div>
+          </div>
+        `;
+      }
+
+      function toggleNotes() {
+        speakerDrawer.classList.toggle('open');
+        btnNotes.classList.toggle('active', speakerDrawer.classList.contains('open'));
+        if (speakerDrawer.classList.contains('open')) renderNotes();
+      }
+
+      // Overview
+      function buildOverview() {
+        overviewGrid.innerHTML = '';
+        slides.forEach(s => {
+          const num = parseInt(s.dataset.slide, 10);
+          const title = s.querySelector('.slide-title')?.innerText || `Slide ${num}`;
+          const kicker = s.querySelector('.slide-kicker')?.innerText || `Bloco`;
+
+          const card = document.createElement('div');
+          card.className = `overview-card ${num === currentSlide ? 'active' : ''}`;
+          card.dataset.slideNum = num;
+          card.innerHTML = `
+            <div style="font-family:var(--font-mono); font-size:10px; font-weight:700; color:var(--color-primary); text-transform:uppercase;">#${String(num).padStart(2,'0')} · ${kicker}</div>
+            <div style="font-size:13px; font-weight:800; color:var(--color-navy); margin-top:4px;">${title.substring(0, 48)}${title.length > 48 ? '...' : ''}</div>
+          `;
+          card.addEventListener('click', () => {
+            goToSlide(num);
+            closeOverview();
+          });
+          overviewGrid.appendChild(card);
+        });
+      }
+
+      function updateOverviewActive() {
+        const cards = overviewGrid.querySelectorAll('.overview-card');
+        cards.forEach(c => c.classList.toggle('active', parseInt(c.dataset.slideNum, 10) === currentSlide));
+      }
+
+      function toggleOverview() {
+        if (overviewModal.classList.contains('open')) {
+          closeOverview();
+        } else {
+          buildOverview();
+          overviewModal.classList.add('open');
+          btnOverview.classList.add('active');
+        }
+      }
+      function closeOverview() {
+        overviewModal.classList.remove('open');
+        btnOverview.classList.remove('active');
+      }
+
+      function toggleSplit() {
+        document.body.classList.toggle('split-mode');
+        btnSplit.classList.toggle('active', document.body.classList.contains('split-mode'));
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+          btnFullscreen.classList.add('active');
+        } else {
+          document.exitFullscreen().catch(() => {});
+          btnFullscreen.classList.remove('active');
+        }
+      }
+
+      async function toggleWebcam() {
+        if (!webcamStream) {
+          try {
+            webcamStream = await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 }, audio: false });
+            webcamVideo.srcObject = webcamStream;
+            webcamVideo.style.display = 'block';
+            cameraCleanCard.style.display = 'none';
+            btnToggleCam.textContent = 'Desligar Câmera';
+          } catch (err) {
+            alert('Não foi possível acessar a câmera: ' + err.message);
+          }
+        } else {
+          webcamStream.getTracks().forEach(t => t.stop());
+          webcamStream = null;
+          webcamVideo.style.display = 'none';
+          cameraCleanCard.style.display = 'flex';
+          btnToggleCam.textContent = 'Ligar Câmera Local';
+        }
+      }
+
+      btnPrev.addEventListener('click', prevSlide);
+      btnNext.addEventListener('click', nextSlide);
+      btnSplit.addEventListener('click', toggleSplit);
+      btnNotes.addEventListener('click', toggleNotes);
+      btnCloseNotes.addEventListener('click', toggleNotes);
+      btnOverview.addEventListener('click', toggleOverview);
+      btnCloseOverview.addEventListener('click', closeOverview);
+      btnFullscreen.addEventListener('click', toggleFullscreen);
+      btnToggleCam.addEventListener('click', toggleWebcam);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        switch (e.key) {
+          case 'ArrowRight':
+          case 'PageDown':
+          case ' ':
+          case 'Enter':
+            e.preventDefault();
+            nextSlide();
+            break;
+          case 'ArrowLeft':
+          case 'PageUp':
+            e.preventDefault();
+            prevSlide();
+            break;
+          case 'Home':
+            e.preventDefault();
+            goToSlide(1);
+            break;
+          case 'End':
+            e.preventDefault();
+            goToSlide(totalSlides);
+            break;
+          case 'f':
+          case 'F':
+            e.preventDefault();
+            toggleFullscreen();
+            break;
+          case 's':
+          case 'S':
+            e.preventDefault();
+            toggleSplit();
+            break;
+          case 'n':
+          case 'N':
+          case 'p':
+          case 'P':
+            e.preventDefault();
+            toggleNotes();
+            break;
+          case 'o':
+          case 'O':
+          case 'g':
+          case 'G':
+            e.preventDefault();
+            toggleOverview();
+            break;
+          case 'b':
+          case 'B':
+            e.preventDefault();
+            document.body.classList.toggle('blackout');
+            break;
+          case 'Escape':
+            closeOverview();
+            if (speakerDrawer.classList.contains('open')) toggleNotes();
+            break;
+        }
+      });
+
+      goToSlide(1);
+    })();
+  </script>
+</body>
+</html>
