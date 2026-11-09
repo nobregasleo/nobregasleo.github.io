@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agentes S.A. — Crie seu Primeiro Time de IA no Marketing | Leonardo Nóbrega</title>
+  <title>Agentes S.A. | Crie seu Primeiro Time de IA no Marketing | Leonardo Nóbrega</title>
   <meta name="description" content="Aula aberta e ao vivo em 25 de Novembro às 20h. Veja na prática como montar um time de 6 agentes autônomos de IA para marketing usando Antigravity e OpenBot.">
 
   <!-- Fontes Oficiais da Marca -->
@@ -233,22 +233,32 @@
 
     .event-meta-pills {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 28px;
+      flex-wrap: nowrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      align-items: center;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+    }
+    .event-meta-pills::-webkit-scrollbar {
+      display: none;
     }
     .meta-pill {
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(7, 95, 228, 0.14);
-      padding: 8px 14px;
-      border-radius: 12px;
-      font-size: 13.5px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(7, 95, 228, 0.16);
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-size: 12.5px;
       font-weight: 600;
       color: var(--ha-title);
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      gap: 7px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(3, 27, 78, 0.03);
     }
     .meta-pill svg {
       color: var(--color-primary);
@@ -824,33 +834,60 @@
       gap: 32px;
       align-items: center;
     }
-    .scenario-mosaic {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    .mosaic-item {
-      border-radius: 18px;
+    .scenario-single-frame {
+      border-radius: 22px;
       overflow: hidden;
       border: 1px solid rgba(7, 95, 228, 0.16);
-      box-shadow: 0 10px 24px rgba(3, 27, 78, 0.08);
-      aspect-ratio: 4 / 5;
+      box-shadow: 0 12px 32px rgba(3, 27, 78, 0.08);
       background: var(--factory-dark);
+      height: 100%;
+      min-height: 440px;
+      display: flex;
     }
-    .mosaic-item img {
+    .scenario-single-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
       transition: transform 400ms ease;
     }
-    .mosaic-item:hover img {
-      transform: scale(1.05);
+    .scenario-single-frame:hover img {
+      transform: scale(1.02);
     }
 
     .deliverables-stack {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 16px;
+    }
+    .deliverable-card {
+      padding: 22px;
+    }
+    .deliverable-card h4 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--ha-title);
+      margin: 4px 0 6px;
+    }
+    .deliverable-card p {
+      font-size: 13.5px;
+      color: var(--ha-text-secondary);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .deliverable-card-wide {
+      grid-column: span 2;
+    }
+    @media (max-width: 768px) {
+      .deliverables-stack {
+        grid-template-columns: 1fr;
+      }
+      .deliverable-card-wide {
+        grid-column: span 1;
+      }
+      .event-meta-pills {
+        flex-wrap: wrap;
+      }
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -892,22 +929,18 @@
        HEADER CO-BRANDING: LEONARDO NÓBREGA × AGENTES S.A.
        ═══════════════════════════════════════════════════════════════ -->
   <header class="ha-navbar">
-    <a href="#topo" class="brand-cobrand">
-      <!-- Logo Oficial Leonardo Nóbrega -->
-      <img src="assets/logo_leonardo_nobrega.svg" alt="Leonardo Nóbrega" class="brand-ln-svg">
-      <div class="brand-divider"></div>
-      <!-- Logo Oficial Agentes S.A. -->
+    <a href="#topo" class="brand-cobrand" aria-label="Agentes S.A.">
       <div class="brand-agentes-lockup">
         <img src="assets/emblema_agentes_sa.svg" alt="Emblema Agentes S.A." class="brand-agentes-emblem">
-        <img src="assets/logo_agentes_sa_completo.png" alt="Agentes S.A." class="brand-agentes-wordmark" style="height: 28px;">
+        <img src="assets/logo_agentes_sa_wordmark.png" alt="Agentes S.A." class="brand-agentes-wordmark">
       </div>
     </a>
 
     <nav class="nav-links">
-      <a href="#contraste" class="nav-link">Por que Agentes?</a>
-      <a href="#time" class="nav-link">Os 6 Agentes</a>
-      <a href="#roteiro" class="nav-link">Roteiro da Aula</a>
-      <a href="#central" class="nav-link">Central do Aluno</a>
+      <a href="#contraste" class="nav-link">Sobre</a>
+      <a href="#time" class="nav-link">Os agentes</a>
+      <a href="#roteiro" class="nav-link">Roteiro da aula</a>
+      <a href="#central" class="nav-link">Central do aluno</a>
     </nav>
 
     <a href="#inscricao" class="nav-cta" onclick="document.getElementById('leadName').focus()">
@@ -926,15 +959,6 @@
 
         <!-- Coluna Esquerda: Apresentação do Webinar + Cena Principal Lian -->
         <div>
-          <div class="factory-pill">
-            <span class="pulse-dot"></span>
-            <span>WEBINAR AO VIVO & GRATUITO • QUARTA, 25/11 ÀS 20H</span>
-          </div>
-
-          <div class="hero-logo-banner">
-            <img src="assets/logo_agentes_sa_completo.png" alt="Logo Agentes S.A.">
-          </div>
-
           <h1 class="hero-title">
             Crie seu primeiro time de <span class="text-gradient">IA no marketing.</span>
           </h1>
@@ -964,11 +988,11 @@
 
           <!-- Cena Principal 16:9: Mascote Lian na Fábrica -->
           <div class="hero-visual-frame">
-            <img src="assets/lian_hero_16x9.jpg" alt="Mascote Lian no Chão de Fábrica da Agentes S.A.">
+            <img src="assets/hero-agentes-equipe.jpg" alt="Mascote Lian no Chão de Fábrica da Agentes S.A.">
             <div class="hero-visual-overlay">
               <div class="hero-quote">
                 <strong>OPERADOR CHEFE: MASCOTE LIAN</strong>
-                "Eles podem ser considerados monstros por alguns… mas eles têm coração."
+                "Eles podem ser considerados monstros por alguns, mas eles têm coração."
               </div>
               <div class="countdown-strip" id="countdownTimer">
                 <div class="cd-box"><span class="cd-num" id="cdDays">18</span><span class="cd-label">Dias</span></div>
@@ -982,14 +1006,9 @@
 
         <!-- Coluna Direita: Card de Inscrição / Credencial da Fábrica -->
         <div class="signup-ticket-card" id="inscricao">
-          <div class="ticket-top-row">
-            <span class="ticket-badge">🚪 PORTA DE ACESSO OFICIAL</span>
-            <span class="ticket-serial" id="ticketSerialCode">ID #AG-2411</span>
-          </div>
-
           <!-- Visão 1: Formulário de Cadastro -->
           <div id="signupFormView">
-            <h2 class="ticket-title">Emita sua credencial gratuita</h2>
+            <h2 class="ticket-title">Garanta a sua vaga</h2>
             <p class="ticket-sub">
               Preencha abaixo para garantir seu lugar na aula ao vivo e receber imediatamente a lista de ferramentas e materiais da <strong>Central do Aluno</strong>.
             </p>
@@ -1003,23 +1022,6 @@
               <div class="form-group">
                 <label class="form-label" for="leadEmail">Seu melhor e-mail</label>
                 <input type="email" id="leadEmail" class="ha-input" placeholder="seu@email.com" required>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="leadWhatsapp">Seu WhatsApp (com DDD)</label>
-                <input type="tel" id="leadWhatsapp" class="ha-input" placeholder="(11) 99999-9999" required oninput="formatPhone(this)">
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="leadRole">Qual é o seu momento atual?</label>
-                <select id="leadRole" class="ha-input">
-                  <option value="Marketing / Conteúdo / Growth">Trabalho com Marketing / Conteúdo / Growth</option>
-                  <option value="Liderança / Gestão de Equipe">Lidero uma equipe de Marketing ou Criação</option>
-                  <option value="Design / Criativo / Audiovisual">Atuo com Design / Criação / Vídeo</option>
-                  <option value="Dono de Agência / Consultor">Tenho Agência ou sou Consultor</option>
-                  <option value="Empreendedor / C-Level">Sou Empreendedor / C-Level</option>
-                  <option value="Tecnologia / Outros">Área de Tecnologia / Outros</option>
-                </select>
               </div>
 
               <button type="submit" id="btnSubmitForm" class="btn-submit-main">
@@ -1040,10 +1042,6 @@
               <div class="perk-row">
                 <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <span>Entrega de <strong>Certificado Oficial de Participação</strong> incluso</span>
-              </div>
-              <div class="perk-row">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Sem necessidade de saber programar ou pagar ferramentas em dólar</span>
               </div>
             </div>
           </div>
@@ -1105,7 +1103,7 @@
         <span class="badge-soft-blue">A VIRADA DE CHAVE</span>
         <h2 class="sec-title">Por que usar a IA apenas no chat ainda te deixa sobrecarregado?</h2>
         <p class="sec-desc">
-          O problema não é a inteligência artificial — é continuar tratando uma tecnologia capaz de operar sistemas inteiros apenas como um bloco de perguntas e respostas.
+          O problema não é a inteligência artificial: é continuar tratando uma tecnologia capaz de operar sistemas inteiros apenas como um bloco de perguntas e respostas.
         </p>
       </div>
 
@@ -1149,8 +1147,7 @@
          ═══════════════════════════════════════════════════════════════ -->
     <section class="section-wrap" id="time">
       <div class="section-header-center">
-        <span class="badge-soft-blue">DEMONSTRAÇÃO AO VIVO NA TELA</span>
-        <h2 class="sec-title">Conheça a esteira de 6 agentes que vamos rodar na aula</h2>
+        <h2 class="sec-title">Conheça alguns dos agentes que vamos construir na aula</h2>
         <p class="sec-desc">
           Agente que tenta fazer tudo sozinho faz tudo mal feito. Na aula, você vai ver como dividir o trabalho entre 6 especialistas com você no comando.
         </p>
@@ -1159,15 +1156,15 @@
       <!-- Banner Destaque do Chão de Fábrica -->
       <div class="factory-showcase-banner">
         <div class="factory-banner-img">
-          <img src="assets/portal_lateral_16x9.jpg" alt="Portal da Fábrica Agentes S.A.">
+          <img src="assets/capacete-agentes.jpg" alt="Capacete oficial da Agentes S.A. na fábrica">
         </div>
         <div class="factory-banner-content">
           <span class="badge-soft-blue" style="background: rgba(0, 210, 255, 0.15); color: #7dd3fc; border-color: rgba(0, 210, 255, 0.3);">
             GOOGLE ANTIGRAVITY + OPENBOT
           </span>
-          <h3>Você como CEO. O Mascote Lian na gerência.</h3>
+          <h3>Você como CEO. E os agentes na operação.</h3>
           <p>
-            Vamos conectar duas ferramentas gratuitas: o <strong>Google Antigravity</strong> (onde criamos a inteligência e as skills dos agentes) e o <strong>OpenBot</strong> (código aberto, que dá mãos para o agente usar o navegador e o WhatsApp sem pagar mensalidades em dólar).
+            Vamos conectar duas ferramentas: o <strong>Google Antigravity</strong> (onde criamos a inteligência e as skills dos agentes) e o <strong>OpenBot</strong> (código aberto, que dá mãos para o agente usar o navegador e o WhatsApp sem pagar mensalidades em dólar).
           </p>
           <a href="#inscricao" class="nav-cta" style="background: #ffffff; color: var(--color-navy);">
             <span>Quero ver essa esteira ao vivo</span>
@@ -1244,7 +1241,7 @@
     <section class="section-wrap" id="roteiro">
       <div class="section-header-center">
         <span class="badge-soft-blue">DIRETO AO PONTO • 1 HORA DE DURAÇÃO</span>
-        <h2 class="sec-title">O que vamos ver em cada bloco do webinar</h2>
+        <h2 class="sec-title">O que vamos ver em cada bloco da aula</h2>
         <p class="sec-desc">
           Sem enrolação teórica. Uma aula planejada minuto a minuto para você entender a lógica e já aplicar no dia seguinte.
         </p>
@@ -1252,42 +1249,42 @@
 
       <div class="agenda-list">
         <div class="agenda-row">
-          <div class="agenda-time">Bloco 01 • 05 min</div>
+          <div class="agenda-time">Bloco 01</div>
           <div class="agenda-info">
-            <h4>Saindo da Caixa de Vidro: Chat vs. Agentes Reais</h4>
-            <p>O que são LLMs, MCPs e arquivos .skill explicados de um jeito simples, e por que usamos o Google Antigravity junto com o OpenBot.</p>
+            <h4>Conceitos de IA agêntica</h4>
+            <p>O que são LLMs, MCPs e arquivos .skill explicados de um jeito simples e direto.</p>
           </div>
         </div>
 
         <div class="agenda-row">
-          <div class="agenda-time">Bloco 02 • 13 min</div>
+          <div class="agenda-time">Bloco 02</div>
           <div class="agenda-info">
-            <h4>Agentes que Aprendem: Método Second Brain & Técnica Delta-Diff</h4>
-            <p>Como alimentar o agente com seus próprios materiais e usar a comparação entre rascunho e versão aprovada para a IA aprender seu estilo de escrita.</p>
+            <h4>Instalação das ferramentas</h4>
+            <p>Como configurar o Google Antigravity e o OpenBot na sua máquina passo a passo.</p>
           </div>
         </div>
 
         <div class="agenda-row" style="border-color: rgba(7, 95, 228, 0.35); background: #ffffff;">
-          <div class="agenda-time" style="background: var(--color-primary); color: #ffffff;">Bloco 03 • 20 min</div>
+          <div class="agenda-time" style="background: var(--color-primary); color: #ffffff;">Bloco 03</div>
           <div class="agenda-info">
-            <h4>O Chão de Fábrica ao Vivo: Os 6 Agentes Trabalhando em Cadeia</h4>
-            <p>A demonstração prática completa na tela: da pesquisa da pauta, passando pela redação, criação do carrossel e vídeo, até o agendamento com aviso no WhatsApp.</p>
+            <h4>Criação dos agentes</h4>
+            <p>Estruturação dos prompts mestres, tom de voz e habilidades de cada especialista.</p>
           </div>
         </div>
 
         <div class="agenda-row">
-          <div class="agenda-time">Bloco 04 • 10 min</div>
+          <div class="agenda-time">Bloco 04</div>
           <div class="agenda-info">
-            <h4>Fábrica Visual: Criação de Mascote 3D Consistente & Vídeo</h4>
-            <p>Os bastidores de como criei o Mascote Lian mantendo exatamente o mesmo rosto em dezenas de cenários e como transformar imagens em vídeos animados.</p>
+            <h4>Conexão dos agentes em um time</h4>
+            <p>Como orquestrar os agentes em esteira contínua com aprovação humana nos momentos certos.</p>
           </div>
         </div>
 
         <div class="agenda-row">
-          <div class="agenda-time">Bloco 05 • 12 min</div>
+          <div class="agenda-time">Bloco 05</div>
           <div class="agenda-info">
-            <h4>Abertura da Central do Aluno, Entrega das Skills & Dúvidas</h4>
-            <p>Liberação do pacote completo de arquivos para você baixar, importar na sua máquina e começar a rodar seu próprio time.</p>
+            <h4>Testando agentes na prática</h4>
+            <p>Execução em tempo real: da pesquisa de pautas até o agendamento de postagens.</p>
           </div>
         </div>
       </div>
@@ -1298,20 +1295,9 @@
          ═══════════════════════════════════════════════════════════════ -->
     <section class="section-wrap" id="central">
       <div class="central-grid">
-        <!-- Mosaico com as imagens da pasta de cenários do webinar -->
-        <div class="scenario-mosaic">
-          <div class="mosaic-item">
-            <img src="assets/fachada_fabrica.jpg" alt="Fachada da Fábrica Agentes S.A.">
-          </div>
-          <div class="mosaic-item">
-            <img src="assets/chao_de_fabrica.jpg" alt="Chão de Fábrica Agentes S.A.">
-          </div>
-          <div class="mosaic-item">
-            <img src="assets/porta_fabrica.jpg" alt="Porta Industrial Agentes S.A.">
-          </div>
-          <div class="mosaic-item">
-            <img src="assets/corredor_carrinho.jpg" alt="Corredor de Dados Agentes S.A.">
-          </div>
+        <!-- Imagem Destaque do Universo Agentes S.A. -->
+        <div class="scenario-single-frame">
+          <img src="assets/porta-garagem-agentes.jpg" alt="Porta industrial da fábrica Agentes S.A.">
         </div>
 
         <!-- Entregáveis da Central do Aluno -->
@@ -1322,29 +1308,23 @@
             Para você não precisar configurar nada do zero nem travar em detalhes técnicos durante a aula, preparei uma pasta completa com os materiais prontos:
           </p>
 
-          <div class="deliverables-stack">
-            <div class="spotlight-card" style="padding: 22px;">
+          <div class="deliverables-stack deliverables-3-items">
+            <div class="spotlight-card deliverable-card">
               <span class="agent-role-num">ARQUIVOS .SKILL</span>
-              <h4 style="font-size: 17px; font-weight: 700; color: var(--ha-title); margin-bottom: 6px;">Skills dos Agentes Prontas</h4>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Os manuais de instrução estruturados para você copiar, colar e adaptar para a sua marca.</p>
+              <h4>Skills</h4>
+              <p>Os manuais de instrução estruturados para você copiar, colar e rodar na sua máquina.</p>
             </div>
 
-            <div class="spotlight-card" style="padding: 22px;">
+            <div class="spotlight-card deliverable-card">
               <span class="agent-role-num">PROMPTS MESTRES</span>
-              <h4 style="font-size: 17px; font-weight: 700; color: var(--ha-title); margin-bottom: 6px;">Calibração Delta-Diff</h4>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">O prompt exato para extrair seu tom de voz e fazer a IA evoluir com as suas revisões.</p>
+              <h4>Prompts</h4>
+              <p>O prompt de calibração Delta-Diff para extrair seu tom de voz e fazer a IA evoluir com suas revisões.</p>
             </div>
 
-            <div class="spotlight-card" style="padding: 22px;">
-              <span class="agent-role-num">PASSO A PASSO</span>
-              <h4 style="font-size: 17px; font-weight: 700; color: var(--ha-title); margin-bottom: 6px;">Guia de Programas Gratuitos</h4>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Todos os links oficiais para instalar o Antigravity e o OpenBot antes da aula começar.</p>
-            </div>
-
-            <div class="spotlight-card" style="padding: 22px;">
-              <span class="agent-role-num">PROJETO MODELO + CERTIFICADO</span>
-              <h4 style="font-size: 17px; font-weight: 700; color: var(--ha-title); margin-bottom: 6px;">Estrutura de Pastas & Certificado</h4>
-              <p style="font-size: 13.5px; color: var(--ha-text-secondary);">Uma empresa modelo configurada como exemplo prático + certificado oficial de participação.</p>
+            <div class="spotlight-card deliverable-card deliverable-card-wide">
+              <span class="agent-role-num">ESTRUTURA COMPLETA</span>
+              <h4>Modelos de agentes</h4>
+              <p>Empresa modelo configurada na prática com os agentes para pesquisa, redação, design e agendamento.</p>
             </div>
           </div>
 
@@ -1368,7 +1348,7 @@
         <img src="assets/logo_agentes_sa_completo.png" alt="Agentes S.A." style="height: 22px;">
       </div>
       <div>
-        © 2026 Leonardo Nóbrega • Webinar Agentes S.A. — Todos os direitos reservados.
+        © 2026 Leonardo Nóbrega • Agentes S.A. Todos os direitos reservados.
       </div>
       <div>
         <a href="../index.html" style="font-weight: 600; color: var(--color-primary);">← Voltar para o site principal</a>
@@ -1423,8 +1403,10 @@
       const btn = document.getElementById('btnSubmitForm');
       const name = document.getElementById('leadName').value.trim();
       const email = document.getElementById('leadEmail').value.trim();
-      const whatsapp = document.getElementById('leadWhatsapp').value.trim();
-      const role = document.getElementById('leadRole').value;
+      const whatsappEl = document.getElementById('leadWhatsapp');
+      const whatsapp = whatsappEl ? whatsappEl.value.trim() : '';
+      const roleEl = document.getElementById('leadRole');
+      const role = roleEl ? roleEl.value : 'Aluno Agentes S.A.';
 
       btn.disabled = true;
       btn.innerHTML = '<span>Emitindo sua credencial...</span>';
@@ -1484,7 +1466,7 @@
                 </h1>
 
                 <p style="margin: 0 0 14px; font-size: 15.5px; color: #334155;">
-                  Seu lugar está oficialmente guardado para o nosso webinar ao vivo <strong>Agentes S.A. — Crie seu Primeiro Time de IA no Marketing</strong>.
+                  Seu lugar está oficialmente guardado para o nosso webinar ao vivo <strong>Agentes S.A. | Crie seu Primeiro Time de IA no Marketing</strong>.
                 </p>
 
                 <p style="margin: 0 0 18px; font-size: 15.5px; color: #334155;">
@@ -1574,6 +1556,18 @@
         } catch (e) {}
       }
     });
+  
+    // Scroll auxiliar via query string (?scroll=id)
+    const _urlParams = new URLSearchParams(window.location.search);
+    const _scrollTarget = _urlParams.get('scroll');
+    if (_scrollTarget) {
+      window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const el = document.getElementById(_scrollTarget);
+          if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }, 50);
+      });
+    }
   </script>
 
 </body>
