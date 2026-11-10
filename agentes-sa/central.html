@@ -329,6 +329,33 @@
     }
     .hub-badge-done .i { width: 13px; height: 13px; stroke-width: 3; }
     .hub-card.is-done .hub-badge-done { opacity: 1; transform: none; }
+    .hub-badge-soon {
+      left: auto; right: 12px; background: #f59e0b; border-color: rgba(255,255,255,0.4);
+      color: #031b4e; font-weight: 800;
+    }
+    .hub-badge-soon .i { width: 12px; height: 12px; stroke-width: 2.5; stroke: #031b4e; }
+    .badge-pill-soon {
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-left: 6px; padding: 2px 7px; border-radius: 999px;
+      background: #fef3c7; color: #92400e; border: 1px solid #fde68a;
+      font-family: var(--mono); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.3px; text-transform: uppercase; vertical-align: middle;
+    }
+    .agent-pill-soon {
+      position: absolute; top: 8px; right: 8px; z-index: 2;
+      background: rgba(3, 27, 78, 0.82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.25); color: #fde68a;
+      font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .agent-pill-soon .i { width: 10px; height: 10px; stroke: #fde68a; }
+    .btn:disabled, .btn[disabled] {
+      opacity: 0.68 !important;
+      cursor: not-allowed !important;
+      pointer-events: none !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
     .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
     .card-tag { font-size: 12.5px; font-weight: 700; color: var(--color-primary); }
     .card-title { margin: 0; font-size: 18px; font-weight: 800; line-height: 1.25; letter-spacing: -0.2px; color: var(--color-navy); }
@@ -385,6 +412,7 @@
     }
     .agent:active { transform: scale(0.98); }
     .agent-stage {
+      position: relative;
       height: 124px; border-radius: 14px; margin-bottom: 10px;
       background: radial-gradient(120% 90% at 50% 100%, #dce8fd 0%, var(--color-primary-lightest) 45%, #f6f9fe 100%);
       display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
@@ -1039,17 +1067,17 @@
         <a href="#cracha" class="side-link" data-spy="cracha"><svg class="i"><use href="#i-id"/></svg>Seu crachá<span class="side-badge">NOVO</span></a>
         <a href="#antes" class="side-link" data-spy="antes"><svg class="i"><use href="#i-tool"/></svg>Antes da aula<span class="side-count" data-progress-text>0/3</span></a>
         <a href="#time" class="side-link" data-spy="time"><svg class="i"><use href="#i-users"/></svg>Seu time<span class="side-count">7</span></a>
-        <a href="#prompts" class="side-link" data-spy="prompts"><svg class="i"><use href="#i-terminal"/></svg>Prompts<span class="side-count">3</span></a>
-        <a href="#depois" class="side-link" data-spy="depois"><svg class="i"><use href="#i-award"/></svg>Certificado</a>
+        <a href="#prompts" class="side-link" data-spy="prompts"><svg class="i"><use href="#i-terminal"/></svg>Prompts<span class="side-count">2</span></a>
+        <a href="#depois" class="side-link" data-spy="depois"><svg class="i"><use href="#i-award"/></svg>Certificado<span class="side-count" style="font-size: 10px; font-weight: 700; color: #b45309; background: #fef3c7; padding: 2px 6px; border-radius: 999px;">BREVE</span></a>
       </nav>
 
       <div class="side-kit">
         <img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="" aria-hidden="true">
         <strong>Kit completo</strong>
         <p>Skills, prompts e pasta modelo num só arquivo.</p>
-        <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-white btn-sm btn-block">
-          <svg class="i"><use href="#i-download"/></svg>Baixar .zip
-        </a>
+        <button type="button" class="btn btn-white btn-sm btn-block" disabled style="opacity: 0.75; cursor: not-allowed;">
+          <svg class="i"><use href="#i-clock"/></svg>Em breve na aula
+        </button>
       </div>
       <a href="index.html" class="side-back"><svg class="i"><use href="#i-arrow-left"/></svg>Página da aula</a>
     </aside>
@@ -1089,7 +1117,7 @@
           <div class="hero-ctas">
             <a href="#cracha" class="btn btn-white"><svg class="i"><use href="#i-id"/></svg>Personalizar meu crachá</a>
             <a href="#antes" class="btn btn-white">Começar preparação<svg class="i"><use href="#i-arrow"/></svg></a>
-            <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-glass"><svg class="i"><use href="#i-download"/></svg>Baixar kit completo</a>
+            <button type="button" class="btn btn-glass" disabled style="opacity: 0.7; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Kit completo (Em breve)</button>
           </div>
         </div>
         <div class="hero-media">
@@ -1111,14 +1139,14 @@
           <span class="quick-icon"><svg class="i"><use href="#i-users"/></svg></span>
           <div>
             <small>Seu time</small>
-            <strong>7 agentes</strong>
+            <strong>7 agentes <span class="badge-pill-soon">Em breve</span></strong>
           </div>
         </a>
         <a href="#prompts" class="quick-card">
           <span class="quick-icon"><svg class="i"><use href="#i-terminal"/></svg></span>
           <div>
             <small>Calibração</small>
-            <strong>3 prompts</strong>
+            <strong>2 prompts <span class="badge-pill-soon">Em breve</span></strong>
           </div>
         </a>
       </div>
@@ -1243,7 +1271,7 @@
               <h3 class="card-title">Google Antigravity</h3>
               <p class="card-text">Onde os agentes vivem, leem as pastas da sua marca e executam as skills. Não precisa programar.</p>
               <div class="card-actions">
-                <a href="https://antigravity.google/" target="_blank" rel="noopener" class="btn btn-soft btn-sm">Instalar<svg class="i"><use href="#i-external"/></svg></a>
+                <a href="https://antigravity.google/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-download"/></svg>Baixar Antigravity</a>
                 <button class="check-btn" type="button" data-toggle="antigravity" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
               </div>
             </div>
@@ -1260,8 +1288,7 @@
               <h3 class="card-title">OpenBot</h3>
               <p class="card-text">Dá um navegador para o agente pesquisar, preencher sistemas e avisar no WhatsApp. Gratuito.</p>
               <div class="card-actions">
-                <a href="downloads/openbot_agentes_sa_import_grokbot.zip" download class="btn btn-primary btn-sm"><svg class="i"><use href="#i-download"/></svg>Pacote OpenBot (.zip)</a>
-                <a href="downloads/materiais/Roteiro_OpenBot_Automacao_Web.md" download class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>Guia</a>
+                <a href="https://openbot.run/pt" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-external"/></svg>Acessar OpenBot</a>
                 <button class="check-btn" type="button" data-toggle="openbot" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
               </div>
             </div>
@@ -1270,15 +1297,16 @@
           <article class="hub-card" data-step="pasta">
             <div class="card-media">
               <span class="hub-badge">Passo 3</span>
+              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
               <span class="hub-badge hub-badge-done"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
               <img src="assets/central/prep_projeto.jpg" alt="Vestiário da fábrica com armários e capacetes azuis" loading="lazy">
             </div>
             <div class="card-body">
               <span class="card-tag">Empresa Modelo NexoFlow</span>
               <h3 class="card-title">Pasta modelo da marca</h3>
-              <p class="card-text">Estrutura completa com Brand DNA, Tom de Voz, histórico Delta-Diff, personas, produtos e skills.</p>
+              <p class="card-text">Estrutura completa com Brand DNA, Tom de Voz, histórico Delta-Diff, personas, produtos e skills. Liberada na aula ao vivo.</p>
               <div class="card-actions">
-                <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-soft btn-sm"><svg class="i"><use href="#i-download"/></svg>Baixar kit completo</a>
+                <button type="button" class="btn btn-soft btn-sm" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</button>
                 <button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
               </div>
             </div>
@@ -1301,71 +1329,92 @@
           <div class="team-banner-copy">
             <div>
               <blockquote>Eles podem parecer monstros… mas têm coração.</blockquote>
-              <p>7 agentes especialistas, prontos para copiar e usar.</p>
+              <p>7 agentes especialistas, liberados durante a aula ao vivo.</p>
             </div>
-            <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download class="btn btn-white"><svg class="i"><use href="#i-download"/></svg>Baixar as 7 skills</a>
+            <button type="button" class="btn btn-white" disabled style="opacity: 0.75; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Skills em breve (na aula)</button>
           </div>
         </div>
 
         <div class="hub-agents">
           <button class="agent" type="button" data-open="skill-00">
-            <div class="agent-stage"><img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="" loading="lazy"></div>
+            <div class="agent-stage">
+              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="" loading="lazy">
+            </div>
             <span class="agent-num">AGENTE 00</span>
             <span class="agent-role">Gerente de Operação</span>
             <span class="agent-desc">Coordena o time e pede sua aprovação nos 2 momentos certos.</span>
-            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-01">
-            <div class="agent-stage"><img src="assets/personagens_carteirinha/08_amarelo_oculos_nobg.png" alt="" loading="lazy"></div>
+            <div class="agent-stage">
+              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <img src="assets/personagens_carteirinha/08_amarelo_oculos_nobg.png" alt="" loading="lazy">
+            </div>
             <span class="agent-num">AGENTE 01</span>
             <span class="agent-role">Pesquisador</span>
             <span class="agent-desc">Varre referências e notícias das últimas 48h atrás de pautas quentes.</span>
-            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-02">
-            <div class="agent-stage"><img src="assets/personagens_carteirinha/07_azul_boina_nobg.png" alt="" loading="lazy"></div>
+            <div class="agent-stage">
+              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <img src="assets/personagens_carteirinha/07_azul_boina_nobg.png" alt="" loading="lazy">
+            </div>
             <span class="agent-num">AGENTE 02</span>
             <span class="agent-role">Estrategista de Pautas</span>
             <span class="agent-desc">Cruza as pesquisas com o DNA da marca e escolhe o melhor ângulo.</span>
-            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-03">
-            <div class="agent-stage"><img src="assets/personagens_carteirinha/03_rosa_coracao_nobg.png" alt="" loading="lazy"></div>
+            <div class="agent-stage">
+              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <img src="assets/personagens_carteirinha/03_rosa_coracao_nobg.png" alt="" loading="lazy">
+            </div>
             <span class="agent-num">AGENTE 03</span>
             <span class="agent-role">Redator</span>
             <span class="agent-desc">Escreve legendas, carrosséis e roteiros com o seu tom de voz.</span>
-            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-04">
-            <div class="agent-stage"><img src="assets/personagens_carteirinha/04_laranja_cubo_nobg.png" alt="" loading="lazy"></div>
+            <div class="agent-stage">
+              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <img src="assets/personagens_carteirinha/04_laranja_cubo_nobg.png" alt="" loading="lazy">
+            </div>
             <span class="agent-num">AGENTE 04</span>
             <span class="agent-role">Designer</span>
             <span class="agent-desc">Transforma o texto aprovado em peças visuais dentro da sua identidade.</span>
-            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-05">
-            <div class="agent-stage"><img src="assets/personagens_carteirinha/06_branco_vinil_nobg.png" alt="" loading="lazy"></div>
+            <div class="agent-stage">
+              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <img src="assets/personagens_carteirinha/06_branco_vinil_nobg.png" alt="" loading="lazy">
+            </div>
             <span class="agent-num">AGENTE 05</span>
             <span class="agent-role">Editor de Vídeo</span>
             <span class="agent-desc">Gera a locução e monta o vídeo curto com legendas.</span>
-            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-06">
-            <div class="agent-stage"><img src="assets/personagens_carteirinha/02_verde_sapo_nobg.png" alt="" loading="lazy"></div>
+            <div class="agent-stage">
+              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <img src="assets/personagens_carteirinha/02_verde_sapo_nobg.png" alt="" loading="lazy">
+            </div>
             <span class="agent-num">AGENTE 06</span>
             <span class="agent-role">Social Media</span>
             <span class="agent-desc">Agenda a publicação e te avisa no WhatsApp quando estiver no ar.</span>
-            <span class="agent-link">Ver skill<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
-          <a class="agent agent-all" href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download>
-            <span class="agent-all-icon"><svg class="i"><use href="#i-package"/></svg></span>
+          <div class="agent agent-all" style="cursor: default;">
+            <span class="agent-all-icon"><svg class="i"><use href="#i-clock"/></svg></span>
             <div>
               <span class="agent-num">PACOTE COMPLETO</span>
               <span class="agent-role">Todas as skills de uma vez</span>
-              <span class="agent-desc">Os 7 arquivos .md mais a pasta modelo, prontos para importar.</span>
+              <span class="agent-desc">Os 7 arquivos .md mais a pasta modelo, liberados na aula ao vivo.</span>
             </div>
-            <span class="agent-link">Baixar .zip<svg class="i"><use href="#i-download"/></svg></span>
-          </a>
+            <span class="agent-link" style="color: #a5f3fc;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</span>
+          </div>
         </div>
       </section>
 
@@ -1375,23 +1424,23 @@
           <div>
             <span class="kicker">Etapa 3 · Calibração</span>
             <h2 id="promptsTitle">Prompts para treinar o time</h2>
-            <p>Os 3 prompts que usamos na aula para ensinar seu jeito de escrever e manter o mascote igual em qualquer cena.</p>
+            <p>Os 2 prompts que usamos na aula para ensinar seu jeito de escrever e treinar o time.</p>
           </div>
         </div>
 
-        <div class="hub-grid-3">
+        <div class="hub-grid-2">
           <article class="hub-card">
             <div class="card-media">
               <span class="hub-badge">Prompt 01</span>
+              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
               <img src="assets/central/prompt_delta.jpg" alt="Laboratório de engenharia com braços robóticos amarelos" loading="lazy">
             </div>
             <div class="card-body">
               <span class="card-tag">Tom de voz</span>
               <h3 class="card-title">Aprendizado Delta-Diff</h3>
-              <p class="card-text">Compara o rascunho da IA com a versão que você aprovou e grava as regras do seu estilo.</p>
+              <p class="card-text">Compara o rascunho da IA com a versão que você aprovou e grava as regras do seu estilo. Liberado na aula.</p>
               <div class="card-actions">
-                <button class="btn btn-soft btn-sm" type="button" data-open="prompt-delta">Ver prompt<svg class="i"><use href="#i-arrow"/></svg></button>
-                <button class="icon-btn" type="button" data-copy="prompt-delta" aria-label="Copiar prompt Delta-Diff" title="Copiar"><svg class="i"><use href="#i-copy"/></svg></button>
+                <button class="btn btn-soft btn-sm" type="button" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</button>
               </div>
             </div>
           </article>
@@ -1399,31 +1448,15 @@
           <article class="hub-card">
             <div class="card-media">
               <span class="hub-badge">Prompt 02</span>
+              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
               <img src="assets/central/prompt_brain.jpg" alt="Núcleo de IA da fábrica com cilindros de energia" loading="lazy">
             </div>
             <div class="card-body">
               <span class="card-tag">Memória da marca</span>
               <h3 class="card-title">Segundo cérebro</h3>
-              <p class="card-text">Transforma seus posts, artigos e materiais antigos na base de conhecimento do time.</p>
+              <p class="card-text">Transforma seus posts, artigos e materiais antigos na base de conhecimento do time. Liberado na aula.</p>
               <div class="card-actions">
-                <button class="btn btn-soft btn-sm" type="button" data-open="prompt-brain">Ver prompt<svg class="i"><use href="#i-arrow"/></svg></button>
-                <button class="icon-btn" type="button" data-copy="prompt-brain" aria-label="Copiar prompt Segundo cérebro" title="Copiar"><svg class="i"><use href="#i-copy"/></svg></button>
-              </div>
-            </div>
-          </article>
-
-          <article class="hub-card">
-            <div class="card-media">
-              <span class="hub-badge">Prompt 03</span>
-              <img src="assets/central/prompt_mascote.jpg" alt="Bancada de espelhos iluminados no vestiário da fábrica" loading="lazy">
-            </div>
-            <div class="card-body">
-              <span class="card-tag">Identidade visual</span>
-              <h3 class="card-title">Mascote consistente</h3>
-              <p class="card-text">Mantém seu personagem 3D idêntico em qualquer cenário, a partir do character sheet.</p>
-              <div class="card-actions">
-                <button class="btn btn-soft btn-sm" type="button" data-open="prompt-mascote">Ver prompt<svg class="i"><use href="#i-arrow"/></svg></button>
-                <button class="icon-btn" type="button" data-copy="prompt-mascote" aria-label="Copiar prompt Mascote consistente" title="Copiar"><svg class="i"><use href="#i-copy"/></svg></button>
+                <button class="btn btn-soft btn-sm" type="button" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</button>
               </div>
             </div>
           </article>
@@ -1444,14 +1477,15 @@
           <article class="hub-card card-row">
             <div class="card-media">
               <span class="hub-badge">Certificado</span>
+              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
               <img src="assets/central/pos_certificado.jpg" alt="Anfiteatro de treinamento da Agentes S.A. University" loading="lazy">
             </div>
             <div class="card-body">
               <span class="card-tag">Agentes S.A. University</span>
               <h3 class="card-title">Emita seu certificado</h3>
-              <p class="card-text">Com seu nome, em PNG para o LinkedIn ou PDF para imprimir.</p>
+              <p class="card-text">Com seu nome, em PNG para o LinkedIn ou PDF para imprimir. Disponível logo após a aula ao vivo.</p>
               <div class="card-actions">
-                <a href="certificado.html?modo=aluno" id="btnCertLink" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-award"/></svg>Emitir certificado</a>
+                <button type="button" id="btnCertLink" class="btn btn-soft btn-sm" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Liberado após a aula</button>
               </div>
             </div>
           </article>
@@ -1459,14 +1493,15 @@
           <article class="hub-card card-row">
             <div class="card-media">
               <span class="hub-badge">Material</span>
+              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
               <img src="assets/central/pos_resumo.jpg" alt="Sala de reunião da diretoria com vista para o chão de fábrica" loading="lazy">
             </div>
             <div class="card-body">
               <span class="card-tag">Para revisar</span>
               <h3 class="card-title">Checklist e diagramas</h3>
-              <p class="card-text">Os 5 passos para montar seu time e os diagramas da esteira de agentes.</p>
+              <p class="card-text">Os 5 passos para montar seu time e os diagramas da esteira de agentes. Liberado após a aula ao vivo.</p>
               <div class="card-actions">
-                <a href="downloads/materiais/Checklist_5_Passos_Agentes_IA_Leonardo_Nobrega.pdf" download class="btn btn-line btn-sm"><svg class="i"><use href="#i-file"/></svg>Baixar PDF</a>
+                <button type="button" class="btn btn-line btn-sm" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</button>
               </div>
             </div>
           </article>
@@ -1502,7 +1537,7 @@
         <ul class="steps">
           <li><button class="check-btn" type="button" data-toggle="antigravity" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Instalar o Antigravity</button></li>
           <li><button class="check-btn" type="button" data-toggle="openbot" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Configurar o OpenBot</button></li>
-          <li><button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Baixar a pasta modelo</button></li>
+          <li><button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Pasta modelo <small style="color:var(--color-text-muted); font-size:11px;">(Em breve)</small></button></li>
         </ul>
       </section>
 
@@ -1555,8 +1590,8 @@
       <pre class="code" id="sheetCode"></pre>
     </div>
     <div class="sheet-foot">
-      <button class="btn btn-primary" type="button" id="sheetCopy"><svg class="i"><use href="#i-copy"/></svg>Copiar</button>
-      <a class="btn btn-line" id="sheetDownload" href="#" download><svg class="i"><use href="#i-download"/></svg>Baixar .md</a>
+      <button class="btn btn-primary" type="button" id="sheetCopy" disabled style="opacity: 0.7; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Liberado na aula ao vivo</button>
+      <a class="btn btn-line" id="sheetDownload" href="#" style="display:none; pointer-events: none; opacity: 0.6;"><svg class="i"><use href="#i-clock"/></svg>Download em breve</a>
     </div>
   </div>
 
@@ -1695,11 +1730,6 @@ Sintetize um documento mestre chamado `posicionamento_e_voz.md` dividido em:
 2. Vocabulário Proprietário (termos, metáforas e expressões que usamos com frequência).
 3. Lista Negra (Negative Constraints): 15 palavras, jargões de guru e estruturas de frase que estão expressamente proibidas em qualquer texto dos agentes.</template>
 
-  <template id="prompt-mascote">Usando estritamente a folha de personagem (Character Sheet) anexada como referência absoluta de identidade:
-Mantenha 100% idênticos o formato da cabeça, olhos, nariz, proporções corporais, textura de pelúcia/3D e cores oficiais (#075FE4 e #FFFFFF).
-Coloque o personagem na seguinte cena e ação: {descreva a ação e o cenário aqui}.
-Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), profundidade de campo suave, altíssima nitidez 2K.</template>
-
   <script>
     (function () {
       /* ─── Dados da Gaveta (Slide-over) ─── */
@@ -1713,8 +1743,7 @@ Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), p
         'skill-05': { kicker: 'Agente 05', title: 'Editor de Vídeo', desc: 'Gera a locução e monta o vídeo curto (30s) com legendas sincronizadas.', img: CHAR + '06_branco_vinil_nobg.png', file: '05_agente_video.md' },
         'skill-06': { kicker: 'Agente 06', title: 'Social Media', desc: 'Agenda a publicação aprovada e te avisa no WhatsApp.', img: CHAR + '02_verde_sapo_nobg.png', file: '06_agente_social_media.md' },
         'prompt-delta': { kicker: 'Prompt 01 · Tom de voz', title: 'Aprendizado Delta-Diff', desc: 'Use sempre que editar um texto do agente. Ele calcula a diferença e grava a regra na memória da marca.', img: 'assets/central/prompt_delta.jpg', photo: true },
-        'prompt-brain': { kicker: 'Prompt 02 · Memória da marca', title: 'Segundo cérebro', desc: 'Transforma seus melhores materiais na base de conhecimento do time.', img: 'assets/central/prompt_brain.jpg', photo: true },
-        'prompt-mascote': { kicker: 'Prompt 03 · Identidade visual', title: 'Mascote consistente', desc: 'Anexe o character sheet do seu mascote e descreva a cena.', img: 'assets/central/prompt_mascote.jpg', photo: true }
+        'prompt-brain': { kicker: 'Prompt 02 · Memória da marca', title: 'Segundo cérebro', desc: 'Transforma seus melhores materiais na base de conhecimento do time.', img: 'assets/central/prompt_brain.jpg', photo: true }
       };
 
       const $ = (s, el = document) => el.querySelector(s);
@@ -1757,12 +1786,20 @@ Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), p
         $('#sheetMedia').classList.toggle('is-photo', !!item.photo);
         const dl = $('#sheetDownload');
         if (item.file) {
-          dl.style.display = ''; dl.href = 'downloads/skills_agentes_sa/' + item.file; dl.setAttribute('download', item.file);
-          $('#sheetFile').textContent = item.file;
+          dl.style.display = 'inline-flex';
+          dl.style.pointerEvents = 'none';
+          dl.style.opacity = '0.65';
+          dl.removeAttribute('href');
+          dl.innerHTML = '<svg class="i"><use href="#i-clock"/></svg>Download em breve';
+          $('#sheetFile').textContent = item.file + ' · (Liberado na aula ao vivo)';
         } else {
-          dl.style.display = 'none'; $('#sheetFile').textContent = '';
+          dl.style.display = 'none';
+          $('#sheetFile').textContent = '';
         }
-        $('#sheetCopy').lastChild.textContent = item.file ? 'Copiar skill' : 'Copiar prompt';
+        $('#sheetCopy').innerHTML = '<svg class="i"><use href="#i-clock"/></svg>Liberado na aula ao vivo';
+        $('#sheetCopy').disabled = true;
+        $('#sheetCopy').style.opacity = '0.65';
+        $('#sheetCopy').style.cursor = 'not-allowed';
         document.body.classList.add('sheet-open');
         $('.sheet-body').scrollTop = 0;
         setTimeout(() => $('.sheet-close').focus(), 50);
@@ -1773,8 +1810,8 @@ Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), p
       }
       $$('[data-open]').forEach(b => b.addEventListener('click', () => openSheet(b.dataset.open)));
       $$('[data-close]').forEach(b => b.addEventListener('click', closeSheet));
-      $$('[data-copy]').forEach(b => b.addEventListener('click', () => copy(b.dataset.copy)));
-      $('#sheetCopy').addEventListener('click', () => currentId && copy(currentId));
+      $$('[data-copy]').forEach(b => b.addEventListener('click', () => toast('Material em breve! Será liberado durante a aula ao vivo.')));
+      $('#sheetCopy').addEventListener('click', () => toast('Material em breve! Será liberado durante a aula ao vivo.'));
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('sheet-open')) closeSheet(); });
 
       /* ─── Checklist da Bancada (salvo em localStorage) ─── */
@@ -2262,7 +2299,10 @@ Iluminação cinematográfica estilo animação 3D de estúdio (Pixar/Disney), p
         $('#userInitials').textContent = initials;
         $('#userId').textContent = 'CRACHÁ ' + serial;
         $('#railId').textContent = serial;
-        $('#btnCertLink').href = 'certificado.html?nome=' + encodeURIComponent(student.name) + '&id=' + encodeURIComponent('ID ' + serial) + '&modo=aluno';
+        const certLink = $('#btnCertLink');
+        if (certLink && certLink.tagName === 'A') {
+          certLink.href = 'certificado.html?nome=' + encodeURIComponent(student.name) + '&id=' + encodeURIComponent('ID ' + serial) + '&modo=aluno';
+        }
         syncNomeCracha(student.name);
         if (inputAlunoNome) inputAlunoNome.value = student.name;
         if (crachaId) crachaId.textContent = 'Nº ID ' + serial.replace('#', '');
