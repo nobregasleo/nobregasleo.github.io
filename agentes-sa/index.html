@@ -537,8 +537,8 @@
       stroke-width: 2.5;
     }
 
-        /* ═══════════════════════════════════════════════════════════════
-       ESTADO PÓS-INSCRIÇÃO: CONFIRMAÇÃO & ACESSO À CENTRAL DO ALUNO
+            /* ═══════════════════════════════════════════════════════════════
+       ESTADO PÓS-INSCRIÇÃO: CONFIRMAÇÃO & AGENDA (GOOGLE + APPLE)
        ═══════════════════════════════════════════════════════════════ */
     .signup-success-card {
       animation: successCardPop 350ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -552,7 +552,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .success-icon-check {
       width: 28px;
@@ -583,20 +583,20 @@
       line-height: 1.25;
     }
 
-    /* Caixa em Destaque: Olhe o seu e-mail */
+    /* Caixa em Destaque: Acesse pelo e-mail */
     .success-email-card {
       background: linear-gradient(180deg, #f0f7ff 0%, #e6f0fd 100%);
       border: 1.5px solid rgba(7, 95, 228, 0.22);
       border-radius: 16px;
-      padding: 16px 18px;
-      margin-bottom: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
       display: flex;
-      gap: 12px;
+      gap: 14px;
       align-items: flex-start;
-      box-shadow: 0 2px 8px rgba(7, 95, 228, 0.05);
+      box-shadow: 0 2px 10px rgba(7, 95, 228, 0.06);
     }
     .email-card-icon {
-      font-size: 26px;
+      font-size: 28px;
       line-height: 1;
       flex-shrink: 0;
       margin-top: 2px;
@@ -605,17 +605,17 @@
       flex: 1;
     }
     .email-card-title {
-      font-size: 14.5px;
+      font-size: 15px;
       font-weight: 800;
       color: #031b4e;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       line-height: 1.35;
     }
     .email-card-desc {
-      font-size: 13px;
+      font-size: 13.5px;
       color: #334155;
-      margin: 0 0 8px;
-      line-height: 1.45;
+      margin: 0 0 10px;
+      line-height: 1.5;
     }
     .email-highlight {
       color: #075fe4;
@@ -623,66 +623,74 @@
       word-break: break-all;
     }
     .email-card-tip {
-      font-size: 11.5px;
+      font-size: 12px;
       color: #475569;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 7px 10px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 8px 11px;
       border-radius: 8px;
-      border: 1px solid rgba(7, 95, 228, 0.12);
-      line-height: 1.4;
+      border: 1px solid rgba(7, 95, 228, 0.14);
+      line-height: 1.45;
     }
 
-    /* Grupo de Botões de Ação */
-    .success-action-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 14px;
+    /* Seção de Botões de Agenda: Google + Apple */
+    .calendar-buttons-wrap {
+      margin-top: 8px;
+      margin-bottom: 16px;
     }
-    .btn-success-primary {
-      width: 100%;
-      height: 54px;
-      background: linear-gradient(135deg, var(--color-primary) 0%, #0550c8 100%);
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 15.5px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      text-decoration: none;
-      box-shadow: 0 10px 24px rgba(7, 95, 228, 0.32);
-      transition: all 200ms ease;
-      font-family: var(--font);
-    }
-    .btn-success-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 30px rgba(7, 95, 228, 0.42);
-      background: linear-gradient(135deg, #0968f6 0%, #0448b4 100%);
-      color: #ffffff;
-    }
-    .btn-success-secondary {
-      width: 100%;
-      height: 46px;
-      background: #ffffff;
-      color: var(--ha-title);
+    .calendar-headline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
       font-weight: 700;
-      font-size: 13.5px;
+      color: var(--color-primary);
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .calendar-grid-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-cal-action {
+      height: 48px;
       border-radius: 12px;
-      border: 1.5px solid #cbd5e1;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
       text-decoration: none;
-      transition: all 200ms ease;
+      transition: all 180ms ease;
       font-family: var(--font);
+      box-sizing: border-box;
     }
-    .btn-success-secondary:hover {
-      background: #f8fafc;
-      border-color: var(--color-primary);
-      color: var(--color-primary);
+    .btn-cal-google {
+      background: #ffffff;
+      color: #1e293b;
+      border: 1.5px solid #cbd5e1;
+      box-shadow: 0 2px 6px rgba(3, 27, 78, 0.04);
+    }
+    .btn-cal-google:hover {
+      border-color: #4285f4;
+      color: #1a73e8;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(66, 133, 244, 0.16);
+    }
+    .btn-cal-apple {
+      background: #031b4e;
+      color: #ffffff;
+      border: 1.5px solid #031b4e;
+      box-shadow: 0 2px 6px rgba(3, 27, 78, 0.08);
+    }
+    .btn-cal-apple:hover {
+      background: #075fe4;
+      border-color: #075fe4;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.28);
+      color: #ffffff;
     }
 
     .success-footer-row {
@@ -1197,7 +1205,7 @@
             </div>
           </div>
 
-                    <!-- Visão 2: Confirmação de Cadastro e Acesso à Central do Aluno -->
+                              <!-- Visão 2: Confirmação de Cadastro e Orientação de E-mail -->
           <div id="signupSuccessView" class="signup-success-card" style="display: none;">
             <div class="success-top-badge">
               <span class="success-icon-check">
@@ -1210,31 +1218,44 @@
               Tudo pronto, <span id="successUserName">Aluno</span>!
             </h3>
 
-            <!-- Caixa de Destaque: Olhe o seu e-mail -->
+            <!-- Caixa de Destaque: Acesse pelo seu e-mail -->
             <div class="success-email-card">
               <div class="email-card-icon">📬</div>
               <div class="email-card-content">
-                <div class="email-card-title">Olhe o seu e-mail para pegar o acesso à Central do Aluno</div>
+                <div class="email-card-title">Acesse a Central do Aluno pelo seu e-mail</div>
                 <p class="email-card-desc">
-                  Acabamos de enviar o link exclusivo para <strong id="successUserEmail" class="email-highlight">seu@email.com</strong>.
+                  Acabamos de enviar o link de acesso exclusivo para <strong id="successUserEmail" class="email-highlight">seu@email.com</strong>.
                 </p>
                 <div class="email-card-tip">
-                  💡 Caso não encontre na caixa de entrada em 1 minuto, dê uma olhada na pasta de <strong>Spam</strong> ou na aba <strong>Promoções</strong>.
+                  💡 <strong>Abra o e-mail agora:</strong> o link para liberar as ferramentas, skills e prompts está na mensagem. Se não encontrar em 1 minuto, cheque a aba <strong>Promoções</strong> ou a pasta de <strong>Spam</strong>.
                 </div>
               </div>
             </div>
 
-            <!-- Botões de Ação Imediata -->
-            <div class="success-action-group">
-              <a href="central.html" id="btnCentralDirect" class="btn-success-primary">
-                <span>Acessar a Central do Aluno agora</span>
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+            <!-- Seção de Agendamento: Google + Apple -->
+            <div class="calendar-buttons-wrap">
+              <div class="calendar-headline">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>SALVE O LEMBRETE NA SUA AGENDA:</span>
+              </div>
 
-              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aula+Ao+Vivo+Agentes+S.A.+com+Leonardo+N%C3%B3brega&dates=20261125T230000Z/20261126T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.+Link+da+sala:+https://www.youtube.com/live/1SrbjZXtYwk&location=https://www.youtube.com/live/1SrbjZXtYwk" target="_blank" rel="noopener" class="btn-success-secondary">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                <span>Salvar lembrete na Google Agenda</span>
-              </a>
+              <div class="calendar-grid-two">
+                <!-- Botão 1: Google Agenda -->
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aula+Ao+Vivo+Agentes+S.A.+com+Leonardo+N%C3%B3brega&dates=20261125T230000Z/20261126T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.+Link+da+sala:+https://www.youtube.com/live/1SrbjZXtYwk&location=https://www.youtube.com/live/1SrbjZXtYwk" target="_blank" rel="noopener" class="btn-cal-action btn-cal-google">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+                  </svg>
+                  <span>Google Agenda</span>
+                </a>
+
+                <!-- Botão 2: Apple Calendar -->
+                <a href="assets/aula-agentes-sa.ics" download="aula-agentes-sa.ics" class="btn-cal-action btn-cal-apple">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.78 1.06-1.85.94-2.93-.93.04-2.03.63-2.69 1.41-.58.68-1.1 1.76-.96 2.82 1.03.08 2.08-.53 2.71-1.3z"/>
+                  </svg>
+                  <span>Apple Calendar</span>
+                </a>
+              </div>
             </div>
 
             <div class="success-footer-row">
@@ -1693,18 +1714,12 @@
       const name = (data && data.name) ? data.name : 'Aluno';
       const firstName = name.split(' ')[0];
       const email = (data && data.email) ? data.email : '';
-      const serial = (data && data.serial) ? data.serial : '#AG-2511';
 
       const elName = document.getElementById('successUserName');
       if (elName) elName.textContent = firstName;
 
       const elEmail = document.getElementById('successUserEmail');
       if (elEmail) elEmail.textContent = email;
-
-      const btnCentral = document.getElementById('btnCentralDirect');
-      if (btnCentral) {
-        btnCentral.href = `central.html?nome=${encodeURIComponent(name)}&id=${encodeURIComponent(serial)}`;
-      }
 
       const formView = document.getElementById('signupFormView');
       const successView = document.getElementById('signupSuccessView');

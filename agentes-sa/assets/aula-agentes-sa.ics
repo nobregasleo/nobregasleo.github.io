@@ -1,0 +1,24 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Leonardo Nobrega//Agentes S.A.//PT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Aula Pratica Agentes S.A.
+X-WR-TIMEZONE:America/Sao_Paulo
+BEGIN:VEVENT
+UID:agentes-sa-aula-20261125T200000@nobregasleo.github.io
+DTSTAMP:20261109T220000Z
+DTSTART:20261125T230000Z
+DTEND:20261126T000000Z
+SUMMARY:Aula Ao Vivo Agentes S.A. com Leonardo Nobrega
+DESCRIPTION:Aula pratica ao vivo mostrando como criar seu primeiro time de agentes de IA no marketing usando Antigravity e OpenBot.\n\nLink da transmissao no YouTube: https://www.youtube.com/live/1SrbjZXtYwk\nCentral do Aluno: https://nobregasleo.github.io/agentes-sa/central.html
+LOCATION:https://www.youtube.com/live/1SrbjZXtYwk
+URL:https://www.youtube.com/live/1SrbjZXtYwk
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Lembrete: Aula Ao Vivo Agentes S.A. comeca em 30 minutos!
+END:VALARM
+END:VEVENT
+END:VCALENDAR
