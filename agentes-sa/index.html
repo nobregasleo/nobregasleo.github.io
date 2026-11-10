@@ -61,56 +61,48 @@
       z-index: 2;
     }
 
-    /* ═══════════════════════════════════════════════════════════════
+        /* ═══════════════════════════════════════════════════════════════
        HEADER CO-BRANDING (LEONARDO NÓBREGA × AGENTES S.A.)
        ═══════════════════════════════════════════════════════════════ */
     .ha-navbar {
       position: sticky;
-      top: 16px;
+      top: 14px;
       z-index: 1000;
       max-width: 1180px;
-      margin: 16px auto 0;
-      background: rgba(255, 255, 255, 0.86);
+      margin: 14px auto 0;
+      background: rgba(255, 255, 255, 0.90);
       backdrop-filter: var(--ha-blur);
       -webkit-backdrop-filter: var(--ha-blur);
       border: 1px solid rgba(255, 255, 255, 0.95);
       border-radius: 9999px;
-      padding: 10px 14px 10px 24px;
+      padding: 8px 12px 8px 22px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 10px 30px rgba(7, 95, 228, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
       transition: all 300ms var(--ease-framer);
+      position: relative;
     }
 
     .brand-cobrand {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
       text-decoration: none;
-    }
-    .brand-ln-svg {
-      height: 34px;
-      width: auto;
-      display: block;
-    }
-    .brand-divider {
-      width: 1px;
-      height: 26px;
-      background: rgba(3, 27, 78, 0.14);
+      flex-shrink: 0;
     }
     .brand-agentes-lockup {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     }
     .brand-agentes-emblem {
-      height: 34px;
-      width: 34px;
+      height: 32px;
+      width: 32px;
       object-fit: contain;
     }
     .brand-agentes-wordmark {
-      height: 22px;
+      height: 20px;
       width: auto;
       object-fit: contain;
     }
@@ -122,9 +114,9 @@
     }
     .nav-link {
       color: var(--ha-text-secondary);
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
-      padding: 8px 14px;
+      padding: 7px 13px;
       border-radius: 999px;
       transition: all 180ms ease;
       text-decoration: none;
@@ -134,42 +126,211 @@
       background: rgba(7, 95, 228, 0.06);
     }
 
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
     .nav-cta {
       background: var(--color-primary);
       color: #ffffff;
-      font-weight: 600;
-      font-size: 13.5px;
-      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 9px 18px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 4px 14px rgba(7, 95, 228, 0.28);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      transition: all 250ms var(--ease-framer);
+      gap: 6px;
+      transition: all 220ms ease;
+      white-space: nowrap;
     }
     .nav-cta:hover {
       background: var(--color-primary-dark);
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 6px 20px rgba(7, 95, 228, 0.45);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(7, 95, 228, 0.38);
       color: #ffffff;
     }
 
+    /* Backdrop Escuro do Menu Mobile */
+    .mobile-menu-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 21, 58, 0.45);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 240ms ease;
+      z-index: 998;
+    }
+    .mobile-menu-backdrop.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Botão Hambúrguer Mobile */
+    .mobile-menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: rgba(7, 95, 228, 0.08);
+      border: 1px solid rgba(7, 95, 228, 0.16);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0;
+      transition: all 200ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-menu-toggle:hover {
+      background: rgba(7, 95, 228, 0.14);
+    }
+    .mobile-menu-toggle:active {
+      transform: scale(0.92);
+    }
+    .hamburger-bar {
+      width: 20px;
+      height: 2px;
+      background: var(--ha-title);
+      border-radius: 2px;
+      transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu-toggle.is-active .bar-1 {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .mobile-menu-toggle.is-active .bar-2 {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .mobile-menu-toggle.is-active .bar-3 {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Dropdown Flutuante Mobile (Opaco, Elegante e com Chevrons) */
+    .mobile-menu-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border: 1.5px solid rgba(7, 95, 228, 0.16);
+      border-radius: 24px;
+      padding: 14px;
+      box-shadow: 0 24px 60px rgba(3, 21, 58, 0.22), 0 4px 16px rgba(7, 95, 228, 0.08);
+      z-index: 1001;
+      animation: menuFadeIn 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes menuFadeIn {
+      from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .mobile-menu-dropdown.is-open {
+      display: block;
+    }
+    .mobile-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ha-title);
+      text-decoration: none;
+      border-radius: 12px;
+      transition: all 160ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-nav-item:hover, .mobile-nav-item:active {
+      background: rgba(7, 95, 228, 0.08);
+      color: var(--color-primary);
+    }
+    .mobile-nav-label-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mobile-nav-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      opacity: 0.7;
+    }
+    .mobile-nav-chevron {
+      color: var(--ha-text-muted);
+      transition: transform 160ms ease;
+    }
+    .mobile-nav-item:active .mobile-nav-chevron {
+      transform: translateX(3px);
+    }
+    .mobile-menu-footer {
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(3, 27, 78, 0.08);
+    }
+    .mobile-dropdown-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      height: 48px;
+      background: var(--color-primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14.5px;
+      border-radius: 14px;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(7, 95, 228, 0.30);
+      transition: all 180ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-dropdown-cta:active {
+      transform: scale(0.98);
+      box-shadow: 0 4px 12px rgba(7, 95, 228, 0.25);
+    }
+
     /* ═══════════════════════════════════════════════════════════════
-       DOBRA 1: HERO + FORMULÁRIO DE CREDENCIAL DA FÁBRICA
+       DOBRA 1: HERO + FORMULÁRIO DE INSCRIÇÃO
        ═══════════════════════════════════════════════════════════════ */
     .hero-section {
-      padding: 52px 0 64px;
+      padding: 48px 0 60px;
     }
     .hero-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: 36px;
+      grid-template-areas:
+        "intro form"
+        "visual form";
+      gap: 24px 38px;
       align-items: start;
     }
     .hero-grid > * {
       min-width: 0;
+    }
+    .hero-intro-block {
+      grid-area: intro;
+    }
+    .hero-visual-block {
+      grid-area: visual;
+    }
+    .signup-ticket-card {
+      grid-area: form;
+      position: sticky;
+      top: 96px;
     }
 
     .factory-pill {
@@ -1023,36 +1184,41 @@
     .deliverable-card-wide {
       grid-column: span 2;
     }
-    @media (max-width: 768px) {
-      .deliverables-stack {
-        grid-template-columns: 1fr;
-      }
-      .deliverable-card-wide {
-        grid-column: span 1;
-      }
-      .event-meta-pills {
-        flex-wrap: wrap;
-      }
-    }
-
-    /* ═══════════════════════════════════════════════════════════════
-       FOOTER CO-BRANDED
+        /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVIDADE E OTIMIZAÇÕES MOBILE PROFISSIONAIS
        ═══════════════════════════════════════════════════════════════ */
-    .ha-footer {
-      margin-top: 60px;
-      padding: 40px 0 60px;
-      border-top: 1px solid rgba(7, 95, 228, 0.12);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 14px;
-      color: var(--ha-text-muted);
-    }
-
     @media (max-width: 960px) {
-      .hero-grid, .contrast-grid, .factory-showcase-banner, .central-grid {
+      .nav-links {
+        display: none;
+      }
+      .nav-actions .nav-cta {
+        display: none;
+      }
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      /* Hero Reordenado no Mobile: 1. Intro, 2. Formulário, 3. Visuais */
+      .hero-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .hero-intro-block {
+        order: 1;
+      }
+      .signup-ticket-card {
+        order: 2;
+        position: static;
+        padding: 26px 20px;
+        border-radius: 22px;
+        margin-bottom: 8px;
+      }
+      .hero-visual-block {
+        order: 3;
+      }
+
+      .contrast-grid, .factory-showcase-banner, .central-grid {
         grid-template-columns: 1fr;
       }
       .agents-grid-3, .deliverables-stack {
@@ -1062,18 +1228,192 @@
         grid-template-columns: 1fr;
         gap: 10px;
       }
-      .nav-links {
-        display: none;
+    }
+
+    @media (max-width: 640px) {
+      .site-container {
+        padding: 0 16px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .ha-navbar {
+        width: calc(100% - 24px);
+        margin: 10px auto 0;
+        padding: 8px 12px 8px 16px;
+        box-sizing: border-box;
+      }
+      .brand-agentes-emblem {
+        height: 30px;
+        width: 30px;
+      }
+      .brand-agentes-wordmark {
+        height: 19px;
+      }
+
+      .hero-section {
+        padding: 16px 0 32px;
+      }
+      .hero-title {
+        font-size: clamp(25px, 6.8vw, 31px);
+        margin-bottom: 10px;
+        letter-spacing: -0.6px;
+        line-height: 1.15;
+      }
+      .hero-desc {
+        font-size: 14.5px;
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+
+      /* Form Card no mobile: confortável, compacto e atrativo */
+      .signup-ticket-card {
+        padding: 20px 16px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+        box-shadow: 0 16px 36px rgba(7, 95, 228, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+      }
+      .ticket-header-pill {
+        margin-bottom: 8px;
+        padding: 4px 10px;
+        font-size: 11px;
+      }
+      .ticket-title-large {
+        font-size: 22px;
+        white-space: normal;
+        margin-bottom: 3px;
+        line-height: 1.2;
+      }
+      .ticket-sub-direct {
+        font-size: 12.5px;
+        margin-bottom: 14px;
+        line-height: 1.35;
+      }
+      .form-group-lg {
+        margin-bottom: 10px;
+      }
+      .form-label-lg {
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+      .ha-input-large {
+        height: 48px;
+        font-size: 14.5px;
+        padding: 0 14px;
+        border-radius: 12px;
+      }
+      .btn-submit-hero {
+        height: 50px;
+        font-size: 15px;
+        border-radius: 12px;
+        margin-top: 4px;
+      }
+      .form-trust-badges {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        margin-top: 14px;
+        padding-top: 12px;
+      }
+      .trust-badge {
+        font-size: 10px;
+        padding: 6px 4px;
+        gap: 3px;
+      }
+
+      /* Floating timer no mobile */
+      .hero-cd-floating {
+        top: 8px;
+        right: 8px;
+        padding: 5px 8px;
+        border-radius: 10px;
+        gap: 3px;
+      }
+      .hero-cd-top-label {
+        font-size: 8px;
+      }
+      .hero-cd-units {
+        gap: 3px;
+      }
+      .hero-cd-box {
+        min-width: 20px;
+        padding: 2px 4px;
+        border-radius: 5px;
+      }
+      .hero-cd-val {
+        font-size: 11px;
+      }
+      .hero-cd-tag {
+        font-size: 7px;
+      }
+      .hero-cd-divider {
+        font-size: 10px;
+      }
+
+      .hero-quote-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 10px 14px;
+        font-size: 12px;
+      }
+
+      .sec-title {
+        font-size: clamp(23px, 6vw, 30px);
+      }
+      .section-wrap {
+        padding: 40px 0;
+      }
+      .spotlight-card {
+        padding: 20px 16px;
+        border-radius: 18px;
+      }
+      .factory-showcase-banner {
+        padding: 22px 16px;
+        border-radius: 20px;
+      }
+      .agenda-block-card {
+        padding: 16px;
+        border-radius: 16px;
+      }
+
+      /* Confirmação de Cadastro no mobile */
+      .success-head-title {
+        font-size: 22px;
+      }
+      .success-email-card {
+        padding: 14px;
+        gap: 10px;
+      }
+      .email-card-icon {
+        font-size: 24px;
+      }
+      .email-card-title {
+        font-size: 14px;
+      }
+      .email-card-desc {
+        font-size: 12.5px;
+      }
+      .email-card-tip {
+        font-size: 11px;
+        padding: 6px 8px;
+      }
+      .calendar-grid-two {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .btn-cal-action {
+        height: 46px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Backdrop escuro para o menu mobile -->
+  <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" onclick="closeMobileMenu()"></div>
 
   <!-- ═══════════════════════════════════════════════════════════════
        HEADER CO-BRANDING: LEONARDO NÓBREGA × AGENTES S.A.
        ═══════════════════════════════════════════════════════════════ -->
-  <header class="ha-navbar">
+    <header class="ha-navbar" id="topNav">
     <a href="#topo" class="brand-cobrand" aria-label="Agentes S.A.">
       <div class="brand-agentes-lockup">
         <img src="assets/emblema_agentes_sa.svg" alt="Emblema Agentes S.A." class="brand-agentes-emblem">
@@ -1081,6 +1421,7 @@
       </div>
     </a>
 
+    <!-- Desktop Navigation Links -->
     <nav class="nav-links">
       <a href="#contraste" class="nav-link">Sobre</a>
       <a href="#time" class="nav-link">Os agentes</a>
@@ -1088,10 +1429,60 @@
       <a href="#central" class="nav-link">Central do aluno</a>
     </nav>
 
-    <a href="#inscricao" class="nav-cta" onclick="document.getElementById('leadName').focus()">
-      <span>Garantir vaga grátis</span>
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
+    <!-- Header Actions (CTA + Mobile Hamburger) -->
+    <div class="nav-actions">
+      <a href="#inscricao" class="nav-cta" onclick="focusSignupForm()">
+        <span>Garantir vaga</span>
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <!-- Botão Hambúrguer Mobile -->
+      <button type="button" class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Abrir menu de navegação" aria-expanded="false" onclick="toggleMobileMenu()">
+        <span class="hamburger-bar bar-1"></span>
+        <span class="hamburger-bar bar-2"></span>
+        <span class="hamburger-bar bar-3"></span>
+      </button>
+    </div>
+
+    <!-- Dropdown Menu Mobile -->
+    <div class="mobile-menu-dropdown" id="mobileMenuDropdown" aria-hidden="true">
+      <nav class="mobile-nav-list">
+        <a href="#contraste" class="mobile-nav-item" onclick="closeMobileMenu()">
+          <span class="mobile-nav-label-group">
+            <span class="mobile-nav-dot"></span>
+            <span>Sobre a aula</span>
+          </span>
+          <svg class="mobile-nav-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a href="#time" class="mobile-nav-item" onclick="closeMobileMenu()">
+          <span class="mobile-nav-label-group">
+            <span class="mobile-nav-dot"></span>
+            <span>Os agentes</span>
+          </span>
+          <svg class="mobile-nav-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a href="#roteiro" class="mobile-nav-item" onclick="closeMobileMenu()">
+          <span class="mobile-nav-label-group">
+            <span class="mobile-nav-dot"></span>
+            <span>Roteiro prático</span>
+          </span>
+          <svg class="mobile-nav-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        <a href="#central" class="mobile-nav-item" onclick="closeMobileMenu()">
+          <span class="mobile-nav-label-group">
+            <span class="mobile-nav-dot"></span>
+            <span>Central do aluno</span>
+          </span>
+          <svg class="mobile-nav-chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      </nav>
+      <div class="mobile-menu-footer">
+        <a href="#inscricao" class="mobile-dropdown-cta" onclick="closeMobileMenu(); focusSignupForm();">
+          <span>Garantir minha vaga gratuita</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
   </header>
 
   <main class="site-container" id="topo">
@@ -1099,11 +1490,11 @@
     <!-- ═══════════════════════════════════════════════════════════════
          DOBRA 1: HERO & CREDENCIAL DE INSCRIÇÃO
          ═══════════════════════════════════════════════════════════════ -->
-    <section class="hero-section">
+        <section class="hero-section">
       <div class="hero-grid">
 
-        <!-- Coluna Esquerda: Apresentação do Webinar + Cena Principal Lian -->
-        <div>
+        <!-- Bloco 1: Título e Subtítulo -->
+        <div class="hero-intro-block">
           <h1 class="hero-title">
             Crie seu primeiro time de <span class="text-gradient">IA no marketing.</span>
           </h1>
@@ -1111,56 +1502,9 @@
           <p class="hero-desc">
             Copiar e colar prompts no ChatGPT não é automação, é trabalho braçal com outra ferramenta. Nesta aula prática, você vai ver como estruturar um time de agentes autônomos que pesquisam pautas, escrevem com o seu tom de voz, criam o visual e tocam a sua esteira de marketing de ponta a ponta.
           </p>
-
-          <div class="event-meta-pills">
-            <div class="meta-pill">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span>25 de Novembro (Quarta) • 20h00</span>
-            </div>
-            <div class="meta-pill">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              <span>Transmissão no YouTube</span>
-            </div>
-            <div class="meta-pill">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              <span>Inclui arquivos .skill prontos</span>
-            </div>
-            <div class="meta-pill">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-              <span>Com Certificado de Participação</span>
-            </div>
-          </div>
-
-          <!-- Cena Principal: Equipe Agentes S.A. no Hangar (Sem Cortes) -->
-          <div class="hero-visual-frame">
-            <img src="assets/hero-agentes-equipe.jpg" alt="Mascote Lian e equipe de agentes no hangar da fábrica Agentes S.A.">
-            
-            <!-- Contador Flutuante Discreto no Canto Superior -->
-            <div class="hero-cd-floating" id="countdownTimer" aria-label="Contador regressivo para aula ao vivo">
-              <div class="hero-cd-top-label">
-                <span class="pulse-dot-cyan"></span>
-                <span>AULA AO VIVO EM</span>
-              </div>
-              <div class="hero-cd-units">
-                <div class="hero-cd-box"><span class="hero-cd-val" id="cdDays">16</span><span class="hero-cd-tag">Dias</span></div>
-                <span class="hero-cd-divider">:</span>
-                <div class="hero-cd-box"><span class="hero-cd-val" id="cdHours">23</span><span class="hero-cd-tag">Horas</span></div>
-                <span class="hero-cd-divider">:</span>
-                <div class="hero-cd-box"><span class="hero-cd-val" id="cdMins">57</span><span class="hero-cd-tag">Min</span></div>
-                <span class="hero-cd-divider">:</span>
-                <div class="hero-cd-box"><span class="hero-cd-val" id="cdSecs">44</span><span class="hero-cd-tag">Seg</span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Legenda Oficial do Lian Abaixo da Imagem -->
-          <div class="hero-quote-bar">
-            <span class="hero-quote-tag">OPERADOR CHEFE LIAN:</span>
-            <span class="hero-quote-phrase">"Eles podem ser considerados monstros por alguns, mas eles têm coração."</span>
-          </div>
         </div>
 
-        <!-- Coluna Direita: Card de Inscrição Oficial -->
+        <!-- Bloco 2: Card de Inscrição Oficial (No mobile, fica logo abaixo do título e subtítulo) -->
         <div class="signup-ticket-card" id="inscricao">
           <!-- Visão 1: Formulário Simplificado e Atrativo -->
           <div id="signupFormView">
@@ -1205,7 +1549,7 @@
             </div>
           </div>
 
-                              <!-- Visão 2: Confirmação de Cadastro e Orientação de E-mail -->
+          <!-- Visão 2: Confirmação de Cadastro e Orientação de E-mail -->
           <div id="signupSuccessView" class="signup-success-card" style="display: none;">
             <div class="success-top-badge">
               <span class="success-icon-check">
@@ -1265,8 +1609,56 @@
               </button>
             </div>
           </div>
+        </div>
+
+        <!-- Bloco 3: Meta-pills + Imagem do Time no Hangar + Legenda -->
+        <div class="hero-visual-block">
+          <div class="event-meta-pills">
+            <div class="meta-pill">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>25 de Novembro (Quarta) • 20h00</span>
+            </div>
+            <div class="meta-pill">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              <span>Transmissão no YouTube</span>
+            </div>
+            <div class="meta-pill">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Inclui arquivos .skill prontos</span>
+            </div>
+            <div class="meta-pill">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              <span>Com Certificado de Participação</span>
+            </div>
           </div>
 
+          <!-- Cena Principal: Equipe Agentes S.A. no Hangar (Sem Cortes) -->
+          <div class="hero-visual-frame">
+            <img src="assets/hero-agentes-equipe.jpg" alt="Mascote Lian e equipe de agentes no hangar da fábrica Agentes S.A.">
+            
+            <!-- Contador Flutuante Discreto no Canto Superior -->
+            <div class="hero-cd-floating" id="countdownTimer" aria-label="Contador regressivo para aula ao vivo">
+              <div class="hero-cd-top-label">
+                <span class="pulse-dot-cyan"></span>
+                <span>AULA AO VIVO EM</span>
+              </div>
+              <div class="hero-cd-units">
+                <div class="hero-cd-box"><span class="hero-cd-val" id="cdDays">15</span><span class="hero-cd-tag">Dias</span></div>
+                <span class="hero-cd-divider">:</span>
+                <div class="hero-cd-box"><span class="hero-cd-val" id="cdHours">20</span><span class="hero-cd-tag">Horas</span></div>
+                <span class="hero-cd-divider">:</span>
+                <div class="hero-cd-box"><span class="hero-cd-val" id="cdMins">30</span><span class="hero-cd-tag">Min</span></div>
+                <span class="hero-cd-divider">:</span>
+                <div class="hero-cd-box"><span class="hero-cd-val" id="cdSecs">00</span><span class="hero-cd-tag">Seg</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legenda Oficial do Lian Abaixo da Imagem -->
+          <div class="hero-quote-bar">
+            <span class="hero-quote-tag">OPERADOR CHEFE LIAN:</span>
+            <span class="hero-quote-phrase">"Eles podem ser considerados monstros por alguns, mas eles têm coração."</span>
+          </div>
         </div>
 
       </div>
@@ -1757,6 +2149,58 @@
       }
     });
   
+        // Funções do Menu Mobile e Foco
+    function toggleMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const dropdown = document.getElementById('mobileMenuDropdown');
+      const backdrop = document.getElementById('mobileMenuBackdrop');
+      if (!btn || !dropdown) return;
+      const willOpen = !dropdown.classList.contains('is-open');
+      dropdown.classList.toggle('is-open', willOpen);
+      btn.classList.toggle('is-active', willOpen);
+      btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      dropdown.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+      if (backdrop) backdrop.classList.toggle('is-active', willOpen);
+      if (willOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const dropdown = document.getElementById('mobileMenuDropdown');
+      const backdrop = document.getElementById('mobileMenuBackdrop');
+      if (btn) {
+        btn.classList.remove('is-active');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+      if (dropdown) {
+        dropdown.classList.remove('is-open');
+        dropdown.setAttribute('aria-hidden', 'true');
+      }
+      if (backdrop) {
+        backdrop.classList.remove('is-active');
+      }
+      document.body.style.overflow = '';
+    }
+
+    function focusSignupForm() {
+      setTimeout(() => {
+        const input = document.getElementById('leadName');
+        if (input) input.focus();
+      }, 300);
+    }
+
+    // Fecha menu se clicar fora
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('topNav');
+      if (nav && !nav.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
     // Scroll auxiliar via query string (?scroll=id)
     const _urlParams = new URLSearchParams(window.location.search);
     const _scrollTarget = _urlParams.get('scroll');
