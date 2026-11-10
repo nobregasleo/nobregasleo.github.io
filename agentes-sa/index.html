@@ -164,9 +164,12 @@
     }
     .hero-grid {
       display: grid;
-      grid-template-columns: 6.4fr 5.6fr;
-      gap: 44px;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 36px;
       align-items: start;
+    }
+    .hero-grid > * {
+      min-width: 0;
     }
 
     .factory-pill {
@@ -233,14 +236,10 @@
 
     .event-meta-pills {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       gap: 8px;
       margin-bottom: 24px;
       align-items: center;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 2px;
     }
     .event-meta-pills::-webkit-scrollbar {
       display: none;
@@ -265,98 +264,137 @@
       flex-shrink: 0;
     }
 
-    /* Card Visual do Mascote Lian no Chão de Fábrica */
+    /* Card Visual do Mascote Lian e Time no Hangar (Sem Cortes) */
     .hero-visual-frame {
       position: relative;
-      border-radius: 22px;
+      border-radius: 24px;
       overflow: hidden;
-      border: 1px solid rgba(7, 95, 228, 0.18);
-      box-shadow: 0 20px 50px rgba(3, 27, 78, 0.14);
+      border: 1.5px solid rgba(7, 95, 228, 0.18);
+      box-shadow: 0 16px 44px rgba(3, 27, 78, 0.12);
       background: var(--factory-dark);
     }
     .hero-visual-frame img {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      height: auto;
+      aspect-ratio: 2068 / 1565;
       object-fit: cover;
       display: block;
-      transition: transform 600ms var(--ease-framer);
+      transition: transform 500ms var(--ease-framer);
     }
     .hero-visual-frame:hover img {
-      transform: scale(1.03);
-    }
-    .hero-visual-overlay {
-      position: absolute;
-      inset: auto 0 0 0;
-      background: linear-gradient(to top, rgba(3, 21, 58, 0.95) 0%, rgba(3, 21, 58, 0.65) 60%, transparent 100%);
-      padding: 28px 22px 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .hero-quote {
-      color: #ffffff;
-      font-size: 14px;
-      font-style: italic;
-      opacity: 0.92;
-      max-width: 340px;
-    }
-    .hero-quote strong {
-      display: block;
-      font-style: normal;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--factory-cyan);
-      margin-bottom: 2px;
-      font-family: 'JetBrains Mono', monospace;
+      transform: scale(1.02);
     }
 
-    /* Contador Regressivo */
-    .countdown-strip {
+    /* Badge Flutuante do Contador (Canto Superior Direito, sem cobrir os personagens) */
+    .hero-cd-floating {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(3, 21, 58, 0.84);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 14px;
+      padding: 8px 12px;
       display: flex;
-      gap: 8px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 3;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
     }
-    .cd-box {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      padding: 6px 10px;
-      min-width: 52px;
-      text-align: center;
-      color: #ffffff;
-    }
-    .cd-num {
+    .hero-cd-top-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
+      font-size: 10px;
       font-weight: 700;
+      color: #a5f3fc;
+      letter-spacing: 0.8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pulse-dot-cyan {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #00d2ff;
+      box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7);
+      animation: pulse 2s infinite;
+    }
+    .hero-cd-units {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .hero-cd-box {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.20);
+      border-radius: 6px;
+      padding: 3px 6px;
+      min-width: 26px;
+      text-align: center;
+    }
+    .hero-cd-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #ffffff;
       line-height: 1.1;
       display: block;
     }
-    .cd-label {
-      font-size: 9.5px;
+    .hero-cd-tag {
+      font-size: 8.5px;
+      color: rgba(255, 255, 255, 0.75);
       text-transform: uppercase;
-      opacity: 0.75;
-      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .hero-cd-divider {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Barra de Legenda Oficial Abaixo da Imagem */
+    .hero-quote-bar {
+      margin-top: 10px;
+      background: rgba(255, 255, 255, 0.90);
+      border: 1px solid rgba(7, 95, 228, 0.12);
+      border-radius: 12px;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      box-shadow: 0 2px 8px rgba(3, 27, 78, 0.03);
+    }
+    .hero-quote-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: 0.6px;
+      white-space: nowrap;
+    }
+    .hero-quote-phrase {
+      font-style: italic;
+      color: var(--ha-title);
     }
 
     /* ═══════════════════════════════════════════════════════════════
-       CARD DE INSCRIÇÃO / CRACHÁ DA FÁBRICA (DIREITA)
+       CARD DE INSCRIÇÃO: MAIOR, MAIS ATRATIVO E COM MENOS TEXTO
        ═══════════════════════════════════════════════════════════════ */
     .signup-ticket-card {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: var(--ha-blur);
-      -webkit-backdrop-filter: var(--ha-blur);
-      border: 1.5px solid rgba(7, 95, 228, 0.22);
-      border-radius: 26px;
-      padding: 32px 30px;
-      box-shadow: 0 24px 60px rgba(7, 95, 228, 0.12), 0 4px 12px rgba(0, 0, 0, 0.03);
-      position: relative;
+      background: #ffffff;
+      border: 1.5px solid rgba(7, 95, 228, 0.18);
+      border-radius: 28px;
+      padding: 38px 34px;
+      box-shadow: 0 4px 16px rgba(3, 27, 78, 0.04), 0 24px 64px rgba(3, 27, 78, 0.10);
+      position: sticky;
+      top: 96px;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-    /* Faixa industrial sutil no topo do crachá */
     .signup-ticket-card::before {
       content: '';
       position: absolute;
@@ -364,129 +402,139 @@
       left: 0;
       right: 0;
       height: 6px;
-      background: linear-gradient(90deg, var(--color-primary) 0%, var(--factory-cyan) 65%, var(--factory-yellow) 100%);
+      background: linear-gradient(90deg, var(--color-primary) 0%, var(--factory-cyan) 60%, var(--factory-yellow) 100%);
     }
 
-    .ticket-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 16px;
-      margin-bottom: 20px;
-      border-bottom: 1px dashed rgba(3, 27, 78, 0.12);
-    }
-    .ticket-badge {
+    .ticket-header-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      background: rgba(7, 95, 228, 0.08);
+      border: 1px solid rgba(7, 95, 228, 0.20);
+      padding: 5px 13px;
+      border-radius: 999px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       font-weight: 700;
       color: var(--color-primary);
-      background: var(--color-primary-lightest);
-      padding: 4px 10px;
-      border-radius: 6px;
-      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+      width: fit-content;
     }
-    .ticket-serial {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
-      color: var(--ha-text-muted);
-      font-weight: 600;
+    .pulse-dot-blue {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      box-shadow: 0 0 0 0 rgba(7, 95, 228, 0.6);
+      animation: pulse 2s infinite;
     }
 
-    .ticket-title {
-      font-size: 24px;
+    .ticket-title-large {
+      font-size: 27px;
       font-weight: 800;
       color: var(--ha-title);
       letter-spacing: -0.5px;
       line-height: 1.25;
-      margin-bottom: 8px;
+      margin: 0 0 6px;
+      white-space: nowrap;
     }
-    .ticket-sub {
-      font-size: 14.5px;
+    .ticket-sub-direct {
+      font-size: 14px;
       color: var(--ha-text-secondary);
-      margin-bottom: 22px;
-      line-height: 1.5;
+      margin: 0 0 22px;
+      line-height: 1.4;
+      font-weight: 500;
     }
 
-    .form-group {
-      margin-bottom: 15px;
+    .form-group-lg {
+      margin-bottom: 18px;
     }
-    .form-label {
+    .form-label-lg {
       display: block;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--ha-title);
-      margin-bottom: 5px;
+      margin-bottom: 7px;
     }
-    .ha-input {
+    .ha-input-large {
       width: 100%;
-      height: 46px;
+      height: 54px;
       background: #f8fafc;
       border: 1.5px solid #cbd5e1;
-      border-radius: 12px;
-      padding: 0 15px;
+      border-radius: 14px;
+      padding: 0 18px;
       color: var(--ha-text);
-      font-size: 15px;
+      font-size: 15.5px;
       font-family: var(--font);
-      transition: all 200ms ease;
+      transition: all 180ms ease;
       outline: none;
+      box-sizing: border-box;
     }
-    .ha-input:focus {
+    .ha-input-large:focus {
       border-color: var(--color-primary);
       background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(7, 95, 228, 0.14);
+      box-shadow: 0 0 0 4px rgba(7, 95, 228, 0.14);
+    }
+    .ha-input-large::placeholder {
+      color: #94a3b8;
     }
 
-    .btn-submit-main {
+    .btn-submit-hero {
       width: 100%;
-      height: 52px;
-      background: var(--color-primary);
+      height: 58px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, #0550c8 100%);
       color: #ffffff;
-      font-weight: 700;
-      font-size: 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow: 0 10px 26px rgba(7, 95, 228, 0.32);
+      font-weight: 800;
+      font-size: 16.5px;
+      border-radius: 16px;
+      border: none;
+      box-shadow: 0 10px 28px rgba(7, 95, 228, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       cursor: pointer;
-      transition: all 250ms var(--ease-framer);
+      transition: all 200ms ease;
       font-family: var(--font);
-      margin-top: 8px;
+      margin-top: 12px;
     }
-    .btn-submit-main:hover {
-      background: var(--color-primary-dark);
+    .btn-submit-hero:hover {
       transform: translateY(-2px);
-      box-shadow: 0 14px 32px rgba(7, 95, 228, 0.42);
+      box-shadow: 0 14px 34px rgba(7, 95, 228, 0.45);
+      background: linear-gradient(135deg, #0968f6 0%, #0448b4 100%);
     }
-    .btn-submit-main:disabled {
-      opacity: 0.7;
+    .btn-submit-hero:active {
+      transform: scale(0.98);
+    }
+    .btn-submit-hero:disabled {
+      opacity: 0.75;
       cursor: wait;
     }
 
-    .ticket-perks {
-      margin-top: 18px;
+    .form-trust-badges {
+      margin-top: 20px;
       padding-top: 16px;
-      border-top: 1px solid rgba(7, 95, 228, 0.08);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      border-top: 1px solid rgba(3, 27, 78, 0.08);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
     }
-    .perk-row {
+    .trust-badge {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12.5px;
-      color: var(--ha-text-secondary);
-      font-weight: 500;
+      justify-content: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f9d58;
+      background: rgba(15, 157, 88, 0.08);
+      padding: 7px 4px;
+      border-radius: 8px;
+      white-space: nowrap;
     }
-    .perk-row svg {
-      color: var(--color-success);
-      flex-shrink: 0;
+    .trust-badge svg {
+      stroke-width: 2.5;
     }
 
     /* Estado Pós-Inscrição: Crachá Emitido + Ações de Presença */
@@ -594,7 +642,7 @@
     .badge-soft-blue {
       display: inline-block;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -770,7 +818,7 @@
       background: #f59e0b;
       color: #ffffff;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       padding: 4px 10px;
       border-radius: 6px;
@@ -986,63 +1034,77 @@
             </div>
           </div>
 
-          <!-- Cena Principal 16:9: Mascote Lian na Fábrica -->
+          <!-- Cena Principal: Equipe Agentes S.A. no Hangar (Sem Cortes) -->
           <div class="hero-visual-frame">
-            <img src="assets/hero-agentes-equipe.jpg" alt="Mascote Lian no Chão de Fábrica da Agentes S.A.">
-            <div class="hero-visual-overlay">
-              <div class="hero-quote">
-                <strong>OPERADOR CHEFE: MASCOTE LIAN</strong>
-                "Eles podem ser considerados monstros por alguns, mas eles têm coração."
+            <img src="assets/hero-agentes-equipe.jpg" alt="Mascote Lian e equipe de agentes no hangar da fábrica Agentes S.A.">
+            
+            <!-- Contador Flutuante Discreto no Canto Superior -->
+            <div class="hero-cd-floating" id="countdownTimer" aria-label="Contador regressivo para aula ao vivo">
+              <div class="hero-cd-top-label">
+                <span class="pulse-dot-cyan"></span>
+                <span>AULA AO VIVO EM</span>
               </div>
-              <div class="countdown-strip" id="countdownTimer">
-                <div class="cd-box"><span class="cd-num" id="cdDays">18</span><span class="cd-label">Dias</span></div>
-                <div class="cd-box"><span class="cd-num" id="cdHours">08</span><span class="cd-label">Horas</span></div>
-                <div class="cd-box"><span class="cd-num" id="cdMins">45</span><span class="cd-label">Min</span></div>
-                <div class="cd-box"><span class="cd-num" id="cdSecs">12</span><span class="cd-label">Seg</span></div>
+              <div class="hero-cd-units">
+                <div class="hero-cd-box"><span class="hero-cd-val" id="cdDays">16</span><span class="hero-cd-tag">Dias</span></div>
+                <span class="hero-cd-divider">:</span>
+                <div class="hero-cd-box"><span class="hero-cd-val" id="cdHours">23</span><span class="hero-cd-tag">Horas</span></div>
+                <span class="hero-cd-divider">:</span>
+                <div class="hero-cd-box"><span class="hero-cd-val" id="cdMins">57</span><span class="hero-cd-tag">Min</span></div>
+                <span class="hero-cd-divider">:</span>
+                <div class="hero-cd-box"><span class="hero-cd-val" id="cdSecs">44</span><span class="hero-cd-tag">Seg</span></div>
               </div>
             </div>
           </div>
+
+          <!-- Legenda Oficial do Lian Abaixo da Imagem -->
+          <div class="hero-quote-bar">
+            <span class="hero-quote-tag">OPERADOR CHEFE LIAN:</span>
+            <span class="hero-quote-phrase">"Eles podem ser considerados monstros por alguns, mas eles têm coração."</span>
+          </div>
         </div>
 
-        <!-- Coluna Direita: Card de Inscrição / Credencial da Fábrica -->
+        <!-- Coluna Direita: Card de Inscrição Oficial -->
         <div class="signup-ticket-card" id="inscricao">
-          <!-- Visão 1: Formulário de Cadastro -->
+          <!-- Visão 1: Formulário Simplificado e Atrativo -->
           <div id="signupFormView">
-            <h2 class="ticket-title">Garanta a sua vaga</h2>
-            <p class="ticket-sub">
-              Preencha abaixo para garantir seu lugar na aula ao vivo e receber imediatamente a lista de ferramentas e materiais da <strong>Central do Aluno</strong>.
-            </p>
+            <div class="ticket-header-pill">
+              <span class="pulse-dot-blue"></span>
+              <span>AULA AO VIVO & GRATUITA</span>
+            </div>
+
+            <h2 class="ticket-title-large">Garanta a sua vaga</h2>
+            <p class="ticket-sub-direct">Quarta, 25 de Novembro às 20h00 • Central do Aluno inclusa</p>
 
             <form id="webinarLeadForm" onsubmit="handleWebinarSignup(event)">
-              <div class="form-group">
-                <label class="form-label" for="leadName">Seu nome</label>
-                <input type="text" id="leadName" class="ha-input" placeholder="Como podemos colocar no seu crachá?" required>
+              <div class="form-group-lg">
+                <label class="form-label-lg" for="leadName">Seu nome</label>
+                <input type="text" id="leadName" class="ha-input-large" placeholder="Nome completo" required autocomplete="name">
               </div>
 
-              <div class="form-group">
-                <label class="form-label" for="leadEmail">Seu melhor e-mail</label>
-                <input type="email" id="leadEmail" class="ha-input" placeholder="seu@email.com" required>
+              <div class="form-group-lg">
+                <label class="form-label-lg" for="leadEmail">Seu melhor e-mail</label>
+                <input type="email" id="leadEmail" class="ha-input-large" placeholder="seu@email.com" required autocomplete="email">
               </div>
 
-              <button type="submit" id="btnSubmitForm" class="btn-submit-main">
-                <span>Garantir minha vaga e materiais</span>
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <button type="submit" id="btnSubmitForm" class="btn-submit-hero">
+                <span>Garantir minha vaga gratuita</span>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </form>
 
-            <div class="ticket-perks">
-              <div class="perk-row">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Liberação imediata do checklist prévio de ferramentas gratuitas</span>
-              </div>
-              <div class="perk-row">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Arquivos <strong>.skill</strong> dos agentes e prompts entregues aos inscritos</span>
-              </div>
-              <div class="perk-row">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                <span>Entrega de <strong>Certificado Oficial de Participação</strong> incluso</span>
-              </div>
+            <div class="form-trust-badges">
+              <span class="trust-badge">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                100% Grátis
+              </span>
+              <span class="trust-badge">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Central do Aluno
+              </span>
+              <span class="trust-badge">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Certificado
+              </span>
             </div>
           </div>
 
