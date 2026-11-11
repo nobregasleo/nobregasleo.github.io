@@ -2017,12 +2017,24 @@
             })
           });
 
-          // 2. Dispara e-mail de confirmação com link da Central do Aluno
+          // 2. Dispara e-mail de confirmação para o aluno e notificação para o Leonardo em paralelo
           const firstName = name.split(' ')[0];
           const centralPersonalUrl = `https://nobregasleo.github.io/agentes-sa/central.html?nome=${encodeURIComponent(name)}&id=${encodeURIComponent(serial)}`;
           const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Aula+Ao+Vivo+Agentes+S.A.+com+Leonardo+N%C3%B3brega&dates=20261125T230000Z/20261126T000000Z&details=Aula+pr%C3%A1tica+ao+vivo+mostrando+como+criar+seu+primeiro+time+de+agentes+de+IA+no+marketing+usando+Antigravity+e+OpenBot.+Link+da+sala:+https://www.youtube.com/live/1SrbjZXtYwk&location=https://www.youtube.com/live/1SrbjZXtYwk';
 
-          await fetch('https://api.brevo.com/v3/smtp/email', {
+          // Data e hora de Brasília
+          const nowBrasilia = new Date().toLocaleString('pt-BR', {
+            timeZone: 'America/Sao_Paulo',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          });
+
+          // Disparo 1: Confirmação para o Aluno
+          const sendAlunoPromise = fetch('https://api.brevo.com/v3/smtp/email', {
             method: 'POST',
             headers: {
               'accept': 'application/json',
@@ -2087,6 +2099,64 @@
               `
             })
           });
+
+          // Disparo 2: Notificação Imediata para o Leonardo Nóbrega (nobregasleo@gmail.com)
+          const sendLeoPromise = fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+              'accept': 'application/json',
+              'content-type': 'application/json',
+              'api-key': token
+            },
+            body: JSON.stringify({
+              sender: { name: 'Agentes S.A. Notificações', email: 'nobregasleo@gmail.com' },
+              to: [{ email: 'nobregasleo@gmail.com', name: 'Leonardo Nóbrega' }],
+              replyTo: { email: email, name: name },
+              subject: `🔔 Novo inscrito no Webinar Agentes S.A.: ${name}`,
+              htmlContent: `
+                <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 26px; color: #1e293b; line-height: 1.6; border: 1px solid #e2e8f0; border-radius: 18px; background: #ffffff;">
+                  <div style="display: inline-block; background: #fef3c7; color: #b45309; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 999px; letter-spacing: 0.5px; margin-bottom: 14px; text-transform: uppercase;">
+                    ⚡ Novo Aluno Confirmado • Agentes S.A.
+                  </div>
+
+                  <h2 style="color: #031b4e; font-size: 22px; line-height: 1.3; margin: 0 0 16px;">
+                    Parabéns, Leo! Um novo participante acabou de se inscrever na aula:
+                  </h2>
+
+                  <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #f4b400; padding: 20px 22px; border-radius: 12px; margin: 20px 0;">
+                    <div style="font-size: 15px; margin-bottom: 10px;">
+                      <strong>👤 Nome Completo:</strong> <span style="color: #031b4e; font-weight: 700;">${name}</span>
+                    </div>
+                    <div style="font-size: 15px; margin-bottom: 10px;">
+                      <strong>📧 E-mail:</strong> <a href="mailto:${email}" style="color: #075fe4; text-decoration: underline; font-weight: 600;">${email}</a>
+                    </div>
+                    <div style="font-size: 15px; margin-bottom: 10px;">
+                      <strong>🎫 Matrícula Serial:</strong> <span style="font-family: 'SF Mono', Menlo, Consolas, monospace; background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 6px; font-size: 13.5px; font-weight: 700;">${serial}</span>
+                    </div>
+                    <div style="font-size: 14.5px; color: #475569;">
+                      <strong>⏰ Horário da Inscrição:</strong> ${nowBrasilia} (Horário de Brasília)
+                    </div>
+                  </div>
+
+                  <div style="margin: 24px 0 18px;">
+                    <a href="mailto:${email}" style="background: #075fe4; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; display: inline-block; margin-right: 10px; margin-bottom: 8px;">
+                      ✉️ Responder ao Inscrito
+                    </a>
+                    <a href="${centralPersonalUrl}" style="background: #f1f5f9; color: #031b4e; text-decoration: none; padding: 12px 20px; border-radius: 8px; font-weight: 700; font-size: 14px; display: inline-block; border: 1px solid #cbd5e1; margin-bottom: 8px;">
+                      📂 Ver Central Gerada
+                    </a>
+                  </div>
+
+                  <div style="border-top: 1px dashed #cbd5e1; margin-top: 24px; padding-top: 16px; font-size: 12.5px; color: #64748b;">
+                    Status: Contato salvo com sucesso na <strong>Lista #3</strong> da Brevo.<br>
+                    Para responder ao aluno diretamente, basta responder a este e-mail.
+                  </div>
+                </div>
+              `
+            })
+          });
+
+          await Promise.allSettled([sendAlunoPromise, sendLeoPromise]);
         } catch (err) {
           console.warn('Brevo background dispatch error:', err);
         }
