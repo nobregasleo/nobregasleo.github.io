@@ -334,21 +334,49 @@
       color: #031b4e; font-weight: 800;
     }
     .hub-badge-soon .i { width: 12px; height: 12px; stroke-width: 2.5; stroke: #031b4e; }
-    .badge-pill-soon {
+    .hub-badge-ready {
+      left: auto; right: 12px; background: var(--color-success); border-color: rgba(255,255,255,0.28);
+      color: #fff; font-weight: 800;
+    }
+    .hub-badge-ready .i { width: 12px; height: 12px; stroke-width: 3; stroke: #fff; }
+    .badge-pill-live {
       display: inline-flex; align-items: center; gap: 4px;
-      margin-left: 6px; padding: 2px 7px; border-radius: 999px;
-      background: #fef3c7; color: #92400e; border: 1px solid #fde68a;
+      margin-left: 6px; padding: 2px 8px; border-radius: 999px;
+      background: #dcfce7; color: #166534; border: 1px solid #bbf7d0;
       font-family: var(--mono); font-size: 10px; font-weight: 700;
       letter-spacing: 0.3px; text-transform: uppercase; vertical-align: middle;
     }
-    .agent-pill-soon {
+    .agent-pill-ready {
       position: absolute; top: 8px; right: 8px; z-index: 2;
-      background: rgba(3, 27, 78, 0.82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.25); color: #fde68a;
+      background: rgba(15, 157, 88, 0.92); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.35); color: #ffffff;
       font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
       padding: 3px 8px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px;
     }
-    .agent-pill-soon .i { width: 10px; height: 10px; stroke: #fde68a; }
+    .agent-pill-ready .i { width: 10px; height: 10px; stroke: #ffffff; stroke-width: 3; }
+    .agent-openbot {
+      background: linear-gradient(160deg, var(--color-primary) 0%, var(--factory-navy-2) 100%);
+      color: #fff; border-color: transparent;
+      justify-content: space-between; padding: 20px;
+    }
+    .agent-openbot .agent-num { color: #bae6fd; padding: 0; }
+    .agent-openbot .agent-role { color: #fff; padding: 0; font-size: 17px; margin-top: 4px; }
+    .agent-openbot .agent-desc { color: rgba(255,255,255,0.84); padding: 0; -webkit-line-clamp: 3; }
+    .agent-openbot .agent-link { color: #fff; padding: 0; }
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .prompt-card-full {
+      grid-column: 1 / -1;
+    }
+    @media (max-width: 860px) {
+      .prompt-grid { grid-template-columns: 1fr; }
+    }
+    .hub-block h2, .hub-hero h1 { text-wrap: balance; }
+    .card-text, .block-head p { text-wrap: pretty; }
+    .btn:active { transform: scale(0.96); }
     .btn:disabled, .btn[disabled] {
       opacity: 0.68 !important;
       cursor: not-allowed !important;
@@ -985,7 +1013,7 @@
       font-weight: 600;
       color: var(--color-text-secondary);
       cursor: pointer;
-      transition: all 160ms var(--ease);
+      transition: background 160ms var(--ease), color 160ms var(--ease), border-color 160ms var(--ease), box-shadow 160ms var(--ease);
     }
     .cracha-chip:hover {
       background: var(--color-primary-lightest);
@@ -1064,20 +1092,20 @@
       <div class="side-label">Sua jornada</div>
       <nav class="side-nav">
         <a href="#inicio" class="side-link is-active" data-spy="inicio"><svg class="i"><use href="#i-home"/></svg>Início</a>
-        <a href="#cracha" class="side-link" data-spy="cracha"><svg class="i"><use href="#i-id"/></svg>Seu crachá<span class="side-badge">NOVO</span></a>
-        <a href="#antes" class="side-link" data-spy="antes"><svg class="i"><use href="#i-tool"/></svg>Antes da aula<span class="side-count" data-progress-text>0/3</span></a>
-        <a href="#time" class="side-link" data-spy="time"><svg class="i"><use href="#i-users"/></svg>Seu time<span class="side-count">7</span></a>
-        <a href="#prompts" class="side-link" data-spy="prompts"><svg class="i"><use href="#i-terminal"/></svg>Prompts<span class="side-count">2</span></a>
-        <a href="#depois" class="side-link" data-spy="depois"><svg class="i"><use href="#i-award"/></svg>Certificado<span class="side-count" style="font-size: 10px; font-weight: 700; color: #b45309; background: #fef3c7; padding: 2px 6px; border-radius: 999px;">BREVE</span></a>
+        <a href="#cracha" class="side-link" data-spy="cracha"><svg class="i"><use href="#i-id"/></svg>Seu crachá</a>
+        <a href="#antes" class="side-link" data-spy="antes"><svg class="i"><use href="#i-tool"/></svg>Bancada<span class="side-count" data-progress-text>0/3</span></a>
+        <a href="#time" class="side-link" data-spy="time"><svg class="i"><use href="#i-users"/></svg>6 Agentes<span class="side-count">6</span></a>
+        <a href="#prompts" class="side-link" data-spy="prompts"><svg class="i"><use href="#i-terminal"/></svg>Prompts<span class="side-count">7</span></a>
+        <a href="#depois" class="side-link" data-spy="depois"><svg class="i"><use href="#i-award"/></svg>Checklist &amp; Cert.</a>
       </nav>
 
       <div class="side-kit">
         <img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="" aria-hidden="true">
         <strong>Kit completo</strong>
-        <p>Skills, prompts e pasta modelo num só arquivo.</p>
-        <button type="button" class="btn btn-white btn-sm btn-block" disabled style="opacity: 0.75; cursor: not-allowed;">
-          <svg class="i"><use href="#i-clock"/></svg>Em breve na aula
-        </button>
+        <p>6 agentes, 7 prompts, pasta modelo e checklist.</p>
+        <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download="Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" class="btn btn-white btn-sm btn-block">
+          <svg class="i"><use href="#i-download"/></svg>Baixar Kit (.ZIP)
+        </a>
       </div>
       <a href="index.html" class="side-back"><svg class="i"><use href="#i-arrow-left"/></svg>Página da aula</a>
     </aside>
@@ -1107,17 +1135,17 @@
       <!-- Hero Principal com Proporção Confortável -->
       <section class="hub-hero" aria-labelledby="heroTitle">
         <div class="hero-copy">
-          <span class="live-pill"><span class="live-dot"></span>Seu crachá está ativo</span>
+          <span class="live-pill"><span class="live-dot"></span>Materiais da aula liberados</span>
           <h1 id="heroTitle">Bem-vindo à fábrica<span id="heroName"></span>.</h1>
-          <p>Aqui ficam as ferramentas, as skills e os prompts do time de agentes de IA que vamos montar juntos na aula.</p>
+          <p>Aqui estão os 6 agentes da aula, a pasta modelo com campos preenchíveis, os 7 prompts mestres, o checklist com diagramas e o seu certificado.</p>
           <div class="hero-meta">
-            <span><svg class="i"><use href="#i-calendar"/></svg>Quarta, 25/11 · 20h</span>
-            <span><svg class="i"><use href="#i-live"/></svg>Ao vivo no YouTube</span>
+            <span><svg class="i"><use href="#i-package"/></svg>6 Agentes + 7 Prompts</span>
+            <span><svg class="i"><use href="#i-check"/></svg>Personalizável p/ sua marca</span>
           </div>
           <div class="hero-ctas">
-            <a href="#cracha" class="btn btn-white"><svg class="i"><use href="#i-id"/></svg>Personalizar meu crachá</a>
-            <a href="#antes" class="btn btn-white">Começar preparação<svg class="i"><use href="#i-arrow"/></svg></a>
-            <button type="button" class="btn btn-glass" disabled style="opacity: 0.7; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Kit completo (Em breve)</button>
+            <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download="Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" class="btn btn-white"><svg class="i"><use href="#i-download"/></svg>Baixar Kit Completo (.ZIP)</a>
+            <a href="#time" class="btn btn-glass">Ver os 6 agentes<svg class="i"><use href="#i-arrow"/></svg></a>
+            <a href="#cracha" class="btn btn-glass"><svg class="i"><use href="#i-id"/></svg>Personalizar crachá</a>
           </div>
         </div>
         <div class="hero-media">
@@ -1130,7 +1158,7 @@
         <a href="#antes" class="quick-card">
           <span class="quick-icon"><svg class="i"><use href="#i-tool"/></svg></span>
           <div>
-            <small>Antes da aula</small>
+            <small>Bancada &amp; Brand DNA</small>
             <strong><span data-progress-text>0/3</span> prontos</strong>
             <div class="quick-bar"><i data-progress-bar></i></div>
           </div>
@@ -1138,15 +1166,15 @@
         <a href="#time" class="quick-card">
           <span class="quick-icon"><svg class="i"><use href="#i-users"/></svg></span>
           <div>
-            <small>Seu time</small>
-            <strong>7 agentes <span class="badge-pill-soon">Em breve</span></strong>
+            <small>Time da aula ao vivo</small>
+            <strong>6 agentes <span class="badge-pill-live">Liberado</span></strong>
           </div>
         </a>
         <a href="#prompts" class="quick-card">
           <span class="quick-icon"><svg class="i"><use href="#i-terminal"/></svg></span>
           <div>
-            <small>Calibração</small>
-            <strong>2 prompts <span class="badge-pill-soon">Em breve</span></strong>
+            <small>Prompts com campos</small>
+            <strong>7 prompts <span class="badge-pill-live">Liberado</span></strong>
           </div>
         </a>
       </div>
@@ -1297,16 +1325,16 @@
           <article class="hub-card" data-step="pasta">
             <div class="card-media">
               <span class="hub-badge">Passo 3</span>
-              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
               <span class="hub-badge hub-badge-done"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
               <img src="assets/central/prep_projeto.jpg" alt="Vestiário da fábrica com armários e capacetes azuis" loading="lazy">
             </div>
             <div class="card-body">
-              <span class="card-tag">Empresa Modelo NexoFlow</span>
+              <span class="card-tag">Camada 1 · Template Personalizável</span>
               <h3 class="card-title">Pasta modelo da marca</h3>
-              <p class="card-text">Estrutura completa com Brand DNA, Tom de Voz, histórico Delta-Diff, personas, produtos e skills. Liberada na aula ao vivo.</p>
+              <p class="card-text">Pasta pronta com campos <code>[PREENCHER]</code> para Brand DNA, paleta HEX, catálogo e referências + exemplo preenchido.</p>
               <div class="card-actions">
-                <button type="button" class="btn btn-soft btn-sm" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</button>
+                <a href="downloads/01_Pasta_Modelo_Marca_Agentes_SA.zip" download="01_Pasta_Modelo_Marca_Agentes_SA.zip" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-download"/></svg>Baixar Pasta (.ZIP)</a>
                 <button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Feito</button>
               </div>
             </div>
@@ -1314,133 +1342,133 @@
         </div>
       </section>
 
-      <!-- ═════════════ ETAPA 2 · SEU TIME ═════════════ -->
+      <!-- ═════════════ ETAPA 2 · SEU TIME (6 AGENTES DA AULA) ═════════════ -->
       <section class="hub-block" id="time" aria-labelledby="timeTitle">
         <div class="block-head">
           <div>
-            <span class="kicker">Etapa 2 · O time</span>
-            <h2 id="timeTitle">Conheça seu time de agentes</h2>
-            <p>Cada agente tem uma função e um manual (a skill). Você aprova, eles executam.</p>
+            <span class="kicker">Etapa 2 · O time oficial da aula</span>
+            <h2 id="timeTitle">Seus 6 agentes otimizados</h2>
+            <p>Otimizados com campos <code>[PREENCHER]</code> para você personalizar para sua marca ou seus clientes. Clique em qualquer agente para ver, copiar ou baixar a skill.</p>
           </div>
         </div>
 
         <div class="team-banner">
-          <img src="assets/central/time_completo.jpg" alt="Os oito personagens da Agentes S.A. lado a lado no chão de fábrica" loading="lazy">
+          <img src="assets/central/time_completo.jpg" alt="Os personagens da Agentes S.A. lado a lado no chão de fábrica" loading="lazy">
           <div class="team-banner-copy">
             <div>
               <blockquote>Eles podem parecer monstros… mas têm coração.</blockquote>
-              <p>7 agentes especialistas, liberados durante a aula ao vivo.</p>
+              <p>1 Gerente Orquestrador + 5 Especialistas · Arquitetura Fast-First + 2 Gates HITL.</p>
             </div>
-            <button type="button" class="btn btn-white" disabled style="opacity: 0.75; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Skills em breve (na aula)</button>
+            <a href="downloads/openbot_agentes_sa_import_grokbot.zip" download="openbot_agentes_sa_import_grokbot.zip" class="btn btn-white"><svg class="i"><use href="#i-download"/></svg>Baixar Time p/ OpenBot (.ZIP)</a>
           </div>
         </div>
 
         <div class="hub-agents">
           <button class="agent" type="button" data-open="skill-00">
             <div class="agent-stage">
-              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <span class="agent-pill-ready"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
               <img src="assets/personagens_carteirinha/01_lian_nobg.png" alt="" loading="lazy">
             </div>
-            <span class="agent-num">AGENTE 00</span>
-            <span class="agent-role">Gerente de Operação</span>
-            <span class="agent-desc">Coordena o time e pede sua aprovação nos 2 momentos certos.</span>
-            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-num">AGENTE 00 · ORQUESTRADOR</span>
+            <span class="agent-role">Gerente Geral</span>
+            <span class="agent-desc">Coordena os 5 especialistas em 3 Ondas Fast-First e protege os 2 Gates HITL.</span>
+            <span class="agent-link">Ver skill e copiar<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-01">
             <div class="agent-stage">
-              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
-              <img src="assets/personagens_carteirinha/08_amarelo_oculos_nobg.png" alt="" loading="lazy">
+              <span class="agent-pill-ready"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
+              <img src="assets/personagens_carteirinha/03_rosa_coracao_nobg.png" alt="" loading="lazy">
             </div>
-            <span class="agent-num">AGENTE 01</span>
-            <span class="agent-role">Pesquisador</span>
-            <span class="agent-desc">Varre referências e notícias das últimas 48h atrás de pautas quentes.</span>
-            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-num">AGENTE 01 · COPYWRITING</span>
+            <span class="agent-role">Redator Autoral</span>
+            <span class="agent-desc">Escreve 3 posts sociais, 2 e-mails marketing e roteiro de Reels sem clichês de IA.</span>
+            <span class="agent-link">Ver skill e copiar<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-02">
             <div class="agent-stage">
-              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
-              <img src="assets/personagens_carteirinha/07_azul_boina_nobg.png" alt="" loading="lazy">
+              <span class="agent-pill-ready"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
+              <img src="assets/personagens_carteirinha/04_laranja_cubo_nobg.png" alt="" loading="lazy">
             </div>
-            <span class="agent-num">AGENTE 02</span>
-            <span class="agent-role">Estrategista de Pautas</span>
-            <span class="agent-desc">Cruza as pesquisas com o DNA da marca e escolhe o melhor ângulo.</span>
-            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-num">AGENTE 02 · DIREÇÃO DE ARTE</span>
+            <span class="agent-role">Designer</span>
+            <span class="agent-desc">Cria peças de feed (1080×1350) e 3 banners Google Ads dentro dos tokens da marca.</span>
+            <span class="agent-link">Ver skill e copiar<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-03">
             <div class="agent-stage">
-              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
-              <img src="assets/personagens_carteirinha/03_rosa_coracao_nobg.png" alt="" loading="lazy">
+              <span class="agent-pill-ready"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
+              <img src="assets/personagens_carteirinha/07_azul_boina_nobg.png" alt="" loading="lazy">
             </div>
-            <span class="agent-num">AGENTE 03</span>
-            <span class="agent-role">Redator</span>
-            <span class="agent-desc">Escreve legendas, carrosséis e roteiros com o seu tom de voz.</span>
-            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-num">AGENTE 03 · CONVERSÃO</span>
+            <span class="agent-role">Web Designer</span>
+            <span class="agent-desc">Constrói Landing Pages responsivas de alta conversão alinhadas ao catálogo real.</span>
+            <span class="agent-link">Ver skill e copiar<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-04">
             <div class="agent-stage">
-              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
-              <img src="assets/personagens_carteirinha/04_laranja_cubo_nobg.png" alt="" loading="lazy">
+              <span class="agent-pill-ready"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
+              <img src="assets/personagens_carteirinha/06_branco_vinil_nobg.png" alt="" loading="lazy">
             </div>
-            <span class="agent-num">AGENTE 04</span>
-            <span class="agent-role">Designer</span>
-            <span class="agent-desc">Transforma o texto aprovado em peças visuais dentro da sua identidade.</span>
-            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-num">AGENTE 04 · AUDIOVISUAL</span>
+            <span class="agent-role">Videomaker</span>
+            <span class="agent-desc">Produz Reels vertical 9:16 com cortes rítmicos, locução e legendas cinéticas.</span>
+            <span class="agent-link">Ver skill e copiar<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
           <button class="agent" type="button" data-open="skill-05">
             <div class="agent-stage">
-              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
-              <img src="assets/personagens_carteirinha/06_branco_vinil_nobg.png" alt="" loading="lazy">
-            </div>
-            <span class="agent-num">AGENTE 05</span>
-            <span class="agent-role">Editor de Vídeo</span>
-            <span class="agent-desc">Gera a locução e monta o vídeo curto com legendas.</span>
-            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
-          </button>
-          <button class="agent" type="button" data-open="skill-06">
-            <div class="agent-stage">
-              <span class="agent-pill-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <span class="agent-pill-ready"><svg class="i"><use href="#i-check"/></svg>Pronto</span>
               <img src="assets/personagens_carteirinha/02_verde_sapo_nobg.png" alt="" loading="lazy">
             </div>
-            <span class="agent-num">AGENTE 06</span>
-            <span class="agent-role">Social Media</span>
-            <span class="agent-desc">Agenda a publicação e te avisa no WhatsApp quando estiver no ar.</span>
-            <span class="agent-link" style="color: var(--color-text-secondary);"><svg class="i" style="width:13px;height:13px;"><use href="#i-clock"/></svg>Skill em breve<svg class="i"><use href="#i-arrow"/></svg></span>
+            <span class="agent-num">AGENTE 05 · DISTRIBUIÇÃO</span>
+            <span class="agent-role">Publicador</span>
+            <span class="agent-desc">Publica no LinkedIn e dispara e-mail marketing somente após aprovação no Gate 2.</span>
+            <span class="agent-link">Ver skill e copiar<svg class="i"><use href="#i-arrow"/></svg></span>
           </button>
-          <div class="agent agent-all" style="cursor: default;">
-            <span class="agent-all-icon"><svg class="i"><use href="#i-clock"/></svg></span>
+          <a href="downloads/openbot_agentes_sa_import_grokbot.zip" download="openbot_agentes_sa_import_grokbot.zip" class="agent agent-openbot">
+            <span class="agent-all-icon"><svg class="i"><use href="#i-download"/></svg></span>
+            <div>
+              <span class="agent-num">IMPORTAÇÃO 1-CLIQUE</span>
+              <span class="agent-role">Pacote OpenBot (.ZIP)</span>
+              <span class="agent-desc">Os 6 agentes + avatares 3D + grupo QG prontos para importar no OpenBot.</span>
+            </div>
+            <span class="agent-link">Baixar OpenBot ZIP<svg class="i"><use href="#i-arrow"/></svg></span>
+          </a>
+          <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download="Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" class="agent agent-all">
+            <span class="agent-all-icon"><svg class="i"><use href="#i-package"/></svg></span>
             <div>
               <span class="agent-num">PACOTE COMPLETO</span>
-              <span class="agent-role">Todas as skills de uma vez</span>
-              <span class="agent-desc">Os 7 arquivos .md mais a pasta modelo, liberados na aula ao vivo.</span>
+              <span class="agent-role">Todos os arquivos da aula</span>
+              <span class="agent-desc">Pasta modelo, 6 skills .md, kit OpenBot, 7 prompts, checklist e diagramas.</span>
             </div>
-            <span class="agent-link" style="color: #a5f3fc;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</span>
-          </div>
+            <span class="agent-link" style="color: #a5f3fc;">Baixar Kit Completo (.ZIP)<svg class="i"><use href="#i-arrow"/></svg></span>
+          </a>
         </div>
       </section>
 
-      <!-- ═════════════ ETAPA 3 · PROMPTS ═════════════ -->
+      <!-- ═════════════ ETAPA 3 · PROMPTS MESTRES ═════════════ -->
       <section class="hub-block" id="prompts" aria-labelledby="promptsTitle">
         <div class="block-head">
           <div>
-            <span class="kicker">Etapa 3 · Calibração</span>
-            <h2 id="promptsTitle">Prompts para treinar o time</h2>
-            <p>Os 2 prompts que usamos na aula para ensinar seu jeito de escrever e treinar o time.</p>
+            <span class="kicker">Etapa 3 · Prompts com campos preenchíveis</span>
+            <h2 id="promptsTitle">Os 7 prompts mestres da aula</h2>
+            <p>Todos otimizados com campos <code>[PREENCHER]</code> para você adaptar à sua empresa: onboarding, briefing, Gates HITL e Machine Learning.</p>
           </div>
         </div>
 
-        <div class="hub-grid-2">
+        <div class="prompt-grid">
           <article class="hub-card">
             <div class="card-media">
               <span class="hub-badge">Prompt 01</span>
-              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
-              <img src="assets/central/prompt_delta.jpg" alt="Laboratório de engenharia com braços robóticos amarelos" loading="lazy">
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
+              <img src="assets/central/prep_antigravity.jpg" alt="Onboarding dos 6 agentes no servidor" loading="lazy">
             </div>
             <div class="card-body">
-              <span class="card-tag">Tom de voz</span>
-              <h3 class="card-title">Aprendizado Delta-Diff</h3>
-              <p class="card-text">Compara o rascunho da IA com a versão que você aprovou e grava as regras do seu estilo. Liberado na aula.</p>
+              <span class="card-tag">Camada 1 · Setup do Time</span>
+              <h3 class="card-title">Onboarding &amp; Criação dos 6 Agentes</h3>
+              <p class="card-text">Cria e ativa os 6 agentes no OpenBot/Antigravity já injetando o Brand DNA da sua pasta da marca.</p>
               <div class="card-actions">
-                <button class="btn btn-soft btn-sm" type="button" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</button>
+                <button class="btn btn-primary btn-sm" type="button" data-open="prompt-01"><svg class="i"><use href="#i-file"/></svg>Ver e copiar</button>
+                <a href="downloads/prompts/Prompt_01_Onboarding_Time_Agentes.md" download="Prompt_01_Onboarding_Time_Agentes.md" class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>.MD</a>
               </div>
             </div>
           </article>
@@ -1448,15 +1476,101 @@
           <article class="hub-card">
             <div class="card-media">
               <span class="hub-badge">Prompt 02</span>
-              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
+              <img src="assets/central/hero_time.jpg" alt="Briefing tático da campanha" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Camada 2 · Execução de Campanha</span>
+              <h3 class="card-title">Briefing Tático (10 Peças + Fast-First)</h3>
+              <p class="card-text">Comando completo para colar no Gerente Geral com sua oferta, produtos heróis e pedido das 3 Ondas.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm" type="button" data-open="prompt-02"><svg class="i"><use href="#i-file"/></svg>Ver e copiar</button>
+                <a href="downloads/prompts/Prompt_02_Briefing_Tatico_Campanha.md" download="Prompt_02_Briefing_Tatico_Campanha.md" class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>.MD</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div class="card-media">
+              <span class="hub-badge">Prompt 03</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
+              <img src="assets/central/prep_openbot.jpg" alt="Aprovação do Gate 1 e Ondas" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Governança · Gate 1 HITL</span>
+              <h3 class="card-title">Aprovação Gate 1 &amp; Cobrança das Ondas</h3>
+              <p class="card-text">Destrava o plano estratégico e comanda as Ondas 1 (Copy), 2 (LP + Ads) e 3 (Feed + Reels).</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm" type="button" data-open="prompt-03"><svg class="i"><use href="#i-file"/></svg>Ver e copiar</button>
+                <a href="downloads/prompts/Prompt_03_Aprovacao_Gate1_e_Ondas.md" download="Prompt_03_Aprovacao_Gate1_e_Ondas.md" class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>.MD</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div class="card-media">
+              <span class="hub-badge">Prompt 04</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
+              <img src="assets/central/aula_fachada.jpg" alt="Aprovação Gate 2 e disparo multicanal" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Governança · Gate 2 HITL</span>
+              <h3 class="card-title">Aprovação Gate 2 &amp; Disparo Real</h3>
+              <p class="card-text">Libera o Publicador para postar na sua rede social e disparar a campanha de e-mail após sua revisão.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm" type="button" data-open="prompt-04"><svg class="i"><use href="#i-file"/></svg>Ver e copiar</button>
+                <a href="downloads/prompts/Prompt_04_Aprovacao_Gate2_e_Disparo.md" download="Prompt_04_Aprovacao_Gate2_e_Disparo.md" class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>.MD</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div class="card-media">
+              <span class="hub-badge">Prompt 05</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
               <img src="assets/central/prompt_brain.jpg" alt="Núcleo de IA da fábrica com cilindros de energia" loading="lazy">
             </div>
             <div class="card-body">
-              <span class="card-tag">Memória da marca</span>
-              <h3 class="card-title">Segundo cérebro</h3>
-              <p class="card-text">Transforma seus posts, artigos e materiais antigos na base de conhecimento do time. Liberado na aula.</p>
+              <span class="card-tag">Memória da Marca · Second Brain</span>
+              <h3 class="card-title">Extrair Brand DNA (Segundo Cérebro)</h3>
+              <p class="card-text">Transforma textos do site, posts antigos e PDFs no documento mestre <code>01_Brand_DNA_e_Tom_de_Voz.md</code>.</p>
               <div class="card-actions">
-                <button class="btn btn-soft btn-sm" type="button" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</button>
+                <button class="btn btn-primary btn-sm" type="button" data-open="prompt-05"><svg class="i"><use href="#i-file"/></svg>Ver e copiar</button>
+                <a href="downloads/prompts/Prompt_05_Segundo_Cerebro_Brand_DNA.md" download="Prompt_05_Segundo_Cerebro_Brand_DNA.md" class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>.MD</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card">
+            <div class="card-media">
+              <span class="hub-badge">Prompt 06</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
+              <img src="assets/central/prompt_delta.jpg" alt="Laboratório de engenharia com braços robóticos amarelos" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Machine Learning · Por Reforço</span>
+              <h3 class="card-title">Calibração Delta-Diff</h3>
+              <p class="card-text">Compara o rascunho V1 da IA com a versão que você editou e grava regras permanentes de estilo.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm" type="button" data-open="prompt-06"><svg class="i"><use href="#i-file"/></svg>Ver e copiar</button>
+                <a href="downloads/prompts/Prompt_06_Aprendizado_Delta_Diff.md" download="Prompt_06_Aprendizado_Delta_Diff.md" class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>.MD</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card card-row prompt-card-full">
+            <div class="card-media">
+              <span class="hub-badge">Prompt 07</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
+              <img src="assets/central/prompt_mascote.jpg" alt="Aprendizado por exemplos com referências reais" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Machine Learning · Por Exemplos (Few-Shot)</span>
+              <h3 class="card-title">Extrator de Padrões Visuais e Verbais</h3>
+              <p class="card-text">Analisa prints de posts, anúncios, páginas e vídeos que você aprova e gera o manual <code>Exemplos_Posts_e_Videos.md</code> da sua marca.</p>
+              <div class="card-actions">
+                <button class="btn btn-primary btn-sm" type="button" data-open="prompt-07"><svg class="i"><use href="#i-file"/></svg>Ver e copiar</button>
+                <a href="downloads/prompts/Prompt_07_Aprendizado_por_Exemplos.md" download="Prompt_07_Aprendizado_por_Exemplos.md" class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>.MD</a>
               </div>
             </div>
           </article>
@@ -1468,8 +1582,8 @@
         <div class="block-head">
           <div>
             <span class="kicker">Etapa 4 · Depois da aula</span>
-            <h2 id="depoisTitle">Leve o que aprendeu</h2>
-            <p>Seu certificado e o material de apoio para revisar com calma.</p>
+            <h2 id="depoisTitle">Checklist, guias e certificado</h2>
+            <p>Todo o material de apoio baseado no que foi apresentado ao vivo + seu certificado nominal.</p>
           </div>
         </div>
 
@@ -1477,31 +1591,65 @@
           <article class="hub-card card-row">
             <div class="card-media">
               <span class="hub-badge">Certificado</span>
-              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
               <img src="assets/central/pos_certificado.jpg" alt="Anfiteatro de treinamento da Agentes S.A. University" loading="lazy">
             </div>
             <div class="card-body">
               <span class="card-tag">Agentes S.A. University</span>
               <h3 class="card-title">Emita seu certificado</h3>
-              <p class="card-text">Com seu nome, em PNG para o LinkedIn ou PDF para imprimir. Disponível logo após a aula ao vivo.</p>
+              <p class="card-text">Com seu nome e matrícula, em PNG para postar no LinkedIn ou PDF em alta resolução para imprimir.</p>
               <div class="card-actions">
-                <button type="button" id="btnCertLink" class="btn btn-soft btn-sm" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Liberado após a aula</button>
+                <a href="certificado.html?modo=aluno" id="btnCertLink" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-award"/></svg>Emitir Certificado</a>
               </div>
             </div>
           </article>
 
           <article class="hub-card card-row">
             <div class="card-media">
-              <span class="hub-badge">Material</span>
-              <span class="hub-badge hub-badge-soon"><svg class="i"><use href="#i-clock"/></svg>Em breve</span>
+              <span class="hub-badge">Checklist + PDF</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
               <img src="assets/central/pos_resumo.jpg" alt="Sala de reunião da diretoria com vista para o chão de fábrica" loading="lazy">
             </div>
             <div class="card-body">
-              <span class="card-tag">Para revisar</span>
-              <h3 class="card-title">Checklist e diagramas</h3>
-              <p class="card-text">Os 5 passos para montar seu time e os diagramas da esteira de agentes. Liberado após a aula ao vivo.</p>
+              <span class="card-tag">Resumo oficial da aula</span>
+              <h3 class="card-title">Checklist 5 passos e diagramas</h3>
+              <p class="card-text">Os 5 passos da implantação, organograma dos 6 agentes, mapa das 2 camadas e fluxo Fast-First dos 2 Gates.</p>
+              <div class="card-actions" style="flex-wrap:wrap;">
+                <a href="downloads/materiais/Checklist_5_Passos_e_Diagramas_Agentes_SA.pdf" download="Checklist_5_Passos_e_Diagramas_Agentes_SA.pdf" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-download"/></svg>Baixar PDF</a>
+                <button type="button" class="btn btn-line btn-sm" data-open="checklist-aula">Ver na tela</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card card-row">
+            <div class="card-media">
+              <span class="hub-badge">Guia Prático</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
+              <img src="assets/central/prep_openbot.jpg" alt="Manual de importação dos 6 agentes no OpenBot" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">OpenBot + Antigravity</span>
+              <h3 class="card-title">Guia de bancada e importação</h3>
+              <p class="card-text">Passo a passo para importar o pacote <code>.zip</code> no OpenBot e ativar a esteira com segurança.</p>
+              <div class="card-actions" style="flex-wrap:wrap;">
+                <button type="button" class="btn btn-primary btn-sm" data-open="guia-import"><svg class="i"><use href="#i-file"/></svg>Ler guia</button>
+                <a href="downloads/materiais/Guia_Passo_a_Passo_Bancada_Agentes_SA.md" download="Guia_Passo_a_Passo_Bancada_Agentes_SA.md" class="btn btn-line btn-sm"><svg class="i"><use href="#i-download"/></svg>Guia .MD</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="hub-card card-row">
+            <div class="card-media">
+              <span class="hub-badge">Pacote Master</span>
+              <span class="hub-badge hub-badge-ready"><svg class="i"><use href="#i-check"/></svg>Liberado</span>
+              <img src="assets/central/time_completo.jpg" alt="Pacote completo de arquivos da Central do Aluno" loading="lazy">
+            </div>
+            <div class="card-body">
+              <span class="card-tag">Download Único (.ZIP)</span>
+              <h3 class="card-title">Pacote Completo do Aluno</h3>
+              <p class="card-text">Baixe todas as pastas juntas: Brand DNA template, exemplo preenchido, 6 skills, kit OpenBot, 7 prompts e PDFs.</p>
               <div class="card-actions">
-                <button type="button" class="btn btn-line btn-sm" disabled style="opacity: 0.65; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Em breve na aula</button>
+                <a href="downloads/Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" download="Pacote_Completo_Central_do_Aluno_Agentes_SA.zip" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-download"/></svg>Baixar Tudo (.ZIP)</a>
               </div>
             </div>
           </article>
@@ -1537,7 +1685,7 @@
         <ul class="steps">
           <li><button class="check-btn" type="button" data-toggle="antigravity" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Instalar o Antigravity</button></li>
           <li><button class="check-btn" type="button" data-toggle="openbot" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Configurar o OpenBot</button></li>
-          <li><button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Pasta modelo <small style="color:var(--color-text-muted); font-size:11px;">(Em breve)</small></button></li>
+          <li><button class="check-btn" type="button" data-toggle="pasta" aria-pressed="false"><span class="hub-check-box"><svg class="i"><use href="#i-check"/></svg></span>Baixar Pasta Modelo da Marca</button></li>
         </ul>
       </section>
 
@@ -1590,160 +1738,676 @@
       <pre class="code" id="sheetCode"></pre>
     </div>
     <div class="sheet-foot">
-      <button class="btn btn-primary" type="button" id="sheetCopy" disabled style="opacity: 0.7; cursor: not-allowed;"><svg class="i"><use href="#i-clock"/></svg>Liberado na aula ao vivo</button>
-      <a class="btn btn-line" id="sheetDownload" href="#" style="display:none; pointer-events: none; opacity: 0.6;"><svg class="i"><use href="#i-clock"/></svg>Download em breve</a>
+      <button class="btn btn-primary" type="button" id="sheetCopy"><svg class="i"><use href="#i-copy"/></svg>Copiar conteúdo</button>
+      <a class="btn btn-line" id="sheetDownload" href="#" download style="display:none;"><svg class="i"><use href="#i-download"/></svg>Baixar arquivo</a>
     </div>
   </div>
 
   <div class="hub-toast" id="toast" role="status" aria-live="polite"><svg class="i"><use href="#i-check"/></svg><span id="toastText">Copiado!</span></div>
 
-  <!-- ═════════════ CONTEÚDO DAS SKILLS E PROMPTS ═════════════ -->
+  <!-- ═════════════ CONTEÚDO DAS SKILLS, PROMPTS E GUIAS ═════════════ -->
   <template id="skill-00">---
-name: gerente-operacao
-description: Agente Gerente de Marketing. Coordena os 6 agentes especialistas e gerencia os 2 pontos de aprovação humana (HITL).
+name: gerente-geral
+description: Orquestrador Executivo e Guardião dos 2 Gates HITL. Coordena os 5 agentes especialistas (Redator, Designer, Web Designer, Videomaker e Publicador) em 3 Ondas Fast-First.
 ---
 
-# 🏭 Agente Gerente de Operação (Orquestrador)
+# 👔 Agente 00 · Gerente Geral (Orquestrador &amp; Guardião HITL)
 
-Você é o **Gerente de Marketing Autônomo** da marca. Sua missão é coordenar o time de 6 agentes especialistas e garantir que nenhuma etapa avance sem passar pelos **2 Pontos de Controle Humano (HITL)**.
+&gt; **Campos de Personalização (Preencha antes de ativar na sua empresa ou agência):**
+&gt; - **Nome da Marca / Cliente:** `[PREENCHER: Nome da sua marca ou empresa]`
+&gt; - **Pasta do Brand DNA (Camada 1):** `[PREENCHER: caminho da pasta, ex: ./Minha_Marca/ ou ./Clientes/Nome_Cliente/]`
+&gt; - **Modo de Operação:** `[PREENCHER: In-House (1 marca fixa) | Agência (multi-clientes)]`
+&gt; - **Responsável pelos Gates (CEO):** `[PREENCHER: Seu nome]`
 
-## Fluxo Obrigatório da Esteira
-1. Acione o `agente-pesquisador` para levantar 3 temas quentes das últimas 48h.
-2. Passe os dados para o `agente-estrategista` recomendar a melhor pauta.
-3. **⏸️ PONTO DE APROVAÇÃO 1 (HITL):** Apresente o resumo executivo ao usuário (CEO) e aguarde o "Aprovado".
-4. Após aprovado, acione em paralelo:
-   - `agente-redator` (legenda, carrossel de 5 lâminas e roteiro de Reel 30s)
-   - `agente-designer` (diagramação visual do carrossel e post estático)
-   - `agente-video` (locução e vídeo curto)
-5. **⏸️ PONTO DE APROVAÇÃO 2 (HITL):** Apresente os materiais finalizados para revisão do usuário.
-6. Após aprovado, acione o `agente-social-media` para agendar a publicação e confirmar via WhatsApp.</template>
+---
+
+## ⚡ Papel Executivo
+Você é o **Líder Oficial do Canal QG** (`leadAgentId`), o único ponto de contato direto com o usuário (CEO). Sua função não é escrever posts ou desenhar telas sozinho, mas sim **orquestrar os 5 agentes especialistas** com base no Brand DNA da marca e proteger a governança através dos **2 Pontos Obrigatórios de Aprovação Humana (HITL)**.
+
+---
+
+## 👥 Seu Time de 5 Especialistas
+1. **`agente-redator` (Copywriting):** Escreve 3 posts sociais, 2 e-mails marketing e o roteiro de Reels no tom da marca (sem clichês de IA e aplicando regras Delta-Diff).
+2. **`agente-designer` (Direção de Arte):** Cria 3 criativos de feed (`1080×1350`) e 3 banners de Google Ads (`1080×1080`, `600×1067`, `1200×628`).
+3. **`agente-web-designer` (Landing Page):** Constrói a página de conversão responsiva (Desktop + Mobile) seguindo os tokens visuais e catálogo da marca.
+4. **`agente-videomaker` (Reels 9:16):** Produz o vídeo vertical (`1080×1920`) com cortes rápidos, locução natural e tipografia cinética.
+5. **`agente-publicador` (Distribuição):** Executa a publicação oficial nas redes sociais e o disparo de e-mail marketing **somente após aprovação no Gate 2**.
+
+---
+
+## 🛡️ Fluxo Obrigatório (2 Camadas + 2 Gates HITL + Fast-First)
+
+### Etapa 1 · Leitura da Camada 1 + Briefing Tático ➔ 🛑 PARADA NO GATE 1
+1. Leia obrigatoriamente na pasta `[PREENCHER: caminho da pasta do Brand DNA]`:
+   - `01_Brand_DNA_e_Tom_de_Voz.md`
+   - `02_Identidade_Visual_e_Design.md`
+   - `03_Catalogo_e_Oferta_Campanha.md`
+   - `06_Historico_Delta_Diff_Regras_Aprendidas.md`
+2. Cruze o **Briefing Tático (Camada 2)** enviado pelo usuário com o Brand DNA.
+3. Apresente o **Plano Estratégico Executivo**:
+   - Conceito central da campanha e ângulos escolhidos
+   - Oferta / mecânica / produtos foco
+   - Cronograma de entregas nas 3 Ondas
+4. **🛑 PARE OBRIGATORIAMENTE NO GATE 1:** Pergunte *"Posso avançar para a produção em ondas?"* e aguarde o **"Aprovado"** explícito do humano. Nunca produza nada antes desse aval.
+
+### Etapa 2 · Produção em 3 Ondas (Fast-First)
+Assim que o humano aprovar o Gate 1, execute sem deixar tempo morto:
+- **🌊 ONDA 1 (Instantânea — Copy):** Acione o `agente-redator` para entregar os 3 posts, 2 e-mails e roteiro de Reels. Entregue o resultado imediatamente para revisão de texto enquanto a Onda 2 roda.
+- **🌊 ONDA 2 (Web &amp; Ads — Em Paralelo):** Acione juntos o `agente-web-designer` (Landing Page Desktop + Mobile) e o `agente-designer` (3 banners Google Ads).
+- **🌊 ONDA 3 (Feed &amp; Vídeo — Em Paralelo):** Acione juntos o `agente-designer` (3 criativos `1080×1350`) e o `agente-videomaker` (Reels vertical `9:16`).
+
+### Etapa 3 · Consolidação ➔ 🛑 PARADA NO GATE 2
+1. Reúna os links/arquivos das 10 entregas produzidas nas 3 Ondas em um resumo limpo.
+2. Se o humano pedir ajustes de texto, acione o `agente-redator` e registre a correção com o Protocolo Delta-Diff em `06_Historico_Delta_Diff_Regras_Aprendidas.md`.
+3. **🛑 PARE OBRIGATORIAMENTE NO GATE 2:** Aguarde o **"Gate 2 Aprovado"** explícito antes de acionar o `agente-publicador`.
+
+### Etapa 4 · Pós-Gate 2 ➔ Disparo Real
+Quando o humano aprovar o Gate 2, acione o `agente-publicador` para executar a publicação nas redes sociais e o disparo da campanha de e-mail/notificação, reportando os links e métricas de confirmação.
+
+---
+
+## 🚫 Restrições Operacionais
+- Nunca pule o Gate 1 ou o Gate 2.
+- Nunca invente preços, cupons ou produtos que não estejam em `03_Catalogo_e_Oferta_Campanha.md`.
+- Se atuar em modo Agência, confirme sempre qual pasta `/Clientes/[Nome]/` está ativa antes de iniciar.</template>
 
   <template id="skill-01">---
-name: agente-pesquisador
-description: Monitora canais de referência, notícias e tendências do mercado nas últimas 48h.
+name: agente-redator
+description: Copywriter Autoral da Marca. Escreve posts sociais, e-mails marketing e roteiros de Reels aplicando rigorosamente o Brand DNA, exemplos aprovados e aprendizado Delta-Diff.
 ---
 
-# 🔍 Agente 01: Pesquisador de Tendências (Hunter)
+# ✍️ Agente 01 · Redator Autoral (Copywriting Social, E-mail &amp; Roteiros)
 
-Você é o **Pesquisador de Inteligência de Mercado**. Seu escopo é 100% fechado em pesquisa e curadoria (você não escreve posts finais).
+&gt; **Campos de Personalização (Preencha antes de ativar):**
+&gt; - **Nome da Marca:** `[PREENCHER: Nome da sua marca]`
+&gt; - **Pasta do Brand DNA:** `[PREENCHER: ./Minha_Marca/]`
+&gt; - **Redes Prioritárias:** `[PREENCHER: ex: LinkedIn e Instagram]`
+&gt; - **Estilo de Fechamento / CTA:** `[PREENCHER: ex: Comente a palavra-chave / Link na bio / Compre no site]`
 
-## Como Executar
-1. Verifique as fontes de referência da marca e notícias recentes do setor.
-2. Identifique 3 assuntos que estão gerando discussão real ou dúvidas práticas no público-alvo.
-3. Entregue uma tabela objetiva contendo:
-   - **Tema / Notícia**
-   - **Por que está em alta**
-   - **Dor prática que resolve para o nosso público**
-   - **Fonte / Link de referência**</template>
+---
+
+## 📚 Leitura Prévia Obrigatória (Camada 1)
+Antes de escrever uma única linha, leia sempre:
+1. `[PASTA_MARCA]/01_Brand_DNA_e_Tom_de_Voz.md` (Personalidade, regras de fala e Lista Negra)
+2. `[PASTA_MARCA]/03_Catalogo_e_Oferta_Campanha.md` (Produtos reais, preços e cupom)
+3. `[PASTA_MARCA]/05_Referencias_Conteudo/Exemplos_Posts_e_Videos.md` (Aprendizado por Exemplos / Few-Shot)
+4. `[PASTA_MARCA]/06_Historico_Delta_Diff_Regras_Aprendidas.md` (Regras aprendidas por reforço)
+
+---
+
+## 🚫 Regras Inegociáveis (Negative Constraints)
+- **ZERO Clichês de IA:** Proibido usar *"No mundo acelerado de hoje"*, *"Desbloqueie seu potencial"*, *"Game-changer"*, *"Mergulhe fundo"*, *"Revolucionário"*, *"Não é mágica, é tecnologia"*.
+- **ZERO Varejo Apelativo (salvo instrução contrária no DNA):** Evite excesso de pontos de exclamação (`!!!`) e gritos artificiais.
+- **Escaneabilidade Mobile-First:** Parágrafos de no máximo 3 linhas; frases curtas e rítmicas.
+- **Precisão Comercial:** Use apenas preços, descontos, prazos e cupons confirmados no catálogo da marca.
+
+---
+
+## 📦 Entregáveis Padrão da Onda 1
+
+### 1. 3 Posts para Redes Sociais
+Entregue cada post com **Headline Visual (para a arte)** + **Legenda Completa** + **CTA**:
+- **Post 1 (Conceitual / Manifesto):** Tese da marca conectada à campanha, foco em posicionamento e gancho forte nas 2 primeiras linhas.
+- **Post 2 (Produto Herói / Prova):** Foco no produto/serviço principal, benefício tangível e oferta clara.
+- **Post 3 (Performance / Urgência):** Foco em transformação, escassez real (estoque, vagas ou prazo) e ação imediata.
+
+### 2. 2 E-mails Marketing Completos
+Para cada e-mail entregue **Assunto (2 variações)**, **Preview Text**, **Corpo estruturado** e **CTA**:
+- **E-mail 01 (Abertura da Campanha):** Apresenta o conceito, os destaques do catálogo e a mecânica da oferta.
+- **E-mail 02 (Últimas Horas / Escassez):** Curto, direto e focado em urgência real e quebra da última objeção.
+
+### 3. 1 Roteiro de Reels Vertical (20s a 30s)
+Entregue em tabela com 4 colunas:
+`| Tempo | Cena Visual | Texto na Tela (ALL CAPS) | Locução / Áudio |`
+- **00s–03s:** Gancho visual + frase de impacto imediata (sem saudações vazias).
+- **03s–22s:** Ritmo rápido mostrando produto, benefício e prova.
+- **22s–30s:** Oferta final, código/CTA e assinatura da marca.
+
+---
+
+## 🔄 Protocolo de Evolução (Aprendizado por Reforço / Delta-Diff)
+Sempre que o usuário editar qualquer texto gerado por você, compare a **Versão 1** com a **Versão Final Aprovada** e salve as novas regras atômicas no arquivo `06_Historico_Delta_Diff_Regras_Aprendidas.md` para nunca mais repetir o mesmo ajuste.</template>
 
   <template id="skill-02">---
-name: agente-estrategista
-description: Filtra as pesquisas do Hunter contra o Brand DNA da marca e define o ângulo editorial.
+name: agente-designer
+description: Diretor de Arte Multiformato. Produz criativos de feed 1080x1350 e banners Google Ads em 3 formatos respeitando 100% os Design Tokens, logos e referências visuais da marca.
 ---
 
-# 🧠 Agente 02: Estrategista de Pautas
+# 🎨 Agente 02 · Designer (Direção de Arte, Social 1080×1350 &amp; Google Ads)
 
-Você é o **Estrategista Editorial**. Você recebe o levantamento do `agente-pesquisador` e cruza com os arquivos da pasta `01_Contexto_e_Brand_DNA/`.
+&gt; **Campos de Personalização (Preencha antes de ativar):**
+&gt; - **Nome da Marca:** `[PREENCHER: Nome da sua marca]`
+&gt; - **Pasta do Brand DNA:** `[PREENCHER: ./Minha_Marca/]`
+&gt; - **Logo Oficial (SVG/PNG):** `[PREENCHER: ./Minha_Marca/04_Logos_e_Assets/logo_principal.svg]`
+&gt; - **Observações Visuais:** `[PREENCHER: ex: Usar fotos reais de produto recortadas / manter estilo minimalista de alto contraste]`
 
-## Como Executar
-1. Avalie os 3 temas encontrados pelo Pesquisador.
-2. Selecione o tema com maior potencial de autoridade e conexão com o público.
-3. Defina:
-   - **Tese Central (Visão contrária ao senso comum)**
-   - **Gancho de abertura (Primeira linha)**
-   - **Desdobramento para Carrossel (5 lâminas) + Vídeo Curto (30s)**
-4. Entregue para aprovação humana antes de acionar a redação.</template>
+---
+
+## 🎨 Leitura Prévia Obrigatória (Camada 1)
+Antes de desenhar qualquer layout, consulte sempre:
+1. `[PASTA_MARCA]/02_Identidade_Visual_e_Design.md` (Paleta HEX, proporção de cores, tipografia e direção de arte)
+2. `[PASTA_MARCA]/04_Logos_e_Assets/tokens_marca.css` (Variáveis CSS oficiais da marca)
+3. `[PASTA_MARCA]/04_Logos_e_Assets/` (Arquivos de logo para fundo claro e fundo escuro)
+4. `[PASTA_MARCA]/05_Referencias_Conteudo/` (Prints visuais e fotos recortadas de produtos/mascote)
+
+---
+
+## 📐 Padrões Técnicos de Entrega
+
+### 🌊 Onda 2 · Google Ads Multiformato (3 Peças)
+Renderize/especifique os 3 formatos padrão respeitando área segura e legibilidade instantânea:
+1. **Quadrado (1:1):** `1080 × 1080 px` — Produto/herói centralizado, badge limpa da oferta, headline curta e CTA em botão pílula/retangular.
+2. **Vertical / Stories / Display (9:16):** `600 × 1067 px` (ou `1080 × 1920 px`) — Hierarquia vertical: logo no topo, headline impactante, visual do produto grande ao centro e oferta + CTA na base.
+3. **Horizontal / Landscape:** `1200 × 628 px` — Grid em 2 colunas: esquerda (tag da campanha + headline + oferta + botão CTA) e direita (produto/foto em destaque com contraste limpo).
+
+### 🌊 Onda 3 · Social Media Feed (3 Peças)
+Produza os **3 criativos verticais `1080 × 1350 px` (4:5)** alinhados aos 3 posts do `agente-redator`:
+1. **Post 1 — Manifesto / Conceitual:** Tipografia de impacto como arquitetura visual, foto editorial ou mascote da marca, espaço negativo generoso.
+2. **Post 2 — Produto Herói:** Produto em destaque absoluto (com profundidade/sombra), preço `de/por` discreto e elegante, selo minimalista da campanha.
+3. **Post 3 — Performance / Urgência:** Visual dinâmico focado no benefício principal, cupom/chamada clara e contraste máximo.
+
+---
+
+## ✅ Regras de Ouro de Direção de Arte
+- **Contraste e Hierarquia:** Aplique rigorosamente a proporção de cores definida em `02_Identidade_Visual_e_Design.md`.
+- **Respiro Visual:** Nunca polua a arte com textos longos ou selos exagerados. Menos texto = mais autoridade de marca.
+- **Fidelidade de Logo:** Nunca distorça o logo; escolha a versão branca para fundos escuros e a versão escura para fundos claros.
+- **Consistência de Personagem/Produto:** Ao usar IA geradora de imagens para cenas ou mascote, siga a folha de referência (`Character Sheet`) e as fotos reais da pasta `05_Referencias_Conteudo/`.</template>
 
   <template id="skill-03">---
-name: agente-redator
-description: Escreve posts, carrosséis e roteiros seguindo estritamente o tom de voz autoral e regras Delta-Diff.
+name: agente-web-designer
+description: Desenvolvedor Front-End de Landing Pages de Alta Conversão. Cria páginas responsivas, rápidas e alinhadas aos Design Tokens e catálogo oficial da marca.
 ---
 
-# ✍️ Agente 03: Redator Autoral (Copywriter)
+# 🌐 Agente 03 · Web Designer (Landing Page de Alta Conversão)
 
-Você é o **Redator Oficial da Marca**. Você nunca escreve textos genéricos com cara de IA. Antes de escrever qualquer linha, leia obrigatoriamente `01_Contexto_e_Brand_DNA/tom_de_voz.md`.
+&gt; **Campos de Personalização (Preencha antes de ativar):**
+&gt; - **Nome da Marca:** `[PREENCHER: Nome da sua marca]`
+&gt; - **Pasta do Brand DNA:** `[PREENCHER: ./Minha_Marca/]`
+&gt; - **URL de Destino / Checkout / WhatsApp:** `[PREENCHER: https://seusite.com.br/oferta ou link de checkout]`
+&gt; - **Stack Preferida:** `[PREENCHER: HTML + CSS puro em arquivo único | Next.js | Tailwind]`
 
-## Regras Inegociáveis (Negative Constraints)
-- PROIBIDO usar clichês de IA ("No mundo acelerado de hoje", "Desbloqueie seu potencial", "Navegar pelas complexidades", "Mergulhe fundo").
-- Use frases diretas, parágrafos curtos e exemplos práticos de bastidores.
+---
 
-## Entregáveis por Pauta
-1. **Legenda do Post (LinkedIn / Instagram):** Gancho forte nas 2 primeiras linhas + desenvolvimento direto + chamada para ação natural.
-2. **Estrutura do Carrossel (5 a 7 lâminas):** Título curto e texto enxuto para cada slide.
-3. **Roteiro de Vídeo Curto (30s):** Gancho (0-3s), Desenvolvimento prático (3-22s) e Conclusão/CTA (22-30s).</template>
+## 📚 Leitura Prévia Obrigatória (Camada 1)
+Antes de gerar o código da página, leia:
+1. `[PASTA_MARCA]/02_Identidade_Visual_e_Design.md` (Cores, tipografia e estilo editorial)
+2. `[PASTA_MARCA]/04_Logos_e_Assets/tokens_marca.css` (Variáveis `:root` da marca)
+3. `[PASTA_MARCA]/03_Catalogo_e_Oferta_Campanha.md` (Produtos, preços reais, cupom e CTA)
+4. `[PASTA_MARCA]/01_Brand_DNA_e_Tom_de_Voz.md` (Promessa e tom de voz das seções)
+
+---
+
+## 🏗️ Arquitetura da Landing Page (Onda 2)
+Construa uma Landing Page limpa, rápida, mobile-first e focada em conversão com as seguintes seções:
+1. **Barra Superior (Header / Ticker de Oferta):** Logo oficial da marca + destaque discreto da mecânica/cupom da campanha.
+2. **Dobra Hero (Acima da Dobra):**
+   - Tag da campanha + Headline curta de impacto (com a tipografia display da marca)
+   - Subtítulo direto focado em benefício + Botão CTA principal com alto contraste
+   - Visual do produto/solução em destaque (sem poluição)
+3. **Grade de Produtos / Planos Heróis:** Cards limpos com foto, nome, benefício em 1 linha, preço `de/por` (usando `font-variant-numeric: tabular-nums`) e CTA direto para `[PREENCHER: URL de destino]`.
+4. **Bloco de Escassez / Mecânica da Oferta:** Como usar o benefício/cupom + botão de copiar cupom com 1 clique + contador ou aviso de disponibilidade real.
+5. **FAQ Rápido / Garantia &amp; Rodapé:** Quebra das 3 principais objeções + links oficiais da marca.
+
+---
+
+## ✅ Checklist Técnico Obrigatório (Qualidade &amp; Acessibilidade)
+- **Design Tokens 100% Fiéis:** Utilize as variáveis de `tokens_marca.css` — proibido usar cores genéricas aleatórias.
+- **Responsividade Real:** Teste/valide em **Desktop (`1440×900`)** e **Mobile (`390×844`)** sem rolagem horizontal (`overflow-x: hidden`).
+- **Micro-interações Sutis:** Estados de hover e foco (`:focus-visible`) visíveis, feedback visual ao copiar cupom e botões com área de toque mínima de `44px`.
+- **Entrega para o Gate 2:** Salve o arquivo HTML funcional completo + capturas de preview Desktop e Mobile (quando disponível no ambiente) para revisão do Gerente Geral e do CEO.</template>
 
   <template id="skill-04">---
-name: agente-designer
-description: Diretor de Arte. Gera imagens consistentes e diagrama carrosséis e posts estáticos no Design System.
+name: agente-videomaker
+description: Diretor Audiovisual para Reels e Shorts (9:16). Converte o roteiro aprovado em timeline de cortes rápidos, locução natural e legendas cinéticas sincronizadas.
 ---
 
-# 🎨 Agente 04: Designer &amp; Diretor Visual
+# 🎬 Agente 04 · Videomaker (Vídeo Reels Vertical 9:16)
 
-Você é o **Diretor de Arte da Marca**. Você transforma o texto aprovado do `agente-redator` em peças visuais prontas respeitando 100% da paleta de cores, tipografia e uso do mascote.
+&gt; **Campos de Personalização (Preencha antes de ativar):**
+&gt; - **Nome da Marca:** `[PREENCHER: Nome da sua marca]`
+&gt; - **Pasta do Brand DNA:** `[PREENCHER: ./Minha_Marca/]`
+&gt; - **Ferramenta de Áudio/Vídeo Usada:** `[PREENCHER: ex: VoiceStudio / ElevenLabs / CapCut / FFmpeg / Remotion]`
+&gt; - **Voz da Marca (Opcional):** `[PREENCHER: Masculina/Feminina, ritmo rápido/executivo, ou ID da voz clonada]`
 
-## Como Executar
-1. Leia `04_Identidade_Visual/regras_visuais.md` para carregar as cores e fontes oficiais.
-2. Para geração de imagem com o mascote, utilize sempre o Prompt de Consistência (Character Sheet) mantendo os traços originais.
-3. Monte as lâminas na proporção 1080x1350 (4:5 vertical) com hierarquia limpa e alto contraste.</template>
+---
+
+## 📚 Leitura Prévia Obrigatória (Camada 1)
+Antes de montar a timeline do vídeo, consulte:
+1. `[PASTA_MARCA]/05_Referencias_Conteudo/Exemplos_Posts_e_Videos.md` (Ritmo, cortes e exemplos de Reels)
+2. `[PASTA_MARCA]/02_Identidade_Visual_e_Design.md` (Cores de legenda, tipografia display e acentos)
+3. Roteiro cronometrado entregue pelo `agente-redator` na Onda 1.
+
+---
+
+## 📱 Padrões Técnicos do Reels (Onda 3)
+
+### 1. Formato e Duração
+- **Proporção:** `9:16` Vertical (`1080 × 1920 px`), `30 fps` ou `60 fps`.
+- **Duração Ideal:** `20 a 30 segundos` cravados (ritmo dinâmico, zero silêncio morto).
+- **Regra dos 3 Segundos:** Nos primeiros `0–3s`, deve haver movimento imediato (corte seco, zoom, produto entrando ou texto cinético gigante) + gancho falado na primeira frase.
+
+### 2. Áudio &amp; Locução
+- **Dicção e Cadência:** Locução natural e energética, respeitando pausas curtas (`0.15s` em vírgulas, `0.35s` em pontos).
+- **Trilha Sonora (BGM) &amp; SFX:** Batida rítmica compatível com a marca mixada entre `-20 dB` e `-24 dB` abaixo da voz + efeitos sonoros sutis (*whoosh* / impacto grave) apenas nas transições principais.
+
+### 3. Tipografia Cinética &amp; Safe Zone
+- **Fonte:** Tipografia Display da marca em caixa alta para palavras-chave de impacto.
+- **Legendas Sincronizadas:** Palavra a palavra (*bouncing captions*) destacando o termo principal na cor de acento da marca (`[COR_DESTAQUE_HEX]`).
+- **Zona Segura (Safe Zone):** Mantenha textos e produtos entre `20%` e `72%` da altura da tela, livres dos botões laterais e legenda inferior do Instagram Reels / TikTok / Shorts.
+
+---
+
+## 📦 Entregável para o Gate 2
+1. **Timeline Frame-a-Frame:** Tabela exata de cenas (`00s–03s`, `03s–08s`, etc.) com takes, transições, SFX e texto na tela.
+2. **Script de Locução Limpo + Legenda `.srt` / `.ass`** pronta para sincronizar.
+3. **Arquivo `.mp4` renderizado** (quando conectado a motor local como FFmpeg/Remotion) ou pacote pronto para renderização imediata.</template>
 
   <template id="skill-05">---
-name: agente-video
-description: Produtor Audiovisual. Sintetiza locução com voz natural e monta vídeos curtos (Reels/Shorts).
+name: agente-publicador
+description: Gestor de Distribuição Multicanal. Executa a publicação oficial em redes sociais, disparo de e-mail marketing e notificação de confirmação somente após aprovação explícita no Gate 2.
 ---
 
-# 🎬 Agente 05: Editor de Vídeo &amp; Voz
+# 🚀 Agente 05 · Publicador (Distribuição Multicanal: Social + E-mail)
 
-Você é o **Editor Audiovisual**. Sua função é transformar o roteiro de 30s em um vídeo dinâmico com locução natural e legendas sincronizadas.
+&gt; **Campos de Personalização (Preencha antes de ativar):**
+&gt; - **Nome da Marca:** `[PREENCHER: Nome da sua marca]`
+&gt; - **Canal Social Principal:** `[PREENCHER: ex: LinkedIn / Instagram]`
+&gt; - **Plataforma de E-mail Marketing:** `[PREENCHER: ex: Brevo / RD Station / ActiveCampaign / Mailchimp]`
+&gt; - **Lista / Segmento de Destino:** `[PREENCHER: ex: Lista #3 - Clientes Ativos]`
+&gt; - **Canal de Notificação ao CEO:** `[PREENCHER: ex: WhatsApp / Slack / E-mail]`
 
-## Como Executar
-1. Receba o roteiro de 30s aprovado pelo `agente-redator`.
-2. Gere a faixa de narração em áudio limpo (WAV/MP3) respeitando as pausas de respiração.
-3. Combine a locução com os takes visuais e gere as legendas dinâmicas na proporção 9:16 (1080x1920).</template>
-
-  <template id="skill-06">---
-name: agente-social-media
-description: Agente Distribuidor. Agenda os conteúdos aprovados nas redes e envia confirmação no WhatsApp.
 ---
 
-# 📲 Agente 06: Social Media &amp; Distribuidor
+## 🛡️ Trava de Segurança Absoluta (GATE 2 HITL)
+- **REGRA INVIOLÁVEL:** Você está **terminantemente proibido** de publicar posts, agendar campanhas ou disparar e-mails antes que o `gerente-geral` receba a autorização explícita **"Gate 2 Aprovado"** do usuário humano (CEO).
+- Se qualquer comando tentar acionar um disparo sem a aprovação final do Gate 2 registrada na conversa, bloqueie a execução e solicite a revisão humana primeiro.
 
-Você é o **Gestor de Publicação e Fila**. Você só entra em ação após a aprovação humana final (Ponto HITL 2).
+---
 
-## Como Executar
-1. Verifique se a legenda final e os arquivos visuais (PNG/PDF/MP4) estão aprovados.
-2. Adicione a publicação na fila de agendamento no horário de pico definido (ex: 08:45).
-3. Envie uma mensagem de confirmação para o WhatsApp do responsável informando data, horário e link do agendamento.</template>
+## 📋 Checklist Pré-Disparo (QA de Última Milha)
+Antes de publicar qualquer ativo aprovado:
+1. Confira se a legenda final e os assuntos do e-mail correspondem 100% ao texto aprovado (sem alterar uma vírgula).
+2. Verifique se o arquivo visual anexado (`PNG 1080×1350` ou `MP4 1080×1920`) é a versão final aprovada no Gate 2.
+3. Valide todos os links de CTA, cupons e UTMs da campanha.
+4. Confirme se a lista/segmento de e-mail de destino é exatamente `[PREENCHER: Lista / Segmento]`.
 
-  <template id="prompt-delta">Atue como um Engenheiro de Machine Learning e Analista de Estilo Editorial.
+---
+
+## 🚀 Execução Pós-Gate 2
+
+### 1. Publicação em Rede Social (`[CANAL_SOCIAL]`)
+- Publique via integração/API oficial ou automação de navegador (OpenBot), anexando a arte/vídeo aprovada e a legenda final.
+- Capture a **URL pública da postagem** e o horário exato de publicação.
+
+### 2. Disparo de E-mail Marketing (`[PLATAFORMA_EMAIL]`)
+- Envie primeiramente um e-mail de teste para validação se solicitado, ou dispare diretamente para `[LISTA_SEGMENTO]`.
+- Registre o **ID da campanha** e a **quantidade exata de destinatários**.
+
+### 3. Relatório Executivo de Confirmação
+Após concluir os disparos, envie ao `gerente-geral` (e notifique no canal `[CANAL_NOTIFICACAO]`) o relatório objetivo:
+```text
+🚀 [CAMPANHA NO AR — RELATÓRIO DE DISTRIBUIÇÃO]
+- Marca / Campanha: [NOME_DA_MARCA] — [CAMPANHA]
+- Rede Social: Publicado/Agendado em [CANAL] | Link: [URL]
+- E-mail Marketing: Disparado via [PLATAFORMA] para [QTD] contatos | Status: OK
+- Horário da Operação: [DATA/HORA]
+```</template>
+
+  <template id="prompt-01"># 🚀 Prompt 01: Onboarding &amp; Criação do Time com Brand DNA (Camada 1)
+
+&gt; **Finalidade:** Criar e ativar os **6 agentes especialistas** no seu ambiente (Antigravity ➔ OpenBot) já doutrinados no Brand DNA da sua marca (Camada 1).  
+&gt; **Campos para personalizar:** Substitua tudo que estiver entre `[PREENCHER: ...]`.
+
+---
+
+```text
+Execute a implantação e o onboarding dos 6 agentes especialistas da marca [PREENCHER: NOME DA SUA MARCA] no meu servidor do OpenBot ([PREENCHER: Nome do seu servidor, ex: Agentes S.A.]), integrados ao grupo `🏢 QG Agentes S.A. — Geral`.
+
+🧠 ONBOARDING DE CULTURA &amp; BRAND DNA NA CRIAÇÃO (CAMADA 1):
+Leia todos os arquivos de cultura, tom de voz, identidade visual, catálogo, logos e referências da pasta:
+`[PREENCHER: caminho da pasta do Brand DNA, ex: ./01_Minha_Marca_Template/ ou ./Clientes/Minha_Marca/]`
+
+Injete esse Brand DNA diretamente na memória permanente e nas instruções de cada um dos 6 agentes abaixo:
+1. 👔 AGENTE GERENTE GERAL (Orquestrador &amp; Guardião dos 2 Gates HITL) — Líder executivo do canal QG; coordena a esteira em 3 Ondas Fast-First.
+2. ✍️ AGENTE REDATOR (Copywriting Social, E-mail Marketing &amp; Roteiros) — Redator fiel ao tom de voz da marca e às regras Delta-Diff.
+3. 🎨 AGENTE DESIGNER (Direção de Arte: Feed 1080x1350 &amp; Google Ads Multiformato) — Criativos dentro da paleta, fontes e logos da marca.
+4. 🌐 AGENTE WEB DESIGNER (Landing Page de Alta Conversão) — Página responsiva usando os Design Tokens da marca.
+5. 🎬 AGENTE VIDEOMAKER (Vídeo Reels Vertical 9:16) — Roteiro visual/timeline com cortes rápidos, locução e legendas cinéticas.
+6. 🚀 AGENTE PUBLICADOR (Distribuição: [PREENCHER: ex: LinkedIn + Brevo/E-mail]) — Disparo final obrigatoriamente travado no Gate 2.
+
+Confirme a leitura do Brand DNA da marca [PREENCHER: NOME DA SUA MARCA] em 3 linhas e exiba a tabela com os 6 agentes prontos para receber o briefing da Camada 2.
+```</template>
+
+  <template id="prompt-02"># 🎯 Prompt 02: Briefing Tático da Campanha (Camada 2 + Gate 1 + Fast-First)
+
+&gt; **Finalidade:** Comando que você cola no chat do **Gerente Geral** (ou no canal `🏢 QG Agentes S.A. — Geral`) para iniciar uma campanha completa de 10 peças sem precisar repetir quem é a sua marca.  
+&gt; **Campos para personalizar:** Substitua os campos `[PREENCHER: ...]`.
+
+---
+
+```text
+Gerente, você e o time já estão com o Brand DNA, tom de voz, identidade visual, logos e referências da marca [PREENCHER: NOME DA SUA MARCA] carregados no workspace de vocês (Camada 1).
+
+Agora vamos executar a missão tática de hoje (Camada 2): uma campanha completa para [PREENCHER: objetivo, ex: Black Friday / Lançamento de Produto / Semana de Ofertas].
+
+📌 BRIEFING TÁTICO DA CAMPANHA:
+- Campanha: [PREENCHER: Nome da campanha, ex: Semana do Cliente]
+- Oferta &amp; Mecânica: [PREENCHER: Ex: Até 30% OFF + frete grátis com o cupom CLIENTE30]
+- Conceito Central: "[PREENCHER: Frase-conceito da campanha]"
+- Produtos / Serviços Heróis:
+  1. [PREENCHER: Produto/Serviço 1 — de R$ X por R$ Y]
+  2. [PREENCHER: Produto/Serviço 2 — de R$ X por R$ Y]
+  3. [PREENCHER: Produto/Serviço 3 — de R$ X por R$ Y]
+- Link Oficial de Destino: [PREENCHER: https://seusite.com.br/campanha]
+
+📦 ENTREGÁVEIS DA CAMPANHA (10 PEÇAS):
+1. [Redator] 3 Posts para Redes Sociais (1 Conceitual/Manifesto, 1 Produto Herói e 1 Urgência/Oferta).
+2. [Redator] 2 E-mails Marketing completos (E-mail 1: Abertura da Campanha; E-mail 2: Últimas Horas / Escassez).
+3. [Designer] Os 3 Criativos de Feed (1080x1350) + 3 Banners Google Ads em 3 formatos:
+   - 1 Quadrado (1:1 — 1080x1080)
+   - 1 Retangular Vertical (600x1067)
+   - 1 Retangular Horizontal (1200x628)
+4. [Web Designer] 1 Landing Page de alta conversão no padrão visual da marca.
+5. [Videomaker] 1 Vídeo curto vertical (9:16) para Reels/Shorts (20–30s).
+6. [Publicador] Publicação em [PREENCHER: LinkedIn/Instagram] + Disparo de E-mail via [PREENCHER: sua ferramenta, ex: Brevo/RD Station] (travado até Gate 2).
+
+⚡ GOVERNANÇA (GATE 1) E VELOCIDADE (FAST-FIRST):
+Primeiro, cruze este briefing com o Brand DNA que já está na memória do time, apresente o plano tático da campanha e PARE no GATE 1 aguardando a minha aprovação.
+Assim que eu aprovar o Gate 1, produza em ondas rápidas (Fast-First): entregue primeiro os textos da Onda 1, enquanto a Landing Page + Google Ads (Onda 2) e os Posts 1080x1350 + Reels 9:16 (Onda 3) são gerados!
+```</template>
+
+  <template id="prompt-03"># ✅ Prompt 03: Aprovação do Gate 1 &amp; Cobrança das Ondas (Fast-First)
+
+&gt; **Finalidade:** Destravar o Gate 1 após o Gerente Geral apresentar o plano estratégico e acelerar a entrega progressiva das Ondas 1, 2 e 3.
+
+---
+
+```text
+[PARTE A — COLE APÓS O GERENTE APRESENTAR O PLANO NO GATE 1]:
+
+Aprovado no Gate 1! O conceito "[PREENCHER: conceito aprovado]" e a mecânica da oferta ([PREENCHER: cupom/condição]) estão perfeitos.
+
+Podem iniciar a produção agora no modo Fast-First:
+1. Soltem imediatamente a ONDA 1 (Redator: textos dos 3 posts, 2 e-mails marketing e roteiro do Reels).
+2. Em seguida executem a ONDA 2 (Web Designer: Landing Page + Designer: 3 banners Google Ads) e a ONDA 3 (Designer: 3 criativos 1080x1350 + Videomaker: Reels 9:16), consolidando tudo para minha revisão no Gate 2.
+```
+
+---
+
+```text
+[PARTE B — OPCIONAL: COLE APÓS VALIDAR OS TEXTOS DA ONDA 1]:
+
+Excelente! Textos da Onda 1 validados.
+[OPCIONAL — PREENCHER SE QUISER AJUSTAR ALGO: Ajuste apenas o detalhe X no Post 2 e registre a regra].
+Agora sigam imediatamente com a ONDA 2 (Landing Page + 3 formatos Google Ads) e a ONDA 3 (3 criativos 1080x1350 + Reels 9:16), parando obrigatoriamente no Gate 2 para minha revisão final!
+```</template>
+
+  <template id="prompt-04"># 🔥 Prompt 04: Aprovação do Gate 2 &amp; Disparo Multicanal
+
+&gt; **Finalidade:** Comando final de Governança Humana (HITL Gate 2) após revisar todas as 10 peças, autorizando o Agente Publicador a publicar e disparar.  
+&gt; **Campos para personalizar:** Substitua os campos `[PREENCHER: ...]`.
+
+---
+
+```text
+Gate 2 Aprovado! Todas as peças da campanha [PREENCHER: Nome da Campanha] passaram no controle de qualidade.
+
+Publicador, execute a distribuição autorizada agora:
+1. Publique (ou agende para [PREENCHER: data/horário, ex: amanhã às 08:45]) o Post [PREENCHER: 01 / 02 / 03] no canal [PREENCHER: LinkedIn / Instagram] com a legenda e arte final aprovadas.
+2. Dispare (ou agende) o E-mail Marketing 01 via [PREENCHER: Brevo / RD Station / ActiveCampaign] para a lista [PREENCHER: Nome ou ID da lista de contatos].
+3. Assim que concluir, me envie o relatório de confirmação com o link da postagem, status do disparo e resumo no [PREENCHER: WhatsApp / chat].
+```</template>
+
+  <template id="prompt-05"># 🧠 Prompt 05: Segundo Cérebro (Extrair Brand DNA da Sua Marca)
+
+&gt; **Finalidade:** Transformar materiais antigos da sua empresa (site, apresentações, posts que você gosta, PDFs, transcrições) em um `01_Brand_DNA_e_Tom_de_Voz.md` pronto para a Camada 1.
+
+---
+
+```text
+Atue como Diretor de Marca e Estrategista de Posicionamento Sênior da empresa [PREENCHER: NOME DA SUA MARCA].
+
+Leia atentamente todos os materiais de referência, textos do site, posts antigos e anotações que disponibilizei abaixo/nesta pasta:
+[PREENCHER: Cole aqui os links, textos ou aponte a pasta com os materiais da sua empresa]
+
+Sua tarefa é sintetizar o nosso Segundo Cérebro (Camada 1) em um documento Markdown estruturado chamado `01_Brand_DNA_e_Tom_de_Voz.md` contendo:
+
+1. Essência &amp; Posicionamento:
+   - O que vendemos na prática e qual transformação real entregamos ao cliente?
+   - Tese contrária: o que o mercado faz errado e nós combatemos?
+   - Quem é nosso público-alvo principal (dores e desejos reais)?
+
+2. Personalidade &amp; Vocabulário Proprietário:
+   - 4 traços objetivos do nosso tom de voz.
+   - Expressões, metáforas e palavras que são a nossa assinatura verbal.
+   - 3 exemplos de frases curtas aprovadas no padrão da marca.
+
+3. Lista Negra (Negative Constraints):
+   - Pelo menos 15 palavras, clichês de IA e apelos baratos que estão expressamente proibidos nos textos dos agentes.
+
+4. Framework Padrão de Copy:
+   - Como estruturamos Gancho, Desenvolvimento e CTA em 3 passos.
+```</template>
+
+  <template id="prompt-06"># 🔄 Prompt 06: Aprendizado por Reforço (Calibração Delta-Diff)
+
+&gt; **Finalidade:** Ensinar a IA com o seu estilo real a partir da comparação entre o rascunho V1 da IA e a versão final que você editou e aprovou (técnica apresentada no Slide 06 da aula).
+
+---
+
+```text
+Atue como um Engenheiro de Machine Learning e Analista de Estilo Editorial Sênior da marca [PREENCHER: NOME DA SUA MARCA].
+
 Abaixo estão duas versões do mesmo conteúdo:
-- [VERSÃO 1 - RASCUNHO GERADO PELA IA]: {cole aqui o primeiro rascunho}
-- [VERSÃO FINAL - APROVADA E EDITADA POR MIM]: {cole aqui a versão que você ajustou}
+- [VERSÃO 1 — RASCUNHO GERADO PELA IA]:
+[PREENCHER: Cole aqui o primeiro rascunho que o agente gerou]
 
-Sua tarefa:
-1. Faça uma análise Delta-Diff comparando frase por frase o que eu cortei, o que eu reescrevi e como mudei o ritmo.
-2. Extraia de 3 a 5 regras práticas e atômicas sobre o meu estilo real de escrita (ex: tamanho de frases, palavras banidas, forma de abrir e fechar).
-3. Atualize o arquivo `01_Contexto_e_Brand_DNA/tom_de_voz.md` adicionando essas novas regras para que o Agente Redator nunca mais repita os vícios da Versão 1.</template>
+- [VERSÃO FINAL — EDITADA E APROVADA POR MIM]:
+[PREENCHER: Cole aqui a versão final com os seus ajustes manuais]
 
-  <template id="prompt-brain">Leia todos os documentos e textos de referência que coloquei nesta pasta.
-Sintetize um documento mestre chamado `posicionamento_e_voz.md` dividido em:
-1. Tese Central da Marca (no que acreditamos vs. o que combatemos no mercado).
-2. Vocabulário Proprietário (termos, metáforas e expressões que usamos com frequência).
-3. Lista Negra (Negative Constraints): 15 palavras, jargões de guru e estruturas de frase que estão expressamente proibidas em qualquer texto dos agentes.</template>
+Sua tarefa analítica (Protocolo Delta-Diff):
+1. Compare linha por linha o que eu cortei, o que eu reescrevi e como mudei o ritmo, a pontuação e o vocabulário.
+2. Extraia de 3 a 5 regras práticas, atômicas e imperativas sobre o nosso estilo real (ex: "Frases de no máximo 14 palavras", "Nunca abrir com pergunta genérica", "Substituir adjetivos abstratos por números reais").
+3. Formate essas regras exatamente no padrão de log para eu salvar no arquivo `06_Historico_Delta_Diff_Regras_Aprendidas.md`, garantindo que o Agente Redator nunca mais repita os vícios da Versão 1.
+```</template>
+
+  <template id="prompt-07"># 👁️ Prompt 07: Aprendizado por Exemplos (Few-Shot Visual &amp; Verbal)
+
+&gt; **Finalidade:** Extrair padrões de estrutura, ritmo e estética de peças reais aprovadas (da sua marca ou de referências que você admira) para alimentar `02_Identidade_Visual_e_Design.md` e `05_Referencias_Conteudo/` (técnica apresentada no Slide 06 da aula).
+
+---
+
+```text
+Atue como Diretor de Arte Sênior e Estrategista de Conteúdo da marca [PREENCHER: NOME DA SUA MARCA].
+
+Analise as referências que anexei/colei abaixo (prints do site, posts aprovados, anúncios ou roteiros de vídeo):
+[PREENCHER: Anexe as imagens ou cole os textos/links de referência que representam o padrão visual e verbal que queremos atingir]
+
+Extraia um manual prático de "Aprendizado por Exemplos" contendo:
+1. Anatomia Visual (para o Designer e Web Designer):
+   - Proporção de cores (fundo vs. texto vs. cor de destaque).
+   - Hierarquia tipográfica (tamanhos relativos entre título, subtítulo e CTA).
+   - Uso de espaço negativo, posicionamento do produto/imagem e estilo de botões/selos.
+2. Anatomia Verbal (para o Redator e Videomaker):
+   - Estrutura dos ganchos iniciais, tamanho médio das legendas e ritmo de cortes/cenas.
+3. Arquivo Pronto:
+   - Gere o conteúdo formatado pronto para salvar em `05_Referencias_Conteudo/Exemplos_Posts_e_Videos.md` e sugira atualizações no `02_Identidade_Visual_e_Design.md`.
+```</template>
+
+  <template id="checklist-aula"># 📋 Checklist dos 5 Passos &amp; Diagramas Oficiais — Agentes S.A.
+
+&gt; **Material de Apoio Pós-Aula | Por Leonardo Nóbrega**  
+&gt; Resumo executivo completo da metodologia, organograma dos 6 agentes e esteira Fast-First apresentados na aula ao vivo.
+
+---
+
+## ✅ OS 5 PASSOS PARA MONTAR E OPERAR SEU TIME DE AGENTES
+
+### Passo 1 · Preparar a Bancada Gratuita (Antigravity + OpenBot)
+- [ ] Instalar o **Google Antigravity** (cérebro que lê pastas locais, cria skills e treina agentes).
+- [ ] Instalar o **OpenBot** (QG operacional onde os 6 agentes conversam e executam em grupo).
+- [ ] Definir onde ficará a pasta raiz da operação no computador.
+
+### Passo 2 · Montar a Camada 1 (Brand DNA Permanente da Marca)
+- [ ] Baixar e duplicar a pasta `01_Pasta_Modelo_Brand_DNA/` (se for agência, criar `/Clientes/[Nome_do_Cliente]/`).
+- [ ] Preencher `01_Brand_DNA_e_Tom_de_Voz.md` (tese central, traços de voz e **Lista Negra** de palavras proibidas).
+- [ ] Preencher `02_Identidade_Visual_e_Design.md` + `04_Logos_e_Assets/tokens_marca.css` (HEX, fontes e logos `.svg`/`.png`).
+- [ ] Preencher `03_Catalogo_e_Oferta_Campanha.md` (produtos reais, preços `de/por`, cupom e links para zero alucinação).
+
+### Passo 3 · Calibrar com Machine Learning (Sem Código)
+- [ ] **Aprendizado por Exemplos (Few-Shot):** Colocar prints de peças, páginas e textos reais aprovados em `05_Referencias_Conteudo/` (ou rodar o **Prompt 07**).
+- [ ] **Aprendizado por Reforço (Delta-Diff):** Sempre que editar um rascunho da IA, rodar o **Prompt 06** comparando V1 vs. Versão Aprovada e salvar a regra em `06_Historico_Delta_Diff_Regras_Aprendidas.md`.
+
+### Passo 4 · Ativar os 6 Agentes Especialistas (Onboarding com DNA Embarcado)
+- [ ] Importar `openbot_agentes_sa_import_grokbot.zip` no OpenBot (*Server Settings → Import → Grok Bot*) ou carregar as 6 skills `.md` no Antigravity.
+- [ ] Rodar o **Prompt 01 (Onboarding)** apontando a pasta da marca para injetar a Camada 1 na memória permanente dos 6 agentes.
+
+### Passo 5 · Operar em 3 Ondas com os 2 Gates HITL (Você como Diretor)
+- [ ] Enviar o **Prompt 02 (Briefing Tático — Camada 2)** ao **Gerente Geral**.
+- [ ] **🛑 GATE 1:** Revisar o conceito, ângulos e entregáveis. Responder *"Aprovado"* para liberar a produção.
+- [ ] Acompanhar as **3 Ondas Fast-First**:
+  - **Onda 1:** Copywriting (3 Posts + 2 E-mails + Roteiro Reels)
+  - **Onda 2:** Web &amp; Ads (1 Landing Page + 3 Google Ads)
+  - **Onda 3:** Feed &amp; Vídeo (3 Criativos `1080×1350` + 1 Reels `9:16`)
+- [ ] **🛑 GATE 2:** Revisar todas as 10 peças prontas e enviar o **Prompt 04** para liberar o **Publicador**.
+
+---
+
+## 🏛️ DIAGRAMA 1 · ORGANOGRAMA DO TIME (6 AGENTES)
+
+```text
+                    ┌───────────────────────────────────┐
+                    │       👤 VOCÊ (DIRETOR / CEO)     │
+                    │  Define o briefing e aprova Gates │
+                    └─────────────────┬─────────────────┘
+                                      │
+                                      ▼
+                    ┌───────────────────────────────────┐
+                    │   👔 AGENTE 00 · GERENTE GERAL    │
+                    │  Orquestrador &amp; Guardião HITL     │
+                    │  (Interface única no Canal QG)    │
+                    └─────────────────┬─────────────────┘
+                                      │
+        ┌──────────────┬──────────────┼──────────────┬──────────────┐
+        ▼              ▼              ▼              ▼              ▼
+ ┌─────────────┐┌─────────────┐┌─────────────┐┌─────────────┐┌─────────────┐
+ │ ✍️ Redator  ││ 🎨 Designer ││🌐 Web Des.  ││🎬 Videomaker││🚀 Publicador│
+ │ Copywriting ││ Feed + Ads  ││Landing Page ││ Reels 9:16  ││Social+E-mail│
+ └─────────────┘└─────────────┘└─────────────┘└─────────────┘└─────────────┘
+```
+
+---
+
+## 🧱 DIAGRAMA 2 · ARQUITETURA DAS 2 CAMADAS
+
+```text
+  CAMADA 1 · MEMÓRIA FIXA (Preenche 1x)          CAMADA 2 · OPERAÇÃO DIÁRIA
+ ┌──────────────────────────────────────┐       ┌───────────────────────────┐
+ │ 📂 Pasta da Marca / Cliente          │       │ 🎯 Briefing Tático (5 min)│
+ │ • Brand DNA &amp; Lista Negra            │  ───▶ │ • Objetivo da campanha    │
+ │ • Design Tokens &amp; Logos SVG          │       │ • Oferta / Cupom / Prazo  │
+ │ • Catálogo Real &amp; Referências        │       │ • 10 peças solicitadas    │
+ │ • Regras Delta-Diff Aprendidas       │       └───────────────────────────┘
+ └──────────────────────────────────────┘
+```
+
+---
+
+## ⚡ DIAGRAMA 3 · ESTEIRA FAST-FIRST (3 ONDAS + 2 GATES HITL)
+
+```text
+  [Briefing Camada 2]
+          │
+          ▼
+  ┌────────────────────────────────────────────────────────┐
+  │ 🛑 GATE 1 (HITL) — Você aprova Estratégia e Ângulos    │
+  └───────────────────────────┬────────────────────────────┘
+                              │ "Aprovado"
+          ┌───────────────────┼───────────────────┐
+          ▼                   ▼                   ▼
+  [🌊 ONDA 1]         [🌊 ONDA 2]         [🌊 ONDA 3]
+  Redator             Web Designer        Designer Social
+  • 3 Posts           • 1 Landing Page    • 3 Feed 1080×1350
+  • 2 E-mails         Designer Ads        Videomaker
+  • 1 Roteiro Reels   • 3 Google Ads      • 1 Reels 9:16 MP4
+          │                   │                   │
+          └───────────────────┼───────────────────┘
+                              ▼
+  ┌────────────────────────────────────────────────────────┐
+  │ 🛑 GATE 2 (HITL) — Revisão Final das 10 Peças Prontas  │
+  └───────────────────────────┬────────────────────────────┘
+                              │ "Gate 2 Aprovado"
+                              ▼
+  [🚀 PUBLICADOR] ➔ Publica na Rede Social + Dispara E-mail + Avisa CEO
+```</template>
+
+  <template id="guia-import"># ⚡ Como Importar os 6 Agentes no OpenBot (Passo a Passo)
+
+&gt; **Instruções Oficiais — Aula Ao Vivo Agentes S.A. | Leonardo Nóbrega**
+
+---
+
+## 📌 O que vem neste arquivo?
+O arquivo `openbot_agentes_sa_import_grokbot.zip` contém o **Time Oficial dos 6 Agentes** da aula ao vivo, já configurados com os campos `[PREENCHER: ...]` para você adaptar à sua marca ou aos seus clientes:
+
+1. **👔 Gerente Geral** — Orquestrador Executivo &amp; Guardião dos 2 Gates HITL (Líder do canal QG)
+2. **✍️ Redator** — Copywriting Social, E-mail Marketing &amp; Roteiros (sem clichês de IA)
+3. **🎨 Designer** — Direção de Arte (Feed `1080×1350` &amp; Google Ads Multiformato)
+4. **🌐 Web Designer** — Landing Page de Alta Conversão responsiva
+5. **🎬 Videomaker** — Vídeo Reels Vertical `9:16` com cortes dinâmicos e legendas
+6. **🚀 Publicador** — Distribuição Multicanal (LinkedIn + E-mail Marketing) travada no Gate 2
+
+Além dos 6 especialistas com seus avatares 3D, o pacote já cria automaticamente o grupo **`🏢 QG Agentes S.A. — Geral`** conectando todo o time.
+
+---
+
+## 🛠️ Como Importar no OpenBot (4 Passos)
+
+### Passo 1: Abra as Configurações do Servidor
+1. Abra o aplicativo **OpenBot** no seu computador (macOS, Windows ou Linux).
+2. No menu lateral ou ícone de engrenagem, acesse **Server Settings** (**Configurações do Servidor**).
+
+### Passo 2: Escolha Importar via Grok Bot
+1. Acesse a aba **Import** (**Importar Agentes**).
+2. Selecione a opção **Grok Bot** (**Import from Grok Bot**).
+
+### Passo 3: Selecione o Arquivo ZIP
+1. Clique para escolher o arquivo no seu computador.
+2. Selecione **`openbot_agentes_sa_import_grokbot.zip`**.
+3. O OpenBot valida o manifesto `openbot-import.json` e importa instantaneamente os **6 agentes** e o canal **`🏢 QG Agentes S.A. — Geral`**.
+
+### Passo 4: Personalize com sua Pasta de Brand DNA (Camada 1)
+1. Preencha os arquivos da pasta **`01_Pasta_Modelo_Brand_DNA/`** com os dados da sua empresa (ou do seu cliente).
+2. Copie essa pasta para dentro do workspace dos agentes no OpenBot (ou envie o caminho no primeiro comando do **Prompt 01 — Onboarding**).
+3. Abra o canal **`🏢 QG Agentes S.A. — Geral`** (ou o chat do **Gerente Geral**) e cole o **Prompt 02 — Briefing Tático**!
+
+---
+
+## 💡 Dica de Ouro (Regra dos 2 Gates)
+- **Gate 1:** O Gerente Geral apresenta o plano estratégico e **para** esperando seu `"Aprovado"` antes de gastar tempo produzindo peças.
+- **Gate 2:** Após entregar as 3 Ondas (Textos ➔ LP &amp; Ads ➔ Feed &amp; Reels), ele **para** novamente esperando seu `"Gate 2 Aprovado"` antes de o Publicador disparar qualquer post ou e-mail.</template>
 
   <script>
     (function () {
       /* ─── Dados da Gaveta (Slide-over) ─── */
       const CHAR = 'assets/personagens_carteirinha/';
       const ITEMS = {
-        'skill-00': { kicker: 'Agente 00', title: 'Gerente de Operação', desc: 'Coordena os 6 especialistas e só avança depois da sua aprovação, nos 2 pontos de controle.', img: CHAR + '01_lian_nobg.png', file: '00_gerente_operacao.md' },
-        'skill-01': { kicker: 'Agente 01', title: 'Pesquisador', desc: 'Varre referências, canais e notícias das últimas 48h em busca de pautas quentes.', img: CHAR + '08_amarelo_oculos_nobg.png', file: '01_agente_pesquisador.md' },
-        'skill-02': { kicker: 'Agente 02', title: 'Estrategista de Pautas', desc: 'Filtra as opções contra o posicionamento da marca e propõe o ângulo ideal.', img: CHAR + '07_azul_boina_nobg.png', file: '02_agente_estrategista.md' },
-        'skill-03': { kicker: 'Agente 03', title: 'Redator', desc: 'Escreve legendas, carrosséis e roteiros seguindo o seu tom de voz.', img: CHAR + '03_rosa_coracao_nobg.png', file: '03_agente_redator.md' },
-        'skill-04': { kicker: 'Agente 04', title: 'Designer', desc: 'Gera imagens consistentes e monta as peças 1080×1350 na sua identidade visual.', img: CHAR + '04_laranja_cubo_nobg.png', file: '04_agente_designer.md' },
-        'skill-05': { kicker: 'Agente 05', title: 'Editor de Vídeo', desc: 'Gera a locução e monta o vídeo curto (30s) com legendas sincronizadas.', img: CHAR + '06_branco_vinil_nobg.png', file: '05_agente_video.md' },
-        'skill-06': { kicker: 'Agente 06', title: 'Social Media', desc: 'Agenda a publicação aprovada e te avisa no WhatsApp.', img: CHAR + '02_verde_sapo_nobg.png', file: '06_agente_social_media.md' },
-        'prompt-delta': { kicker: 'Prompt 01 · Tom de voz', title: 'Aprendizado Delta-Diff', desc: 'Use sempre que editar um texto do agente. Ele calcula a diferença e grava a regra na memória da marca.', img: 'assets/central/prompt_delta.jpg', photo: true },
-        'prompt-brain': { kicker: 'Prompt 02 · Memória da marca', title: 'Segundo cérebro', desc: 'Transforma seus melhores materiais na base de conhecimento do time.', img: 'assets/central/prompt_brain.jpg', photo: true }
+        'skill-00': { kicker: 'Agente 00 · Orquestrador', title: 'Gerente Geral', desc: 'Orquestra os 5 especialistas em 3 Ondas Fast-First e protege os 2 Gates HITL.', img: CHAR + '01_lian_nobg.png', file: '00_gerente_geral.md', dlHref: 'downloads/skills_agentes_sa/00_gerente_geral.md' },
+        'skill-01': { kicker: 'Agente 01 · Copywriting', title: 'Redator Autoral', desc: 'Escreve 3 posts sociais, 2 e-mails e roteiro de Reels no tom da sua marca.', img: CHAR + '03_rosa_coracao_nobg.png', file: '01_agente_redator.md', dlHref: 'downloads/skills_agentes_sa/01_agente_redator.md' },
+        'skill-02': { kicker: 'Agente 02 · Direção de Arte', title: 'Designer', desc: 'Cria 3 peças de feed (1080×1350) e 3 banners Google Ads dentro dos tokens da marca.', img: CHAR + '04_laranja_cubo_nobg.png', file: '02_agente_designer.md', dlHref: 'downloads/skills_agentes_sa/02_agente_designer.md' },
+        'skill-03': { kicker: 'Agente 03 · Conversão', title: 'Web Designer', desc: 'Constrói Landing Pages responsivas alinhadas aos tokens e catálogo real da marca.', img: CHAR + '07_azul_boina_nobg.png', file: '03_agente_web_designer.md', dlHref: 'downloads/skills_agentes_sa/03_agente_web_designer.md' },
+        'skill-04': { kicker: 'Agente 04 · Audiovisual', title: 'Videomaker', desc: 'Produz Reels vertical 9:16 com cortes rápidos, locução e legendas cinéticas.', img: CHAR + '06_branco_vinil_nobg.png', file: '04_agente_videomaker.md', dlHref: 'downloads/skills_agentes_sa/04_agente_videomaker.md' },
+        'skill-05': { kicker: 'Agente 05 · Distribuição', title: 'Publicador', desc: 'Executa publicação no LinkedIn e disparo de e-mail após aprovação no Gate 2.', img: CHAR + '02_verde_sapo_nobg.png', file: '05_agente_publicador.md', dlHref: 'downloads/skills_agentes_sa/05_agente_publicador.md' },
+        'prompt-01': { kicker: 'Prompt 01 · Setup Camada 1', title: 'Onboarding & Criação dos 6 Agentes', desc: 'Injeta o Brand DNA da sua pasta na memória dos 6 agentes ao criá-los no OpenBot/Antigravity.', img: 'assets/central/prep_antigravity.jpg', photo: true, file: 'Prompt_01_Onboarding_Time_Agentes.md', dlHref: 'downloads/prompts/Prompt_01_Onboarding_Time_Agentes.md' },
+        'prompt-02': { kicker: 'Prompt 02 · Camada 2', title: 'Briefing Tático (10 Peças + Fast-First)', desc: 'Substitua os campos [PREENCHER] com sua oferta e cole no chat do Gerente Geral.', img: 'assets/central/hero_time.jpg', photo: true, file: 'Prompt_02_Briefing_Tatico_Campanha.md', dlHref: 'downloads/prompts/Prompt_02_Briefing_Tatico_Campanha.md' },
+        'prompt-03': { kicker: 'Prompt 03 · Gate 1 HITL', title: 'Aprovação Gate 1 & Cobrança das Ondas', desc: 'Destrava a produção após aprovar a estratégia e acompanha as Ondas 1, 2 e 3.', img: 'assets/central/prep_openbot.jpg', photo: true, file: 'Prompt_03_Aprovacao_Gate1_e_Ondas.md', dlHref: 'downloads/prompts/Prompt_03_Aprovacao_Gate1_e_Ondas.md' },
+        'prompt-04': { kicker: 'Prompt 04 · Gate 2 HITL', title: 'Aprovação Gate 2 & Disparo Real', desc: 'Autoriza o Agente Publicador a postar e disparar a campanha após sua revisão final.', img: 'assets/central/aula_fachada.jpg', photo: true, file: 'Prompt_04_Aprovacao_Gate2_e_Disparo.md', dlHref: 'downloads/prompts/Prompt_04_Aprovacao_Gate2_e_Disparo.md' },
+        'prompt-05': { kicker: 'Prompt 05 · Memória da Marca', title: 'Extrair Brand DNA (Segundo Cérebro)', desc: 'Transforma textos antigos e materiais da empresa no 01_Brand_DNA_e_Tom_de_Voz.md.', img: 'assets/central/prompt_brain.jpg', photo: true, file: 'Prompt_05_Segundo_Cerebro_Brand_DNA.md', dlHref: 'downloads/prompts/Prompt_05_Segundo_Cerebro_Brand_DNA.md' },
+        'prompt-06': { kicker: 'Prompt 06 · Aprendizado por Reforço', title: 'Calibração Delta-Diff', desc: 'Compara o rascunho V1 da IA com sua versão editada e grava regras permanentes de estilo.', img: 'assets/central/prompt_delta.jpg', photo: true, file: 'Prompt_06_Aprendizado_Delta_Diff.md', dlHref: 'downloads/prompts/Prompt_06_Aprendizado_Delta_Diff.md' },
+        'prompt-07': { kicker: 'Prompt 07 · Aprendizado por Exemplos', title: 'Extrator de Padrões Visuais e Verbais', desc: 'Analisa prints e exemplos reais para alimentar 05_Referencias_Conteudo/ da marca.', img: 'assets/central/prompt_mascote.jpg', photo: true, file: 'Prompt_07_Aprendizado_por_Exemplos.md', dlHref: 'downloads/prompts/Prompt_07_Aprendizado_por_Exemplos.md' },
+        'checklist-aula': { kicker: 'Material Oficial · Pós-Aula', title: 'Checklist 5 Passos & Diagramas', desc: 'Passo a passo completo, organograma dos 6 agentes, mapa das 2 camadas e esteira Fast-First.', img: 'assets/central/pos_resumo.jpg', photo: true, file: 'Checklist_5_Passos_e_Diagramas_Agentes_SA.pdf', dlHref: 'downloads/materiais/Checklist_5_Passos_e_Diagramas_Agentes_SA.pdf' },
+        'guia-import': { kicker: 'Guia Prático · OpenBot', title: 'Como Importar os 6 Agentes no OpenBot', desc: 'Passo a passo para importar o arquivo openbot_agentes_sa_import_grokbot.zip em 4 cliques.', img: 'assets/central/prep_openbot.jpg', photo: true, file: 'Como_Importar_no_OpenBot.md', dlHref: 'downloads/openbot_import_kit/Como_Importar_no_OpenBot.md' }
       };
 
       const $ = (s, el = document) => el.querySelector(s);
@@ -1760,7 +2424,7 @@ Sintetize um documento mestre chamado `posicionamento_e_voz.md` dividido em:
       }
       function copy(id) {
         const text = textOf(id);
-        const done = () => toast((ITEMS[id] ? ITEMS[id].title : 'Texto') + ' copiado');
+        const done = () => toast((ITEMS[id] ? ITEMS[id].title : 'Conteúdo') + ' copiado!');
         if (navigator.clipboard && window.isSecureContext) {
           navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
         } else { fallbackCopy(text, done); }
@@ -1785,21 +2449,23 @@ Sintetize um documento mestre chamado `posicionamento_e_voz.md` dividido em:
         $('#sheetImg').src = item.img;
         $('#sheetMedia').classList.toggle('is-photo', !!item.photo);
         const dl = $('#sheetDownload');
-        if (item.file) {
+        if (item.dlHref) {
           dl.style.display = 'inline-flex';
-          dl.style.pointerEvents = 'none';
-          dl.style.opacity = '0.65';
-          dl.removeAttribute('href');
-          dl.innerHTML = '<svg class="i"><use href="#i-clock"/></svg>Download em breve';
-          $('#sheetFile').textContent = item.file + ' · (Liberado na aula ao vivo)';
+          dl.style.pointerEvents = 'auto';
+          dl.style.opacity = '1';
+          dl.href = item.dlHref;
+          dl.setAttribute('download', item.file || '');
+          dl.innerHTML = '<svg class="i"><use href="#i-download"/></svg>Baixar arquivo';
+          $('#sheetFile').textContent = item.file || '';
         } else {
           dl.style.display = 'none';
           $('#sheetFile').textContent = '';
         }
-        $('#sheetCopy').innerHTML = '<svg class="i"><use href="#i-clock"/></svg>Liberado na aula ao vivo';
-        $('#sheetCopy').disabled = true;
-        $('#sheetCopy').style.opacity = '0.65';
-        $('#sheetCopy').style.cursor = 'not-allowed';
+        const copyBtn = $('#sheetCopy');
+        copyBtn.innerHTML = '<svg class="i"><use href="#i-copy"/></svg>Copiar conteúdo';
+        copyBtn.disabled = false;
+        copyBtn.style.opacity = '1';
+        copyBtn.style.cursor = 'pointer';
         document.body.classList.add('sheet-open');
         $('.sheet-body').scrollTop = 0;
         setTimeout(() => $('.sheet-close').focus(), 50);
@@ -1810,8 +2476,8 @@ Sintetize um documento mestre chamado `posicionamento_e_voz.md` dividido em:
       }
       $$('[data-open]').forEach(b => b.addEventListener('click', () => openSheet(b.dataset.open)));
       $$('[data-close]').forEach(b => b.addEventListener('click', closeSheet));
-      $$('[data-copy]').forEach(b => b.addEventListener('click', () => toast('Material em breve! Será liberado durante a aula ao vivo.')));
-      $('#sheetCopy').addEventListener('click', () => toast('Material em breve! Será liberado durante a aula ao vivo.'));
+      $$('[data-copy]').forEach(b => b.addEventListener('click', () => copy(b.dataset.copy)));
+      $('#sheetCopy').addEventListener('click', () => { if (currentId) copy(currentId); });
       document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('sheet-open')) closeSheet(); });
 
       /* ─── Checklist da Bancada (salvo em localStorage) ─── */

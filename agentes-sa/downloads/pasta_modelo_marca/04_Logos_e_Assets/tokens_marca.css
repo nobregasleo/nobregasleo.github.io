@@ -1,0 +1,26 @@
+/* ══════════════════════════════════════════════════════════════════
+   DESIGN TOKENS DA SUA MARCA — CAMADA 1
+   Substitua os valores abaixo pelos códigos oficiais da sua marca.
+   O Agente Designer e o Web Designer leem este arquivo diretamente.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Cores Principais (Substitua pelos HEX da sua empresa) */
+  --brand-bg-dark: #111111;       /* [PREENCHER: Fundo escuro principal] */
+  --brand-bg-light: #FFFFFF;      /* [PREENCHER: Fundo claro principal] */
+  --brand-surface: #F5F5F5;       /* [PREENCHER: Fundo de cartões neutros] */
+  --brand-text: #111111;          /* [PREENCHER: Texto principal no claro] */
+  --brand-text-muted: #757575;    /* [PREENCHER: Legendas e metadados] */
+
+  /* Cores de Acento e CTA */
+  --brand-primary: #075FE4;       /* [PREENCHER: Cor principal da marca] */
+  --brand-accent: #FA5400;        /* [PREENCHER: Cor de destaque / oferta] */
+
+  /* Tipografia (Use nomes do Google Fonts ou fontes do sistema) */
+  --font-display: 'Anton', 'Inter', sans-serif;   /* [PREENCHER: Fonte títulos] */
+  --font-body: 'Inter', -apple-system, sans-serif; /* [PREENCHER: Fonte corpo] */
+
+  /* Geometria e Botões */
+  --radius-pill: 999px;
+  --radius-card: 16px;
+}
