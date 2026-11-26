@@ -1126,7 +1126,7 @@
             <div class="user-avatar" id="userInitials" aria-hidden="true">AG</div>
             <div>
               <span id="userName">Aluno(a)</span>
-              <small id="userId">CRACHÁ #AG-2411</small>
+              <small id="userId">CRACHÁ #AG-2511</small>
             </div>
           </div>
         </div>
@@ -1215,7 +1215,7 @@
                 <div class="cracha-sig-val" id="crachaSig" data-placeholder="Sua Assinatura" data-max-font="38" data-min-font="18" data-max-w="440" contenteditable="true" spellcheck="false"></div>
                 <div class="cracha-txt-lbl cracha-sig-lbl" id="crachaSigLbl">ASSINATURA</div>
 
-                <div class="cracha-id-val" id="crachaId" data-max-font="26" data-min-font="14" data-max-w="500" contenteditable="true" spellcheck="false">Nº ID 20261124-ALUNO</div>
+                <div class="cracha-id-val" id="crachaId" data-max-font="26" data-min-font="14" data-max-w="500" contenteditable="true" spellcheck="false">Nº ID 20261125-ALUNO</div>
 
               </div>
             </div>
@@ -1595,9 +1595,9 @@
               <img src="assets/central/pos_certificado.jpg" alt="Anfiteatro de treinamento da Agentes S.A. University" loading="lazy">
             </div>
             <div class="card-body">
-              <span class="card-tag">Agentes S.A. University</span>
+              <span class="card-tag">Agentes S.A. · Aula Prática 25/11</span>
               <h3 class="card-title">Emita seu certificado</h3>
-              <p class="card-text">Com seu nome e matrícula, em PNG para postar no LinkedIn ou PDF em alta resolução para imprimir.</p>
+              <p class="card-text">Certificado nominal de <strong>Mestre em Agentes de IA</strong> (1 hora · 25/11/2026), em PNG para o LinkedIn ou PDF para imprimir.</p>
               <div class="card-actions">
                 <a href="certificado.html?modo=aluno" id="btnCertLink" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg class="i"><use href="#i-award"/></svg>Emitir Certificado</a>
               </div>
@@ -1671,7 +1671,7 @@
     <aside class="hub-rail" aria-label="Seu progresso e próxima aula">
 
       <section class="panel progress" aria-labelledby="progressTitle">
-        <div class="panel-title"><span>Sua bancada</span><small id="railId">#AG-2411</small></div>
+        <div class="panel-title"><span>Sua bancada</span><small id="railId">#AG-2511</small></div>
         <div class="ring">
           <svg viewBox="0 0 128 128" aria-hidden="true">
             <circle class="ring-bg" cx="64" cy="64" r="59"/>
@@ -2946,7 +2946,7 @@ Além dos 6 especialistas com seus avatares 3D, o pacote já cria automaticament
       const urlId = params.get('id') || params.get('serial');
       let student = null;
       if (urlName) {
-        student = { name: urlName.trim(), serial: (urlId || '#AG-2411').trim() };
+        student = { name: urlName.trim(), serial: (urlId || '#AG-2511').trim() };
         try {
           const existing = JSON.parse(localStorage.getItem('ln_webinar_agentes_sa_lead') || '{}');
           localStorage.setItem('ln_webinar_agentes_sa_lead', JSON.stringify({ ...existing, ...student }));
@@ -2957,7 +2957,7 @@ Além dos 6 especialistas com seus avatares 3D, o pacote já cria automaticament
       if (student && student.name) {
         const parts = student.name.split(/\s+/).filter(Boolean);
         const first = parts[0];
-        const serial = student.serial || '#AG-2411';
+        const serial = student.serial || '#AG-2511';
         const initials = (parts[0][0] + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase();
         $('#heroName').textContent = ', ' + first;
         $('#greetName').textContent = ', ' + first;
