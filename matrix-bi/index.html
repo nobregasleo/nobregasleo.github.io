@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-pill="red">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-TQJJ7PX4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#050908">
+  <title>Matrix do BI: ROI, ROAS, Funis e Dashboards | Leonardo Nóbrega</title>
+  <meta name="description" content="Pílula Azul do achismo ou Pílula Vermelha dos dados? Um guia visual e interativo sobre ROI vs. ROAS, funis não-lineares e dashboards de decisão.">
+
+  <!-- Open Graph / Compartilhamento -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Matrix do BI: Pílula Azul do Achismo vs. Pílula Vermelha dos Dados">
+  <meta property="og:description" content="Se administrar é decidir, por que tantas empresas ainda decidem no achismo? Explore ROI, ROAS, funis reais e dashboards na prática.">
+  <meta property="og:url" content="https://nobregasleo.github.io/matrix-bi/">
+  <meta property="og:image" content="https://nobregasleo.github.io/matrix-bi/assets/hero-matrix-bi.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://nobregasleo.github.io/matrix-bi/assets/hero-matrix-bi.jpg">
+
+  <!-- Tipografia Intencional: Space Grotesk (Display), Plus Jakarta Sans (Leitura) e JetBrains Mono (Dados/Console) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-void: #050908;
+      --bg-console: #0a120f;
+      --bg-elevated: #0f1b16;
+      --bg-inset: #070d0b;
+
+      --phosphor: #22ff88;
+      --phosphor-soft: rgba(34, 255, 136, 0.12);
+      --phosphor-border: rgba(34, 255, 136, 0.24);
+      --phosphor-dim: #6c9a82;
+
+      --pill-red: #ff3b53;
+      --pill-red-soft: rgba(255, 59, 83, 0.14);
+      --pill-red-border: rgba(255, 59, 83, 0.42);
+
+      --pill-blue: #3b82f6;
+      --pill-blue-soft: rgba(59, 130, 246, 0.14);
+      --pill-blue-border: rgba(59, 130, 246, 0.42);
+
+      --amber: #f59e0b;
+      --ink-primary: #e9f3ee;
+      --ink-secondary: #a3baae;
+      --ink-muted: #6e877b;
+
+      --line-subtle: rgba(233, 243, 238, 0.09);
+      --img-outline: oklch(1 0 0 / 0.11);
+
+      --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      /* Raios concêntricos: outer = inner + padding */
+      --r-outer: 24px;
+      --r-mid: 16px;
+      --r-inner: 10px;
+
+      --ease-out-quart: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-void);
+      color: var(--ink-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      background-color: var(--bg-void);
+      color: var(--ink-primary);
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 18% 8%, rgba(255, 59, 83, 0.06), transparent 36%),
+        radial-gradient(circle at 82% 10%, rgba(59, 130, 246, 0.06), transparent 36%),
+        radial-gradient(circle at 50% 45%, rgba(34, 255, 136, 0.04), transparent 55%);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      letter-spacing: -0.025em;
+      line-height: 1.14;
+      color: var(--ink-primary);
+      text-wrap: balance;
+    }
+
+    p, li {
+      text-wrap: pretty;
+    }
+
+    .tabular {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    a {
+      color: var(--phosphor);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    button, input, [role="tab"] {
+      font: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--phosphor);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 12px;
+      z-index: 999;
+      background: var(--phosphor);
+      color: #04120b;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      left: 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1172px;
+      padding-inline: 1rem;
+      margin-inline: auto;
+    }
+
+    /* ─── TOP CONSOLE BAR ─── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: rgba(5, 9, 8, 0.84);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      border-bottom: 1px solid var(--line-subtle);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 64px;
+      padding-block: 0.5rem;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--ink-primary);
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 600;
+      min-height: 44px;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--phosphor);
+      box-shadow: 0 0 12px var(--phosphor);
+      flex-shrink: 0;
+    }
+
+    .topnav {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .topnav a {
+      color: var(--ink-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.55rem 0.8rem;
+      border-radius: 8px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      transition-property: color, background-color;
+      transition-duration: 150ms;
+    }
+
+    .topnav a:hover {
+      color: var(--ink-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-share-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-height: 44px;
+      padding: 0.55rem 0.95rem;
+      border-radius: 10px;
+      border: 1px solid var(--phosphor-border);
+      background: var(--phosphor-soft);
+      color: var(--phosphor);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition-property: transform, background-color, border-color;
+      transition-duration: 160ms;
+    }
+
+    .btn-share-top:hover {
+      background: rgba(34, 255, 136, 0.2);
+      border-color: var(--phosphor);
+    }
+
+    .btn-share-top:active {
+      transform: scale(0.96);
+    }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      position: relative;
+      padding-block: 3rem 3.5rem;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line-subtle);
+    }
+
+    #matrixRain {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.14;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-header {
+      max-width: 820px;
+      margin-bottom: 1.75rem;
+    }
+
+    .terminal-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.35;
+      color: var(--phosphor);
+      background: rgba(10, 18, 15, 0.85);
+      border: 1px solid var(--phosphor-border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      max-width: 100%;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.85rem, 4.4vw, 3.45rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero-lead {
+      font-size: clamp(1rem, 1.6vw, 1.22rem);
+      color: var(--ink-secondary);
+      max-width: 66ch;
+    }
+
+    /* Widescreen 16:9 Hero Frame */
+    .hero-stage {
+      background: var(--bg-console);
+      padding: 8px;
+      border-radius: var(--r-outer);
+      border: 1px solid var(--line-subtle);
+      box-shadow:
+        0 24px 60px -20px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(34, 255, 136, 0.06);
+    }
+
+    .hero-stage-media {
+      position: relative;
+    }
+
+    .hero-visual-wrap {
+      position: relative;
+      border-radius: var(--r-mid);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      background: #040807;
+      outline: 1px solid var(--img-outline);
+      outline-offset: -1px;
+    }
+
+    .hero-visual-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(5, 9, 8, 0.18) 0%,
+        rgba(5, 9, 8, 0.04) 48%,
+        rgba(5, 9, 8, 0.82) 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero-choice-bar {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .pill-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      min-height: 60px;
+      padding: 0.8rem 1.1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: left;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition-property: transform, background-color, border-color, box-shadow;
+      transition-duration: 180ms;
+      transition-timing-function: var(--ease-out-quart);
+    }
+
+    .pill-btn:active {
+      transform: scale(0.96);
+    }
+
+    .pill-btn-red {
+      background: rgba(24, 7, 11, 0.82);
+      border: 1px solid var(--pill-red-border);
+      color: #ffe4e8;
+    }
+
+    .pill-btn-red:hover,
+    .pill-btn-red[aria-pressed="true"] {
+      background: rgba(58, 12, 22, 0.9);
+      border-color: var(--pill-red);
+      box-shadow: 0 0 28px rgba(255, 59, 83, 0.32);
+    }
+
+    .pill-btn-blue {
+      background: rgba(8, 16, 32, 0.82);
+      border: 1px solid var(--pill-blue-border);
+      color: #e2eeff;
+    }
+
+    .pill-btn-blue:hover,
+    .pill-btn-blue[aria-pressed="true"] {
+      background: rgba(15, 34, 72, 0.9);
+      border-color: var(--pill-blue);
+      box-shadow: 0 0 28px rgba(59, 130, 246, 0.32);
+    }
+
+    .pill-capsule {
+      width: 28px;
+      height: 14px;
+      border-radius: 999px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .pill-capsule-red {
+      background: linear-gradient(135deg, #ff7588 0%, #ff2442 55%, #9e0b22 100%);
+      box-shadow: 0 0 14px rgba(255, 59, 83, 0.8);
+    }
+
+    .pill-capsule-blue {
+      background: linear-gradient(135deg, #8ec5ff 0%, #2563eb 55%, #102a72 100%);
+      box-shadow: 0 0 14px rgba(59, 130, 246, 0.8);
+    }
+
+    .pill-btn-copy {
+      flex: 1;
+    }
+
+    .pill-btn-copy strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .pill-btn-copy span {
+      display: block;
+      font-size: 0.82rem;
+      opacity: 0.82;
+      margin-top: 2px;
+    }
+
+    .pill-state-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      white-space: nowrap;
+    }
+
+    /* Live Diagnostic Readout right under Hero Image */
+    .pill-readout {
+      margin-top: 8px;
+      padding: 1.15rem 1.35rem;
+      border-radius: var(--r-mid);
+      background: var(--bg-inset);
+      border: 1px solid var(--line-subtle);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .readout-badge {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    html[data-pill="red"] .readout-badge {
+      background: var(--pill-red-soft);
+      color: #ff8090;
+      border: 1px solid var(--pill-red-border);
+    }
+
+    html[data-pill="blue"] .readout-badge {
+      background: var(--pill-blue-soft);
+      color: #8cb8ff;
+      border: 1px solid var(--pill-blue-border);
+    }
+
+    .readout-text {
+      font-size: 0.96rem;
+      color: var(--ink-primary);
+    }
+
+    .readout-metric {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--phosphor);
+      white-space: nowrap;
+    }
+
+    /* ─── AUDIO TRANSMISSION BAR ─── */
+    .audio-console {
+      margin-top: 1.5rem;
+      background: var(--bg-console);
+      border: 1px solid var(--phosphor-border);
+      border-radius: var(--r-mid);
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .audio-play-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      border: 1px solid var(--phosphor);
+      background: var(--phosphor-soft);
+      color: var(--phosphor);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition-property: transform, background-color;
+      transition-duration: 150ms;
+    }
+
+    .audio-play-btn:hover {
+      background: rgba(34, 255, 136, 0.22);
+    }
+
+    .audio-play-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Optical nudge for play triangle */
+    .audio-play-btn svg.icon-play {
+      transform: translateX(1.5px);
+    }
+
+    .audio-meta strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--ink-primary);
+    }
+
+    .audio-meta span {
+      display: block;
+      font-size: 0.86rem;
+      color: var(--ink-secondary);
+    }
+
+    .audio-progress-wrap {
+      margin-top: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .audio-bar {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .audio-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--phosphor);
+      transition: width 120ms linear;
+    }
+
+    .audio-time {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--phosphor-dim);
+      min-width: 84px;
+      text-align: right;
+    }
+
+    .transcript-details {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--line-subtle);
+      padding-top: 0.65rem;
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+    }
+
+    .transcript-details summary {
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--phosphor-dim);
+      min-height: 32px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .transcript-details p {
+      margin-top: 0.5rem;
+      max-width: 72ch;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section {
+      padding-block: 4.5rem;
+      border-bottom: 1px solid var(--line-subtle);
+    }
+
+    .section-header {
+      max-width: 720px;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-index {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--phosphor);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.75rem, 3.2vw, 2.55rem);
+      margin-bottom: 0.9rem;
+    }
+
+    .section-header p {
+      color: var(--ink-secondary);
+      max-width: 65ch;
+    }
+
+    /* ─── 3.1 ROI & ROAS LAYOUT ─── */
+    .theory-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 2.5rem;
+    }
+
+    .prose-stack p + p {
+      margin-top: 1rem;
+    }
+
+    .prose-stack p {
+      color: var(--ink-secondary);
+      max-width: 65ch;
+    }
+
+    .prose-stack strong {
+      color: var(--ink-primary);
+    }
+
+    .formula-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .formula-box {
+      background: var(--bg-console);
+      border-radius: var(--r-mid);
+      padding: 1.25rem;
+      border: 1px solid var(--line-subtle);
+    }
+
+    .formula-box.blue-accent {
+      border-top: 3px solid var(--pill-blue);
+    }
+
+    .formula-box.red-accent {
+      border-top: 3px solid var(--pill-red);
+    }
+
+    .formula-box h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .formula-code {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: var(--phosphor);
+      background: var(--bg-inset);
+      padding: 0.65rem 0.75rem;
+      border-radius: 8px;
+      margin-block: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .formula-box p {
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+    }
+
+    /* Meme Showcase Card */
+    .meme-frame {
+      background: var(--bg-console);
+      padding: 8px;
+      border-radius: var(--r-outer);
+      border: 1px solid var(--line-subtle);
+    }
+
+    .meme-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--r-mid);
+      outline: 1px solid var(--img-outline);
+      outline-offset: -1px;
+    }
+
+    .meme-caption-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.75rem 0.6rem 0.35rem;
+    }
+
+    .meme-caption-bar span {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 40px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--line-subtle);
+      background: var(--bg-elevated);
+      color: var(--ink-primary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition-property: transform, border-color, background-color;
+      transition-duration: 150ms;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--phosphor-border);
+      background: rgba(34, 255, 136, 0.08);
+    }
+
+    .btn-ghost:active {
+      transform: scale(0.96);
+    }
+
+    /* ─── INTERACTIVE ROI VS ROAS SIMULATOR ─── */
+    .simulator-shell {
+      background: var(--bg-console);
+      border: 1px solid var(--phosphor-border);
+      border-radius: var(--r-outer);
+      padding: 1.5rem;
+    }
+
+    .sim-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line-subtle);
+    }
+
+    .sim-top h3 {
+      font-size: 1.35rem;
+    }
+
+    .sim-top p {
+      font-size: 0.94rem;
+      color: var(--ink-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .preset-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .preset-btn {
+      min-height: 40px;
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--line-subtle);
+      background: var(--bg-elevated);
+      color: var(--ink-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition-property: transform, color, border-color, background-color;
+      transition-duration: 150ms;
+    }
+
+    .preset-btn:hover,
+    .preset-btn.is-active {
+      color: var(--phosphor);
+      border-color: var(--phosphor);
+      background: var(--phosphor-soft);
+    }
+
+    .preset-btn:active {
+      transform: scale(0.96);
+    }
+
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 1.75rem;
+      align-items: stretch;
+    }
+
+    .slider-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .slider-item label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.94rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .slider-val {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      color: var(--phosphor);
+      font-weight: 700;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 36px;
+      background: transparent;
+      accent-color: var(--phosphor);
+      cursor: pointer;
+    }
+
+    .sim-results {
+      background: var(--bg-inset);
+      border-radius: var(--r-mid);
+      padding: 1.25rem;
+      border: 1px solid var(--line-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .kpi-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .kpi-card {
+      background: var(--bg-console);
+      border-radius: var(--r-inner);
+      padding: 1rem;
+      border: 1px solid var(--line-subtle);
+    }
+
+    .kpi-label {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .kpi-number {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .kpi-sub {
+      font-size: 0.8rem;
+      color: var(--ink-secondary);
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    .sim-verdict {
+      padding: 0.95rem 1rem;
+      border-radius: var(--r-inner);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      border: 1px solid var(--line-subtle);
+    }
+
+    .sim-verdict.is-trap {
+      background: rgba(255, 59, 83, 0.1);
+      border-color: var(--pill-red-border);
+      color: #ffd8de;
+    }
+
+    .sim-verdict.is-healthy {
+      background: rgba(34, 255, 136, 0.09);
+      border-color: var(--phosphor-border);
+      color: #d8ffea;
+    }
+
+    /* ─── 3.2 FUNIS & DASHBOARDS ─── */
+    .media-duo {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .media-card {
+      background: var(--bg-console);
+      padding: 8px;
+      border-radius: var(--r-outer);
+      border: 1px solid var(--line-subtle);
+    }
+
+    .media-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      height: auto;
+      border-radius: var(--r-mid);
+      display: block;
+      outline: 1px solid var(--img-outline);
+      outline-offset: -1px;
+    }
+
+    .media-card figcaption {
+      padding: 0.8rem 0.65rem 0.4rem;
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+    }
+
+    .media-card figcaption strong {
+      font-family: var(--font-mono);
+      color: var(--phosphor);
+      font-size: 0.78rem;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    /* Quotes & 5Vs Strip */
+    .citations-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .quote-card {
+      background: var(--bg-console);
+      border-left: 3px solid var(--phosphor);
+      border-radius: 0 var(--r-mid) var(--r-mid) 0;
+      padding: 1.25rem 1.4rem;
+      border-top: 1px solid var(--line-subtle);
+      border-right: 1px solid var(--line-subtle);
+      border-bottom: 1px solid var(--line-subtle);
+    }
+
+    .quote-card blockquote {
+      font-size: 0.98rem;
+      color: var(--ink-primary);
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+
+    .quote-card cite {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--phosphor-dim);
+      font-style: normal;
+    }
+
+    .five-vs-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .v-item {
+      background: var(--bg-console);
+      border: 1px solid var(--line-subtle);
+      border-radius: var(--r-mid);
+      padding: 1rem;
+    }
+
+    .v-item strong {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--phosphor);
+      margin-bottom: 0.25rem;
+    }
+
+    .v-item span {
+      font-size: 0.84rem;
+      color: var(--ink-secondary);
+      display: block;
+      line-height: 1.45;
+    }
+
+    /* Interactive Funnel & Dashboard Explorer */
+    .explorer-box {
+      background: var(--bg-console);
+      border: 1px solid var(--line-subtle);
+      border-radius: var(--r-outer);
+      padding: 1.5rem;
+    }
+
+    .tab-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line-subtle);
+      padding-bottom: 1rem;
+    }
+
+    .tab-btn {
+      min-height: 44px;
+      padding: 0.55rem 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--line-subtle);
+      background: var(--bg-inset);
+      color: var(--ink-secondary);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.94rem;
+      cursor: pointer;
+      transition-property: transform, color, border-color, background-color;
+      transition-duration: 160ms;
+    }
+
+    .tab-btn[aria-selected="true"] {
+      background: var(--phosphor-soft);
+      border-color: var(--phosphor);
+      color: var(--phosphor);
+    }
+
+    .tab-btn:active {
+      transform: scale(0.96);
+    }
+
+    .tab-panel[hidden] {
+      display: none;
+    }
+
+    .funnel-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .f-stage {
+      background: var(--bg-inset);
+      border-radius: 12px;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid var(--line-subtle);
+    }
+
+    .f-stage-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.92rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .f-stage-top strong {
+      color: var(--ink-primary);
+    }
+
+    .f-stage-top code {
+      color: var(--phosphor);
+      font-size: 0.84em;
+      background: rgba(34, 255, 136, 0.09);
+      padding: 0.1rem 0.38rem;
+      border-radius: 5px;
+    }
+
+    .f-bar-track {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .f-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--phosphor), #0ea5e9);
+    }
+
+    .f-bar-fill.hourglass-expand {
+      background: linear-gradient(90deg, var(--pill-red), var(--amber));
+    }
+
+    .dash-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .dash-col {
+      background: var(--bg-inset);
+      border-radius: var(--r-mid);
+      padding: 1.25rem;
+      border: 1px solid var(--line-subtle);
+    }
+
+    .dash-col.bad {
+      border-top: 3px solid var(--pill-blue);
+    }
+
+    .dash-col.good {
+      border-top: 3px solid var(--phosphor);
+    }
+
+    .dash-col h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .dash-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .dash-col li {
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.07);
+    }
+
+    /* ─── DECISION QUIZ (3 SCENARIOS) ─── */
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .quiz-card {
+      background: var(--bg-console);
+      border: 1px solid var(--line-subtle);
+      border-radius: var(--r-mid);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .quiz-card h3 {
+      font-size: 1.08rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .quiz-card p {
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+    }
+
+    .quiz-choices {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .quiz-opt {
+      min-height: 44px;
+      padding: 0.65rem 0.85rem;
+      border-radius: 10px;
+      border: 1px solid var(--line-subtle);
+      background: var(--bg-inset);
+      color: var(--ink-primary);
+      text-align: left;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition-property: transform, border-color, background-color;
+      transition-duration: 150ms;
+    }
+
+    .quiz-opt:hover {
+      border-color: var(--phosphor-border);
+    }
+
+    .quiz-opt:active {
+      transform: scale(0.96);
+    }
+
+    .quiz-opt.is-correct {
+      border-color: var(--phosphor);
+      background: rgba(34, 255, 136, 0.12);
+      color: #d9ffec;
+    }
+
+    .quiz-opt.is-wrong {
+      border-color: var(--pill-red);
+      background: rgba(255, 59, 83, 0.12);
+      color: #ffd8de;
+    }
+
+    .quiz-feedback {
+      font-size: 0.84rem;
+      color: var(--phosphor-dim);
+      min-height: 2.6em;
+    }
+
+    /* ─── GA4 LIVE TELEMETRY & FOOTER ─── */
+    .telemetry-panel {
+      background: var(--bg-console);
+      border: 1px solid var(--phosphor-border);
+      border-radius: var(--r-outer);
+      padding: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .telemetry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .telemetry-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .t-stat {
+      background: var(--bg-inset);
+      border: 1px solid var(--line-subtle);
+      border-radius: var(--r-inner);
+      padding: 0.85rem 1rem;
+    }
+
+    .t-stat span {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--ink-muted);
+    }
+
+    .t-stat strong {
+      display: block;
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 1.3rem;
+      color: var(--phosphor);
+      margin-top: 0.2rem;
+    }
+
+    .event-log {
+      background: var(--bg-inset);
+      border-radius: var(--r-inner);
+      padding: 0.85rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--phosphor-dim);
+      max-height: 132px;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .event-log div + div {
+      margin-top: 0.3rem;
+    }
+
+    footer {
+      padding-block: 2.5rem 3.5rem;
+      color: var(--ink-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-elevated);
+      color: var(--phosphor);
+      border: 1px solid var(--phosphor);
+      padding: 0.75rem 1.1rem;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition-property: opacity, transform;
+      transition-duration: 180ms;
+      z-index: 100;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .theory-grid > *,
+    .sim-grid > *,
+    .media-duo > *,
+    .citations-row > *,
+    .dash-compare > *,
+    .quiz-grid > *,
+    .pill-readout > *,
+    .audio-console > *,
+    .kpi-cards > * {
+      min-width: 0;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 920px) {
+      .theory-grid,
+      .sim-grid,
+      .media-duo,
+      .citations-row,
+      .dash-compare,
+      .quiz-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .five-vs-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .telemetry-metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pill-readout {
+        grid-template-columns: 1fr;
+        justify-items: start;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topnav {
+        display: none;
+      }
+
+      .brand-mark {
+        font-size: 0.76rem;
+      }
+
+      .btn-share-top {
+        padding: 0.45rem 0.75rem;
+        font-size: 0.76rem;
+      }
+
+      .terminal-tag {
+        border-radius: 12px;
+        font-size: 0.72rem;
+      }
+
+      .hero-choice-bar {
+        position: static;
+        margin-top: 8px;
+        grid-template-columns: 1fr;
+      }
+
+      .formula-pair,
+      .kpi-cards,
+      .five-vs-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .audio-console {
+        grid-template-columns: auto 1fr;
+      }
+
+      .audio-time {
+        grid-column: 1 / -1;
+        text-align: left;
+      }
+
+      .event-log {
+        overflow-wrap: anywhere;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      #matrixRain {
+        display: none;
+      }
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- Barra de Console Fixa -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#" class="brand-mark">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>MATRIX_DO_BI // PUCPR</span>
+      </a>
+
+      <nav class="topnav" aria-label="Seções da página">
+        <a href="#roi-roas">3.1 ROI &amp; ROAS</a>
+        <a href="#simulador">Simulador</a>
+        <a href="#funis-dashboards">3.2 Funis &amp; Dashboards</a>
+        <a href="#desafio">Teste de Decisão</a>
+        <a href="#telemetria-ga4">GA4 Ao Vivo</a>
+      </nav>
+
+      <button type="button" class="btn-share-top" id="btnShareLink">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span>Copiar link</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="conteudo-principal">
+    <!-- HERO HORIZONTAL MATRIX × DADOS -->
+    <section class="hero">
+      <canvas id="matrixRain" aria-hidden="true"></canvas>
+
+      <div class="container hero-content">
+        <div class="hero-header">
+          <div class="terminal-tag">
+            <span>BUSINESS INTELLIGENCE · MBA GESTÃO DE VENDAS E MARKETING</span>
+          </div>
+          <h1>Se administrar é decidir, por que tantas empresas ainda vivem na Matrix do achismo?</h1>
+          <p class="hero-lead">
+            No marketing — que hoje é indivisível do digital — olhar métricas isoladas cria uma simulação confortável de sucesso. Escolha uma cápsula abaixo para enxergar a diferença entre vaidade de mídia e saúde real do negócio.
+          </p>
+        </div>
+
+        <div class="hero-stage">
+          <div class="hero-stage-media">
+            <div class="hero-visual-wrap">
+              <img
+                src="assets/hero-matrix-bi.jpg"
+                alt="Mentor de óculos escuros redondos em sala de servidores estendendo duas mãos abertas: na esquerda brilha uma cápsula vermelha e na direita brilha uma cápsula azul."
+                width="1920"
+                height="1080"
+                fetchpriority="high"
+              >
+              <div class="hero-vignette" aria-hidden="true"></div>
+            </div>
+
+            <div class="hero-choice-bar" role="group" aria-label="Escolha entre Pílula Vermelha e Pílula Azul">
+              <button type="button" class="pill-btn pill-btn-red" id="btnRedPill" aria-pressed="true">
+                <span class="pill-capsule pill-capsule-red" aria-hidden="true"></span>
+                <span class="pill-btn-copy">
+                  <strong>Tomar a Pílula Vermelha</strong>
+                  <span>ROI real, funil não-linear e dashboard de decisão</span>
+                </span>
+                <span class="pill-state-tag" id="tagRedState">ATIVA</span>
+              </button>
+
+              <button type="button" class="pill-btn pill-btn-blue" id="btnBluePill" aria-pressed="false">
+                <span class="pill-capsule pill-capsule-blue" aria-hidden="true"></span>
+                <span class="pill-btn-copy">
+                  <strong>Tomar a Pílula Azul</strong>
+                  <span>ROAS isolado, métricas de vaidade e achismo</span>
+                </span>
+                <span class="pill-state-tag" id="tagBlueState">TESTAR</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="pill-readout" id="pillReadout" aria-live="polite">
+            <span class="readout-badge" id="readoutBadge">MODO REALIDADE // DATA-DRIVEN</span>
+            <p class="readout-text" id="readoutText">
+              Você despertou na Nabucodonosor: aqui o anúncio só é vitorioso quando paga produto, frete, imposto e deixa lucro líquido (ROI), acompanhando o trânsito real do usuário até a conversão.
+            </p>
+            <span class="readout-metric tabular" id="readoutMetric">ROI &gt; 0% · DECISÃO ATIVA</span>
+          </div>
+        </div>
+
+        <!-- FORMATO ÁUDIO: Transmissão da Nabucodonosor -->
+        <div class="audio-console" aria-label="Áudio explicativo da página">
+          <button type="button" class="audio-play-btn" id="btnAudioToggle" aria-label="Ouvir transmissão em áudio">
+            <svg class="icon-play" id="iconPlay" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <polygon points="6 4 20 12 6 20 6 4"></polygon>
+            </svg>
+            <svg id="iconPause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden>
+              <rect x="6" y="4" width="4" height="16"></rect>
+              <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+          </button>
+
+          <div class="audio-meta">
+            <strong>Transmissão Interceptada — Operador da Nabucodonosor (Áudio · 38s)</strong>
+            <span>Resumo sonoro sobre a ilusão do ROAS isolado, o cálculo do ROI e a dinâmica viva dos funis.</span>
+            <div class="audio-progress-wrap">
+              <div class="audio-bar" id="audioBar" role="progressbar" aria-label="Progresso do áudio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div class="audio-bar-fill" id="audioBarFill"></div>
+              </div>
+            </div>
+          </div>
+
+          <span class="audio-time tabular" id="audioTime">00:00 / 00:38</span>
+
+          <audio id="oracleAudio" preload="metadata" src="assets/transmissao-oraculo.mp3"></audio>
+
+          <details class="transcript-details">
+            <summary>Ler transcrição completa do áudio</summary>
+            <p>
+              “Transmissão interceptada da Nabucodonosor. Se administrar é decidir, por que tantas empresas ainda decidem no achismo? A pílula azul te faz comemorar um ROAS de seis vezes no painel de anúncios, esquecendo frete, impostos e margem, enquanto o caixa sangra. A pílula vermelha revela o ROI real do negócio e mostra que o funil digital não é um cone perfeito de livro: é um fluxo vivo onde milhares entram no topo, circulam por múltiplos canais e afunilam até a conversão. Saia da ilusão das métricas de vaidade. Conecte seus dashboards à decisão.”
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA 3.1: ROI E ROAS -->
+    <section class="section" id="roi-roas">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-index">TEMA 3.1 // SAÚDE DO NEGÓCIO VS. EFICIÊNCIA DE MÍDIA</span>
+          <h2>ROI e ROAS: quando um anúncio “campeão” esconde prejuízo no caixa</h2>
+          <p>
+            Ainda existe quem separe “marketing tradicional” de “marketing digital”, quando ambos respondem à mesma lógica estratégica de negócio. Com dezenas de canais e ferramentas rodando ao mesmo tempo, <strong>ROAS</strong> e <strong>ROI</strong> cumprem papéis distintos — e confundi-los é o atalho mais rápido para o achismo.
+          </p>
+        </div>
+
+        <div class="theory-grid">
+          <div class="prose-stack">
+            <p>
+              Imagine um e-commerce que investe <strong>R$ 10.000</strong> em tráfego pago e fatura <strong>R$ 40.000</strong> em vendas vindas desses anúncios. No painel da plataforma de mídia, o resultado brilha: <strong>ROAS de 4,0x (400%)</strong>. Quem tomou a Pílula Azul dobra a verba na mesma hora.
+            </p>
+            <p>
+              Mas quem tomou a Pílula Vermelha abre a planilha completa da operação: soma o custo da mercadoria vendida (R$ 22.000), impostos e taxas de pagamento (R$ 6.000), subsídio de frete (R$ 4.500) e ferramentas/equipe (R$ 2.500). Somando os R$ 10.000 de mídia, o <strong>custo total foi R$ 45.000</strong> para faturar R$ 40.000 — um <strong>ROI negativo de -11,1%</strong>.
+            </p>
+
+            <div class="formula-pair">
+              <article class="formula-box blue-accent">
+                <h3>ROAS</h3>
+                <span class="tabular" style="font-size:0.78rem;color:var(--ink-muted);">Return on Ad Spend</span>
+                <code class="formula-code">ROAS = Receita dos Anúncios ÷ Custo dos Anúncios</code>
+                <p>
+                  Lente tática de publicidade: mede quantos reais brutos voltaram para cada R$ 1 investido especificamente em mídia paga.
+                </p>
+              </article>
+
+              <article class="formula-box red-accent">
+                <h3>ROI</h3>
+                <span class="tabular" style="font-size:0.78rem;color:var(--ink-muted);">Return on Investment</span>
+                <code class="formula-code">ROI = [(Receita − Custo Total) ÷ Custo Total] × 100</code>
+                <p>
+                  Lente executiva de negócio: desconta todos os custos da operação e revela se a estratégia realmente gerou lucro ou queimou caixa.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <!-- FORMATO MEME REMIXADO -->
+          <figure class="meme-frame">
+            <img
+              src="assets/meme-pilulas-marketing.jpg"
+              alt="Meme remixado de Matrix perguntando qual pílula você escolhe na reunião de resultados: ROI Real + Funil Vivo na pílula vermelha ou ROAS 8x de Vaidade com caixa negativo na pílula azul."
+              width="1080"
+              height="1080"
+              loading="lazy"
+            >
+            <figcaption class="meme-caption-bar">
+              <span>MEME AUTORAL // CULTURA POP &amp; BI</span>
+              <a href="assets/meme-pilulas-marketing.jpg" download="meme-matrix-roi-vs-roas.jpg" class="btn-ghost" id="btnDownloadMeme">
+                Baixar meme
+              </a>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- SIMULADOR INTERATIVO ROI vs ROAS -->
+        <div class="simulator-shell" id="simulador">
+          <div class="sim-top">
+            <div>
+              <h3>Simulador Nabucodonosor: teste o cabo de guerra entre ROAS e ROI</h3>
+              <p>Arraste os controles ou clique em um cenário real para ver como a margem operacional muda completamente a leitura do resultado.</p>
+            </div>
+            <div class="preset-group" role="group" aria-label="Cenários prontos de simulação">
+              <button type="button" class="preset-btn is-active" data-ad="10000" data-rev="45000" data-ops="38000">Ilusão ROAS 4,5x (Prejuízo)</button>
+              <button type="button" class="preset-btn" data-ad="12000" data-rev="66000" data-ops="30000">Operação Escala Saudável</button>
+              <button type="button" class="preset-btn" data-ad="20000" data-rev="90000" data-ops="16000">Infoproduto Margem Alta</button>
+            </div>
+          </div>
+
+          <div class="sim-grid">
+            <div class="slider-list">
+              <div class="slider-item">
+                <label for="inputAdSpend">
+                  <span>1. Investimento em Publicidade (Mídia Paga)</span>
+                  <span class="slider-val" id="valAdSpend">R$ 10.000</span>
+                </label>
+                <input type="range" id="inputAdSpend" min="2000" max="50000" step="1000" value="10000">
+              </div>
+
+              <div class="slider-item">
+                <label for="inputRevenue">
+                  <span>2. Receita Bruta Gerada pelas Vendas</span>
+                  <span class="slider-val" id="valRevenue">R$ 45.000</span>
+                </label>
+                <input type="range" id="inputRevenue" min="5000" max="150000" step="1000" value="45000">
+              </div>
+
+              <div class="slider-item">
+                <label for="inputOpsCost">
+                  <span>3. Demais Custos (Produto, Impostos, Frete, Taxas, Equipe)</span>
+                  <span class="slider-val" id="valOpsCost">R$ 38.000</span>
+                </label>
+                <input type="range" id="inputOpsCost" min="2000" max="100000" step="1000" value="38000">
+              </div>
+            </div>
+
+            <div class="sim-results" aria-live="polite">
+              <div class="kpi-cards">
+                <div class="kpi-card">
+                  <span class="kpi-label">ROAS (MÍDIA ISOLADA)</span>
+                  <div class="kpi-number" id="outRoas" style="color:#60a5fa;">4,50x</div>
+                  <span class="kpi-sub tabular" id="outRoasPct">450% sobre anúncios</span>
+                </div>
+
+                <div class="kpi-card">
+                  <span class="kpi-label">ROI REAL (NEGÓCIO)</span>
+                  <div class="kpi-number" id="outRoi" style="color:var(--pill-red);">-6,3%</div>
+                  <span class="kpi-sub tabular" id="outNetProfit">Resultado líquido: -R$ 3.000</span>
+                </div>
+              </div>
+
+              <div class="sim-verdict is-trap" id="simVerdict">
+                <strong>ALERTA DE ILUSÃO (PÍLULA AZUL):</strong> O gerenciador de anúncios mostra um ROAS vistoso de 4,50x, mas somando mídia + custos operacionais (R$ 48.000), a empresa perde R$ 3.000 no caixa. Escalar essa campanha sem corrigir margem ou ticket médio só acelera o prejuízo.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMA 3.2: FUNIS E DASHBOARDS -->
+    <section class="section" id="funis-dashboards">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-index">TEMA 3.2 // ARQUITETURA DE FLUXO E VISUALIZAÇÃO DE DECISÃO</span>
+          <h2>Funis e dashboards: o caminho nunca é uma linha reta, mas o afunilamento é real</h2>
+          <p>
+            Fora e dentro do Google Analytics, o desenho clássico em cone virou apenas um ponto de partida. Hoje os usuários entram, saem, pesquisam, comparam e retornam em múltiplos formatos — mas a essência permanece: <strong>um grande volume ingressa no topo, percorre estágios intermediários e afunila até converter no objetivo estabelecido</strong>.
+          </p>
+        </div>
+
+        <!-- FORMATO GIF ANIMADO + IMAGEM CINEMATOGRÁFICA -->
+        <div class="media-duo">
+          <figure class="media-card">
+            <img
+              src="assets/funil-matrix-loop.gif"
+              alt="GIF animado dividindo a tela entre a Pílula Azul (funil cônico rígido com ROAS aparente de 5x e ROI negativo) e a Pílula Vermelha (fluxo não-linear passando por Reels, busca no Google, remarketing e prova social até a conversão com ROI positivo)."
+              width="840"
+              height="460"
+              loading="lazy"
+            >
+            <figcaption>
+              <strong>GIF ANIMADO // CONE TEÓRICO VS. TRÂNSITO REAL</strong>
+              Enquanto o modelo estático assume passos lineares, o comportamento digital real combina idas e vindas entre canais antes da conversão.
+            </figcaption>
+          </figure>
+
+          <figure class="media-card">
+            <img
+              src="assets/console-funil-bi.jpg"
+              alt="Estrategista de costas em sala escura analisando em monitor curvo feixes luminosos verdes que entram largos no topo e convergem para um núcleo vermelho de conversão na base."
+              width="1600"
+              height="900"
+              loading="lazy"
+            >
+            <figcaption>
+              <strong>CONSOLE EXECUTIVO // DO DADO BRUTO À AÇÃO</strong>
+              Um dashboard útil não empilha gráficos decorativos: ele ilumina gargalos de passagem entre um estágio e outro.
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- CONEXÃO COM A TEORIA DA DISCIPLINA -->
+        <div class="citations-row">
+          <div class="quote-card">
+            <blockquote>
+              “Vivemos tempos em que novas ideias surgem a todo momento, com a capacidade de desmoronar verdades da noite para o dia.”
+            </blockquote>
+            <cite>MATTOS, 2017, p. 17 — Comportamento dinâmico que remodela os funis digitais</cite>
+          </div>
+
+          <div class="quote-card">
+            <blockquote>
+              “Painéis gráficos e planilhas de resultados, para que pudessem ser visualmente atraentes e ao mesmo tempo se concentrassem nos indicadores básicos de desempenho a serem monitorados pelos tomadores de decisões.”
+            </blockquote>
+            <cite>SHARDA; DELEN; TURBAN, 2019, p. 13 — O papel real de um dashboard em BI</cite>
+          </div>
+        </div>
+
+        <!-- 5 Vs do Big Data aplicados a Small Data acionável -->
+        <div class="five-vs-strip" aria-label="Os 5 Vs do Big Data aplicados aos Dashboards">
+          <div class="v-item">
+            <strong>1. Volume</strong>
+            <span>Milhares de eventos de página, rolagem e clique entram no topo do GA4.</span>
+          </div>
+          <div class="v-item">
+            <strong>2. Velocidade</strong>
+            <span>Leitura em tempo real para pausar campanhas ruins antes de queimar verba.</span>
+          </div>
+          <div class="v-item">
+            <strong>3. Variedade</strong>
+            <span>Cruzar tráfego do site, CRM, custo de mídia e margem financeira numa só visão.</span>
+          </div>
+          <div class="v-item">
+            <strong>4. Veracidade</strong>
+            <span>Tags confiáveis e dados limpos sem duplicidade para eliminar o achismo.</span>
+          </div>
+          <div class="v-item">
+            <strong>5. Valor</strong>
+            <span>Transformar Big Data em Small Data: 3 a 5 KPIs SMART que guiam a decisão.</span>
+          </div>
+        </div>
+
+        <!-- EXPLORADOR INTERATIVO DE FUNIS & DASHBOARDS -->
+        <div class="explorer-box">
+          <div class="tab-bar" role="tablist" aria-label="Modelos de funil e comparação de dashboards">
+            <button type="button" class="tab-btn" role="tab" id="tabBtnCone" aria-selected="true" aria-controls="panelCone">
+              Funil de Aquisição (Afunilamento GA4)
+            </button>
+            <button type="button" class="tab-btn" role="tab" id="tabBtnHourglass" aria-selected="false" aria-controls="panelHourglass">
+              Funil Ampulheta (Pós-Conversão &amp; LTV)
+            </button>
+            <button type="button" class="tab-btn" role="tab" id="tabBtnDash" aria-selected="false" aria-controls="panelDash">
+              Dashboard Vaidade vs. Decisão
+            </button>
+          </div>
+
+          <!-- Painel 1: Afunilamento Clássico Medido no GA4 -->
+          <div class="tab-panel" id="panelCone" role="tabpanel" aria-labelledby="tabBtnCone">
+            <div class="funnel-bars">
+              <div class="f-stage">
+                <div class="f-stage-top">
+                  <strong>1. Topo — Ingresso de Usuários (<code class="tabular">session_start</code> / <code class="tabular">page_view</code>)</strong>
+                  <span class="tabular">10.000 usuários (100%)</span>
+                </div>
+                <div class="f-bar-track"><div class="f-bar-fill" style="width:100%;"></div></div>
+              </div>
+
+              <div class="f-stage">
+                <div class="f-stage-top">
+                  <strong>2. Interesse — Leitura &amp; Engajamento Real (<code class="tabular">user_engagement</code> &gt; 30s)</strong>
+                  <span class="tabular">3.400 usuários (34,0%) · perda de 66%</span>
+                </div>
+                <div class="f-bar-track"><div class="f-bar-fill" style="width:34%;"></div></div>
+              </div>
+
+              <div class="f-stage">
+                <div class="f-stage-top">
+                  <strong>3. Consideração — Simulação de Oferta / Carrinho (<code class="tabular">begin_checkout</code>)</strong>
+                  <span class="tabular">820 usuários (8,2%) · gargalo crítico aqui</span>
+                </div>
+                <div class="f-bar-track"><div class="f-bar-fill" style="width:14%;"></div></div>
+              </div>
+
+              <div class="f-stage">
+                <div class="f-stage-top">
+                  <strong>4. Fundo — Conversão no Objetivo Estabelecido (<code class="tabular">purchase</code> / <code class="tabular">generate_lead</code>)</strong>
+                  <span class="tabular" style="color:var(--phosphor);">246 conversões (2,46% do topo)</span>
+                </div>
+                <div class="f-bar-track"><div class="f-bar-fill" style="width:6%;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Painel 2: Formato Não-Cônico (Ampulheta) -->
+          <div class="tab-panel" id="panelHourglass" role="tabpanel" aria-labelledby="tabBtnHourglass" hidden>
+            <div class="funnel-bars">
+              <div class="f-stage">
+                <div class="f-stage-top">
+                  <strong>1. Descoberta Multicanal (Reels, Busca Orgânica, Mídia Paga)</strong>
+                  <span class="tabular">10.000 pessoas alcançadas</span>
+                </div>
+                <div class="f-bar-track"><div class="f-bar-fill" style="width:100%;"></div></div>
+              </div>
+
+              <div class="f-stage">
+                <div class="f-stage-top">
+                  <strong>2. Qualificação &amp; Primeira Conversão (O “pescoço” da ampulheta)</strong>
+                  <span class="tabular">246 novos clientes ativos</span>
+                </div>
+                <div class="f-bar-track"><div class="f-bar-fill" style="width:14%;"></div></div>
+              </div>
+
+              <div class="f-stage">
+                <div class="f-stage-top">
+                  <strong>3. Retenção &amp; Recompra (Sem novo custo de clique em anúncio!)</strong>
+                  <span class="tabular">160 clientes recorrentes · ROI salta de 18% para 64%</span>
+                </div>
+                <div class="f-bar-track"><div class="f-bar-fill hourglass-expand" style="width:42%;"></div></div>
+              </div>
+
+              <div class="f-stage">
+                <div class="f-stage-top">
+                  <strong>4. Indicação &amp; Prova Social (Clientes trazendo novo topo gratuito)</strong>
+                  <span class="tabular" style="color:var(--amber);">+1.150 novos visitantes orgânicos gerados</span>
+                </div>
+                <div class="f-bar-track"><div class="f-bar-fill hourglass-expand" style="width:68%;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Painel 3: Comparativo de Dashboards -->
+          <div class="tab-panel" id="panelDash" role="tabpanel" aria-labelledby="tabBtnDash" hidden>
+            <div class="dash-compare">
+              <div class="dash-col bad">
+                <h4>Pílula Azul: Dashboard de Vaidade</h4>
+                <ul>
+                  <li><span>Impressões brutas do post</span><strong class="tabular">184.900</strong></li>
+                  <li><span>Curtidas e foguinhos</span><strong class="tabular">4.120</strong></li>
+                  <li><span>Cliques sem filtro de qualidade</span><strong class="tabular">9.400</strong></li>
+                  <li><span>ROAS isolado do gerenciador</span><strong class="tabular">5,2x</strong></li>
+                  <li><span>Decisão tomada na reunião</span><strong>“Impulsiona mais!”</strong></li>
+                </ul>
+              </div>
+
+              <div class="dash-col good">
+                <h4>Pílula Vermelha: Dashboard de Decisão</h4>
+                <ul>
+                  <li><span>Taxa de engajamento real (GA4)</span><strong class="tabular" style="color:var(--phosphor);">61,4%</strong></li>
+                  <li><span>Conversão Topo → Objetivo Final</span><strong class="tabular" style="color:var(--phosphor);">2,46%</strong></li>
+                  <li><span>CAC vs. Margem de Contribuição</span><strong class="tabular" style="color:var(--phosphor);">R$ 48 / R$ 135</strong></li>
+                  <li><span>ROI líquido auditado da campanha</span><strong class="tabular" style="color:var(--phosphor);">+38,5%</strong></li>
+                  <li><span>Decisão tomada na reunião</span><strong style="color:var(--phosphor);">Otimizar etapa 3</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTE RÁPIDO DE 3 DECISÕES (GERADOR DE EVENTOS REAIS NO GA4) -->
+    <section class="section" id="desafio">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-index">PROVA PRÁTICA // SAINDO DO ACHISMO</span>
+          <h2>Teste rápido: 3 decisões de mesa executiva</h2>
+          <p>
+            Clique na decisão que você tomaria em cada situação. Cada resposta registra um evento real no Google Analytics desta página.
+          </p>
+        </div>
+
+        <div class="quiz-grid">
+          <article class="quiz-card" data-q="1">
+            <div>
+              <h3>Caso 1 — O ROAS 6x misterioso</h3>
+              <p>A agência comemorou ROAS de 6x numa campanha com frete grátis e cupom de 30% OFF, mas o financeiro apontou margem bruta de apenas 22% antes da mídia.</p>
+            </div>
+            <div class="quiz-choices">
+              <button type="button" class="quiz-opt" data-correct="false">Dobrar o orçamento imediatamente porque ROAS 6x é excelente.</button>
+              <button type="button" class="quiz-opt" data-correct="true">Calcular o ROI descontando cupom, frete e CMV antes de escalar.</button>
+            </div>
+            <p class="quiz-feedback" aria-live="polite">Selecione uma alternativa para validar.</p>
+          </article>
+
+          <article class="quiz-card" data-q="2">
+            <div>
+              <h3>Caso 2 — Vazamento no meio do funil</h3>
+              <p>O dashboard do GA4 mostra 15.000 visitas na página do produto, 2.800 adições ao carrinho, mas apenas 45 compras concluídas.</p>
+            </div>
+            <div class="quiz-choices">
+              <button type="button" class="quiz-opt" data-correct="true">Investigar frete, prazo ou erro no checkout onde 98% desistem.</button>
+              <button type="button" class="quiz-opt" data-correct="false">Trocar o criativo do anúncio para trazer o dobro de cliques no topo.</button>
+            </div>
+            <p class="quiz-feedback" aria-live="polite">Selecione uma alternativa para validar.</p>
+          </article>
+
+          <article class="quiz-card" data-q="3">
+            <div>
+              <h3>Caso 3 — Enxurrada de Big Data</h3>
+              <p>A diretoria pediu um painel semanal com 48 gráficos diferentes que ninguém lê até o fim nas reuniões de segunda-feira.</p>
+            </div>
+            <div class="quiz-choices">
+              <button type="button" class="quiz-opt" data-correct="false">Adicionar mais abas para garantir que nenhum dado fique de fora.</button>
+              <button type="button" class="quiz-opt" data-correct="true">Enxugar para os KPIs SMART essenciais ligados a receita, funil e ROI.</button>
+            </div>
+            <p class="quiz-feedback" aria-live="polite">Selecione uma alternativa para validar.</p>
+          </article>
+        </div>
+
+        <!-- MONITOR DE TELEMETRIA GA4 AO VIVO -->
+        <div class="telemetry-panel" id="telemetria-ga4">
+          <div class="telemetry-head">
+            <div>
+              <h3 style="font-size:1.2rem;">Monitor de Telemetria GA4 Ao Vivo nesta Sessão</h3>
+              <p style="font-size:0.9rem;color:var(--ink-secondary);">
+                Tag ativa no código: <code class="tabular" style="color:var(--phosphor);">GTM-TQJJ7PX4</code> (fluxo GA4 <code class="tabular" style="color:var(--phosphor);">G-G5BRN5BX5G</code>). Todas as interações abaixo alimentam os relatórios reais do Google Analytics.
+              </p>
+            </div>
+          </div>
+
+          <div class="telemetry-metrics">
+            <div class="t-stat">
+              <span>STATUS DA TAG GA4</span>
+              <strong id="statTagStatus">CONECTADA</strong>
+            </div>
+            <div class="t-stat">
+              <span>TEMPO NA PÁGINA</span>
+              <strong id="statTimeOnPage">00:00</strong>
+            </div>
+            <div class="t-stat">
+              <span>EVENTOS ENVIADOS</span>
+              <strong id="statEventsCount">1</strong>
+            </div>
+            <div class="t-stat">
+              <span>ACERTOS NO TESTE</span>
+              <strong id="statQuizScore">0 / 3</strong>
+            </div>
+          </div>
+
+          <div class="event-log" id="eventLog" aria-live="polite">
+            <div>[00:00] gtag('event', 'page_view', { page_path: '/matrix-bi/' }) → enviado ao GA4</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>
+        <strong style="color:var(--ink-primary);">Leonardo Nóbrega</strong> · Atividade Prática de Business Intelligence (Temas 3.1 ROI/ROAS &amp; 3.2 Funis/Dashboards)
+      </div>
+      <div class="tabular" style="font-size:0.82rem;">
+        PUCPR · MBA em Gestão de Vendas e Marketing · Prof. Bruno César
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toastMsg" role="status" aria-live="polite">Link copiado para a área de transferência!</div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ─── 1. TELEMETRIA GA4 + MONITOR DE SESSÃO ─── */
+      const startTime = Date.now();
+      let eventsSent = 1;
+      let quizCorrect = 0;
+      const answeredQuestions = new Set();
+
+      const statTimeEl = document.getElementById('statTimeOnPage');
+      const statEventsEl = document.getElementById('statEventsCount');
+      const statQuizEl = document.getElementById('statQuizScore');
+      const eventLogEl = document.getElementById('eventLog');
+
+      function formatClock(sec) {
+        const m = String(Math.floor(sec / 60)).padStart(2, '0');
+        const s = String(Math.floor(sec % 60)).padStart(2, '0');
+        return m + ':' + s;
+      }
+
+      setInterval(function () {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        statTimeEl.textContent = formatClock(elapsed);
+      }, 1000);
+
+      function trackMatrixEvent(eventName, params) {
+        const payload = Object.assign({ page_section: 'matrix_bi_pucpr' }, params || {});
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', eventName, payload);
+        } else {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push(Object.assign({ event: eventName }, payload));
+        }
+        eventsSent += 1;
+        statEventsEl.textContent = String(eventsSent);
+
+        const elapsed = formatClock(Math.floor((Date.now() - startTime) / 1000));
+        const row = document.createElement('div');
+        row.textContent = '[' + elapsed + "] gtag('event', '" + eventName + "', " + JSON.stringify(params || {}) + ')';
+        eventLogEl.prepend(row);
+      }
+
+      /* ─── 2. ESCOLHA DAS PÍLULAS NO HERO ─── */
+      const btnRed = document.getElementById('btnRedPill');
+      const btnBlue = document.getElementById('btnBluePill');
+      const tagRed = document.getElementById('tagRedState');
+      const tagBlue = document.getElementById('tagBlueState');
+      const readoutBadge = document.getElementById('readoutBadge');
+      const readoutText = document.getElementById('readoutText');
+      const readoutMetric = document.getElementById('readoutMetric');
+
+      function setPillMode(mode, userTriggered) {
+        document.documentElement.setAttribute('data-pill', mode);
+        if (mode === 'red') {
+          btnRed.setAttribute('aria-pressed', 'true');
+          btnBlue.setAttribute('aria-pressed', 'false');
+          tagRed.textContent = 'ATIVA';
+          tagBlue.textContent = 'TESTAR';
+          readoutBadge.textContent = 'MODO REALIDADE // DATA-DRIVEN';
+          readoutText.textContent = 'Você despertou na Nabucodonosor: aqui o anúncio só é vitorioso quando paga produto, frete, imposto e deixa lucro líquido (ROI), acompanhando o trânsito real do usuário até a conversão.';
+          readoutMetric.textContent = 'ROI > 0% · DECISÃO ATIVA';
+          readoutMetric.style.color = 'var(--phosphor)';
+        } else {
+          btnRed.setAttribute('aria-pressed', 'false');
+          btnBlue.setAttribute('aria-pressed', 'true');
+          tagRed.textContent = 'DESPERTAR';
+          tagBlue.textContent = 'ATIVA';
+          readoutBadge.textContent = 'MODO SIMULAÇÃO // ACHISMO & VAIDADE';
+          readoutText.textContent = 'Tudo parece lindo na Matrix: o relatório exibe curtidas em alta e ROAS 6x no gerenciador, enquanto ninguém confere o vazamento no checkout nem o prejuízo líquido no fim do mês.';
+          readoutMetric.textContent = 'ROAS 6x · CAIXA NO ESCURO';
+          readoutMetric.style.color = '#8cb8ff';
+        }
+        if (userTriggered) {
+          trackMatrixEvent('select_pill', { pill_color: mode });
+        }
+      }
+
+      btnRed.addEventListener('click', function () { setPillMode('red', true); });
+      btnBlue.addEventListener('click', function () { setPillMode('blue', true); });
+
+      /* ─── 3. CONSOLE DE ÁUDIO ─── */
+      const audio = document.getElementById('oracleAudio');
+      const btnAudio = document.getElementById('btnAudioToggle');
+      const iconPlay = document.getElementById('iconPlay');
+      const iconPause = document.getElementById('iconPause');
+      const audioBar = document.getElementById('audioBar');
+      const audioBarFill = document.getElementById('audioBarFill');
+      const audioTime = document.getElementById('audioTime');
+
+      btnAudio.addEventListener('click', function () {
+        if (audio.paused) {
+          audio.play();
+          trackMatrixEvent('play_oracle_audio', { action: 'play' });
+        } else {
+          audio.pause();
+          trackMatrixEvent('play_oracle_audio', { action: 'pause' });
+        }
+      });
+
+      audio.addEventListener('play', function () {
+        iconPlay.hidden = true;
+        iconPause.hidden = false;
+      });
+
+      audio.addEventListener('pause', function () {
+        iconPlay.hidden = false;
+        iconPause.hidden = true;
+      });
+
+      audio.addEventListener('ended', function () {
+        iconPlay.hidden = false;
+        iconPause.hidden = true;
+        trackMatrixEvent('complete_oracle_audio', { duration_s: 38 });
+      });
+
+      audio.addEventListener('timeupdate', function () {
+        const dur = audio.duration || 38;
+        const pct = Math.min(100, (audio.currentTime / dur) * 100);
+        audioBarFill.style.width = pct.toFixed(1) + '%';
+        audioBar.setAttribute('aria-valuenow', String(Math.round(pct)));
+        audioTime.textContent = formatClock(audio.currentTime) + ' / ' + formatClock(dur);
+      });
+
+      audioBar.addEventListener('click', function (e) {
+        const rect = audioBar.getBoundingClientRect();
+        const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        audio.currentTime = ratio * (audio.duration || 38);
+      });
+
+      /* ─── 4. SIMULADOR INTERATIVO ROI VS ROAS ─── */
+      const inAd = document.getElementById('inputAdSpend');
+      const inRev = document.getElementById('inputRevenue');
+      const inOps = document.getElementById('inputOpsCost');
+      const valAd = document.getElementById('valAdSpend');
+      const valRev = document.getElementById('valRevenue');
+      const valOps = document.getElementById('valOpsCost');
+      const outRoas = document.getElementById('outRoas');
+      const outRoasPct = document.getElementById('outRoasPct');
+      const outRoi = document.getElementById('outRoi');
+      const outNetProfit = document.getElementById('outNetProfit');
+      const simVerdict = document.getElementById('simVerdict');
+      const presetBtns = document.querySelectorAll('.preset-btn');
+
+      const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+
+      function updateSimulator(sourceLabel) {
+        const ad = Number(inAd.value);
+        const rev = Number(inRev.value);
+        const ops = Number(inOps.value);
+
+        valAd.textContent = brl.format(ad);
+        valRev.textContent = brl.format(rev);
+        valOps.textContent = brl.format(ops);
+
+        const roas = rev / ad;
+        const totalCost = ad + ops;
+        const net = rev - totalCost;
+        const roi = (net / totalCost) * 100;
+
+        outRoas.textContent = roas.toFixed(2).replace('.', ',') + 'x';
+        outRoasPct.textContent = Math.round(roas * 100) + '% sobre anúncios';
+
+        const sign = roi > 0 ? '+' : '';
+        outRoi.textContent = sign + roi.toFixed(1).replace('.', ',') + '%';
+        outNetProfit.textContent = 'Resultado líquido: ' + (net >= 0 ? '+' : '') + brl.format(net);
+
+        if (net < 0 && roas >= 2.5) {
+          outRoi.style.color = 'var(--pill-red)';
+          simVerdict.className = 'sim-verdict is-trap';
+          simVerdict.innerHTML = '<strong>ALERTA DE ILUSÃO (PÍLULA AZUL):</strong> O gerenciador exibe um ROAS atraente de ' + roas.toFixed(2).replace('.', ',') + 'x, mas o custo total (' + brl.format(totalCost) + ') supera a receita e gera prejuízo de ' + brl.format(Math.abs(net)) + '. Sem olhar o ROI, escalar mídia significa escalar buraco no caixa.';
+        } else if (net < 0) {
+          outRoi.style.color = 'var(--pill-red)';
+          simVerdict.className = 'sim-verdict is-trap';
+          simVerdict.innerHTML = '<strong>OPERAÇÃO NO VERMELHO:</strong> Tanto a eficiência da mídia quanto o resultado operacional estão pressionados, gerando perda líquida de ' + brl.format(Math.abs(net)) + '. Revise conversão do funil e oferta antes de ampliar tráfego.';
+        } else {
+          outRoi.style.color = 'var(--phosphor)';
+          simVerdict.className = 'sim-verdict is-healthy';
+          simVerdict.innerHTML = '<strong>FORA DA MATRIX (SAÚDE REAL):</strong> Com ROAS de ' + roas.toFixed(2).replace('.', ',') + 'x e todos os custos pagos (' + brl.format(totalCost) + '), sobram <strong>' + brl.format(net) + ' de lucro líquido</strong> (ROI de +' + roi.toFixed(1).replace('.', ',') + '%). Aqui o dashboard autoriza escala com segurança.';
+        }
+
+        if (sourceLabel) {
+          trackMatrixEvent('simulate_roi_roas', {
+            source: sourceLabel,
+            roas: Number(roas.toFixed(2)),
+            roi_pct: Number(roi.toFixed(1))
+          });
+        }
+      }
+
+      [inAd, inRev, inOps].forEach(function (input) {
+        input.addEventListener('input', function () {
+          presetBtns.forEach(function (b) { b.classList.remove('is-active'); });
+          updateSimulator();
+        });
+        input.addEventListener('change', function () {
+          updateSimulator('slider_adjust');
+        });
+      });
+
+      presetBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          presetBtns.forEach(function (b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          inAd.value = btn.getAttribute('data-ad');
+          inRev.value = btn.getAttribute('data-rev');
+          inOps.value = btn.getAttribute('data-ops');
+          updateSimulator(btn.textContent.trim());
+        });
+      });
+
+      updateSimulator();
+
+      /* ─── 5. ABAS INTERATIVAS DE FUNIS & DASHBOARDS ─── */
+      const tabs = document.querySelectorAll('[role="tab"]');
+      const panels = document.querySelectorAll('[role="tabpanel"]');
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          const targetId = tab.getAttribute('aria-controls');
+          tabs.forEach(function (t) {
+            t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+          });
+          panels.forEach(function (p) {
+            p.hidden = p.id !== targetId;
+          });
+          trackMatrixEvent('switch_funnel_view', { view_id: targetId });
+        });
+      });
+
+      /* ─── 6. TESTE DE 3 DECISÕES EXECUTIVAS ─── */
+      const quizCards = document.querySelectorAll('.quiz-card');
+      const explanations = {
+        '1': {
+          ok: 'Exato! Cupom agressivo + frete grátis corroem a margem; só o ROI mostra se sobrou caixa.',
+          err: 'Cuidado com a Pílula Azul! Com 22% de margem bruta, ROAS 6x (custo de mídia de 16,6%) somado a frete e impostos pode dar prejuízo.'
+        },
+        '2': {
+          ok: 'Na mosca! O funil revelou que a atração funciona; o gargalo está na passagem Carrinho → Pagamento.',
+          err: 'Dobrar cliques num balde furado só multiplica o desperdício. O funil serve justamente para achar a etapa que vaza.'
+        },
+        '3': {
+          ok: 'Perfeito! Como destacam Sharda, Delen & Turban (2019), dashboards devem focar nos indicadores essenciais à decisão.',
+          err: 'Excesso de gráficos sem foco gera paralisia por análise — é preciso converter Big Data em Small Data acionável.'
+        }
+      };
+
+      quizCards.forEach(function (card) {
+        const qId = card.getAttribute('data-q');
+        const opts = card.querySelectorAll('.quiz-opt');
+        const fb = card.querySelector('.quiz-feedback');
+
+        opts.forEach(function (opt) {
+          opt.addEventListener('click', function () {
+            const isCorrect = opt.getAttribute('data-correct') === 'true';
+            opts.forEach(function (o) {
+              o.classList.remove('is-correct', 'is-wrong');
+            });
+            opt.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+            fb.textContent = isCorrect ? explanations[qId].ok : explanations[qId].err;
+            fb.style.color = isCorrect ? 'var(--phosphor)' : '#ff9aa8';
+
+            if (!answeredQuestions.has(qId)) {
+              answeredQuestions.add(qId);
+              if (isCorrect) {
+                quizCorrect += 1;
+              }
+              statQuizEl.textContent = quizCorrect + ' / 3';
+            }
+            trackMatrixEvent('quiz_decision', { question: qId, correct: isCorrect });
+          });
+        });
+      });
+
+      /* ─── 7. DOWNLOAD MEME & COMPARTILHAR LINK ─── */
+      const btnDownloadMeme = document.getElementById('btnDownloadMeme');
+      btnDownloadMeme.addEventListener('click', function () {
+        trackMatrixEvent('download_meme', { asset: 'meme-pilulas-marketing.jpg' });
+      });
+
+      const btnShare = document.getElementById('btnShareLink');
+      const toast = document.getElementById('toastMsg');
+      btnShare.addEventListener('click', function () {
+        const shareUrl = window.location.href;
+        trackMatrixEvent('share_page', { method: navigator.share ? 'web_share' : 'clipboard' });
+        if (navigator.share) {
+          navigator.share({
+            title: 'Matrix do BI: ROI, ROAS, Funis e Dashboards',
+            text: 'Pílula Azul do achismo ou Pílula Vermelha dos dados? Teste o simulador de ROI vs. ROAS:',
+            url: shareUrl
+          }).catch(function () {});
+        } else if (navigator.clipboard) {
+          navigator.clipboard.writeText(shareUrl).then(function () {
+            toast.classList.add('is-visible');
+            setTimeout(function () { toast.classList.remove('is-visible'); }, 2600);
+          });
+        }
+      });
+
+      /* ─── 8. CHUVA DE TELEMETRIA MATRIX SUTIL NO HERO (RESPEITA REDUCED MOTION) ─── */
+      const canvas = document.getElementById('matrixRain');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (canvas && !prefersReduced) {
+        const ctx = canvas.getContext('2d');
+        const glyphs = '01ROI%$ROAS><FUNIL';
+        let cols = 0;
+        let drops = [];
+
+        function resizeCanvas() {
+          canvas.width = canvas.parentElement.clientWidth;
+          canvas.height = canvas.parentElement.clientHeight;
+          cols = Math.floor(canvas.width / 22);
+          drops = Array.from({ length: cols }, function () {
+            return Math.random() * -40;
+          });
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let lastFrame = 0;
+        function drawRain(ts) {
+          if (ts - lastFrame > 75) {
+            lastFrame = ts;
+            ctx.fillStyle = 'rgba(5, 9, 8, 0.14)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#22ff88';
+            ctx.font = '13px "JetBrains Mono", monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+              const ch = glyphs[Math.floor(Math.random() * glyphs.length)];
+              ctx.fillText(ch, i * 22, drops[i] * 18);
+              if (drops[i] * 18 > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+              }
+              drops[i] += 1;
+            }
+          }
+          requestAnimationFrame(drawRain);
+        }
+        requestAnimationFrame(drawRain);
+      }
+    })();
+  </script>
+</body>
+</html>
